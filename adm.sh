@@ -21,7 +21,7 @@ actualizar_script() {
     # Hacer una solicitud a la API de GitHub para obtener el último commit en la rama especificada
     LATEST_COMMIT=$(curl -s https://api.github.com/repos/$OWNER/$REPO/commits/$BRANCH | jq -r '.sha')
 
-    sudo wget --no-cache --timestamping -O /etc/vpsmanager/adm.sh https://raw.githubusercontent.com/Angel892/vpsmanager/$LATEST_COMMIT/adm.sh
+    sudo wget -O /etc/vpsmanager/adm.sh https://raw.githubusercontent.com/Angel892/vpsmanager/$LATEST_COMMIT/adm.sh
     if [ $? -ne 0 ]; then
         echo -e "\e[1;31mError: Falló la actualización del script.\e[0m"
         read -p "Presione Enter para continuar..."
@@ -126,9 +126,6 @@ mostrar_menu() {
         echo -e "\e[1;32m1. Instalar Protocolos\e[0m"
         echo -e "\e[1;32m2. Crear Usuario SSH\e[0m"
         echo -e "\e[1;32m3. Monitorear Recursos\e[0m"
-        echo -e "\e[1;32m4. Actualizar Script\e[0m"
-        echo -e "\e[1;32m4. Actualizar Script\e[0m"
-        echo -e "\e[1;32m4. Actualizar Script\e[0m"
         echo -e "\e[1;32m4. Actualizar Script\e[0m"
         echo -e "\e[1;31m5. Salir\e[0m"
         echo -e "\e[1;34m=========================\e[0m"
