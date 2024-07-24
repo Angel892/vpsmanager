@@ -2,87 +2,93 @@
 
 # Funciones para las opciones del menú
 instalar_protocolos() {
-    echo "========================="
-    echo "    Instalar Protocolos"
-    echo "========================="
-    echo "1. Instalar Apache"
-    echo "2. Instalar Nginx"
-    echo "3. Regresar al menú principal"
+    clear
+    echo -e "\e[1;34m=========================\e[0m"
+    echo -e "\e[1;34m    Instalar Protocolos\e[0m"
+    echo -e "\e[1;34m=========================\e[0m"
+    echo -e "\e[1;32m1. Instalar Apache\e[0m"
+    echo -e "\e[1;32m2. Instalar Nginx\e[0m"
+    echo -e "\e[1;31m3. Regresar al menú principal\e[0m"
+    echo -e "\e[1;34m=========================\e[0m"
     read -p "Seleccione una opción: " opcion
     case $opcion in
     1)
-        echo "Instalando Apache..."
+        echo -e "\e[1;33mInstalando Apache...\e[0m"
         sudo apt-get update
         sudo apt-get install -y apache2
-        echo "Apache instalado."
+        echo -e "\e[1;32mApache instalado.\e[0m"
         ;;
     2)
-        echo "Instalando Nginx..."
+        echo -e "\e[1;33mInstalando Nginx...\e[0m"
         sudo apt-get update
         sudo apt-get install -y nginx
-        echo "Nginx instalado."
+        echo -e "\e[1;32mNginx instalado.\e[0m"
         ;;
     3) mostrar_menu ;;
-    *) echo "Opción inválida, por favor intente de nuevo." ;;
+    *) echo -e "\e[1;31mOpción inválida, por favor intente de nuevo.\e[0m" ;;
     esac
 }
 
 crear_usuario_ssh() {
-    echo "========================="
-    echo "     Crear Usuario SSH"
-    echo "========================="
+    clear
+    echo -e "\e[1;34m=========================\e[0m"
+    echo -e "\e[1;34m     Crear Usuario SSH\e[0m"
+    echo -e "\e[1;34m=========================\e[0m"
     read -p "Ingrese el nombre del nuevo usuario: " username
     sudo adduser $username
     sudo usermod -aG sudo $username
-    echo "Usuario SSH creado."
+    echo -e "\e[1;32mUsuario SSH creado.\e[0m"
 }
 
 monitorear_recursos() {
-    echo "========================="
-    echo "    Monitorear Recursos"
-    echo "========================="
-    echo "1. CPU"
-    echo "2. Memoria"
-    echo "3. Disco"
-    echo "4. Regresar al menú principal"
+    clear
+    echo -e "\e[1;34m=========================\e[0m"
+    echo -e "\e[1;34m    Monitorear Recursos\e[0m"
+    echo -e "\e[1;34m=========================\e[0m"
+    echo -e "\e[1;32m1. CPU\e[0m"
+    echo -e "\e[1;32m2. Memoria\e[0m"
+    echo -e "\e[1;32m3. Disco\e[0m"
+    echo -e "\e[1;31m4. Regresar al menú principal\e[0m"
+    echo -e "\e[1;34m=========================\e[0m"
     read -p "Seleccione una opción: " opcion
     case $opcion in
     1)
-        echo "Uso de CPU:"
+        echo -e "\e[1;33mUso de CPU:\e[0m"
         top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
         ;;
     2)
-        echo "Uso de Memoria:"
+        echo -e "\e[1;33mUso de Memoria:\e[0m"
         free -m | awk 'NR==2{printf "Uso de Memoria: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'
         ;;
     3)
-        echo "Uso de Disco:"
+        echo -e "\e[1;33mUso de Disco:\e[0m"
         df -h | awk '$NF=="/"{printf "Uso de Disco: %d/%dGB (%s)\n", $3,$2,$5}'
         ;;
     4) mostrar_menu ;;
-    *) echo "Opción inválida, por favor intente de nuevo." ;;
+    *) echo -e "\e[1;31mOpción inválida, por favor intente de nuevo.\e[0m" ;;
     esac
 }
 
 mostrar_menu() {
-    echo "========================="
-    echo "   Administrador de VPS"
-    echo "========================="
-    echo "1. Instalar Protocolos"
-    echo "2. Crear Usuario SSH"
-    echo "3. Monitorear Recursos"
-    echo "4. Salir"
-    echo "========================="
+    clear
+    echo -e "\e[1;34m=========================\e[0m"
+    echo -e "\e[1;34m   Administrador de VPS\e[0m"
+    echo -e "\e[1;34m=========================\e[0m"
+    echo -e "\e[1;32m1. Instalar Protocolos\e[0m"
+    echo -e "\e[1;32m2. Crear Usuario SSH\e[0m"
+    echo -e "\e[1;32m3. Monitorear Recursos\e[0m"
+    echo -e "\e[1;31m4. Salir\e[0m"
+    echo -e "\e[1;34m=========================\e[0m"
     read -p "Seleccione una opción: " opcion
     case $opcion in
     1) instalar_protocolos ;;
     2) crear_usuario_ssh ;;
     3) monitorear_recursos ;;
     4)
-        echo "Saliendo..."
+        echo -e "\e[1;33mSaliendo...\e[0m"
         exit 0
         ;;
-    *) echo "Opción inválida, por favor intente de nuevo." ;;
+    *) echo -e "\e[1;31mOpción inválida, por favor intente de nuevo.\e[0m" ;;
     esac
 }
 
