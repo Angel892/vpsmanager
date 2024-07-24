@@ -7,6 +7,10 @@ actualizar_script() {
     echo -e "\e[1;34m  Actualizando el Script\e[0m"
     echo -e "\e[1;34m=========================\e[0m"
     cd /etc/vpsmanager
+
+    # Elimina el script antiguo (opcional)
+    sudo rm /etc/vpsmanager/adm.sh
+
     sudo wget https://raw.githubusercontent.com/Angel892/vpsmanager/master/adm.sh -O /etc/vpsmanager/adm.sh
     if [ $? -ne 0 ]; then
         echo -e "\e[1;31mError: Falló la actualización del script.\e[0m"
