@@ -11,9 +11,7 @@ actualizar_script() {
     # Elimina el script antiguo (opcional)
     sudo rm /etc/vpsmanager/adm.sh
 
-    #OBTENEMOS EL ID DEL ULTIMO COMMIT
-
-    # Reemplaza "owner" con el propietario del repositorio y "repo" con el nombre del repositorio
+    # Obtener el ID del último commit
     OWNER="Angel892"
     REPO="vpsmanager"
     BRANCH="master"
@@ -21,7 +19,7 @@ actualizar_script() {
     # Hacer una solicitud a la API de GitHub para obtener el último commit en la rama especificada
     LATEST_COMMIT=$(curl -s https://api.github.com/repos/$OWNER/$REPO/commits/$BRANCH | jq -r '.sha')
 
-    sudo wget -O /etc/vpsmanager/adm.sh https://raw.githubusercontent.com/Angel892/vpsmanager/$LATEST_COMMIT/adm.sh
+    sudo wget -O /etc/vpsmanager/adm.sh https://raw.githubusercontent.com/$OWNER/$REPO/$LATEST_COMMIT/adm.sh
     if [ $? -ne 0 ]; then
         echo -e "\e[1;31mError: Falló la actualización del script.\e[0m"
         read -p "Presione Enter para continuar..."
