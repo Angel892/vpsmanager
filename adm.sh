@@ -117,9 +117,6 @@ mostrar_menu() {
         echo -e "\e[1;32m2. Crear Usuario SSH\e[0m"
         echo -e "\e[1;32m3. Monitorear Recursos\e[0m"
         echo -e "\e[1;32m4. Actualizar Script\e[0m"
-        echo -e "\e[1;32m4. TESTSTTSTS\e[0m"
-        echo -e "\e[1;32m4. TESTSTTSTS\e[0m"
-        echo -e "\e[1;32m4. TESTSTTSTS\e[0m"
         echo -e "\e[1;31m5. Salir\e[0m"
         echo -e "\e[1;34m=========================\e[0m"
         read -p "Seleccione una opción: " opcion
