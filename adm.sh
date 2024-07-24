@@ -11,7 +11,7 @@ actualizar_script() {
     # Elimina el script antiguo (opcional)
     sudo rm /etc/vpsmanager/adm.sh
 
-    sudo wget --no-cache https://raw.githubusercontent.com/Angel892/vpsmanager/master/adm.sh -O /etc/vpsmanager/adm.sh
+    sudo curl -o /etc/vpsmanager/adm.sh https://raw.githubusercontent.com/Angel892/vpsmanager/master/adm.sh
     if [ $? -ne 0 ]; then
         echo -e "\e[1;31mError: Falló la actualización del script.\e[0m"
         read -p "Presione Enter para continuar..."
