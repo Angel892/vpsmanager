@@ -20,6 +20,7 @@ source $SSH_PATH/editarCuenta.sh
 source $SSH_PATH/usuariosConectados.sh
 source $SSH_PATH/eliminarVencidos.sh
 source $SSH_PATH/backup.sh
+source $SSH_PATH/eliminarTodos.sh
 
 menuSSH() {
     while true; do
