@@ -17,10 +17,15 @@ installNginx() {
 
 uninstallNginx() {
     echo -e "${INFO}Desinstalando Nginx...${NC}"
-
     sudo systemctl stop nginx
+
+    echo -e "${INFO}Removiendo dependencias...${NC}"
     sudo apt-get remove --purge nginx nginx-common nginx-core
+
+    echo -e "${INFO}Removiendo carpetas...${NC}"
     sudo rm -rf /etc/nginx
+
+    echo -e "${INFO}Limpiando dependencias...${NC}"
     sudo apt-get autoremove
     sudo apt-get autoclean
 
