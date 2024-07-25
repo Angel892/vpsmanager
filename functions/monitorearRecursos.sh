@@ -5,42 +5,31 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 #colores
 source $HELPERS_PATH/colors.sh
 
-monitorear_recursos() {
+monitorar_recursos() {
     clear
-    echo -e "${PRINCIPAL}=========================${NC}"
-    echo -e "${PRINCIPAL}    Monitorear Recursos${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
-    
-    # Uso de CPU
-    echo -e "${INFO}Uso de CPU:${NC}"
-    cpu_usage=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')
-    cpu_cores=$(grep -c ^processor /proc/cpuinfo)
-    echo -e "\033[1;31m PROCESADOR: \033[1;37mNUCLEOS: \033[1;32m$cpu_cores         \033[1;37mUSO DE CPU: \033[1;32m$cpu_usage"
 
-    # Uso de Memoria
-    echo -e "${INFO}Uso de Memoria:${NC}"
-    mem_total=$(free -h | grep -i mem | awk {'print $2'})
-    mem_used=$(free -h | grep -i mem | awk {'print $3'})
-    mem_free=$(free -h | grep -i mem | awk {'print $4'})
-    mem_usage=$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')
-    echo -e "\033[1;31m LA MEMORIA RAM SE ENCUENTRA AL: \033[1;32m$mem_usage"
-    echo -e "\033[1;31m DETALLE RAM: \033[1;37mTOTAL: \033[1;32m$mem_total  \033[1;37mUSADO: \033[1;32m$mem_used  \033[1;37mLIBRE: \033[1;32m$mem_free"
-
-    # Uso de Disco
-    echo -e "${INFO}Uso de Disco:${NC}"
-    disk_usage=$(df -h | awk '$NF=="/"{printf "%d/%dGB (%s)\n", $3,$2,$5}')
-    echo -e "\033[1;31m USO DE DISCO: \033[1;32m$disk_usage"
-
-    # Información del Sistema
-    os_system() {
-        system=$(cat /etc/issue | head -n 1)
-        echo $system
-    }
+    # Obtener información del sistema
+    _core=$(grep -c ^processor /proc/cpuinfo)
+    _usop=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')
+    ram_total=$(free -h | grep -i mem | awk '{print $2}')
+    ram_uso=$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')
+    ram_libre=$(free -h | grep -i mem | awk '{print $4}')
+    ram_usada=$(free -h | grep -i mem | awk '{print $3}')
+    uso_disco=$(df -h | awk '$NF=="/"{printf "%d/%dGB (%s)", $3,$2,$5}')
+    os_system=$(lsb_release -d | awk -F"\t" '{print $2}' | tr -d '\n')
     ip=$(hostname -I | awk '{print $1}')
-    echo -ne " SO: " && echo -ne "\033[1;37m$(os_system)  "
-    echo ""
-    echo -ne " IP: " && echo -e "\033[1;37m$ip"
-    
+
+    # Mostrar información
     echo -e "${PRINCIPAL}=========================${NC}"
+    echo -e "${PRINCIPAL}   Monitorización de Recursos${NC}"
+    echo -e "${PRINCIPAL}=========================${NC}"
+    echo -e "${AMARILLO}Procesador: \033[1;37mNúcleos: \033[1;32m$_core         \033[1;37mUso de CPU: \033[1;32m$_usop${NC}"
+    echo -e "${AMARILLO}La memoria RAM se encuentra al: \033[1;32m$ram_uso${NC}"
+    echo -e "${AMARILLO}Detalle RAM: \033[1;37mTotal: \033[1;32m$ram_total  \033[1;37mUsado: \033[1;32m$ram_usada  \033[1;37mLibre: \033[1;32m$ram_libre${NC}"
+    echo -e "${AMARILLO}Uso de Disco: \033[1;32m$uso_disco${NC}"
+    echo -e "${AMARILLO}SO: \033[1;37m$os_system${NC}"
+    echo -e "${AMARILLO}IP: \033[1;37m$ip${NC}"
+    echo -e "${PRINCIPAL}=========================${NC}"
+
     read -p "Presione Enter para continuar..."
 }
