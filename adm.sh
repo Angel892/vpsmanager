@@ -10,10 +10,10 @@ source $HELPERS_PATH/colors.sh
 MAIN_PATH="/etc/vpsmanager/functions";
 
 # Incluir los archivos de funciones
+source $MAIN_PATH/protocols/manage.sh
 source $MAIN_PATH/actualizarScript.sh
 source $MAIN_PATH/ssh/manage.sh
 source $MAIN_PATH/eliminarScript.sh
-source $MAIN_PATH/protocols/manage.sh
 source $MAIN_PATH/monitorearRecursos.sh
 
 mostrar_menu() {
