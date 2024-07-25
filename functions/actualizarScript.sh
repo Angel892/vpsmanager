@@ -8,10 +8,17 @@ actualizar_script() {
     
     cd /etc/vpsmanager
 
-    # Realizar git pull para actualizar el repositorio
-    sudo git pull
+    # Restablecer cualquier cambio local y obtener las actualizaciones más recientes
+    sudo git fetch --all
     if [ $? -ne 0 ]; then
-        echo -e "\e[1;31mError: Falló la actualización del script.\e[0m"
+        echo -e "\e[1;31mError: Falló la obtención de las actualizaciones del repositorio.\e[0m"
+        read -p "Presione Enter para continuar..."
+        return
+    fi
+
+    sudo git reset --hard origin/master
+    if [ $? -ne 0 ]; then
+        echo -e "\e[1;31mError: Falló el restablecimiento del repositorio.\e[0m"
         read -p "Presione Enter para continuar..."
         return
     fi
