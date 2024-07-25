@@ -7,13 +7,13 @@ source $HELPERS_PATH/colors.sh
 #funciones globales
 source $HELPERS_PATH/global.sh
 
-MAIN_PATH="/etc/vpsmanager/functions/protocols"
+PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
 
-source $MAIN_PATH/apache.sh
-source $MAIN_PATH/nginx.sh
-source $MAIN_PATH/dotnet.sh
-source $MAIN_PATH/mysql.sh
-source $MAIN_PATH/nodejs.sh
+source $PROTOCOLS_PATH/apache.sh
+source $PROTOCOLS_PATH/nginx.sh
+source $PROTOCOLS_PATH/dotnet.sh
+source $PROTOCOLS_PATH/mysql.sh
+source $PROTOCOLS_PATH/nodejs.sh
 
 # Función para verificar el estado de Apache
 estado_apache() {
