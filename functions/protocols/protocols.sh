@@ -33,7 +33,7 @@ estado_nginx() {
     fi
 }
 
-menu_protocols() {
+menuProtocols() {
 
     while true; do
         clear

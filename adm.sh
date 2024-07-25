@@ -31,7 +31,7 @@ mostrar_menu() {
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
         case $opcion in
-        1) menu_protocols ;;
+        1) menuProtocols;;
         2) menuSSH ;;
         3) monitorear_recursos ;;
         4) actualizar_script ;;
