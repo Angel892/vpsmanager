@@ -31,19 +31,24 @@ bloquearDesbloquearUsuarioSSH() {
     fi
 
     echo -e "${INFO}Usuarios disponibles:${NC}"
-
+    
     # Crear un archivo temporal para la tabla de usuarios
     user_details="/tmp/user_details.txt"
-    echo -e "N°\tUsuario" >$user_details
+    echo -e "N°\tUsuario\tEstado" > $user_details
     count=1
-
+    
     while IFS=: read -r username password expiration_date limit; do
-        echo -e "$count\t$username" >>$user_details
+        if sudo passwd -S "$username" | grep -q " L "; then
+            status="${ROJO}Bloqueado${NC}"
+        else
+            status="${VERDE}Desbloqueado${NC}"
+        fi
+        echo -e "$count\t$username\t$status" >> $user_details
         count=$((count + 1))
-    done <<<"$users"
+    done <<< "$users"
 
     # Añadir la opción para salir
-    echo -e "0\tSalir" >>$user_details
+    echo -e "0\tSalir\t" >> $user_details
 
     # Mostrar la tabla de usuarios
     column -t -s $'\t' $user_details
@@ -71,7 +76,7 @@ bloquearDesbloquearUsuarioSSH() {
         echo -e "${VERDE}Usuario SSH $username desbloqueado.${NC}"
     else
         sudo passwd -l $username
-        echo -e "${VERDE}Usuario SSH $username bloqueado.${NC}"
+        echo -e "${ROJO}Usuario SSH $username bloqueado.${NC}"
     fi
 
     echo -e "${PRINCIPAL}=========================${NC}"
