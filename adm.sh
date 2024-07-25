@@ -50,6 +50,8 @@ mostrar_menu() {
             echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" 
             ;;
         esac
+
+        read -p "Seleccione una opción: " opcion
     done
 }
 
