@@ -70,7 +70,8 @@ crearCuentaSSH() {
     echo "$username:$password" | sudo chpasswd
 
     # Establecer la fecha de expiración de la cuenta
-    sudo chage -E "$(date -d "+${duration} days" +%Y-%m-%d)" "$username"
+    expiration_date=$(date -d "+${duration} days" +%Y-%m-%d)
+    sudo chage -E "$expiration_date" "$username"
 
     # Establecer el límite de conexiones
     echo "$username hard maxlogins $limit" | sudo tee -a /etc/security/limits.conf
