@@ -26,6 +26,14 @@ validarDirectorio() {
             exit 1
         fi
         echo "Directorio $directorio existente, Eliminándolo."
+
+        # Crear el directorio de destino, junto con los padres necesarios
+        sudo mkdir -p "$directorio"
+        if [ $? -ne 0 ]; then
+            echo "Error: No se pudo crear el directorio $directorio."
+            exit 1
+        fi
+        echo "Directorio $directorio creado."
     fi
 }
 
