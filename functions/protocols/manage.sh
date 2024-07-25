@@ -48,7 +48,7 @@ menuProtocols() {
         echo -e "${SECUNDARIO}5. Node js${NC}"
 
         echo "";
-        echo "${ROJO}-------------------------${NC}"
+        echo -e "${ROJO}-------------------------${NC}"
         echo ""
 
         echo -e "${SECUNDARIO}6. BADVPN${NC} $(estado_apache)"
@@ -66,7 +66,7 @@ menuProtocols() {
         echo -e "${SECUNDARIO}10. SERVIDOR PSIPHONE${NC}"
 
         echo "";
-        echo "${ROJO}--------PROXY´S--------${NC}"
+        echo -e "${ROJO}--------PROXY´S--------${NC}"
         echo ""
 
         echo -e "${SECUNDARIO}10. WEBSOKET STATUS EDITABLE${NC}"
