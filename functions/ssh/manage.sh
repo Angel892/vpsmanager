@@ -13,6 +13,18 @@ SSH_PATH="/etc/vpsmanager/functions/ssh"
 
 #ARCHIVOS NECESARIOS
 # Incluir todos los archivos en SSH_PATH
+# Incluir todos los archivos en SSH_PATH si el directorio existe
+if [ -d "$SSH_PATH" ]; then
+    for script in "$SSH_PATH"/*.sh; do
+        if [ -f "$script" ]; then
+            source "$script"
+        else
+            echo -e "${ROJO}Error: No se encontró el archivo $script.${NC}"
+        fi
+    done
+else
+    echo -e "${ROJO}Error: No se encontró el directorio $SSH_PATH.${NC}"
+fi
 
 
 menuSSH() {
