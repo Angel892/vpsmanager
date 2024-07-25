@@ -5,7 +5,7 @@ source /etc/vpsmanager/functions/actualizarScript.sh
 source /etc/vpsmanager/functions/crearUsuarioSSH.sh
 source /etc/vpsmanager/functions/eliminarScript.sh
 source /etc/vpsmanager/functions/instalarProtocolos.sh
-source /etc/vpsmanager/functions/monitoriarRecursos.sh
+source /etc/vpsmanager/functions/monitorearRecursos.sh
 
 mostrar_menu() {
     while true; do
