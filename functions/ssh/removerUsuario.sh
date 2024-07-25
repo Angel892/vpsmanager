@@ -15,8 +15,14 @@ removerUsuarioSSH() {
     echo -e "${PRINCIPAL}  Eliminar cuenta SSH${NC}"
     echo -e "${PRINCIPAL}=========================${NC}"
 
-    # Obtener la lista de usuarios del sistema (excluyendo usuarios del sistema)
-    users=$(cut -d: -f1 /etc/passwd | grep -vE '^(root|daemon|bin|sys|sync|games|man|lp|mail|news|uucp|proxy|www-data|backup|list|irc|gnats|nobody|systemd|syslog|messagebus|_apt|lxd|uuidd|dnsmasq|landscape|pollinate|sshd|ftp|memcache|sysinfo|mysql|ntp|postfix|rpc|avahi|usbmux|rtkit|saned|colord|geoclue|pulse|speech-dispatcher|gdm|hplip|systemd-coredump|systemd-network|systemd-resolve|systemd-timesync)$')
+    # Leer la lista de usuarios creados por el administrador
+    if [ ! -f /etc/vpsmanager/users.txt ]; then
+        echo -e "${ROJO}No hay usuarios SSH disponibles para eliminar.${NC}"
+        read -p "Presione Enter para continuar..."
+        return
+    fi
+
+    users=$(cat /etc/vpsmanager/users.txt)
 
     if [ -z "$users" ]; then
         echo -e "${ROJO}No hay usuarios SSH disponibles para eliminar.${NC}"
@@ -36,15 +42,24 @@ removerUsuarioSSH() {
         count=$((count + 1))
     done
 
+    # Añadir la opción para salir
+    echo -e "$count\tSalir" >> $user_details
+
     # Mostrar la tabla de usuarios
     column -t -s $'\t' $user_details
     rm $user_details
 
-    echo -e "${AMARILLO}Seleccione el número del usuario que desea eliminar:${NC}"
+    echo -e "${AMARILLO}Seleccione el número del usuario que desea eliminar o el número para salir:${NC}"
     read -p "Número: " user_num
 
-    if ! [[ "$user_num" =~ ^[0-9]+$ ]] || [ "$user_num" -lt 1 ] || [ "$user_num" -ge $count ]; then
+    if ! [[ "$user_num" =~ ^[0-9]+$ ]] || [ "$user_num" -lt 1 ] || [ "$user_num" -gt $count ]; then
         echo -e "${ROJO}Selección inválida. Por favor intente de nuevo.${NC}"
+        read -p "Presione Enter para continuar..."
+        return
+    fi
+
+    if [ "$user_num" -eq $count ]; then
+        echo -e "${AMARILLO}Operación cancelada.${NC}"
         read -p "Presione Enter para continuar..."
         return
     fi
@@ -56,6 +71,7 @@ removerUsuarioSSH() {
         case $confirm in
             [sS][iI]|[sS])
                 sudo deluser --remove-home "$username"
+                sudo sed -i "/$username/d" /etc/vpsmanager/users.txt
                 if [ $? -eq 0 ]; then
                     echo -e "${VERDE}Usuario SSH '$username' eliminado exitosamente.${NC}"
                 else

@@ -75,6 +75,9 @@ crearCuentaSSH() {
     # Establecer el límite de conexiones
     echo "$username hard maxlogins $limit" | sudo tee -a /etc/security/limits.conf
 
+    # Marcar el usuario como creado por el administrador
+    echo "$username" | sudo tee -a /etc/vpsmanager/users.txt
+
     clear
 
     echo -e "${VERDE}Cuenta SSH creada con éxito.${NC}"
