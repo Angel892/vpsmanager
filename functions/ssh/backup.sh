@@ -7,8 +7,6 @@ source $HELPERS_PATH/colors.sh
 #funciones globales
 source $HELPERS_PATH/global.sh
 
-MAIN_PATH="/etc/vpsmanager";
-
 backupUsuariosSSH() {
     clear
     echo -e "${PRINCIPAL}=========================${NC}"

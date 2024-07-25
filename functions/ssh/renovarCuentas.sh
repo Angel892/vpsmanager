@@ -7,8 +7,6 @@ source $HELPERS_PATH/colors.sh
 #funciones globales
 source $HELPERS_PATH/global.sh
 
-MAIN_PATH="/etc/vpsmanager"
-
 renovarCuentaSSH() {
     read -p "Ingrese el nombre del usuario: " username
     read -p "Ingrese la nueva duración de la cuenta (en días): " duration

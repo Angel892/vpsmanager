@@ -7,8 +7,6 @@ source $HELPERS_PATH/colors.sh
 #funciones globales
 source $HELPERS_PATH/global.sh
 
-MAIN_PATH="/etc/vpsmanager";
-
 gestionarBannerSSH() {
     read -p "1. Agregar banner\n2. Eliminar banner\nSeleccione una opción: " opcion
     if [ $opcion -eq 1 ]; then
