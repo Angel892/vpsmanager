@@ -37,6 +37,6 @@ actualizar_script() {
     fi
 
     echo -e "${SECUNDARIO}El script se ha actualizado correctamente.${NC}"
-    #read -p "Presione Enter para continuar..."
+    read -p "Presione Enter para continuar..."
     exec /etc/vpsmanager/adm.sh
 }
