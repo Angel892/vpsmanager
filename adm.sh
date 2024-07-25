@@ -13,7 +13,7 @@ MAIN_PATH="/etc/vpsmanager/functions";
 source $MAIN_PATH/actualizarScript.sh
 source $MAIN_PATH/ssh/manage.sh
 source $MAIN_PATH/eliminarScript.sh
-source $MAIN_PATH/protocols/protocols.sh
+source $MAIN_PATH/protocols/manage.sh
 source $MAIN_PATH/monitorearRecursos.sh
 
 mostrar_menu() {
