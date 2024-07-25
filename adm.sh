@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Enable debugging
-set -x
-
 # Incluir los archivos de funciones
 source /etc/vpsmanager/functions/actualizarScript.sh
 source /etc/vpsmanager/functions/crearUsuarioSSH.sh

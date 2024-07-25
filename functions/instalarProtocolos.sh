@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Enable debugging
-set -x
 
 instalar_protocolos() {
     while true; do

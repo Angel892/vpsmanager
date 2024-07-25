@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Enable debugging
-set -x
-
 mostrar_menu() {
     while true; do
         clear

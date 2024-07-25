@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Enable debugging
-set -x
 
 actualizar_script() {
     clear
