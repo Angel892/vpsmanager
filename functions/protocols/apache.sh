@@ -5,9 +5,6 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 #colores
 source $HELPERS_PATH/colors.sh
 
-#colores
-source $MAIN_PATH/helpers/colors.sh
-
 install() {
     echo -e "${INFO}Instalando Apache...${NC}"
 
