@@ -5,7 +5,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 #colores
 source $HELPERS_PATH/colors.sh
 
-install() {
+installApache() {
     echo -e "${INFO}Instalando Apache...${NC}"
 
     sudo apt-get update
@@ -16,7 +16,7 @@ install() {
 
 }
 
-uninstall() {
+uninstallApache() {
     echo -e "${INFO}Desinstalando Apache...${NC}"
 
     sudo systemctl stop apache2
@@ -47,8 +47,8 @@ menuApache() {
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
         case $opcion in
-        1) install ;;
-        2) uninstall ;;
+        1) installApache ;;
+        2) uninstallApache ;;
         0) break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac

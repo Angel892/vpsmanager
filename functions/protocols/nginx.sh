@@ -5,7 +5,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 #colores
 source $HELPERS_PATH/colors.sh
 
-install() {
+installNginx() {
     echo -e "${INFO}Instalando Nginx...${NC}"
 
     sudo apt-get update
@@ -15,7 +15,7 @@ install() {
     read -p "Presione Enter para continuar..."
 }
 
-uninstall() {
+uninstallNginx() {
     echo -e "${INFO}Desinstalando Nginx...${NC}"
 
     sudo systemctl stop nginx
@@ -40,8 +40,8 @@ menuNginx() {
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
         case $opcion in
-        1) install ;;
-        2) uninstall ;;
+        1) installNginx ;;
+        2) uninstallNginx ;;
         0) break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
