@@ -43,22 +43,22 @@ removerUsuarioSSH() {
     done <<< "$users"
 
     # Añadir la opción para salir
-    echo -e "$count\tSalir" >> $user_details
+    echo -e "0\tSalir" >> $user_details
 
     # Mostrar la tabla de usuarios
     column -t -s $'\t' $user_details
     rm $user_details
 
-    echo -e "${INFO}Seleccione el número del usuario que desea eliminar o el número para salir:${NC}"
-    read -p "Número: " user_num
+    echo -e "${INFO}Seleccione el número del usuario que desea eliminar o 0 para salir:${NC}"
+    read -p "Opción: " user_num
 
-    if ! [[ "$user_num" =~ ^[0-9]+$ ]] || [ "$user_num" -lt 1 ] || [ "$user_num" -gt $count ]; then
+    if ! [[ "$user_num" =~ ^[0-9]+$ ]] || [ "$user_num" -lt 0 ] || [ "$user_num" -gt $count ]; then
         echo -e "${ROJO}Selección inválida. Por favor intente de nuevo.${NC}"
         read -p "Presione Enter para continuar..."
         return
     fi
 
-    if [ "$user_num" -eq $count ]; then
+    if [ "$user_num" -eq 0 ]; then
         echo -e "${INFO}Operación cancelada.${NC}"
         read -p "Presione Enter para continuar..."
         return
