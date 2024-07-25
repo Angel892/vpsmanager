@@ -34,21 +34,20 @@ estado_nginx() {
 }
 
 menu_protocols() {
+
+    read -p "Presione Enter para continuar..."
+
     while true; do
         clear
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${PRINCIPAL}    Administrar Protocolos${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
 
-
-
         echo -e "${SECUNDARIO}1. Apache${NC} $(estado_apache)"
         echo -e "${SECUNDARIO}2. Nginx${NC} $(estado_nginx)"
         echo -e "${SECUNDARIO}3. Dotnet${NC} "
         echo -e "${SECUNDARIO}4. Mysql${NC}"
         echo -e "${SECUNDARIO}5. Node js${NC}"
-
-
 
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
