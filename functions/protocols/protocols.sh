@@ -59,7 +59,7 @@ menu_protocols() {
         1) menuApache ;;
         2) menuNginx ;;
         3) menuDotnet ;;
-        4) menuNginx ;;
+        4) menuMysql ;;
         5) menuNginx ;;
         6) menuNginx ;;
         0) break ;;
