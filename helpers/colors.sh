@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PRINCIPAL="\e[1;34m";
-SECUNDARIO="\e[1;33m";
+SECUNDARIO="\033[0;33m";
 INFO="\e[1;33m";
 
 ROJO="\033[0;31m";
