@@ -107,14 +107,14 @@ menuMysql() {
         echo -e "${PRINCIPAL}=========================${NC}"
 
         echo -e "${SECUNDARIO}1. Instalar $MENU${NC}"
-        echo -e "${SECUNDARIO}3. Desinstalar $MENU${NC}"
+        echo -e "${SECUNDARIO}2. Desinstalar $MENU${NC}"
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
 
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
         case $opcion in
         1) installMysql ;;
-        3) uninstallMysql ;;
+        2) uninstallMysql ;;
         0) break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
