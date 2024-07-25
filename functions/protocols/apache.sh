@@ -25,8 +25,8 @@ uninstall() {
     sudo systemctl stop apache2
     sudo apt-get remove --purge apache2 apache2-utils apache2-bin apache2.2-common
     sudo rm -rf /etc/apache2
-    sudo apt-get autoremove
-    sudo apt-get autoclean
+    sudo apt-get autoremove -y
+    sudo apt-get autoclean -y
 
     echo -e "${SECUNDARIO}Apache desinstalado.${NC}"
     read -p "Presione Enter para continuar..."
