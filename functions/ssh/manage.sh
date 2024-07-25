@@ -16,6 +16,7 @@ source $SSH_PATH/crearCuenta.sh
 source $SSH_PATH/detalleUsuarios.sh
 source $SSH_PATH/removerUsuario.sh
 source $SSH_PATH/bloquearCuenta.sh
+source $SSH_PATH/editarCuenta.sh
 
 menuSSH() {
     while true; do
