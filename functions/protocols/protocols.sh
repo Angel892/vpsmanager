@@ -46,9 +46,9 @@ menu_protocols() {
         echo -e "${SECUNDARIO}1. Apache${NC} $(estado_apache)"
         echo -e "${SECUNDARIO}2. Nginx${NC} $(estado_nginx)"
         echo -e "${SECUNDARIO}3. Dotnet${NC} "
-        echo -e "${SECUNDARIO}4. Mysql${NC} $(estado_nginx)"
-        echo -e "${SECUNDARIO}5. Node js${NC} $(estado_nginx)"
-        echo -e "${SECUNDARIO}6. NPM${NC} $(estado_nginx)"
+        echo -e "${SECUNDARIO}4. Mysql${NC}"
+        echo -e "${SECUNDARIO}5. Node js${NC}"
+        echo -e "${SECUNDARIO}6. NPM${NC}"
 
 
 
