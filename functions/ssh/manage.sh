@@ -13,11 +13,7 @@ SSH_PATH="/etc/vpsmanager/functions/ssh"
 
 #ARCHIVOS NECESARIOS
 # Incluir todos los archivos en SSH_PATH
-for script in "$SSH_PATH"/*.sh; do
-    if [ -f "$script" ]; then
-        source "$script"
-    fi
-done
+
 
 menuSSH() {
     while true; do
