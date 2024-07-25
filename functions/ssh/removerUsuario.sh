@@ -30,7 +30,7 @@ removerUsuarioSSH() {
         return
     fi
 
-    echo -e "${AMARILLO}Usuarios disponibles:${NC}"
+    echo -e "${INFO}Usuarios disponibles:${NC}"
     
     # Crear un archivo temporal para la tabla de usuarios
     user_details="/tmp/user_details.txt"
@@ -49,7 +49,7 @@ removerUsuarioSSH() {
     column -t -s $'\t' $user_details
     rm $user_details
 
-    echo -e "${AMARILLO}Seleccione el número del usuario que desea eliminar o el número para salir:${NC}"
+    echo -e "${INFO}Seleccione el número del usuario que desea eliminar o el número para salir:${NC}"
     read -p "Número: " user_num
 
     if ! [[ "$user_num" =~ ^[0-9]+$ ]] || [ "$user_num" -lt 1 ] || [ "$user_num" -gt $count ]; then
@@ -59,7 +59,7 @@ removerUsuarioSSH() {
     fi
 
     if [ "$user_num" -eq $count ]; then
-        echo -e "${AMARILLO}Operación cancelada.${NC}"
+        echo -e "${INFO}Operación cancelada.${NC}"
         read -p "Presione Enter para continuar..."
         return
     fi
@@ -80,7 +80,7 @@ removerUsuarioSSH() {
                 break
                 ;;
             [nN][oO]|[nN])
-                echo -e "${AMARILLO}Operación cancelada.${NC}"
+                echo -e "${INFO}Operación cancelada.${NC}"
                 break
                 ;;
             *)
