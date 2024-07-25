@@ -22,8 +22,8 @@ mostrar_menu() {
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${PRINCIPAL}   Administrador de VPS${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${SECUNDARIO}1. Administrar Protocolos${NC}"
-        echo -e "${SECUNDARIO}2. SSH / OPEN VPN${NC}"
+        echo -e "${SECUNDARIO}1. SSH / OPEN VPN${NC}"
+        echo -e "${SECUNDARIO}2. Administrar Protocolos${NC}"
         echo -e "${SECUNDARIO}3. Monitorear Recursos${NC}"
         echo -e "${SECUNDARIO}4. Actualizar Script${NC}"
         echo -e "${SECUNDARIO}5. Eliminar Script${NC}"
@@ -31,8 +31,8 @@ mostrar_menu() {
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
         case $opcion in
-        1) menuProtocols;;
-        2) menuSSH ;;
+        1) menuSSH;;
+        2) menuProtocols ;;
         3) monitorear_recursos ;;
         4) actualizar_script ;;
         5) eliminar_script ;;
