@@ -1,5 +1,10 @@
 #!/bin/bash
 
+HELPERS_PATH="/etc/vpsmanager/helpers"
+
+#colores
+source $HELPERS_PATH/colors.sh
+
 MAIN_PATH="/etc/vpsmanager/functions";
 
 # Incluir los archivos de funciones
@@ -12,16 +17,16 @@ source $MAIN_PATH/monitorearRecursos.sh
 mostrar_menu() {
     while true; do
         clear
-        echo -e "\e[1;34m=========================\e[0m"
-        echo -e "\e[1;34m   Administrador de VPS\e[0m"
-        echo -e "\e[1;34m=========================\e[0m"
-        echo -e "\e[1;32m1. Instalar Protocolos\e[0m"
-        echo -e "\e[1;32m2. Crear Usuario SSH\e[0m"
-        echo -e "\e[1;32m3. Monitorear Recursos\e[0m"
-        echo -e "\e[1;32m4. Actualizar Script\e[0m"
-        echo -e "\e[1;32m5. Eliminar Script\e[0m"
-        echo -e "\e[1;31m0. Salir\e[0m"
-        echo -e "\e[1;34m=========================\e[0m"
+        echo -e "${PRINCIPAL}=========================${NC}"
+        echo -e "${PRINCIPAL}   Administrador de VPS${NC}"
+        echo -e "${PRINCIPAL}=========================${NC}"
+        echo -e "${SECUNDARIO}1. Instalar Protocolos${NC}"
+        echo -e "${SECUNDARIO}2. Crear Usuario SSH${NC}"
+        echo -e "${SECUNDARIO}3. Monitorear Recursos${NC}"
+        echo -e "${SECUNDARIO}4. Actualizar Script${NC}"
+        echo -e "${SECUNDARIO}5. Eliminar Script${NC}"
+        echo -e "${SALIR}0. Salir${NC}"
+        echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
         case $opcion in
         1) instalar_protocolos ;;
@@ -30,10 +35,10 @@ mostrar_menu() {
         4) actualizar_script ;;
         5) eliminar_script ;;
         0)
-            echo -e "\e[1;33mSaliendo...\e[0m"
+            echo -e "\e[1;33mSaliendo...${NC}"
             exit 0
             ;;
-        *) echo -e "\e[1;31mOpción inválida, por favor intente de nuevo.\e[0m" ;;
+        *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
     done
 }
