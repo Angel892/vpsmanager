@@ -122,7 +122,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Ejecutar el script principal desde su nueva ubicación (evitar usando exec para mantener la sesión)
-$ALIAS_COMMAND
+sudo /etc/vpsmanager/adm.sh
 if [ $? -ne 0 ]; then
     echo "Error: Falló la ejecución del script principal."
     exit 1
