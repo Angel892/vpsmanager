@@ -18,7 +18,7 @@ mostrar_menu() {
         echo -e "\e[1;32m3. Monitorear Recursos\e[0m"
         echo -e "\e[1;32m4. Actualizar Script\e[0m"
         echo -e "\e[1;32m5. Eliminar Script\e[0m"
-        echo -e "\e[1;31m6. Salir\e[0m"
+        echo -e "\e[1;31m0. Salir\e[0m"
         echo -e "\e[1;34m=========================\e[0m"
         read -p "Seleccione una opción: " opcion
         case $opcion in
@@ -27,7 +27,7 @@ mostrar_menu() {
         3) monitorear_recursos ;;
         4) actualizar_script ;;
         5) eliminar_script ;;
-        6)
+        0)
             echo -e "\e[1;33mSaliendo...\e[0m"
             exit 0
             ;;
