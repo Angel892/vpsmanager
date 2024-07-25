@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable debugging
+set -x
+
 eliminar_script() {
     clear
     echo -e "\e[1;31m=========================\e[0m"

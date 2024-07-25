@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable debugging
+set -x
+
 actualizar_script() {
     clear
     echo -e "\e[1;34m=========================\e[0m"

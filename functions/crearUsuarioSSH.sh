@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable debugging
+set -x
+
 crear_usuario_ssh() {
     while true; do
         clear

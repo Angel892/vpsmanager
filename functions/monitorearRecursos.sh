@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Incluir los archivos de funciones
-source /etc/vpsmanager/functions/actualizarScript.sh
-source /etc/vpsmanager/functions/instalarProtocolos.sh
-source /etc/vpsmanager/functions/crearUsuarioSSH.sh
-source /etc/vpsmanager/functions/monitorearRecursos.sh
+# Enable debugging
+set -x
 
 mostrar_menu() {
     while true; do
