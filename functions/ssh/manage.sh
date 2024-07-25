@@ -15,6 +15,7 @@ SSH_PATH="/etc/vpsmanager/functions/ssh"
 source $SSH_PATH/crearCuenta.sh
 source $SSH_PATH/detalleUsuarios.sh
 source $SSH_PATH/removerUsuario.sh
+source $SSH_PATH/bloquearCuenta.sh
 
 menuSSH() {
     while true; do
