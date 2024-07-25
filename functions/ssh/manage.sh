@@ -18,6 +18,7 @@ source $SSH_PATH/removerUsuario.sh
 source $SSH_PATH/bloquearCuenta.sh
 source $SSH_PATH/editarCuenta.sh
 source $SSH_PATH/usuariosConectados.sh
+source $SSH_PATH/eliminarVencidos.sh
 
 menuSSH() {
     while true; do
