@@ -17,6 +17,7 @@ source $SSH_PATH/detalleUsuarios.sh
 source $SSH_PATH/removerUsuario.sh
 source $SSH_PATH/bloquearCuenta.sh
 source $SSH_PATH/editarCuenta.sh
+source $SSH_PATH/usuariosConectados.sh
 
 menuSSH() {
     while true; do
@@ -30,13 +31,12 @@ menuSSH() {
         echo -e "${SECUNDARIO}3. Remover usuario $MENU${NC}"
         echo -e "${SECUNDARIO}4. Bloquear / Desbloquear usuario $MENU${NC}"
         echo -e "${SECUNDARIO}5. Editar cuenta $MENU${NC}"
-        echo -e "${SECUNDARIO}6. Renovar cuenta $MENU${NC}"
-        echo -e "${SECUNDARIO}7. Detalle de todos los usuarios $MENU${NC}"
-        echo -e "${SECUNDARIO}8. Usuarios conectados $MENU${NC}"
-        echo -e "${SECUNDARIO}9. Eliminar usuarios vencidos $MENU${NC}"
-        echo -e "${SECUNDARIO}10. Backup de usuarios $MENU${NC}"
-        echo -e "${SECUNDARIO}11. Agregar / Eliminar banner $MENU${NC}"
-        echo -e "${SECUNDARIO}12. Eliminar todos los usuarios $MENU${NC}"
+        echo -e "${SECUNDARIO}6. Detalle de todos los usuarios $MENU${NC}"
+        echo -e "${SECUNDARIO}7. Usuarios conectados $MENU${NC}"
+        echo -e "${SECUNDARIO}8. Eliminar usuarios vencidos $MENU${NC}"
+        echo -e "${SECUNDARIO}9. Backup de usuarios $MENU${NC}"
+        echo -e "${SECUNDARIO}10. Agregar / Eliminar banner $MENU${NC}"
+        echo -e "${SECUNDARIO}11. Eliminar todos los usuarios $MENU${NC}"
 
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
@@ -47,13 +47,12 @@ menuSSH() {
         3) removerUsuarioSSH;;
         4) bloquearDesbloquearUsuarioSSH;;
         5) editarCuentaSSH;;
-        6) renovarCuentaSSH;;
-        7) detalleUsuariosSSH;;
-        8) usuariosConectadosSSH;;
-        9) eliminarUsuariosVencidosSSH;;
-        10) backupUsuariosSSH;;
-        11) gestionarBannerSSH;;
-        12) eliminarTodosUsuariosSSH;;
+        6) detalleUsuariosSSH;;
+        7) usuariosConectadosSSH;;
+        8) eliminarUsuariosVencidosSSH;;
+        9) backupUsuariosSSH;;
+        10) gestionarBannerSSH;;
+        11) eliminarTodosUsuariosSSH;;
         0) break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
