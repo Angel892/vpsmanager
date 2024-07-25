@@ -1,11 +1,13 @@
 #!/bin/bash
 
+MAIN_PATH="/etc/vpsmanager/functions";
+
 # Incluir los archivos de funciones
-source /etc/vpsmanager/functions/actualizarScript.sh
-source /etc/vpsmanager/functions/crearUsuarioSSH.sh
-source /etc/vpsmanager/functions/eliminarScript.sh
-source /etc/vpsmanager/functions/instalarProtocolos.sh
-source /etc/vpsmanager/functions/monitorearRecursos.sh
+source $MAIN_PATH/actualizarScript.sh
+source $MAIN_PATH/crearUsuarioSSH.sh
+source $MAIN_PATH/eliminarScript.sh
+source $MAIN_PATH/protocols/instalarProtocolos.sh
+source $MAIN_PATH/monitorearRecursos.sh
 
 mostrar_menu() {
     while true; do
