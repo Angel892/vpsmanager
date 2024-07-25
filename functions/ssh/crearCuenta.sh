@@ -17,19 +17,32 @@ crearCuentaSSH() {
 
     while true; do
         read -p "Ingrese el nombre del nuevo usuario: " username
-        if id "$username" &>/dev/null; then
+        if [ -z "$username" ]; then
+            echo -e "${ROJO}Error: El nombre de usuario no puede estar vacío.${NC}"
+        elif id "$username" &>/dev/null; then
             echo -e "${ROJO}Error: El usuario '$username' ya existe.${NC}"
         else
             break
         fi
     done
 
-    read -s -p "Ingrese la contraseña para el nuevo usuario: " password
-    echo
+    while true; do
+        read -s -p "Ingrese la contraseña para el nuevo usuario: " password
+        echo
+        if [ -z "$password" ]; then
+            echo -e "${ROJO}Error: La contraseña no puede estar vacía.${NC}"
+        elif [[ ${#password} -lt 8 ]]; then
+            echo -e "${ROJO}Error: La contraseña debe tener al menos 8 caracteres.${NC}"
+        else
+            break
+        fi
+    done
 
     while true; do
         read -p "Ingrese la duración de la cuenta (en días): " duration
-        if ! [[ "$duration" =~ ^[0-9]+$ ]]; then
+        if [ -z "$duration" ]; then
+            echo -e "${ROJO}Error: La duración no puede estar vacía.${NC}"
+        elif ! [[ "$duration" =~ ^[0-9]+$ ]]; then
             echo -e "${ROJO}Error: La duración debe ser un número válido.${NC}"
         else
             break
@@ -38,7 +51,9 @@ crearCuentaSSH() {
 
     while true; do
         read -p "Ingrese el límite de conexiones para el usuario: " limit
-        if ! [[ "$limit" =~ ^[0-9]+$ ]]; then
+        if [ -z "$limit" ]; then
+            echo -e "${ROJO}Error: El límite de conexiones no puede estar vacío.${NC}"
+        elif ! [[ "$limit" =~ ^[0-9]+$ ]]; then
             echo -e "${ROJO}Error: El límite debe ser un número válido.${NC}"
         else
             break
@@ -59,6 +74,8 @@ crearCuentaSSH() {
 
     # Establecer el límite de conexiones
     echo "$username hard maxlogins $limit" | sudo tee -a /etc/security/limits.conf
+
+    clear
 
     echo -e "${VERDE}Cuenta SSH creada con éxito.${NC}"
     echo -e "${PRINCIPAL}=========================${NC}"
