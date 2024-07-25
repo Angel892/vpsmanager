@@ -35,10 +35,8 @@ estado_nginx() {
 
 menu_protocols() {
 
-    read -p "Presione Enter para continuar..."
-
     while true; do
-        clear
+        #clear
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${PRINCIPAL}    Administrar Protocolos${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
