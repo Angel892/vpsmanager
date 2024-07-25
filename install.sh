@@ -5,34 +5,53 @@ ALIAS_NAME="adm"
 ALIAS_COMMAND="sudo /etc/vpsmanager/adm.sh"
 ALIAS_DEFINITION="alias $ALIAS_NAME='$ALIAS_COMMAND'"
 
-# Actualizar la lista de paquetes y actualizar el sistema
-echo "Actualizando la lista de paquetes..."
-sudo apt-get update
-if [ $? -ne 0 ]; then
-    echo "Error: Falló la actualización de la lista de paquetes."
-    exit 1
-fi
+DIRECTORIO_PRINCIPAL="/etc/vpsmanager"
 
-echo "Actualizando los paquetes instalados..."
-sudo apt-get upgrade -y
-if [ $? -ne 0 ]; then
-    echo "Error: Falló la actualización de los paquetes instalados."
-    exit 1
-fi
+validarDirectorio() {
+    directorio=$1
+    # Verificar si el directorio ya existe
+    if [ ! -d "$directorio" ]; then
+        # Crear el directorio de destino, junto con los padres necesarios
+        sudo mkdir -p "$directorio"
+        if [ $? -ne 0 ]; then
+            echo "Error: No se pudo crear el directorio $directorio."
+            exit 1
+        fi
+        echo "Directorio $directorio creado."
+    else
+        # Eliminar el directorio
+        sudo rm -r "$directorio"
+        if [ $? -ne 0 ]; then
+            echo "Error: No se pudo eliminar el directorio $directorio."
+            exit 1
+        fi
+        echo "Directorio $directorio existente, Eliminándolo."
+    fi
+}
 
-# Verificar si el directorio ya existe
-if [ ! -d "/etc/vpsmanager" ]; then
-    # Crear el directorio de destino, junto con los padres necesarios
-    sudo mkdir -p /etc/vpsmanager
+actualizarVPS() {
+    # Actualizar la lista de paquetes y actualizar el sistema
+    echo "Actualizando la lista de paquetes..."
+    sudo apt-get update
     if [ $? -ne 0 ]; then
-        echo "Error: No se pudo crear el directorio /etc/vpsmanager."
+        echo "Error: Falló la actualización de la lista de paquetes."
         exit 1
     fi
-    echo "Directorio /etc/vpsmanager creado."
-fi
+
+    echo "Actualizando los paquetes instalados..."
+    sudo apt-get upgrade -y
+    if [ $? -ne 0 ]; then
+        echo "Error: Falló la actualización de los paquetes instalados."
+        exit 1
+    fi
+}
+
+actualizarVPS;
+
+validarDirectorio "$DIRECTORIO_PRINCIPAL"
 
 #Verificar si git esta instalado si no instalarlo
-if ! command -v git &> /dev/null; then
+if ! command -v git &>/dev/null; then
     echo "Git no está instalado. Instalando git..."
     sudo apt-get install -y git
     if [ $? -ne 0 ]; then
@@ -42,16 +61,9 @@ if ! command -v git &> /dev/null; then
 fi
 
 # Clonar el repositorio en un directorio temporal
-git clone https://github.com/Angel892/vpsmanager.git /tmp/vpsmanager
+git clone https://github.com/Angel892/vpsmanager.git $DIRECTORIO_PRINCIPAL
 if [ $? -ne 0 ]; then
     echo "Error: La clonación del repositorio falló."
-    exit 1
-fi
-
-# Mover los archivos al directorio de destino
-sudo mv /tmp/vpsmanager/* /etc/vpsmanager/
-if [ $? -ne 0 ]; then
-    echo "Error: No se pudieron mover los archivos."
     exit 1
 fi
 
@@ -59,14 +71,6 @@ fi
 sudo find /etc/vpsmanager/ -type f -name "*.sh" -exec chmod +x {} \;
 if [ $? -ne 0 ]; then
     echo "Error: No se pudieron asignar los permisos de ejecución."
-    exit 1
-fi
-
-
-# Eliminar el directorio temporal
-rm -rf /tmp/vpsmanager
-if [ $? -ne 0 ]; then
-    echo "Error: No se pudo eliminar el directorio temporal."
     exit 1
 fi
 
