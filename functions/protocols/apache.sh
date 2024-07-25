@@ -42,7 +42,7 @@ menuApache() {
         echo -e "${PRINCIPAL}    Apache manager${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${SECUNDARIO}1. Instalar Apache${NC}"
-        echo -e "${SECUNDARIO}2. Desinstalar Apachee[0m"
+        echo -e "${SECUNDARIO}2. Desinstalar Apache${NC}"
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
