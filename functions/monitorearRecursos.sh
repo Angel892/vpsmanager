@@ -5,7 +5,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 #colores
 source $HELPERS_PATH/colors.sh
 
-monitorar_recursos() {
+monitorear_recursos() {
     clear
 
     # Obtener información del sistema

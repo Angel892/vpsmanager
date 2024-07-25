@@ -51,7 +51,7 @@ mostrar_menu() {
             ;;
         esac
 
-        read -p "Seleccione una opción: " opcion
+        #read -p "Seleccione una opción: " opcion
     done
 }
 
