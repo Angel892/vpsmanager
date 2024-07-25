@@ -47,6 +47,33 @@ menuProtocols() {
         echo -e "${SECUNDARIO}4. Mysql${NC}"
         echo -e "${SECUNDARIO}5. Node js${NC}"
 
+        echo "";
+        echo "${ROJO}-------------------------${NC}"
+        echo ""
+
+        echo -e "${SECUNDARIO}6. BADVPN${NC} $(estado_apache)"
+        echo -e "${SECUNDARIO}7. DROPBEAR${NC} $(estado_nginx)"
+        echo -e "${SECUNDARIO}8. SSL${NC} "
+        echo -e "${SECUNDARIO}9. SQUID${NC}"
+        echo -e "${SECUNDARIO}10. OPENVPN${NC}"
+        echo -e "${SECUNDARIO}10. SHADOWSOCK NORMAL${NC}"
+        echo -e "${SECUNDARIO}10. SHADOWSOCK LIV +OBFS${NC}"
+        echo -e "${SECUNDARIO}10. SLOWDNS${NC}"
+        echo -e "${SECUNDARIO}10. GETTUNEL${NC}"
+        echo -e "${SECUNDARIO}10. TCP-OVER${NC}"
+        echo -e "${SECUNDARIO}10. SSLH${NC}"
+        echo -e "${SECUNDARIO}10. UDP-REQUEST${NC}"
+        echo -e "${SECUNDARIO}10. SERVIDOR PSIPHONE${NC}"
+
+        echo "";
+        echo "${ROJO}--------PROXY´S--------${NC}"
+        echo ""
+
+        echo -e "${SECUNDARIO}10. WEBSOKET STATUS EDITABLE${NC}"
+        echo -e "${SECUNDARIO}10. PROXY OPENVPN${NC}"
+        echo -e "${SECUNDARIO}10. PROXY PUBLICO${NC}"
+        echo -e "${SECUNDARIO}10. PROXY PRIVADO${NC}"
+
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
