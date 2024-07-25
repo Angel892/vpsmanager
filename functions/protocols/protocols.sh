@@ -13,20 +13,20 @@ source $MAIN_PATH/apache.sh
 source $MAIN_PATH/nginx.sh
 
 
-instalar_protocolos() {
+menu_protocols() {
     while true; do
         clear
         echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${PRINCIPAL}    Instalar Protocolos${NC}"
+        echo -e "${PRINCIPAL}    Administrar Protocolos${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${SECUNDARIO}1. Instalar Apache${NC}"
-        echo -e "${SECUNDARIO}2. Instalar Nginx${NC}"
-        echo -e "${SALIR}0. Regresar al menú principal${NC}"
+        echo -e "${SECUNDARIO}1. Apache${NC}"
+        echo -e "${SECUNDARIO}2. Nginx${NC}"
+        echo -e "${SALIR}0. Regresar al menú anterior${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
         case $opcion in
-        1) install_apache;;
-        2) install_nginx;;
+        1) menuApache;;
+        2) menuNginx;;
         0) break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac

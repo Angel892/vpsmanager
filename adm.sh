@@ -11,7 +11,7 @@ MAIN_PATH="/etc/vpsmanager/functions";
 source $MAIN_PATH/actualizarScript.sh
 source $MAIN_PATH/crearUsuarioSSH.sh
 source $MAIN_PATH/eliminarScript.sh
-source $MAIN_PATH/protocols/instalarProtocolos.sh
+source $MAIN_PATH/protocols/protocols.sh
 source $MAIN_PATH/monitorearRecursos.sh
 
 mostrar_menu() {
@@ -20,7 +20,7 @@ mostrar_menu() {
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${PRINCIPAL}   Administrador de VPS${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${SECUNDARIO}1. Instalar Protocolos${NC}"
+        echo -e "${SECUNDARIO}1. Administrar Protocolos${NC}"
         echo -e "${SECUNDARIO}2. Crear Usuario SSH${NC}"
         echo -e "${SECUNDARIO}3. Monitorear Recursos${NC}"
         echo -e "${SECUNDARIO}4. Actualizar Script${NC}"
@@ -29,7 +29,7 @@ mostrar_menu() {
         echo -e "${PRINCIPAL}=========================${NC}"
         read -p "Seleccione una opción: " opcion
         case $opcion in
-        1) instalar_protocolos ;;
+        1) menu_protocols ;;
         2) crear_usuario_ssh ;;
         3) monitorear_recursos ;;
         4) actualizar_script ;;

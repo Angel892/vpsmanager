@@ -28,7 +28,7 @@ uninstall() {
     read -p "Presione Enter para continuar..."
 }
 
-menuApache() {
+menuNginx() {
     while true; do
         clear
         echo -e "${PRINCIPAL}=========================${NC}"
