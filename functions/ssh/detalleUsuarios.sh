@@ -16,7 +16,7 @@ detalleUsuariosSSH() {
     echo -e "${PRINCIPAL}=========================${NC}"
 
     # Encabezados de la tabla
-    echo -e "${AMARILLO}Usuario\tFecha de Expiración (Días Restantes)\tLímite de Conexiones${NC}" > /tmp/user_details.txt
+    echo -e "${AMARILLO}Usuario\tFecha de Expiración\tLímite de Conexiones${NC}" > /tmp/user_details.txt
 
     # Recorrer cada usuario en /etc/passwd
     while IFS=: read -r username _ _ _ _ _ home _; do
@@ -26,7 +26,7 @@ detalleUsuariosSSH() {
         # Calcular los días restantes
         if [ "$expiration_date" != "never" ]; then
             expiration_days=$(( ($(date -d "$expiration_date" +%s) - $(date +%s)) / 86400 ))
-            expiration_info="$expiration_date [$expiration_days días]"
+            expiration_info="$expiration_date[$expiration_days días]"
         else
             expiration_info="Nunca"
         fi
