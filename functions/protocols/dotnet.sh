@@ -50,8 +50,8 @@ uninstallDotnet() {
     fi
 
     echo -e "${INFO}Limpiando dependencias...${NC}"
-    sudo apt-get autoremove
-    sudo apt-get autoclean
+    sudo apt-get autoremove -y
+    sudo apt-get autoclean -y
 
     echo -e "${SECUNDARIO}$MENU Desinstalado.${NC}"
     read -p "Presione Enter para continuar..."
