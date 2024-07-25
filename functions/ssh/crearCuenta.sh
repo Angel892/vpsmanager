@@ -36,6 +36,18 @@ crearCuentaSSH() {
         fi
     done
 
+    while true; do
+        read -p "Ingrese el límite de conexiones para el usuario: " limit
+        if ! [[ "$limit" =~ ^[0-9]+$ ]]; then
+            echo -e "${ROJO}Error: El límite debe ser un número válido.${NC}"
+        else
+            break
+        fi
+    done
+
+    # Obtener la IP del servidor
+    server_ip=$(hostname -I | awk '{print $1}')
+
     # Crear el usuario sin contraseña
     sudo adduser --disabled-password --gecos "" "$username"
 
@@ -45,6 +57,18 @@ crearCuentaSSH() {
     # Establecer la fecha de expiración de la cuenta
     sudo chage -E "$(date -d "+${duration} days" +%Y-%m-%d)" "$username"
 
-    echo -e "${VERDE}Cuenta SSH para '$username' creada correctamente con una duración de $duration días.${NC}"
+    # Establecer el límite de conexiones
+    echo "$username hard maxlogins $limit" | sudo tee -a /etc/security/limits.conf
+
+    echo -e "${VERDE}Cuenta SSH creada con éxito.${NC}"
+    echo -e "${PRINCIPAL}=========================${NC}"
+    echo -e "${PRINCIPAL}Detalles de la cuenta${NC}"
+    echo -e "${PRINCIPAL}=========================${NC}"
+    echo -e "${VERDE}IP del servidor: ${NC}$server_ip"
+    echo -e "${VERDE}Usuario: ${NC}$username"
+    echo -e "${VERDE}Contraseña: ${NC}$password"
+    echo -e "${VERDE}Duración: ${NC}$duration días"
+    echo -e "${VERDE}Límite de conexiones: ${NC}$limit"
+    echo -e "${PRINCIPAL}=========================${NC}"
     read -p "Presione Enter para continuar..."
 }
