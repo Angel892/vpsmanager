@@ -38,7 +38,7 @@ removerUsuarioSSH() {
     count=1
     
     while IFS=: read -r username password expiration_date limit; do
-        echo -e "${AMARILLO}$count\t$username${NC}" >> $user_details
+        echo -e "${VERDE}$count\t$username${NC}" >> $user_details
         count=$((count + 1))
     done <<< "$users"
 
