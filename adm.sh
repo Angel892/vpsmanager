@@ -41,7 +41,7 @@ mostrar_menu() {
         4) actualizar_script ;;
         5) eliminar_script ;;
         6) autoiniciarScript ;;
-        7) puertosActivos ;;
+        7) mostrarPuertosActivos ;;
         0)
             echo -e "${INFO}Saliendo...${NC}"
             exit 0
@@ -51,7 +51,7 @@ mostrar_menu() {
             ;;
         esac
 
-        read -p "Seleccione una opción: " opcion
+        #read -p "Seleccione una opción: " opcion
     done
 }
 
