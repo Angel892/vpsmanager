@@ -34,11 +34,11 @@ removerUsuarioSSH() {
     
     # Crear un archivo temporal para la tabla de usuarios
     user_details="/tmp/user_details.txt"
-    echo -e "N°\tUsuario" > $user_details
+    echo -e "${BLANCO}N°\tUsuario${NC}" > $user_details
     count=1
     
     while IFS=: read -r username password expiration_date limit; do
-        echo -e "$count\t$username" >> $user_details
+        echo -e "${AMARILLO}$count\t$username${NC}" >> $user_details
         count=$((count + 1))
     done <<< "$users"
 
