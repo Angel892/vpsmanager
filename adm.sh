@@ -44,8 +44,6 @@ mostrar_menu() {
             echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" 
             ;;
         esac
-
-        read -p "Presione Enter para continuar..."
     done
 }
 
