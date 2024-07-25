@@ -40,7 +40,10 @@ mostrar_menu() {
             echo -e "${INFO}Saliendo...${NC}"
             exit 0
             ;;
-        *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
+        *) 
+            echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" 
+            read -p "Presione Enter para continuar..."
+        ;;
         esac
     done
 }
