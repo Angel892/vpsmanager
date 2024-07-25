@@ -38,6 +38,7 @@ monitorear_recursos() {
     }
     ip=$(hostname -I | awk '{print $1}')
     echo -ne " SO: " && echo -ne "\033[1;37m$(os_system)  "
+    echo ""
     echo -ne " IP: " && echo -e "\033[1;37m$ip"
     
     echo -e "${PRINCIPAL}=========================${NC}"
