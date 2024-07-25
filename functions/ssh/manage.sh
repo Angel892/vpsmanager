@@ -12,7 +12,7 @@ MENU="SSH"
 SSH_PATH="/etc/vpsmanager/functions/ssh"
 
 #ARCHIVOS NECESARIOS
-
+source $SSH_PATH/crearCuenta.sh
 
 menuSSH() {
     while true; do
