@@ -31,7 +31,7 @@ crearCuentaSSH() {
         echo
         if [ -z "$password" ]; then
             echo -e "${ROJO}Error: La contraseña no puede estar vacía.${NC}"
-        elif [[ ${#password} -lt 8 ]]; then
+        elif [[ ${#password} -lt 2 ]]; then
             echo -e "${ROJO}Error: La contraseña debe tener al menos 8 caracteres.${NC}"
         else
             break
