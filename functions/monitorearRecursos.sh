@@ -34,4 +34,4 @@ mostrar_menu() {
 }
 
 # Bucle para mostrar el menú hasta que el usuario decida salir
-mostrar_menu
+# mostrar_menu
