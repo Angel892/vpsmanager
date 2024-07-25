@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Incluir los archivos de funciones
-source /etc/vpsmanager/funciones/actualizar.sh
-source /etc/vpsmanager/funciones/instalar_protocolos.sh
-source /etc/vpsmanager/funciones/crear_usuario_ssh.sh
-source /etc/vpsmanager/funciones/monitorear_recursos.sh
-source /etc/vpsmanager/funciones/eliminar.sh
+source /etc/vpsmanager/functions/actualizarScript.sh
+source /etc/vpsmanager/functions/crearUsuarioSSH.sh
+source /etc/vpsmanager/functions/eliminarScript.sh
+source /etc/vpsmanager/functions/instalarProtocolos.sh
+source /etc/vpsmanager/functions/monitoriarRecursos.sh
 
 mostrar_menu() {
     while true; do
