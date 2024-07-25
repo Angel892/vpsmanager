@@ -19,17 +19,17 @@ monitorear_recursos() {
         read -p "Seleccione una opción: " opcion
         case $opcion in
         1)
-            echo -e "\e[1;33mUso de CPU:${NC}"
+            echo -e "${INFO}Uso de CPU:${NC}"
             top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
             read -p "Presione Enter para continuar..."
             ;;
         2)
-            echo -e "\e[1;33mUso de Memoria:${NC}"
+            echo -e "${INFO}Uso de Memoria:${NC}"
             free -m | awk 'NR==2{printf "Uso de Memoria: %s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }'
             read -p "Presione Enter para continuar..."
             ;;
         3)
-            echo -e "\e[1;33mUso de Disco:${NC}"
+            echo -e "${INFO}Uso de Disco:${NC}"
             df -h | awk '$NF=="/"{printf "Uso de Disco: %d/%dGB (%s)\n", $3,$2,$5}'
             read -p "Presione Enter para continuar..."
             ;;

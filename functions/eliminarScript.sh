@@ -17,7 +17,7 @@ eliminar_script() {
             sudo rm -rf /etc/vpsmanager
             echo -e "${SECUNDARIO}Directorio /etc/vpsmanager eliminado.${NC}"
         else
-            echo -e "\e[1;33mEl directorio /etc/vpsmanager no existe.${NC}"
+            echo -e "${INFO}El directorio /etc/vpsmanager no existe.${NC}"
         fi
         
         # Eliminar alias si existen
@@ -52,7 +52,7 @@ eliminar_script() {
         echo -e "${SECUNDARIO}Todos los archivos y configuraciones han sido eliminados.${NC}"
         exit 0
     else
-        echo -e "\e[1;33mOperación cancelada.${NC}"
+        echo -e "${INFO}Operación cancelada.${NC}"
         read -p "Presione Enter para continuar..."
     fi
 }

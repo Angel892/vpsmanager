@@ -35,7 +35,7 @@ mostrar_menu() {
         4) actualizar_script ;;
         5) eliminar_script ;;
         0)
-            echo -e "\e[1;33mSaliendo...${NC}"
+            echo -e "${INFO}Saliendo...${NC}"
             exit 0
             ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;

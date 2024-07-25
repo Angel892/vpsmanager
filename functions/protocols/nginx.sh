@@ -6,7 +6,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 source $HELPERS_PATH/colors.sh
 
 install() {
-    echo -e "\e[1;33mInstalando Nginx...${NC}"
+    echo -e "${INFO}Instalando Nginx...${NC}"
 
     sudo apt-get update
     sudo apt-get install -y nginx
@@ -16,7 +16,7 @@ install() {
 }
 
 uninstall() {
-    echo -e "\e[1;33mDesinstalando Nginx...${NC}"
+    echo -e "${INFO}Desinstalando Nginx...${NC}"
 
     sudo systemctl stop nginx
     sudo apt-get remove --purge nginx nginx-common nginx-core

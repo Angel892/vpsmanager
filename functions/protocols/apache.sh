@@ -9,7 +9,7 @@ source $HELPERS_PATH/colors.sh
 source $MAIN_PATH/helpers/colors.sh
 
 install() {
-    echo -e "\e[1;33mInstalando Apache...${NC}"
+    echo -e "${INFO}Instalando Apache...${NC}"
 
     sudo apt-get update
     sudo apt-get install -y apache2
@@ -20,11 +20,17 @@ install() {
 }
 
 uninstall() {
-    echo -e "\e[1;33mDesinstalando Apache...${NC}"
+    echo -e "${INFO}Desinstalando Apache...${NC}"
 
     sudo systemctl stop apache2
-    sudo apt-get remove --purge apache2 apache2-utils apache2-bin apache2.2-common
+
+    echo -e "${INFO}Removiendo dependencia...${NC}"
+    sudo apt-get remove --purge apache2 apache2-utils apache2-bin apache2.2-common -y
+
+    echo -e "${INFO}Eliminando carpetas...${NC}"
     sudo rm -rf /etc/apache2
+
+    echo -e "${INFO}Limpiando dependencias sin usar...${NC}"
     sudo apt-get autoremove -y
     sudo apt-get autoclean -y
 
