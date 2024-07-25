@@ -31,6 +31,16 @@ if [ ! -d "/etc/vpsmanager" ]; then
     echo "Directorio /etc/vpsmanager creado."
 fi
 
+#Verificar si git esta instalado si no instalarlo
+if ! command -v git &> /dev/null; then
+    echo "Git no está instalado. Instalando git..."
+    sudo apt-get install -y git
+    if [ $? -ne 0 ]; then
+        echo "Error: No se pudo instalar git."
+        exit 1
+    fi
+fi
+
 # Clonar el repositorio en un directorio temporal
 git clone https://github.com/Angel892/vpsmanager.git /tmp/vpsmanager
 if [ $? -ne 0 ]; then
@@ -45,12 +55,13 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Dar permisos de ejecución al script principal
-sudo chmod +x /etc/vpsmanager/adm.sh
+# Dar permisos de ejecución al script principal y a los scripts de funciones de manera recursiva
+sudo find /etc/vpsmanager/ -type f -name "*.sh" -exec chmod +x {} \;
 if [ $? -ne 0 ]; then
     echo "Error: No se pudieron asignar los permisos de ejecución."
     exit 1
 fi
+
 
 # Eliminar el directorio temporal
 rm -rf /tmp/vpsmanager
