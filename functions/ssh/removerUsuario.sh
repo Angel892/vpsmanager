@@ -25,35 +25,52 @@ removerUsuarioSSH() {
     fi
 
     echo -e "${AMARILLO}Usuarios disponibles:${NC}"
-    PS3="Seleccione el número del usuario que desea eliminar: "
+    
+    # Crear un archivo temporal para la tabla de usuarios
+    user_details="/tmp/user_details.txt"
+    echo -e "N°\tUsuario" > $user_details
+    count=1
+    
+    for username in $users; do
+        echo -e "$count\t$username" >> $user_details
+        count=$((count + 1))
+    done
 
-    select username in $users; do
-        if [ -n "$username" ]; then
-            while true; do
-                read -p "Está seguro que desea eliminar al usuario '$username'? (s/n): " confirm
-                case $confirm in
-                    [sS][iI]|[sS])
-                        sudo deluser --remove-home "$username"
-                        if [ $? -eq 0 ]; then
-                            echo -e "${VERDE}Usuario SSH '$username' eliminado exitosamente.${NC}"
-                        else
-                            echo -e "${ROJO}Error: No se pudo eliminar al usuario '$username'.${NC}"
-                        fi
-                        break
-                        ;;
-                    [nN][oO]|[nN])
-                        echo -e "${AMARILLO}Operación cancelada.${NC}"
-                        break
-                        ;;
-                    *)
-                        echo -e "${ROJO}Error: Respuesta inválida. Por favor ingrese 's' o 'n'.${NC}"
-                        ;;
-                esac
-            done
-            break
-        else
-            echo -e "${ROJO}Selección inválida. Por favor intente de nuevo.${NC}"
-        fi
+    # Mostrar la tabla de usuarios
+    column -t -s $'\t' $user_details
+    rm $user_details
+
+    echo -e "${AMARILLO}Seleccione el número del usuario que desea eliminar:${NC}"
+    read -p "Número: " user_num
+
+    if ! [[ "$user_num" =~ ^[0-9]+$ ]] || [ "$user_num" -lt 1 ] || [ "$user_num" -ge $count ]; then
+        echo -e "${ROJO}Selección inválida. Por favor intente de nuevo.${NC}"
+        read -p "Presione Enter para continuar..."
+        return
+    fi
+
+    username=$(echo "$users" | sed -n "${user_num}p")
+
+    while true; do
+        read -p "Está seguro que desea eliminar al usuario '$username'? (s/n): " confirm
+        case $confirm in
+            [sS][iI]|[sS])
+                sudo deluser --remove-home "$username"
+                if [ $? -eq 0 ]; then
+                    echo -e "${VERDE}Usuario SSH '$username' eliminado exitosamente.${NC}"
+                else
+                    echo -e "${ROJO}Error: No se pudo eliminar al usuario '$username'.${NC}"
+                fi
+                break
+                ;;
+            [nN][oO]|[nN])
+                echo -e "${AMARILLO}Operación cancelada.${NC}"
+                break
+                ;;
+            *)
+                echo -e "${ROJO}Error: Respuesta inválida. Por favor ingrese 's' o 'n'.${NC}"
+                ;;
+        esac
     done
 
     echo -e "${PRINCIPAL}=========================${NC}"
