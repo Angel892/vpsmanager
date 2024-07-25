@@ -37,10 +37,10 @@ removerUsuarioSSH() {
     echo -e "N°\tUsuario" > $user_details
     count=1
     
-    for username in $users; do
+    while IFS=: read -r username password expiration_date limit; do
         echo -e "$count\t$username" >> $user_details
         count=$((count + 1))
-    done
+    done <<< "$users"
 
     # Añadir la opción para salir
     echo -e "$count\tSalir" >> $user_details
@@ -64,14 +64,14 @@ removerUsuarioSSH() {
         return
     fi
 
-    username=$(echo "$users" | sed -n "${user_num}p")
+    username=$(echo "$users" | sed -n "${user_num}p" | awk -F: '{print $1}')
 
     while true; do
         read -p "Está seguro que desea eliminar al usuario '$username'? (s/n): " confirm
         case $confirm in
             [sS][iI]|[sS])
                 sudo deluser --remove-home "$username"
-                sudo sed -i "/$username/d" /etc/vpsmanager/users.txt
+                sudo sed -i "/^$username:/d" /etc/vpsmanager/users.txt
                 if [ $? -eq 0 ]; then
                     echo -e "${VERDE}Usuario SSH '$username' eliminado exitosamente.${NC}"
                 else
