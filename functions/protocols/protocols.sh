@@ -36,7 +36,7 @@ estado_nginx() {
 menu_protocols() {
 
     while true; do
-        #clear
+        clear
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${PRINCIPAL}    Administrar Protocolos${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
