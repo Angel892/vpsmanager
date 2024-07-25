@@ -16,7 +16,7 @@ detalleUsuariosSSH() {
     echo -e "${PRINCIPAL}=========================${NC}"
 
     # Encabezados de la tabla
-    echo -e "Usuario\tFecha de Expiración\tLímite de Conexiones" > /tmp/user_details.txt
+    echo -e "${AMARILLO}Usuario\tFecha de Expiración\tLímite de Conexiones${NC}" > /tmp/user_details.txt
 
     # Recorrer cada usuario en /etc/passwd
     while IFS=: read -r username _ _ _ _ _ home _; do
@@ -30,12 +30,14 @@ detalleUsuariosSSH() {
         fi
         
         # Agregar los detalles del usuario al archivo temporal
-        echo -e "$username\t$expiration_date\t$connection_limit" >> /tmp/user_details.txt
+        echo -e "${BLANCO}$username\t$expiration_date\t$connection_limit${NC}" >> /tmp/user_details.txt
     done < /etc/passwd
 
     # Mostrar la tabla formateada
     column -t -s $'\t' /tmp/user_details.txt
     rm /tmp/user_details.txt
 
+    echo -e "${PRINCIPAL}=========================${NC}"
     read -p "Presione Enter para continuar..."
 }
+
