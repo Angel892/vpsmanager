@@ -14,7 +14,6 @@ source $MAIN_PATH/nginx.sh
 source $MAIN_PATH/dotnet.sh
 source $MAIN_PATH/mysql.sh
 source $MAIN_PATH/nodejs.sh
-source $MAIN_PATH/npm.sh
 
 # Función para verificar el estado de Apache
 estado_apache() {
@@ -48,7 +47,6 @@ menu_protocols() {
         echo -e "${SECUNDARIO}3. Dotnet${NC} "
         echo -e "${SECUNDARIO}4. Mysql${NC}"
         echo -e "${SECUNDARIO}5. Node js${NC}"
-        echo -e "${SECUNDARIO}6. NPM${NC}"
 
 
 
@@ -60,8 +58,7 @@ menu_protocols() {
         2) menuNginx ;;
         3) menuDotnet ;;
         4) menuMysql ;;
-        5) menuNginx ;;
-        6) menuNginx ;;
+        5) menuNodeJS ;;
         0) break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
