@@ -19,7 +19,7 @@ checkStatus() {
 }
 
 #--- MENU DE SELECCION
-selection_fun() {
+selectionFun() {
     local selection
     local options="$(seq 0 $1 | paste -sd "," -)"
     read -p $'\033[1;97m  └⊳ Seleccione una opción:\033[1;32m ' selection

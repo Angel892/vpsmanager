@@ -24,14 +24,6 @@ estado_apache() {
     fi
 }
 
-# Función para verificar el estado de Nginx
-estado_nginx() {
-    if systemctl is-active --quiet nginx; then
-        mostrarActivo
-    else
-        mostrarInActivo
-    fi
-}
 
 menuProtocols() {
 
@@ -49,7 +41,8 @@ menuProtocols() {
         let num++
 
         # NGINX
-        echo -e "${SECUNDARIO}$num. Nginx${NC} $(estado_nginx)"
+        nginxStatus=$(checkStatus "nginx")
+        echo -e "${SECUNDARIO}$num. Nginx${NC} $nginxStatus"
         option[$num]="nginx"
         let num++
 
@@ -167,7 +160,7 @@ menuProtocols() {
         option[0]="volver"
 
         echo -e "${PRINCIPAL}=========================${NC}"
-        selection=$(selection_fun $num)
+        selection=$(selectionFun $num)
         case ${option[$selection]} in
         "apache") menuApache ;;
         "nginx") menuNginx ;;
