@@ -25,7 +25,9 @@ activar_badvpn() {
     echo -e "${INFO}Digite los puertos a activar de forma secuencial${NC}"
     echo -e "${INFO}Ejemplo: 7300 7200 7100 | Puerto recomendado: 7300${NC}"
     read -p "Digite los puertos: " -e -i "7200 7300" portasx
-    echo "$portasx" >/etc/vpsmanager/PortM/Badvpn.log
+    local BADVPNLOGPATH="/etc/vpsmanager/PortM/Badvpn.log";
+    validarArchivo $BADVPNLOGPATH
+    echo "$portasx" >$BADVPNLOGPATH
     echo -e "${PRINCIPAL}=========================${NC}"
     totalporta=($portasx)
     unset PORT

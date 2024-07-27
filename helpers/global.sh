@@ -102,3 +102,39 @@ msgCentradoBarra() {
     # Print the full bar with centered text
     printf "${cor}%s %s %s${SINCOLOR}\n" "${barra:0:espacios}" "${texto}" "${barra:0:espacios}"
 }
+
+validarDirectorio() {
+    directorio=$1
+    # Verificar si el directorio ya existe
+    if [ ! -d "$directorio" ]; then
+        # Crear el directorio de destino, junto con los padres necesarios
+        sudo mkdir -p "$directorio"
+        if [ $? -ne 0 ]; then
+            echo "Error: No se pudo crear el directorio $directorio."
+            exit 1
+        fi
+        echo "Directorio $directorio creado."
+    else
+        # Eliminar el directorio
+        sudo rm -r "$directorio"
+        if [ $? -ne 0 ]; then
+            echo "Error: No se pudo eliminar el directorio $directorio."
+            exit 1
+        fi
+        echo "Directorio $directorio existente, Eliminándolo."
+
+        # Crear el directorio de destino, junto con los padres necesarios
+        sudo mkdir -p "$directorio"
+        if [ $? -ne 0 ]; then
+            echo "Error: No se pudo crear el directorio $directorio."
+            exit 1
+        fi
+        echo "Directorio $directorio creado."
+    fi
+}
+
+validarArchivo() {
+    if [ ! -e "$1" ]; then
+    # Si el archivo no existe, se crea
+    touch "$1"
+}
