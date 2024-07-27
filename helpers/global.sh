@@ -37,25 +37,16 @@ selectionFun() {
 }
 
 msg() { ##-->> COLORES, TITULO, BARRAS
-    ##-->> COLORES
-    COLOR[0]='\033[1;37m' #GRIS='\033[1;37m'
-    COLOR[1]='\e[31m'     #ROJO='\e[31m'
-    COLOR[2]='\e[32m'     #VERDE='\e[32m'
-    COLOR[3]='\e[33m'     #AMARILLO='\e[33m'
-    COLOR[4]='\e[34m'     #AZUL='\e[34m'
-    COLOR[5]='\e[91m'     #ROJO-NEON='\e[91m'
-    COLOR[6]='\033[1;97m' #BALNCO='\033[1;97m'
-    NEGRITO='\e[1m'
-    SINCOLOR='\e[0m'
+    
     case $1 in
-    -ne) cor="${COLOR[1]}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
-    -ama) cor="${COLOR[3]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -verm) cor="${COLOR[3]}${NEGRITO}[!] ${COLOR[1]}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -verm2) cor="${COLOR[1]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -azu) cor="${COLOR[6]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -verd) cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -bra) cor="${COLOR[0]}${SINCOLOR}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    "-bar2" | "-bar") cor="${COLOR[1]}════════════════════════════════════════════════════" && echo -e "${SINCOLOR}${cor}${SINCOLOR}" ;;
+    -ne) cor="${ROJO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -ama) cor="${AMARILLO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verm) cor="${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verm2) cor="${ROJO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -azu) cor="${BLANCO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verd) cor="${VERDE}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -bra) cor="${GRIS}${SINCOLOR}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    "-bar2" | "-bar") cor="${ROJO}════════════════════════════════════════════════════" && echo -e "${SINCOLOR}${cor}${SINCOLOR}" ;;
     # Centrar texto
     -tit) echo -e " \e[48;5;214m\e[38;5;0m   💻 S C R I P T | L X M A N A G E R 💻 " ;;
     esac
@@ -67,27 +58,17 @@ msgCentrado() {
     texto_len=${#texto}
     barra_len=${#barra}
     espacios=$(((barra_len - texto_len) / 2))
-    ##-->> COLORES
-    COLOR[0]='\033[1;37m' #GRIS='\033[1;37m'
-    COLOR[1]='\e[31m'     #ROJO='\e[31m'
-    COLOR[2]='\e[32m'     #VERDE='\e[32m'
-    COLOR[3]='\e[33m'     #AMARILLO='\e[33m'
-    COLOR[4]='\e[34m'     #AZUL='\e[34m'
-    COLOR[5]='\e[91m'     #ROJO-NEON='\e[91m'
-    COLOR[6]='\033[1;97m' #BALNCO='\033[1;97m'
-    NEGRITO='\e[1m'
-    SINCOLOR='\e[0m'
 
     printf "%${espacios}s" "" # Add spaces to center the text
 
     case $1 in
-    -ne) cor="${COLOR[1]}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
-    -ama) cor="${COLOR[3]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -verm) cor="${COLOR[3]}${NEGRITO}[!] ${COLOR[1]}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -verm2) cor="${COLOR[1]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -azu) cor="${COLOR[6]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -verd) cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -bra) cor="${COLOR[0]}${SINCOLOR}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -ne) cor="${ROJO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -ama) cor="${AMARILLO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verm) cor="${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verm2) cor="${ROJO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -azu) cor="${BLANCO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verd) cor="${VERDE}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -bra) cor="${GRIS}${SINCOLOR}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     esac
 }
 
@@ -98,25 +79,14 @@ msgCentradoBarra() {
     barra_len=${#barra}
     espacios=$(((barra_len - texto_len - 2) / 2)) # -2 for spaces around the text
 
-    ##-->> COLORES
-    COLOR[0]='\033[1;37m' # GRIS
-    COLOR[1]='\e[31m'     # ROJO
-    COLOR[2]='\e[32m'     # VERDE
-    COLOR[3]='\e[33m'     # AMARILLO
-    COLOR[4]='\e[34m'     # AZUL
-    COLOR[5]='\e[91m'     # ROJO-NEON
-    COLOR[6]='\033[1;97m' # BLANCO
-    NEGRITO='\e[1m'
-    SINCOLOR='\e[0m'
-
     case $1 in
-    -ne) cor="${COLOR[1]}${NEGRITO}" ;;
-    -ama) cor="${COLOR[3]}${NEGRITO}" ;;
-    -verm) cor="${COLOR[3]}${NEGRITO}[!] ${COLOR[1]}" ;;
-    -verm2) cor="${COLOR[1]}${NEGRITO}" ;;
-    -azu) cor="${COLOR[6]}${NEGRITO}" ;;
-    -verd) cor="${COLOR[2]}${NEGRITO}" ;;
-    -bra) cor="${COLOR[0]}${SINCOLOR}" ;;
+    -ne) cor="${ROJO}${NEGRITO}" ;;
+    -ama) cor="${AMARILLO}${NEGRITO}" ;;
+    -verm) cor="${AMARILLO}${NEGRITO}[!] ${ROJO}" ;;
+    -verm2) cor="${ROJO}${NEGRITO}" ;;
+    -azu) cor="${BLANCO}${NEGRITO}" ;;
+    -verd) cor="${VERDE}${NEGRITO}" ;;
+    -bra) cor="${GRIS}${SINCOLOR}" ;;
     esac
 
     # Print the full bar with centered text
