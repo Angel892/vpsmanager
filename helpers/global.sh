@@ -2,6 +2,8 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
+# COLORES
+source $HELPERS_PATH/colors.sh
 
 
 mostrarActivo() {
