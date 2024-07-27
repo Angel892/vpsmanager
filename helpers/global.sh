@@ -40,6 +40,9 @@ selectionFun() {
             # Mover el cursor una línea hacia arriba y limpiar la línea
             tput cuu1 && tput el
             echo -e "\033[1;31mPor favor, ingrese una opción válida.\033[0m"
+
+            sleep 1
+
             # Mover el cursor una línea hacia arriba y limpiar la línea de nuevo para evitar duplicados
             tput cuu1 && tput el
         fi
