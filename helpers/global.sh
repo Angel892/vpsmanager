@@ -31,9 +31,12 @@ selectionFun() {
         read -p $'\033[1;97m  └⊳ Seleccione una opción:\033[1;32m ' selection
         if [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
             echo $selection
-            return
+            break
         else
-            echo "Selección no válida: $selection" >&2
+            # Si la opción no es válida, limpia la línea anterior y muestra el mensaje de error
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
+            echo -e "\033[1;31mSelección no válida: $selection\033[0m" >&2
         fi
     done
 }
