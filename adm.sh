@@ -31,8 +31,6 @@ mostrar_menu() {
         msgCentrado -ama "LXMANAGER"
         msg -bar
 
-        msgCentradoBarra -ama "TEST"
-
         # SSH
         echo -e "${SECUNDARIO}$num. SSH / OPEN VPN${NC}"
         option[$num]="ssh"
@@ -71,7 +69,7 @@ mostrar_menu() {
         echo -e "${SALIR}0. Salir${NC}"
         option[0]="volver"
 
-        echo -e "${PRINCIPAL}=========================${NC}"
+        msg -bar
         selection=$(selectionFun $num)
         case ${option[$selection]} in
         "ssh") menuSSH ;;

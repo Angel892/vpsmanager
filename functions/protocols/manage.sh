@@ -31,9 +31,9 @@ menuProtocols() {
         local num=1
 
         clear
-        echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${PRINCIPAL}    Administrar Protocolos${NC}"
-        echo -e "${PRINCIPAL}=========================${NC}"
+        msg -bar
+        msgCentrado -ama "ADMINISTRADOR DE PROTOCOLOS"
+        msg -bar
 
         # APACHE
         currentStatus=$(checkStatusF "apache2")
@@ -65,9 +65,7 @@ menuProtocols() {
         option[$num]="nodejs"
         let num++
 
-        echo ""
-        echo -e "${ROJO}-------------------------${NC}"
-        echo ""
+        msgCentradoBarra -ama "PROTOCOLOS NET"
 
         # BADVPN
         currentStatus=$(checkStatus "badvpn")
@@ -147,9 +145,7 @@ menuProtocols() {
         option[$num]="psiphone"
         let num++
 
-        echo ""
-        echo -e "${ROJO}--------PROXY´S--------${NC}"
-        echo ""
+        msgCentradoBarra -ama "PROXY´S"
 
         # WEB SOCKET
         currentStatus=$(checkStatus "pydic-*")
@@ -179,7 +175,7 @@ menuProtocols() {
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
         option[0]="volver"
 
-        echo -e "${PRINCIPAL}=========================${NC}"
+        msg -bar
         selection=$(selectionFun $num)
         case ${option[$selection]} in
         "apache") menuApache ;;

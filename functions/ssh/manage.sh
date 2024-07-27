@@ -28,9 +28,9 @@ menuSSH() {
         local num=1
 
         clear
-        echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${PRINCIPAL}    $MENU smanager${NC}"
-        echo -e "${PRINCIPAL}=========================${NC}"
+        msg -bar
+        msgCentrado -ama "SSH MANAGER"
+        msg -bar
 
         # CREAR CUENTA
         echo -e "${SECUNDARIO}$num. Crear cuenta${NC}"
@@ -90,7 +90,7 @@ menuSSH() {
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
         option[0]="volver"
 
-        echo -e "${PRINCIPAL}=========================${NC}"
+        msg -bar
         selection=$(selectionFun $num)
         case ${option[$selection]} in
         "crear") crearCuentaSSH;;
