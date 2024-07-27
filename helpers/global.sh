@@ -119,12 +119,6 @@ msgCentradoBarra() {
     -bra) cor="${COLOR[0]}${SINCOLOR}" ;;
     esac
 
-    # Print left part of the bar
-    printf "%s" "${barra:0:espacios}"
-
-    # Print the centered text
-    echo -ne "${cor} ${texto} ${SINCOLOR}"
-
-    # Print right part of the bar
-    printf "%s\n" "${barra:0:espacios}"
+    # Print the full bar with centered text
+    printf "${cor}%s %s %s${SINCOLOR}\n" "${barra:0:espacios}" "${texto}" "${barra:0:espacios}"
 }
