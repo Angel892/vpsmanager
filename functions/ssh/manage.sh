@@ -33,37 +33,37 @@ menuSSH() {
         echo -e "${PRINCIPAL}=========================${NC}"
 
         # CREAR CUENTA
-        echo -e "${SECUNDARIO}$num. Crear cuenta SSH${NC}"
+        echo -e "${SECUNDARIO}$num. Crear cuenta${NC}"
         option[$num]="crear"
         let num++
 
         # CREAR CUENTA TEMPORAL
-        echo -e "${SECUNDARIO}$num. Crear cuenta temporal SSH${NC}"
+        echo -e "${SECUNDARIO}$num. Crear cuenta temporal${NC}"
         option[$num]="crearTemporal"
         let num++
 
         # REMOVER USUARIO
-        echo -e "${SECUNDARIO}$num. Remover usuario SHH${NC}"
+        echo -e "${SECUNDARIO}$num. Remover usuario${NC}"
         option[$num]="remover"
         let num++
 
         # BLOQUEAR USUARIO
-        echo -e "${SECUNDARIO}$num. Bloquear / Desbloquear usuario SHH${NC}"
+        echo -e "${SECUNDARIO}$num. Bloquear / Desbloquear usuario${NC}"
         option[$num]="bloquear"
         let num++
 
         # EDITAR USUARIO
-        echo -e "${SECUNDARIO}$num. Editar cuenta SHH${NC}"
+        echo -e "${SECUNDARIO}$num. Editar cuenta${NC}"
         option[$num]="editar"
         let num++
 
         # DETALLES
-        echo -e "${SECUNDARIO}$num. Detalle de todos los usuarios SHH${NC}"
+        echo -e "${SECUNDARIO}$num. Detalle de todos los usuarios${NC}"
         option[$num]="detalles"
         let num++
 
         # USUARIOS CONECTADOS
-        echo -e "${SECUNDARIO}$num. Usuarios conectados SHH${NC}"
+        echo -e "${SECUNDARIO}$num. Usuarios conectados${NC}"
         option[$num]="conectados"
         let num++
 
