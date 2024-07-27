@@ -1,9 +1,6 @@
 #!/bin/bash
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
-# Colores
-
-# Funciones globales
 
 
 # Función para verificar los puertos

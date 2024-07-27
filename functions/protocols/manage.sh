@@ -1,30 +1,19 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
-#funciones globales
-
-
-PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
-
-source $PROTOCOLS_PATH/apache.sh
-source $PROTOCOLS_PATH/nginx.sh
-source $PROTOCOLS_PATH/dotnet.sh
-source $PROTOCOLS_PATH/mysql.sh
-source $PROTOCOLS_PATH/nodejs.sh
-
-# Función para verificar el estado de Apache
-estado_apache() {
-    if systemctl is-active --quiet apache2; then
-        mostrarActivo
-    else
-        mostrarInActivo
-    fi
-}
-
-
-
 menuProtocols() {
+
+    local HELPERS_PATH="/etc/vpsmanager/helpers"
+
+    #funciones globales
+
+    local PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
+
+    source $PROTOCOLS_PATH/apache.sh
+    source $PROTOCOLS_PATH/nginx.sh
+    source $PROTOCOLS_PATH/dotnet.sh
+    source $PROTOCOLS_PATH/mysql.sh
+    source $PROTOCOLS_PATH/nodejs.sh
+    source $PROTOCOLS_PATH/badvpn.sh
 
     while true; do
         local num=1
@@ -182,6 +171,7 @@ menuProtocols() {
         "dotnet") menuDotnet ;;
         "mysql") menuMysql ;;
         "nodejs") menuNodeJS ;;
+        "badvon") proto_badvpn ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
