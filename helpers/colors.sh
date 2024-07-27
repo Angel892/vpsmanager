@@ -5,7 +5,7 @@ SECUNDARIO="\e[1;33m";
 INFO="\e[1;33m";
 
 ROJO="\033[0;31m";
-BLANCO='\033[1;37m'
+BLANCO='\033[1;97m'
 AMARILLO='\033[1;33m'
 VERDE="\e[1;32m";
 
