@@ -5,7 +5,6 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 # COLORES
 source $HELPERS_PATH/colors.sh
 
-
 mostrarActivo() {
     echo -e "${VERDE}[ ON ]${NC}"
 }
@@ -28,17 +27,19 @@ checkStatusF() {
 selectionFun() {
     local selection
     local options="$(seq 0 $1 | paste -sd "," -)"
-    read -p $'\033[1;97m  └⊳ Seleccione una opción:\033[1;32m ' selection
-    if [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
-        echo $selection
-    else
-        echo "Selección no válida: $selection" >&2
-        exit 1
-    fi
+    while true; do
+        read -p $'\033[1;97m  └⊳ Seleccione una opción:\033[1;32m ' selection
+        if [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
+            echo $selection
+            return
+        else
+            echo "Selección no válida: $selection" >&2
+        fi
+    done
 }
 
 msg() { ##-->> COLORES, TITULO, BARRAS
-    
+
     case $1 in
     -ne) cor="${ROJO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
     -ama) cor="${AMARILLO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
