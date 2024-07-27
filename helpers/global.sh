@@ -33,10 +33,7 @@ selectionFun() {
             echo $selection
             break
         else
-            # Si la opción no es válida, limpia la línea anterior y muestra el mensaje de error
-            tput cuu1  # Mueve el cursor una línea hacia arriba
-            tput el    # Limpia la línea
-            echo -e "\033[1;31mSelección no válida: $selection\033[0m" >&2
+            echo "Selección no válida: $selection" >&2
         fi
     done
 }
