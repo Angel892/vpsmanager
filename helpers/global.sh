@@ -27,24 +27,29 @@ checkStatusF() {
 selectionFun() {
     local selection
     local options="$(seq 0 $1 | paste -sd "," -)"
-    
     while true; do
-        # Mostrar el prompt de selección
+        # Muestra el prompt de selección
         read -p $'\033[1;97m  └⊳ Seleccione una opción:\033[1;32m ' selection
-        
-        # Verificar si la entrada está en las opciones permitidas
-        if [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
-            echo $selection
-            return 0
-        else
-            # Mover el cursor una línea hacia arriba y limpiar la línea
-            tput cuu1 && tput el
-            echo -e "\033[1;31mPor favor, ingrese una opción válida.\033[0m"
-
+        # Verifica si la opción es válida
+        if [[ -z $selection ]]; then
+            # Si la entrada está vacía, muestra un mensaje de error y repite el bucle
+            echo -e "\033[1;31mPor favor, ingrese una opción válida.\033[0m" >&2
             sleep 1
-
-            # Mover el cursor una línea hacia arriba y limpiar la línea de nuevo para evitar duplicados
-            tput cuu1 && tput el
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
+        elif [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
+            echo $selection
+            break
+        else
+            # Si la opción no es válida, muestra el mensaje de error y repite el bucle
+            echo -e "\033[1;31mSelección no válida: $selection\033[0m" >&2
+            sleep 1
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
         fi
     done
 }
