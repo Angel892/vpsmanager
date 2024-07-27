@@ -2,7 +2,7 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 # Enable debugging
-set -x
+#set -x
 
 # funciones globales
 source $HELPERS_PATH/global.sh
