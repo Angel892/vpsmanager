@@ -65,7 +65,7 @@ menuProtocols() {
         option[$num]="nodejs"
         let num++
 
-        msgCentradoBarra -ama "PROTOCOLOS NET"
+        msgCentradoBarra -verd "PROTOCOLOS NET"
 
         # BADVPN
         currentStatus=$(checkStatus "badvpn")
