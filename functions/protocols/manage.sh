@@ -72,7 +72,8 @@ menuProtocols() {
         let num++
 
         # DROPBEAR
-        echo -e "${SECUNDARIO}$num. DROPBEAR${NC} $(estado_nginx)"
+        badvpnStatus=$(checkStatus "dropbear")
+        echo -e "${SECUNDARIO}$num. DROPBEAR${NC} $badvpnStatus"
         option[$num]="dropbear"
         let num++
 

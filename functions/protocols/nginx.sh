@@ -22,7 +22,7 @@ uninstallNginx() {
     sudo systemctl stop nginx
 
     echo -e "${INFO}Removiendo dependencias...${NC}"
-    sudo apt-get remove --purge nginx nginx-common nginx-core
+    sudo apt-get remove -y --purge nginx nginx-common nginx-core
 
     echo -e "${INFO}Removiendo carpetas...${NC}"
     sudo rm -rf /etc/nginx
