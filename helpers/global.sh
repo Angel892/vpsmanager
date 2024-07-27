@@ -28,12 +28,22 @@ selectionFun() {
     local selection
     local options="$(seq 0 $1 | paste -sd "," -)"
     while true; do
+        # Muestra el prompt de selección
         read -p $'\033[1;97m  └⊳ Seleccione una opción:\033[1;32m ' selection
-        if [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
+        # Verifica si la opción es válida
+        if [[ -z $selection ]]; then
+            # Si la entrada está vacía, muestra un mensaje de error y repite el bucle
+            tput cuu1 # Mueve el cursor una línea hacia arriba
+            tput el   # Limpia la línea
+            echo -e "\033[1;31mPor favor, ingrese una opción válida.\033[0m" >&2
+        elif [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
             echo $selection
             break
         else
-            echo "Selección no válida: $selection" >&2
+            # Si la opción no es válida, limpia la línea anterior y muestra el mensaje de error
+            tput cuu1 # Mueve el cursor una línea hacia arriba
+            tput el   # Limpia la línea
+            echo -e "\033[1;31mSelección no válida: $selection\033[0m" >&2
         fi
     done
 }
