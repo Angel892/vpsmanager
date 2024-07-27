@@ -7,8 +7,8 @@ source $HELPERS_PATH/colors.sh
 #funciones globales
 source $HELPERS_PATH/global.sh
 
-MENU="DOTNET"
-MENU2="DOTNET EF"
+local MENU="DOTNET"
+local MENU2="DOTNET EF"
 
 installDotnet() {
     echo -e "${INFO}Instalando $MENU SDK...${NC}"
