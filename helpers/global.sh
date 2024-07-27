@@ -62,11 +62,11 @@ msg() { ##-->> COLORES, TITULO, BARRAS
 }
 
 msgCentrado() {
-    barra="════════════════════════════════════════════════════";
+    barra="════════════════════════════════════════════════════"
     texto="$2"
     texto_len=${#texto}
     barra_len=${#barra}
-    espacios=$(( (barra_len - texto_len) / 2 ))
+    espacios=$(((barra_len - texto_len) / 2))
     ##-->> COLORES
     COLOR[0]='\033[1;37m' #GRIS='\033[1;37m'
     COLOR[1]='\e[31m'     #ROJO='\e[31m'
@@ -89,4 +89,42 @@ msgCentrado() {
     -verd) cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     -bra) cor="${COLOR[0]}${SINCOLOR}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     esac
+}
+
+msgCentradoBarra() {
+    barra="════════════════════════════════════════════════════"
+    texto="$2"
+    texto_len=${#texto}
+    barra_len=${#barra}
+    espacios=$(((barra_len - texto_len - 2) / 2)) # -2 for spaces around the text
+
+    ##-->> COLORES
+    COLOR[0]='\033[1;37m' # GRIS
+    COLOR[1]='\e[31m'     # ROJO
+    COLOR[2]='\e[32m'     # VERDE
+    COLOR[3]='\e[33m'     # AMARILLO
+    COLOR[4]='\e[34m'     # AZUL
+    COLOR[5]='\e[91m'     # ROJO-NEON
+    COLOR[6]='\033[1;97m' # BLANCO
+    NEGRITO='\e[1m'
+    SINCOLOR='\e[0m'
+
+    case $1 in
+    -ne) cor="${COLOR[1]}${NEGRITO}" ;;
+    -ama) cor="${COLOR[3]}${NEGRITO}" ;;
+    -verm) cor="${COLOR[3]}${NEGRITO}[!] ${COLOR[1]}" ;;
+    -verm2) cor="${COLOR[1]}${NEGRITO}" ;;
+    -azu) cor="${COLOR[6]}${NEGRITO}" ;;
+    -verd) cor="${COLOR[2]}${NEGRITO}" ;;
+    -bra) cor="${COLOR[0]}${SINCOLOR}" ;;
+    esac
+
+    # Print left part of the bar
+    printf "%s" "${barra:0:espacios}"
+
+    # Print the centered text
+    echo -ne "${cor} ${texto} ${SINCOLOR}"
+
+    # Print right part of the bar
+    printf "%s\n" "${barra:0:espacios}"
 }
