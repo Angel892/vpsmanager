@@ -47,11 +47,13 @@ menuProtocols() {
         echo -e "${SECUNDARIO}4. Mysql${NC}"
         echo -e "${SECUNDARIO}5. Node js${NC}"
 
-        echo "";
+        echo ""
         echo -e "${ROJO}-------------------------${NC}"
         echo ""
 
-        echo -e "${SECUNDARIO}6. BADVPN${NC} $(estado_apache)"
+        # Capture the status of BADVPN
+        badvpnStatus=$(checkStatus "badvpn")
+        echo -e "${SECUNDARIO}6. BADVPN${NC} $badvpnStatus"
         echo -e "${SECUNDARIO}7. DROPBEAR${NC} $(estado_nginx)"
         echo -e "${SECUNDARIO}8. SSL${NC} "
         echo -e "${SECUNDARIO}9. SQUID${NC}"
@@ -65,7 +67,7 @@ menuProtocols() {
         echo -e "${SECUNDARIO}10. UDP-REQUEST${NC}"
         echo -e "${SECUNDARIO}10. SERVIDOR PSIPHONE${NC}"
 
-        echo "";
+        echo ""
         echo -e "${ROJO}--------PROXY´S--------${NC}"
         echo ""
 

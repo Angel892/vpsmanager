@@ -12,3 +12,8 @@ mostrarActivo() {
 mostrarInActivo() {
     echo -e "${ROJO}[ OFF ]${NC}"
 }
+
+checkStatus() {
+    toCheck=$(ps x | grep "$1" | grep -v "grep" | awk -F "pts" '{print $1}')
+    [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
+}
