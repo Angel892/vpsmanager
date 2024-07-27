@@ -31,7 +31,7 @@ mostrar_menu() {
         msgCentrado -ama "LXMANAGER"
         msg -bar
 
-        msgCentradoBarra -azu "TEST"
+        msgCentradoBarra -ama "TEST"
 
         # SSH
         echo -e "${SECUNDARIO}$num. SSH / OPEN VPN${NC}"
