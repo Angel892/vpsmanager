@@ -4,7 +4,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 # Colores
 
 # Funciones globales
-source $HELPERS_PATH/global.sh
+
 
 # Función para verificar los puertos
 mportas() {

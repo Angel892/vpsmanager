@@ -4,7 +4,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 
 
 #funciones globales
-source $HELPERS_PATH/global.sh
+
 
 gestionarBannerSSH() {
     read -p "1. Agregar banner\n2. Eliminar banner\nSeleccione una opción: " opcion

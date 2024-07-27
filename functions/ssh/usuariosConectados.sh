@@ -4,7 +4,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 
 
 #funciones globales
-source $HELPERS_PATH/global.sh
+
 
 usuariosConectadosSSH() {
     clear

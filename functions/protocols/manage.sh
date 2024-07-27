@@ -3,7 +3,7 @@
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
 #funciones globales
-source $HELPERS_PATH/global.sh
+
 
 PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
 
