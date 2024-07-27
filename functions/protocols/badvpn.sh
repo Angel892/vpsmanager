@@ -19,16 +19,16 @@ mportas() {
 # Función para activar BadVPN
 activar_badvpn() {
     clear
-    echo -e "${PRINCIPAL}=========================${NC}"
-    echo -e "${PRINCIPAL}  Instalador de BadVPN (UDP)${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
+    msg -bar
+    msgCentrado -ama "Instalador de BadVPN (UDP)"
+    msg -bar
     echo -e "${INFO}Digite los puertos a activar de forma secuencial${NC}"
     echo -e "${INFO}Ejemplo: 7300 7200 7100 | Puerto recomendado: 7300${NC}"
     read -p "Digite los puertos: " -e -i "7200 7300" portasx
     local BADVPNLOGPATH="/etc/vpsmanager/PortM/Badvpn.log";
     validarArchivo $BADVPNLOGPATH
     echo "$portasx" >$BADVPNLOGPATH
-    echo -e "${PRINCIPAL}=========================${NC}"
+    msg -bar
     totalporta=($portasx)
     unset PORT
     for ((i = 0; i < ${#totalporta[@]}; i++)); do
@@ -45,33 +45,33 @@ activar_badvpn() {
         return 1
     }
 
-    echo -e "${PRINCIPAL}=========================${NC}"
+    msg -bar
     [[ "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && echo -e "${VERDE}        >> BADVPN INSTALADO CON ÉXITO <<${NC}" || echo -e "${ROJO}               ERROR VERIFIQUE${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
+    msg -bar
     read -p "Presione Enter para continuar..."
 }
 
 # Función para desactivar BadVPN
 desactivar_badvpn() {
     clear
-    echo -e "${PRINCIPAL}=========================${NC}"
-    echo -e "${PRINCIPAL}  Desinstalando puertos BadVPN${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
+    msg -bar
+    msgCentrado -ama "Desinstalando puertos BadVPN"
+    msg -bar
     kill -9 $(ps x | grep badvpn | grep -v grep | awk '{print $1'}) >/dev/null 2>&1
     killall badvpn-udpgw >/dev/null 2>&1
     screen -wipe >/dev/null 2>&1
     rm -rf /etc/vpsmanager/PortM/Badvpn.log >/dev/null 2>&1
     [[ ! "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && echo -e "${VERDE}        >> BADVPN DESINSTALADO CON ÉXITO <<${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
+    msg -bar
     read -p "Presione Enter para continuar..."
 }
 
 # Función principal para manejar BadVPN
 proto_badvpn() {
     clear
-    echo -e "${PRINCIPAL}=========================${NC}"
-    echo -e "${PRINCIPAL}  Instalador de BadVPN (UDP)${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
+    msg -bar
+    msgCentrado -ama "Instalador de BadVPN (UDP)"
+    msg -bar
     if [[ ! -e /bin/badvpn-udpgw ]]; then
         wget -O /bin/badvpn-udpgw https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/badvpn-udpgw &>/dev/null
         chmod 777 /bin/badvpn-udpgw
@@ -79,15 +79,13 @@ proto_badvpn() {
     echo -e "${SECUNDARIO}1. Instalar un BadVPN${NC}"
     echo -e "${SECUNDARIO}2. Detener todos los BadVPN${NC}"
     echo -e "${SALIR}0. Volver${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
+    msg -bar
     read -p "Digite solo el número según su respuesta: " opcao
     case $opcao in
     1)
-        echo -e "${PRINCIPAL}=========================${NC}"
         activar_badvpn
         ;;
     2)
-        echo -e "${PRINCIPAL}=========================${NC}"
         desactivar_badvpn
         ;;
     0)
@@ -95,7 +93,7 @@ proto_badvpn() {
         ;;
     *)
         echo -e "${ROJO}Por favor use números del [0-2]${NC}"
-        echo -e "${PRINCIPAL}=========================${NC}"
+        msg -bar
         menu
         ;;
     esac
