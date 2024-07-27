@@ -36,56 +36,145 @@ estado_nginx() {
 menuProtocols() {
 
     while true; do
+        local num=1
+
         clear
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${PRINCIPAL}    Administrar Protocolos${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
 
-        echo -e "${SECUNDARIO}1. Apache${NC} $(estado_apache)"
-        echo -e "${SECUNDARIO}2. Nginx${NC} $(estado_nginx)"
-        echo -e "${SECUNDARIO}3. Dotnet${NC} "
-        echo -e "${SECUNDARIO}4. Mysql${NC}"
-        echo -e "${SECUNDARIO}5. Node js${NC}"
+        # APACHE
+        echo -e "${SECUNDARIO}$num. Apache${NC} $(estado_apache)"
+        option[$num]="apache"
+        let num++
+
+        # NGINX
+        echo -e "${SECUNDARIO}$num. Nginx${NC} $(estado_nginx)"
+        option[$num]="nginx"
+        let num++
+
+        # DOTNET
+        echo -e "${SECUNDARIO}$num. Dotnet${NC}"
+        option[$num]="dotnet"
+        let num++
+
+        # MYSQL
+        echo -e "${SECUNDARIO}$num. Mysql${NC}"
+        option[$num]="mysql"
+        let num++
+
+        # NODE JS
+        echo -e "${SECUNDARIO}$num. Node js${NC}"
+        option[$num]="nodejs"
+        let num++
 
         echo ""
         echo -e "${ROJO}-------------------------${NC}"
         echo ""
 
-        # Capture the status of BADVPN
+        # BADVPN
         badvpnStatus=$(checkStatus "badvpn")
-        echo -e "${SECUNDARIO}6. BADVPN${NC} $badvpnStatus"
-        echo -e "${SECUNDARIO}7. DROPBEAR${NC} $(estado_nginx)"
-        echo -e "${SECUNDARIO}8. SSL${NC} "
-        echo -e "${SECUNDARIO}9. SQUID${NC}"
-        echo -e "${SECUNDARIO}10. OPENVPN${NC}"
-        echo -e "${SECUNDARIO}10. SHADOWSOCK NORMAL${NC}"
-        echo -e "${SECUNDARIO}10. SHADOWSOCK LIV +OBFS${NC}"
-        echo -e "${SECUNDARIO}10. SLOWDNS${NC}"
-        echo -e "${SECUNDARIO}10. GETTUNEL${NC}"
-        echo -e "${SECUNDARIO}10. TCP-OVER${NC}"
-        echo -e "${SECUNDARIO}10. SSLH${NC}"
-        echo -e "${SECUNDARIO}10. UDP-REQUEST${NC}"
-        echo -e "${SECUNDARIO}10. SERVIDOR PSIPHONE${NC}"
+        echo -e "${SECUNDARIO}$num. BADVPN${NC} $badvpnStatus"
+        option[$num]="badvpn"
+        let num++
+
+        # DROPBEAR
+        echo -e "${SECUNDARIO}$num. DROPBEAR${NC} $(estado_nginx)"
+        option[$num]="dropbear"
+        let num++
+
+        # SSL
+        echo -e "${SECUNDARIO}$num. SSL${NC}"
+        option[$num]="ssl"
+        let num++
+
+        # SQUID
+        echo -e "${SECUNDARIO}$num. SQUID${NC}"
+        option[$num]="squid"
+        let num++
+
+        # OPENVPN
+        echo -e "${SECUNDARIO}$num. OPENVPN${NC}"
+        option[$num]="openvpn"
+        let num++
+
+        # SHADOWSOCK NORMAL
+        echo -e "${SECUNDARIO}$num. SHADOWSOCK NORMAL${NC}"
+        option[$num]="shadowSock"
+        let num++
+
+        # SHADOWSHOW LIV
+        echo -e "${SECUNDARIO}$num. SHADOWSOCK LIV +OBFS${NC}"
+        option[$num]="shadowSockLiv"
+        let num++
+
+        # SLOWDNS
+        echo -e "${SECUNDARIO}$num. SLOWDNS${NC}"
+        option[$num]="slowdns"
+        let num++
+
+        # GETTUNEL
+        echo -e "${SECUNDARIO}$num. GETTUNEL${NC}"
+        option[$num]="gettunel"
+        let num++
+
+        # TCP OVER
+        echo -e "${SECUNDARIO}$num. TCP-OVER${NC}"
+        option[$num]="tcpover"
+        let num++
+
+        # SSLH
+        echo -e "${SECUNDARIO}$num. SSLH${NC}"
+        option[$num]="sslh"
+        let num++
+
+        # UDP REQUEST
+        echo -e "${SECUNDARIO}$num. UDP-REQUEST${NC}"
+        option[$num]="udprequest"
+        let num++
+
+        # PSIPHONR
+        echo -e "${SECUNDARIO}$num. SERVIDOR PSIPHONE${NC}"
+        option[$num]="psiphone"
+        let num++
 
         echo ""
         echo -e "${ROJO}--------PROXY´S--------${NC}"
         echo ""
 
-        echo -e "${SECUNDARIO}10. WEBSOKET STATUS EDITABLE${NC}"
-        echo -e "${SECUNDARIO}10. PROXY OPENVPN${NC}"
-        echo -e "${SECUNDARIO}10. PROXY PUBLICO${NC}"
-        echo -e "${SECUNDARIO}10. PROXY PRIVADO${NC}"
+        # WEB SOCKET
+        echo -e "${SECUNDARIO}$num. WEBSOKET STATUS EDITABLE${NC}"
+        option[$num]="websocket"
+        let num++
 
+        # PROXY VPN
+        echo -e "${SECUNDARIO}$num. PROXY OPENVPN${NC}"
+        option[$num]="proxyOpenVpn"
+        let num++
+
+        # PROXY PUBLICO
+        echo -e "${SECUNDARIO}$num. PROXY PUBLICO${NC}"
+        option[$num]="proxyPublico"
+        let num++
+
+        # PROXY PRIVADO
+        echo -e "${SECUNDARIO}$num. PROXY PRIVADO${NC}"
+        option[$num]="proxyPrivado"
+        let num++
+
+        # VOLVER AL MENU ANTERIOR
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
+        option[0]="volver"
+
         echo -e "${PRINCIPAL}=========================${NC}"
-        read -p "Seleccione una opción: " opcion
-        case $opcion in
-        1) menuApache ;;
-        2) menuNginx ;;
-        3) menuDotnet ;;
-        4) menuMysql ;;
-        5) menuNodeJS ;;
-        0) break ;;
+        selection=$(selection_fun $num)
+        case ${option[$selection]} in
+        "apache") menuApache ;;
+        "nginx") menuNginx ;;
+        "dotnet") menuDotnet ;;
+        "mysql") menuMysql ;;
+        "nodejs") menuNodeJS ;;
+        "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
 
