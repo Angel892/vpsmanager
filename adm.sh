@@ -6,8 +6,9 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 
 #colores
 source $HELPERS_PATH/colors.sh
+source $HELPERS_PATH/global.sh
 
-MAIN_PATH="/etc/vpsmanager/functions";
+MAIN_PATH="/etc/vpsmanager/functions"
 
 # Incluir los archivos de funciones
 source $MAIN_PATH/actualizarScript.sh
@@ -20,34 +21,68 @@ source $MAIN_PATH/puertosActivos.sh
 
 mostrar_menu() {
     while true; do
+
+        local num=1
+
         clear
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${PRINCIPAL}   Administrador de VPS${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${SECUNDARIO}1. SSH / OPEN VPN${NC}"
-        echo -e "${SECUNDARIO}2. Administrar Protocolos${NC}"
-        echo -e "${SECUNDARIO}3. Monitorear Recursos${NC}"
-        echo -e "${SECUNDARIO}4. Actualizar Script${NC}"
-        echo -e "${SECUNDARIO}5. Eliminar Script${NC}"
-        echo -e "${SECUNDARIO}6. Autoiniciar Script${NC}"
-        echo -e "${SECUNDARIO}7. Puertos activos${NC}"
+
+        # SSH
+        echo -e "${SECUNDARIO}$num. SSH / OPEN VPN${NC}"
+        option[$num]="ssh"
+        let num++
+
+        # PROTOCOLOS
+        echo -e "${SECUNDARIO}$num. Administrar Protocolos${NC}"
+        option[$num]="protocolos"
+        let num++
+
+        # PROTOCOLOS
+        echo -e "${SECUNDARIO}$num. Monitorear Recursos${NC}"
+        option[$num]="monitorear"
+        let num++
+
+        # ACTUALIZAR
+        echo -e "${SECUNDARIO}$num. Actualizar Script${NC}"
+        option[$num]="actualizar"
+        let num++
+
+        # ELIMINAR
+        echo -e "${SECUNDARIO}$num. Eliminar Script${NC}"
+        option[$num]="eliminar"
+        let num++
+
+        # AUTOINICIAR
+        echo -e "${SECUNDARIO}$num. Autoiniciar Script${NC}"
+        option[$num]="autoIniciar"
+        let num++
+
+        # PUERTOS ACTIVOS
+        echo -e "${SECUNDARIO}$num. Puertos activos${NC}"
+        option[$num]="puertos"
+        let num++
+
         echo -e "${SALIR}0. Salir${NC}"
+        option[0]="volver"
+
         echo -e "${PRINCIPAL}=========================${NC}"
-        read -p "Seleccione una opción: " opcion
-        case $opcion in
-        1) menuSSH;;
-        2) menuProtocols ;;
-        3) monitorear_recursos ;;
-        4) actualizar_script ;;
-        5) eliminar_script ;;
-        6) autoiniciarScript ;;
-        7) mostrarPuertosActivos ;;
-        0)
+        selection=$(selectionFun $num)
+        case ${option[$selection]} in
+        "ssh") menuSSH ;;
+        "protocolos") menuProtocols ;;
+        "monitorear") monitorear_recursos ;;
+        "actualizar") actualizar_script ;;
+        "eliminar") eliminar_script ;;
+        "autoIniciar") autoiniciarScript ;;
+        "puertos") mostrarPuertosActivos ;;
+        "volver")
             echo -e "${INFO}Saliendo...${NC}"
             exit 0
             ;;
-        *) 
-            echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" 
+        *)
+            echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
             ;;
         esac
 
