@@ -7,7 +7,7 @@ source $HELPERS_PATH/colors.sh
 #funciones globales
 source $HELPERS_PATH/global.sh
 
-MENU="SSH"
+local MENU="SSH"
 
 SSH_PATH="/etc/vpsmanager/functions/ssh"
 

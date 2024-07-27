@@ -7,7 +7,7 @@ source $HELPERS_PATH/colors.sh
 #funciones globales
 source $HELPERS_PATH/global.sh
 
-MENU="NODE JS"
+local MENU="NODE JS"
 
 installNodeJS() {
     echo -e "${INFO}Instalando Node.js y npm...${NC}"

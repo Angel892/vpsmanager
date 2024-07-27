@@ -7,7 +7,7 @@ source $HELPERS_PATH/colors.sh
 #funciones globales
 source $HELPERS_PATH/global.sh
 
-MENU="MYSQL"
+local MENU="MYSQL"
 
 installMysql() {
     echo -e "${INFO}Instalando MySQL...${NC}"
