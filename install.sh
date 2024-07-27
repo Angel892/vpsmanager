@@ -82,44 +82,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Añadir alias al archivo de configuración del shell
-if ! grep -q "$ALIAS_DEFINITION" ~/.bashrc; then
-    echo "$ALIAS_DEFINITION" >>~/.bashrc
-    if [ $? -ne 0 ]; then
-        echo "Error: No se pudo añadir el alias a ~/.bashrc."
-        exit 1
-    fi
-    echo "Alias '$ALIAS_NAME' añadido a ~/.bashrc. Aplicando cambios..."
-    source ~/.bashrc
-    if [ $? -ne 0 ]; then
-        echo "Error: No se pudo aplicar los cambios del alias."
-        exit 1
-    fi
-else
-    echo "El alias '$ALIAS_NAME' ya existe en ~/.bashrc."
-fi
-
-# También agregar el alias a ~/.zshrc si el usuario usa Zsh
-if [ -f ~/.zshrc ] && ! grep -q "$ALIAS_DEFINITION" ~/.zshrc; then
-    echo "$ALIAS_DEFINITION" >> ~/.zshrc
-    if [ $? -ne 0 ]; then
-        echo "Error: No se pudo añadir el alias a ~/.zshrc."
-        exit 1
-    fi
-    echo "Alias '$ALIAS_NAME' añadido a ~/.zshrc."
-    source ~/.zshrc
-    if [ $? -ne 0 ]; then
-        echo "Error: No se pudo aplicar los cambios del alias."
-        exit 1
-    fi
-fi
-
-# Aplicar cambios al shell
-source ~/.bashrc
-if [ $? -ne 0 ]; then
-    echo "Error: No se pudo aplicar los cambios del alias."
-    exit 1
-fi
+echo "/etc/vpsmanager/adm.sh" >/usr/bin/adm && chmod +x /usr/bin/adm
+echo "/etc/vpsmanager/ADM.sh" >/usr/bin/ADM && chmod +x /usr/bin/ADM
 
 # Ejecutar el script principal desde su nueva ubicación (evitar usando exec para mantener la sesión)
 $ALIAS_COMMAND
