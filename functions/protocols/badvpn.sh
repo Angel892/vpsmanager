@@ -74,7 +74,7 @@ proto_badvpn() {
     echo -e "${PRINCIPAL}  Instalador de BadVPN (UDP)${NC}"
     echo -e "${PRINCIPAL}=========================${NC}"
     if [[ ! -e /bin/badvpn-udpgw ]]; then
-        wget -O /bin/badvpn-udpgw https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/badvpn-udpgw &>/dev/null
+        wget -O /bin/badvpn-udpgw https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/badvpn-udpgw &>/dev/null
         chmod 777 /bin/badvpn-udpgw
     fi
     echo -e "${SECUNDARIO}1. Instalar un BadVPN${NC}"
