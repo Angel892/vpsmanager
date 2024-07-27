@@ -33,17 +33,23 @@ selectionFun() {
         # Verifica si la opción es válida
         if [[ -z $selection ]]; then
             # Si la entrada está vacía, muestra un mensaje de error y repite el bucle
-            tput cuu1 # Mueve el cursor una línea hacia arriba
-            tput el   # Limpia la línea
             echo -e "\033[1;31mPor favor, ingrese una opción válida.\033[0m" >&2
+            sleep 1
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
         elif [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
             echo $selection
             break
         else
-            # Si la opción no es válida, limpia la línea anterior y muestra el mensaje de error
-            tput cuu1 # Mueve el cursor una línea hacia arriba
-            tput el   # Limpia la línea
+            # Si la opción no es válida, muestra el mensaje de error y repite el bucle
             echo -e "\033[1;31mSelección no válida: $selection\033[0m" >&2
+            sleep 1
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
+            tput cuu1  # Mueve el cursor una línea hacia arriba
+            tput el    # Limpia la línea
         fi
     done
 }
