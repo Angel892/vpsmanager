@@ -36,28 +36,32 @@ menuProtocols() {
         echo -e "${PRINCIPAL}=========================${NC}"
 
         # APACHE
-        echo -e "${SECUNDARIO}$num. Apache${NC} $(estado_apache)"
+        currentStatus=$(checkStatusF "apache2")
+        echo -e "${SECUNDARIO}$num. Apache${NC} $currentStatus"
         option[$num]="apache"
         let num++
 
         # NGINX
-        currentStatus=$(checkStatus "nginx")
+        currentStatus=$(checkStatusF "nginx")
         echo -e "${SECUNDARIO}$num. Nginx${NC} $currentStatus"
         option[$num]="nginx"
         let num++
 
         # DOTNET
-        echo -e "${SECUNDARIO}$num. Dotnet${NC}"
+        currentStatus=$(checkStatusF "dotnet")
+        echo -e "${SECUNDARIO}$num. Dotnet${NC} $currentStatus"
         option[$num]="dotnet"
         let num++
 
         # MYSQL
-        echo -e "${SECUNDARIO}$num. Mysql${NC}"
+        currentStatus=$(checkStatusF "mysql")
+        echo -e "${SECUNDARIO}$num. Mysql${NC} $currentStatus"
         option[$num]="mysql"
         let num++
 
         # NODE JS
-        echo -e "${SECUNDARIO}$num. Node js${NC}"
+        currentStatus=$(checkStatusF "node")
+        echo -e "${SECUNDARIO}$num. Node js${NC} $currentStatus"
         option[$num]="nodejs"
         let num++
 
