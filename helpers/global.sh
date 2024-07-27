@@ -77,13 +77,16 @@ msgCentrado() {
     COLOR[6]='\033[1;97m' #BALNCO='\033[1;97m'
     NEGRITO='\e[1m'
     SINCOLOR='\e[0m'
+
+    printf "%${espacios}s" "" # Add spaces to center the text
+
     case $1 in
-    -ne) cor="${COLOR[1]}${NEGRITO}" && echo -ne "${espacios}${cor}${2}${SINCOLOR}" ;;
-    -ama) cor="${COLOR[3]}${NEGRITO}" && echo -e "${espacios}${cor}${2}${SINCOLOR}" ;;
-    -verm) cor="${COLOR[3]}${NEGRITO}[!] ${COLOR[1]}" && echo -e "${espacios}${cor}${2}${SINCOLOR}" ;;
-    -verm2) cor="${COLOR[1]}${NEGRITO}" && echo -e "${espacios}${cor}${2}${SINCOLOR}" ;;
-    -azu) cor="${COLOR[6]}${NEGRITO}" && echo -e "${espacios}${cor}${2}${SINCOLOR}" ;;
-    -verd) cor="${COLOR[2]}${NEGRITO}" && echo -e "${espacios}${cor}${2}${SINCOLOR}" ;;
-    -bra) cor="${COLOR[0]}${SINCOLOR}" && echo -e "${espacios}${cor}${2}${SINCOLOR}" ;;
+    -ne) cor="${COLOR[1]}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -ama) cor="${COLOR[3]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verm) cor="${COLOR[3]}${NEGRITO}[!] ${COLOR[1]}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verm2) cor="${COLOR[1]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -azu) cor="${COLOR[6]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verd) cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -bra) cor="${COLOR[0]}${SINCOLOR}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     esac
 }
