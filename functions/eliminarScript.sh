@@ -2,8 +2,6 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
-
-
 eliminar_script() {
     clear
     echo -e "${SALIR}=========================${NC}"
@@ -18,36 +16,18 @@ eliminar_script() {
         else
             echo -e "${INFO}El directorio /etc/vpsmanager no existe.${NC}"
         fi
-        
-        # Eliminar alias si existen
-        if grep -q 'alias adm=' ~/.bashrc; then
-            sed -i '/alias adm=/d' ~/.bashrc
-            echo -e "${SECUNDARIO}Alias eliminado de ~/.bashrc.${NC}"
+
+        alias1="/usr/bin/adm"
+        alias2="/usr/bin/ADM"
+
+        if [ -e "$alias1" ]; then
+            sudo rm $alias1
         fi
 
-        if grep -q 'alias adm=' ~/.bash_profile; then
-            sed -i '/alias adm=/d' ~/.bash_profile
-            echo -e "${SECUNDARIO}Alias eliminado de ~/.bash_profile.${NC}"
+        if [ -e "$alias2" ]; then
+            sudo rm $alias2
         fi
 
-        if grep -q 'alias adm=' ~/.zshrc; then
-            sed -i '/alias adm=/d' ~/.zshrc
-            echo -e "${SECUNDARIO}Alias eliminado de ~/.zshrc.${NC}"
-        fi
-        
-        # Aplicar cambios en el archivo de configuración del shell
-        if [ -f ~/.bashrc ]; then
-            source ~/.bashrc
-        fi
-
-        if [ -f ~/.bash_profile ]; then
-            source ~/.bash_profile
-        fi
-
-        if [ -f ~/.zshrc ]; then
-            source ~/.zshrc
-        fi
-        
         echo -e "${SECUNDARIO}Todos los archivos y configuraciones han sido eliminados.${NC}"
         exit 0
     else

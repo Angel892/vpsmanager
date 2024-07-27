@@ -2,8 +2,8 @@
 
 # Definir la variable para el alias
 ALIAS_NAME="adm"
-ALIAS_COMMAND="sudo /etc/vpsmanager/adm.sh"
-ALIAS_DEFINITION="alias $ALIAS_NAME='$ALIAS_COMMAND'"
+MENU_PATH="/etc/vpsmanager/adm.sh"
+ALIAS_COMMAND="sudo $MENU_PATH"
 
 DIRECTORIO_PRINCIPAL="/etc/vpsmanager"
 
@@ -54,7 +54,7 @@ actualizarVPS() {
     fi
 }
 
-actualizarVPS;
+actualizarVPS
 
 validarDirectorio "$DIRECTORIO_PRINCIPAL"
 
@@ -82,8 +82,22 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "/etc/vpsmanager/adm.sh" >/usr/bin/adm && chmod +x /usr/bin/adm
-echo "/etc/vpsmanager/ADM.sh" >/usr/bin/ADM && chmod +x /usr/bin/ADM
+alias1="/usr/bin/adm"
+alias2="/usr/bin/ADM"
+
+if [ -e "$alias1" ]; then
+    sudo rm $alias1
+    echo "$MENU_PATH" >$alias1 && chmod +x $alias1
+else
+    echo "$MENU_PATH" >$alias1 && chmod +x $alias1
+fi
+
+if [ -e "$alias2" ]; then
+    sudo rm $alias2
+    echo "$MENU_PATH" >$alias2 && chmod +x $alias2
+else
+    echo "$MENU_PATH" >$alias2 && chmod +x $alias2
+fi
 
 # Ejecutar el script principal desde su nueva ubicación (evitar usando exec para mantener la sesión)
 $ALIAS_COMMAND
