@@ -13,27 +13,19 @@ autoiniciarScript() {
     echo -e "${PRINCIPAL}  Autoiniciar Script${NC}"
     echo -e "${PRINCIPAL}=========================${NC}"
 
-    if grep -q "/etc/vpsmanager/adm.sh" /etc/bash.bashrc; then
-        echo -e "${VERDE}El script ya está configurado para autoiniciarse.${NC}"
-        echo -e "${AMARILLO}¿Desea eliminar esta configuración? (s/n):${NC}"
-        read -p "Opción: " opcion
-        if [[ "$opcion" =~ ^[sS]$ ]]; then
-            sed -i '/\/etc\/vpsmanager\/adm.sh/d' /etc/bash.bashrc
-            echo -e "${ROJO}Autoinicio del script desactivado.${NC}"
-        else
-            echo -e "${AMARILLO}Operación cancelada.${NC}"
-        fi
-    else
-        echo -e "${ROJO}El script no está configurado para autoiniciarse.${NC}"
-        echo -e "${AMARILLO}¿Desea activar esta configuración? (s/n):${NC}"
-        read -p "Opción: " opcion
-        if [[ "$opcion" =~ ^[sS]$ ]]; then
-            cp /etc/bash.bashrc /etc/bash.bashrc.bak
-            echo '/etc/vpsmanager/adm.sh' >>/etc/bash.bashrc
-            echo -e "${VERDE}Autoinicio del script activado.${NC}"
-        else
-            echo -e "${AMARILLO}Operación cancelada.${NC}"
-        fi
+    if [[ -e /etc/bash.bashrc-bakup ]]; then
+        mv -f /etc/bash.bashrc-bakup /etc/bash.bashrc
+        cat /etc/bash.bashrc | grep -v "/etc/vpsmanager/adm.sh" >/tmp/bash
+        mv -f /tmp/bash /etc/bash.bashrc
+        echo -e "${VERDE}Auto inicio removido con éxito.${NC}"
+        echo -e "${PRINCIPAL}=========================${NC}"
+    elif [[ -e /etc/bash.bashrc ]]; then
+        cat /etc/bash.bashrc | grep -v "/etc/vpsmanager/adm.sh" >/etc/bash.bashrc.2
+        echo '/etc/vpsmanager/adm.sh' >>/etc/bash.bashrc.2
+        cp /etc/bash.bashrc /etc/bash.bashrc-bakup
+        mv -f /etc/bash.bashrc.2 /etc/bash.bashrc
+        echo -e "${VERDE}Auto inicio agregado con éxito.${NC}"
+        echo -e "${PRINCIPAL}=========================${NC}"
     fi
 
     read -p "Presione Enter para continuar..."
