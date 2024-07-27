@@ -32,7 +32,7 @@ menuProtocols() {
 
         clear
         msg -bar
-        msgCentrado -ama "ADMINISTRADOR DE PROTOCOLOS"
+        msgCentrado -verd "ADMINISTRADOR DE PROTOCOLOS"
         msg -bar
 
         # APACHE
@@ -145,7 +145,7 @@ menuProtocols() {
         option[$num]="psiphone"
         let num++
 
-        msgCentradoBarra -ama "PROXY´S"
+        msgCentradoBarra -verd "PROXY´S"
 
         # WEB SOCKET
         currentStatus=$(checkStatus "pydic-*")
