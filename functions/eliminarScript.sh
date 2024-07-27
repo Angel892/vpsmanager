@@ -2,8 +2,7 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
-#colores
-source $HELPERS_PATH/colors.sh
+
 
 eliminar_script() {
     clear

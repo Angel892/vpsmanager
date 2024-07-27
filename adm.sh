@@ -4,8 +4,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 # Enable debugging
 #set -x
 
-#colores
-source $HELPERS_PATH/colors.sh
+
 source $HELPERS_PATH/global.sh
 
 MAIN_PATH="/etc/vpsmanager/functions"

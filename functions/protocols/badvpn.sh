@@ -2,7 +2,7 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 # Colores
-source $HELPERS_PATH/colors.sh
+
 # Funciones globales
 source $HELPERS_PATH/global.sh
 

@@ -2,8 +2,7 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
-#colores
-source $HELPERS_PATH/colors.sh
+
 crear_usuario_ssh() {
     while true; do
         clear
