@@ -24,39 +24,87 @@ source $SSH_PATH/eliminarTodos.sh
 
 menuSSH() {
     while true; do
+
+        local num=1
+
         clear
         echo -e "${PRINCIPAL}=========================${NC}"
         echo -e "${PRINCIPAL}    $MENU smanager${NC}"
         echo -e "${PRINCIPAL}=========================${NC}"
 
-        echo -e "${SECUNDARIO}1. Crear cuenta $MENU${NC}"
-        echo -e "${SECUNDARIO}2. Crear cuenta temporal $MENU${NC}"
-        echo -e "${SECUNDARIO}3. Remover usuario $MENU${NC}"
-        echo -e "${SECUNDARIO}4. Bloquear / Desbloquear usuario $MENU${NC}"
-        echo -e "${SECUNDARIO}5. Editar cuenta $MENU${NC}"
-        echo -e "${SECUNDARIO}6. Detalle de todos los usuarios $MENU${NC}"
-        echo -e "${SECUNDARIO}7. Usuarios conectados $MENU${NC}"
-        echo -e "${SECUNDARIO}8. Eliminar usuarios vencidos $MENU${NC}"
-        echo -e "${SECUNDARIO}9. Backup de usuarios $MENU${NC}"
-        echo -e "${SECUNDARIO}10. Agregar / Eliminar banner $MENU${NC}"
-        echo -e "${SECUNDARIO}11. Eliminar todos los usuarios $MENU${NC}"
+        # CREAR CUENTA
+        echo -e "${SECUNDARIO}$num. Crear cuenta SSH${NC}"
+        option[$num]="crear"
+        let num++
+
+        # CREAR CUENTA TEMPORAL
+        echo -e "${SECUNDARIO}$num. Crear cuenta temporal SSH${NC}"
+        option[$num]="crearTemporal"
+        let num++
+
+        # REMOVER USUARIO
+        echo -e "${SECUNDARIO}$num. Remover usuario SHH${NC}"
+        option[$num]="remover"
+        let num++
+
+        # BLOQUEAR USUARIO
+        echo -e "${SECUNDARIO}$num. Bloquear / Desbloquear usuario SHH${NC}"
+        option[$num]="bloquear"
+        let num++
+
+        # EDITAR USUARIO
+        echo -e "${SECUNDARIO}$num. Editar cuenta SHH${NC}"
+        option[$num]="editar"
+        let num++
+
+        # DETALLES
+        echo -e "${SECUNDARIO}$num. Detalle de todos los usuarios SHH${NC}"
+        option[$num]="detalles"
+        let num++
+
+        # USUARIOS CONECTADOS
+        echo -e "${SECUNDARIO}$num. Usuarios conectados SHH${NC}"
+        option[$num]="conectados"
+        let num++
+
+        # ELIMINAR USUARIOS VENCIDOS
+        echo -e "${SECUNDARIO}$num. Eliminar usuarios vencidos${NC}"
+        option[$num]="eliminarVencidos"
+        let num++
+
+        # BACKUP
+        echo -e "${SECUNDARIO}$num. Backup de usuarios${NC}"
+        option[$num]="backup"
+        let num++
+
+        # BANNER
+        echo -e "${SECUNDARIO}$num. Agregar / Eliminar banner${NC}"
+        option[$num]="banner"
+        let num++
+
+        # ELIMINAR TODOS LOS USUARIOS
+        echo -e "${SECUNDARIO}$num. Eliminar todos los usuarios${NC}"
+        option[$num]="eliminarTodos"
+        let num++
 
         echo -e "${SALIR}0. Regresar al menú anterior${NC}"
+        option[0]="volver"
+
         echo -e "${PRINCIPAL}=========================${NC}"
-        read -p "Seleccione una opción: " opcion
-        case $opcion in
-        1) crearCuentaSSH;;
-        2) crearCuentaTemporalSSH;;
-        3) removerUsuarioSSH;;
-        4) bloquearDesbloquearUsuarioSSH;;
-        5) editarCuentaSSH;;
-        6) detalleUsuariosSSH;;
-        7) usuariosConectadosSSH;;
-        8) eliminarUsuariosVencidosSSH;;
-        9) backupUsuariosSSH;;
-        10) gestionarBannerSSH;;
-        11) eliminarTodosUsuariosSSH;;
-        0) break ;;
+        selection=$(selectionFun $num)
+        case ${option[$selection]} in
+        "crear") crearCuentaSSH;;
+        "crearTemporal") crearCuentaTemporalSSH;;
+        "remover") removerUsuarioSSH;;
+        "bloquear") bloquearDesbloquearUsuarioSSH;;
+        "editar") editarCuentaSSH;;
+        "detalles") detalleUsuariosSSH;;
+        "conectados") usuariosConectadosSSH;;
+        "eliminarVencidos") eliminarUsuariosVencidosSSH;;
+        "backup") backupUsuariosSSH;;
+        "banner") gestionarBannerSSH;;
+        "eliminarTodos") eliminarTodosUsuariosSSH;;
+        "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
     done
