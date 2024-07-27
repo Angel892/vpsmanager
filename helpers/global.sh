@@ -18,6 +18,11 @@ checkStatus() {
     [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
 }
 
+checkStatusF() {
+    toCheck=$(ps -ef | grep "$1" | grep -v "grep" | awk -F "pts" '{print $1}')
+    [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
+}
+
 #--- MENU DE SELECCION
 selectionFun() {
     local selection

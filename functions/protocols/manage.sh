@@ -41,8 +41,8 @@ menuProtocols() {
         let num++
 
         # NGINX
-        nginxStatus=$(checkStatus "nginx")
-        echo -e "${SECUNDARIO}$num. Nginx${NC} $nginxStatus"
+        currentStatus=$(checkStatus "nginx")
+        echo -e "${SECUNDARIO}$num. Nginx${NC} $currentStatus"
         option[$num]="nginx"
         let num++
 
@@ -66,69 +66,80 @@ menuProtocols() {
         echo ""
 
         # BADVPN
-        badvpnStatus=$(checkStatus "badvpn")
-        echo -e "${SECUNDARIO}$num. BADVPN${NC} $badvpnStatus"
+        currentStatus=$(checkStatus "badvpn")
+        echo -e "${SECUNDARIO}$num. BADVPN${NC} $currentStatus"
         option[$num]="badvpn"
         let num++
 
         # DROPBEAR
-        badvpnStatus=$(checkStatus "dropbear")
-        echo -e "${SECUNDARIO}$num. DROPBEAR${NC} $badvpnStatus"
+        currentStatus=$(checkStatus "dropbear")
+        echo -e "${SECUNDARIO}$num. DROPBEAR${NC} $currentStatus"
         option[$num]="dropbear"
         let num++
 
         # SSL
-        echo -e "${SECUNDARIO}$num. SSL${NC}"
+        currentStatus=$(checkStatus "stunnel4")
+        echo -e "${SECUNDARIO}$num. SSL${NC} $currentStatus"
         option[$num]="ssl"
         let num++
 
         # SQUID
-        echo -e "${SECUNDARIO}$num. SQUID${NC}"
+        currentStatus=$(checkStatus "squid")
+        echo -e "${SECUNDARIO}$num. SQUID${NC} $currentStatus"
         option[$num]="squid"
         let num++
 
         # OPENVPN
-        echo -e "${SECUNDARIO}$num. OPENVPN${NC}"
+        currentStatus=$(checkStatus "openvpn")
+        echo -e "${SECUNDARIO}$num. OPENVPN${NC} $currentStatus"
         option[$num]="openvpn"
         let num++
 
         # SHADOWSOCK NORMAL
-        echo -e "${SECUNDARIO}$num. SHADOWSOCK NORMAL${NC}"
+        currentStatus=$(checkStatus "ssserver")
+        echo -e "${SECUNDARIO}$num. SHADOWSOCK NORMAL${NC} $currentStatus"
         option[$num]="shadowSock"
         let num++
 
         # SHADOWSHOW LIV
-        echo -e "${SECUNDARIO}$num. SHADOWSOCK LIV +OBFS${NC}"
+        currentStatus=$(checkStatus "ss-server")
+        echo -e "${SECUNDARIO}$num. SHADOWSOCK LIV +OBFS${NC} $currentStatus"
         option[$num]="shadowSockLiv"
         let num++
 
         # SLOWDNS
-        echo -e "${SECUNDARIO}$num. SLOWDNS${NC}"
+        currentStatus=$(checkStatus "slowdns")
+        echo -e "${SECUNDARIO}$num. SLOWDNS${NC} $currentStatus"
         option[$num]="slowdns"
         let num++
 
         # GETTUNEL
-        echo -e "${SECUNDARIO}$num. GETTUNEL${NC}"
+        currentStatus=$(checkStatus "PGet.py")
+        echo -e "${SECUNDARIO}$num. GETTUNEL${NC} $currentStatus"
         option[$num]="gettunel"
         let num++
 
         # TCP OVER
-        echo -e "${SECUNDARIO}$num. TCP-OVER${NC}"
+        currentStatus=$(checkStatus "scktcheck")
+        echo -e "${SECUNDARIO}$num. TCP-OVER${NC} $currentStatus"
         option[$num]="tcpover"
         let num++
 
         # SSLH
-        echo -e "${SECUNDARIO}$num. SSLH${NC}"
+        currentStatus=$(checkStatusF "/var/run/sslh/sslh.pid")
+        echo -e "${SECUNDARIO}$num. SSLH${NC} $currentStatus"
         option[$num]="sslh"
         let num++
 
         # UDP REQUEST
-        echo -e "${SECUNDARIO}$num. UDP-REQUEST${NC}"
+        currentStatus=$(checkStatus "/usr/bin/udpServer")
+        echo -e "${SECUNDARIO}$num. UDP-REQUEST${NC} $currentStatus"
         option[$num]="udprequest"
         let num++
 
-        # PSIPHONR
-        echo -e "${SECUNDARIO}$num. SERVIDOR PSIPHONE${NC}"
+        # PSIPHON
+        currentStatus=$(checkStatus "psiserver")
+        echo -e "${SECUNDARIO}$num. SERVIDOR PSIPHONE${NC} $currentStatus"
         option[$num]="psiphone"
         let num++
 
@@ -137,22 +148,26 @@ menuProtocols() {
         echo ""
 
         # WEB SOCKET
-        echo -e "${SECUNDARIO}$num. WEBSOKET STATUS EDITABLE${NC}"
+        currentStatus=$(checkStatus "pydic-*")
+        echo -e "${SECUNDARIO}$num. WEBSOKET STATUS EDITABLE${NC} $currentStatus"
         option[$num]="websocket"
         let num++
 
         # PROXY VPN
-        echo -e "${SECUNDARIO}$num. PROXY OPENVPN${NC}"
+        currentStatus=$(checkStatus "POpen.py")
+        echo -e "${SECUNDARIO}$num. PROXY OPENVPN${NC} $currentStatus"
         option[$num]="proxyOpenVpn"
         let num++
 
         # PROXY PUBLICO
-        echo -e "${SECUNDARIO}$num. PROXY PUBLICO${NC}"
+        currentStatus=$(checkStatus "PPub.py")
+        echo -e "${SECUNDARIO}$num. PROXY PUBLICO${NC} $currentStatus"
         option[$num]="proxyPublico"
         let num++
 
         # PROXY PRIVADO
-        echo -e "${SECUNDARIO}$num. PROXY PRIVADO${NC}"
+        currentStatus=$(checkStatus "PPriv.py")
+        echo -e "${SECUNDARIO}$num. PROXY PRIVADO${NC} $currentStatus"
         option[$num]="proxyPrivado"
         let num++
 
