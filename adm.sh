@@ -25,9 +25,11 @@ mostrar_menu() {
         local num=1
 
         clear
-        echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${PRINCIPAL}   Administrador de VPS${NC}"
-        echo -e "${PRINCIPAL}=========================${NC}"
+        msg -bar
+        msg -tit
+        msg -bar
+        msg -ama "                  LXMANAGER "
+        msg -bar
 
         # SSH
         echo -e "${SECUNDARIO}$num. SSH / OPEN VPN${NC}"
