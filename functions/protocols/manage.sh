@@ -171,7 +171,7 @@ menuProtocols() {
         "dotnet") menuDotnet ;;
         "mysql") menuMysql ;;
         "nodejs") menuNodeJS ;;
-        "badvon") proto_badvpn ;;
+        "badvpn") proto_badvpn ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
