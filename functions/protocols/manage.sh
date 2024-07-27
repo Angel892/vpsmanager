@@ -2,10 +2,6 @@
 
 menuProtocols() {
 
-    local HELPERS_PATH="/etc/vpsmanager/helpers"
-
-    #funciones globales
-
     local PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
 
     source $PROTOCOLS_PATH/apache.sh
