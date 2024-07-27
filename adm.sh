@@ -19,76 +19,71 @@ source $MAIN_PATH/autoiniciarScript.sh
 source $MAIN_PATH/puertosActivos.sh
 
 mostrar_menu() {
-    while true; do
+    local num=1
 
-        local num=1
+    clear
+    msg -bar
+    msg -tit
+    msg -bar
+    msgCentrado -ama "LXMANAGER"
+    msg -bar
 
-        clear
-        msg -bar
-        msg -tit
-        msg -bar
-        msgCentrado -ama "LXMANAGER"
-        msg -bar
+    # SSH
+    echo -e "${SECUNDARIO}$num. SSH / OPEN VPN${NC}"
+    option[$num]="ssh"
+    let num++
 
-        # SSH
-        echo -e "${SECUNDARIO}$num. SSH / OPEN VPN${NC}"
-        option[$num]="ssh"
-        let num++
+    # PROTOCOLOS
+    echo -e "${SECUNDARIO}$num. Administrar Protocolos${NC}"
+    option[$num]="protocolos"
+    let num++
 
-        # PROTOCOLOS
-        echo -e "${SECUNDARIO}$num. Administrar Protocolos${NC}"
-        option[$num]="protocolos"
-        let num++
+    # PROTOCOLOS
+    echo -e "${SECUNDARIO}$num. Monitorear Recursos${NC}"
+    option[$num]="monitorear"
+    let num++
 
-        # PROTOCOLOS
-        echo -e "${SECUNDARIO}$num. Monitorear Recursos${NC}"
-        option[$num]="monitorear"
-        let num++
+    # ACTUALIZAR
+    echo -e "${SECUNDARIO}$num. Actualizar Script${NC}"
+    option[$num]="actualizar"
+    let num++
 
-        # ACTUALIZAR
-        echo -e "${SECUNDARIO}$num. Actualizar Script${NC}"
-        option[$num]="actualizar"
-        let num++
+    # ELIMINAR
+    echo -e "${SECUNDARIO}$num. Eliminar Script${NC}"
+    option[$num]="eliminar"
+    let num++
 
-        # ELIMINAR
-        echo -e "${SECUNDARIO}$num. Eliminar Script${NC}"
-        option[$num]="eliminar"
-        let num++
+    # AUTOINICIAR
+    echo -e "${SECUNDARIO}$num. Autoiniciar Script${NC}"
+    option[$num]="autoIniciar"
+    let num++
 
-        # AUTOINICIAR
-        echo -e "${SECUNDARIO}$num. Autoiniciar Script${NC}"
-        option[$num]="autoIniciar"
-        let num++
+    # PUERTOS ACTIVOS
+    echo -e "${SECUNDARIO}$num. Puertos activos${NC}"
+    option[$num]="puertos"
+    let num++
 
-        # PUERTOS ACTIVOS
-        echo -e "${SECUNDARIO}$num. Puertos activos${NC}"
-        option[$num]="puertos"
-        let num++
+    echo -e "${SALIR}0. Salir${NC}"
+    option[0]="volver"
 
-        echo -e "${SALIR}0. Salir${NC}"
-        option[0]="volver"
-
-        msg -bar
-        selection=$(selectionFun $num)
-        case ${option[$selection]} in
-        "ssh") menuSSH ;;
-        "protocolos") menuProtocols ;;
-        "monitorear") monitorear_recursos ;;
-        "actualizar") actualizar_script ;;
-        "eliminar") eliminar_script ;;
-        "autoIniciar") autoiniciarScript ;;
-        "puertos") mostrarPuertosActivos ;;
-        "volver")
-            echo -e "${INFO}Saliendo...${NC}"
-            exit 0
-            ;;
-        *)
-            echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
-            ;;
-        esac
-
-        #read -p "Seleccione una opción: " opcion
-    done
+    msg -bar
+    selection=$(selectionFun $num)
+    case ${option[$selection]} in
+    "ssh") menuSSH ;;
+    "protocolos") menuProtocols ;;
+    "monitorear") monitorear_recursos ;;
+    "actualizar") actualizar_script ;;
+    "eliminar") eliminar_script ;;
+    "autoIniciar") autoiniciarScript ;;
+    "puertos") mostrarPuertosActivos ;;
+    "volver")
+        echo -e "${INFO}Saliendo...${NC}"
+        exit 0
+        ;;
+    *)
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+        ;;
+    esac
 }
 
 # Bucle para mostrar el menú hasta que el usuario decida salir
