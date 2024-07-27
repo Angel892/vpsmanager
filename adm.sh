@@ -28,7 +28,7 @@ mostrar_menu() {
         msg -bar
         msg -tit
         msg -bar
-        msg -ama "                  LXMANAGER "
+        msgCentrado -ama "LXMANAGER"
         msg -bar
 
         # SSH
