@@ -51,7 +51,7 @@ mostrar_menu() {
         let num++
 
         # ACTUALIZAR
-        opcionMenu -blanco $num "Actualizar Script"
+        opcionMenu -verde $num "Actualizar Script"
         option[$num]="actualizar"
         let num++
 
