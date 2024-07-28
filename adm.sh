@@ -36,32 +36,32 @@ mostrar_menu() {
         let num++
 
         # PROTOCOLOS
-        echo -e "${SECUNDARIO}$num. Administrar Protocolos${NC}"
+        opcionMenu $num "Administrar Protocolos"
         option[$num]="protocolos"
         let num++
 
         # PROTOCOLOS
-        echo -e "${SECUNDARIO}$num. Monitorear Recursos${NC}"
+        opcionMenu $num "Monitorear Recursos"
         option[$num]="monitorear"
         let num++
 
         # ACTUALIZAR
-        echo -e "${SECUNDARIO}$num. Actualizar Script${NC}"
+        opcionMenu $num "Actualizar Script"
         option[$num]="actualizar"
         let num++
 
         # ELIMINAR
-        echo -e "${SECUNDARIO}$num. Eliminar Script${NC}"
+        opcionMenu $num "Eliminar Script"
         option[$num]="eliminar"
         let num++
 
         # AUTOINICIAR
-        echo -e "${SECUNDARIO}$num. Autoiniciar Script${NC}"
+        opcionMenu $num "Autoiniciar Script"
         option[$num]="autoIniciar"
         let num++
 
         # PUERTOS ACTIVOS
-        echo -e "${SECUNDARIO}$num. Puertos activos${NC}"
+        opcionMenu $num "Puertos activos"
         option[$num]="puertos"
         let num++
 
