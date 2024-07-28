@@ -263,12 +263,12 @@ msgCentradoRead() {
 
     case $1 in
     -ne) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
-    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
-    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && read -p "${cor}${2}${SINCOLOR}" ;;
-    -verm2) cor="${NEGRITA}${ROJO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
-    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
-    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
-    -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && read -p "${cor}${2}${SINCOLOR}" ;;
-    -noStyle) read -p "${2}${SINCOLOR}" ;;
+    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && printf "${cor}${2}${SINCOLOR}" && read -r ;;
+    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && printf "${cor}${2}${SINCOLOR}" && read -r ;;
+    -verm2) cor="${NEGRITA}${ROJO}${NEGRITO}" && printf "${cor}${2}${SINCOLOR}" && read -r ;;
+    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && printf "${cor}${2}${SINCOLOR}" && read -r ;;
+    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && printf "${cor}${2}${SINCOLOR}" && read -r ;;
+    -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && printf "${cor}${2}${SINCOLOR}" && read -r ;;
+    -noStyle) printf "${2}${SINCOLOR}" && read -r ;;
     esac
 }
