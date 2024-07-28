@@ -25,7 +25,7 @@ activar_badvpn() {
     echo -e "${INFO}Ejemplo: 7300 7200 7100 | Puerto recomendado: 7300${NC}"
     read -p "Digite los puertos: " -e -i "7200 7300" portasx
     local BADVPNLOGPATH="/etc/vpsmanager/PortM/Badvpn.log"
-    validarArchivo "$BADVPNLOGPATH"
+    validarArchivo $BADVPNLOGPATH
     echo "$portasx" >$BADVPNLOGPATH
     msg -bar
     totalporta=($portasx)

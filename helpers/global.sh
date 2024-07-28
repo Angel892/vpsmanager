@@ -13,6 +13,13 @@ mostrarInActivo() {
     echo -e "${ROJO}[ OFF ]${NC}"
 }
 
+validarArchivo() {
+    if [ ! -e "$1" ]; then
+    # Si el archivo no existe, se crea
+    touch "$1"
+}
+
+
 checkStatus() {
     toCheck=$(ps x | grep "$1" | grep -v "grep" | awk -F "pts" '{print $1}')
     [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
@@ -131,10 +138,4 @@ validarDirectorio() {
         fi
         echo "Directorio $directorio creado."
     fi
-}
-
-validarArchivo() {
-    if [ ! -e "$1" ]; then
-    # Si el archivo no existe, se crea
-    touch "$1"
 }
