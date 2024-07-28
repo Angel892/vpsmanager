@@ -168,7 +168,7 @@ menuProtocols() {
         "mysql") menuMysql ;;
         "nodejs") menuNodeJS ;;
         "badvpn") proto_badvpn ;;
-        "volver") break ;;
+        "volver") exit 0 ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
 
