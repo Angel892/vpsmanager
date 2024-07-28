@@ -34,7 +34,6 @@ crearCuentaTemporalSSH() {
     while true; do
         clear && clear
 
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         msg -bar
         msg -tit
         msg -bar
