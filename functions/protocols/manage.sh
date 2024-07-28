@@ -16,7 +16,7 @@ menuProtocols() {
 
         clear
         msg -bar
-        msgCentrado -verd "ADMINISTRADOR DE PROTOCOLOS"
+        msgCentrado -amarillo "ADMINISTRADOR DE PROTOCOLOS"
         msg -bar
 
         # APACHE
