@@ -239,7 +239,7 @@ opcionMenu() {
     if ($isNewLine == true); then
         echo
     else
-        #printf "%${spacing}s" ""
+        printf "%${spacing}s" ""
     fi
 }
 
