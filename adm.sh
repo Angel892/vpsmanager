@@ -41,7 +41,7 @@ mostrar_menu() {
         let num++
 
         # PUERTOS ACTIVOS
-        opcionMenu -blanco $num "Puertos activos"
+        opcionMenu -verde $num "Puertos activos"
         option[$num]="puertos"
         let num++
 
