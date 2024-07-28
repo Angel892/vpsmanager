@@ -1,22 +1,22 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
+HELPERS_PATH="$mainPath/helpers"
 # Enable debugging
 #set -x
 
 # funciones globales
 source $HELPERS_PATH/global.sh
 
-MAIN_PATH="/etc/vpsmanager/functions"
+functionsPath="$mainPath/functions"
 
 # Incluir los archivos de funciones
-source $MAIN_PATH/actualizarScript.sh
-source $MAIN_PATH/ssh/manage.sh
-source $MAIN_PATH/eliminarScript.sh
-source $MAIN_PATH/protocols/manage.sh
-source $MAIN_PATH/monitorearRecursos.sh
-source $MAIN_PATH/autoiniciarScript.sh
-source $MAIN_PATH/puertosActivos.sh
+source $functionsPath/actualizarScript.sh
+source $functionsPath/ssh/manage.sh
+source $functionsPath/eliminarScript.sh
+source $functionsPath/protocols/manage.sh
+source $functionsPath/monitorearRecursos.sh
+source $functionsPath/autoiniciarScript.sh
+source $functionsPath/puertosActivos.sh
 
 mostrar_menu() {
     while true; do

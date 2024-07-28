@@ -1,9 +1,5 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
-#funciones globales
-
 crearCuentaTemporalSSH() {
 
     local temporalPath="$mainPath/temp/demo-ssh";

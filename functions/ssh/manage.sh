@@ -1,17 +1,12 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
-
-#funciones globales
-
-
 local MENU="SSH"
 
-SSH_PATH="/etc/vpsmanager/functions/ssh"
+SSH_PATH="$functionsPath/ssh"
 
 #ARCHIVOS NECESARIOS
 source $SSH_PATH/crearCuenta.sh
+source $SSH_PATH/cuentaTemporal.sh
 source $SSH_PATH/detalleUsuarios.sh
 source $SSH_PATH/removerUsuario.sh
 source $SSH_PATH/bloquearCuenta.sh
