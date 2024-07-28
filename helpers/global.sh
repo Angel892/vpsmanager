@@ -170,11 +170,13 @@ opcionMenu() {
 
     local isNewLine=${3:-true}  # Por defecto es true si no se proporciona un tercer parámetro
 
+    local spacing=${4:-3}
+
     printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption"
 
     if ($isNewLine == true); then
         echo
     else
-        printf "%3s" ""
+        printf "%${spacing}s" ""
     fi
 }
