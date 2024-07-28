@@ -5,6 +5,9 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 # COLORES
 source $HELPERS_PATH/colors.sh
 
+#Eliminar linea anterior
+eliminarl=$(tput cuu1; tput el;)
+
 mostrarActivo() {
     echo -e "${VERDE}[ ON ]${NC}"
 }
@@ -50,6 +53,9 @@ selectionFun() {
             # Si la entrada está vacía, muestra un mensaje de error y repite el bucle
             echo -e "\033[1;31mPor favor, ingrese una opción válida.\033[0m" >&2
             sleep 1
+
+            eliminarl
+            eliminarl
         elif [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
             echo $selection
             break
