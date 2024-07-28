@@ -9,7 +9,6 @@ crearCuentaSSH() {
         local exp=$3
         local conex=$4
 
-        echo -e "$user $password $exp $conex"
         #nome senha Dias limite
         [[ $(cat /etc/passwd | grep $user: | grep -vi [a-z]$user | grep -v [0-9]$user >/dev/null) ]] && return 1
         valid=$(date '+%C%y-%m-%d' -d " +$exp days") && datexp=$(date "+%F" -d " + $exp days")
