@@ -29,6 +29,56 @@ crearCuentaSSH() {
         echo "" >/dev/null 2>&1
     }
 
+    # Open VPN
+    newclient() {
+
+        local user=$1
+        local password=$2
+
+        #Nome #Senha
+        usermod -p $(openssl passwd -1 $password) $user
+        while [[ ${newfile} != @(s|S|y|Y|n|N) ]]; do
+            msg -bar
+            read -p "Crear Archivo OpenVPN? [S/N]: " -e -i S newfile
+            tput cuu1 && tput dl1
+        done
+        if [[ ${newfile} = @(s|S) ]]; then
+            # Generates the custom client.ovpn
+            rm -rf /etc/openvpn/easy-rsa/pki/reqs/$user.req
+            rm -rf /etc/openvpn/easy-rsa/pki/issued/$user.crt
+            rm -rf /etc/openvpn/easy-rsa/pki/private/$user.key
+            cd /etc/openvpn/easy-rsa/
+            ./easyrsa build-client-full $user nopass >/dev/null 2>&1
+            cd
+
+            cp /etc/openvpn/client-common.txt ~/$user.ovpn
+            echo "<ca>" >>~/$user.ovpn
+            cat /etc/openvpn/easy-rsa/pki/ca.crt >>~/$user.ovpn
+            echo "</ca>" >>~/$user.ovpn
+            echo "<cert>" >>~/$user.ovpn
+            cat /etc/openvpn/easy-rsa/pki/issued/$user.crt >>~/$user.ovpn
+            echo "</cert>" >>~/$user.ovpn
+            echo "<key>" >>~/$user.ovpn
+            cat /etc/openvpn/easy-rsa/pki/private/$user.key >>~/$user.ovpn
+            echo "</key>" >>~/$user.ovpn
+            echo "<tls-auth>" >>~/$user.ovpn
+            cat /etc/openvpn/ta.key >>~/$user.ovpn
+            echo "</tls-auth>" >>~/$user.ovpn
+
+            while [[ ${ovpnauth} != @(s|S|y|Y|n|N) ]]; do
+                read -p "Colocar autenticacion de usuario en el archivo? [S/N]: " -e -i S ovpnauth
+                tput cuu1 && tput dl1
+            done
+            [[ ${ovpnauth} = @(s|S) ]] && sed -i "s;auth-user-pass;<auth-user-pass>\n$user\n$password\n</auth-user-pass>;g" ~/$user.ovpn
+            cd $HOME
+            zip ./$user.zip ./$user.ovpn >/dev/null 2>&1
+            rm ./$user.ovpn >/dev/null 2>&1
+
+            echo -e "\033[1;31mArchivo creado: ($HOME/$user.zip)"
+
+        fi
+    }
+
     cuenta_normal() {
         clear
         msg -bar
@@ -93,12 +143,11 @@ crearCuentaSSH() {
         echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
         echo -ne "\e[38;5;202mLimite de Conexiones: \e[1;97m" && echo -e "$limiteuser"
         msg -bar
-        add_user "${nomeuser}" "${senhauser}" "${diasuser}" "${limiteuser}" && echo -e "\e[1;32m            Usuario Creado con Exito" || msg -rojo "         Error, Usuario no creado" && msg -bar
+        add_user "${nomeuser}" "${senhauser}" "${diasuser}" "${limiteuser}" && msgCentrado -verde "Usuario Creado con Exito" || msgCentrado -rojo "Error, Usuario no creado" && msg -bar
         [[ $(dpkg --get-selections | grep -w "openvpn" | head -1) ]] && [[ -e /etc/openvpn/openvpn-status.log ]] && newclient "$nomeuser" "$senhauser"
         rebootnb "backbaseu" 2>/dev/null
 
-        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        controlador_ssh
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
     }
     #####-----CUENTA HWID
     cuenta_hwid() {
@@ -177,7 +226,6 @@ crearCuentaSSH() {
         rebootnb "backbaseu" 2>/dev/null
 
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        controlador_ssh
     }
     #####-----CUENTA TOKEN
     cuenta_token() {
@@ -263,7 +311,6 @@ crearCuentaSSH() {
 
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        controlador_ssh
     }
 
     while true; do
