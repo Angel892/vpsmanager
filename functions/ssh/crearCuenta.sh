@@ -8,6 +8,8 @@ crearCuentaSSH() {
         local password=$2
         local exp=$3
         local conex=$4
+
+        echo -e "$user $password $exp $conex"
         #nome senha Dias limite
         [[ $(cat /etc/passwd | grep $user: | grep -vi [a-z]$user | grep -v [0-9]$user >/dev/null) ]] && return 1
         valid=$(date '+%C%y-%m-%d' -d " +$exp days") && datexp=$(date "+%F" -d " + $exp days")
@@ -23,8 +25,8 @@ crearCuentaSSH() {
         validarArchivo "$mainPath/cuentassh"
         validarArchivo "$mainPath/regtotal"
 
-        echo "$1|$password|${datexp}|$conex" >>$mainPath/cuentassh
-        echo "$1|$password|${datexp}|$conex" >>$mainPath/regtotal
+        echo "$user|$password|${datexp}|$conex" >>$mainPath/cuentassh
+        echo "$user|$password|${datexp}|$conex" >>$mainPath/regtotal
         echo "" >/dev/null 2>&1
     }
 
