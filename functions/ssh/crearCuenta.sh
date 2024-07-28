@@ -147,7 +147,6 @@ crearCuentaSSH() {
         msg -bar
         add_user "${nomeuser}" "${senhauser}" "${diasuser}" "${limiteuser}" && msgCentrado -verde "Usuario Creado con Exito" || msgCentrado -rojo "Error, Usuario no creado" && msg -bar
         [[ $(dpkg --get-selections | grep -w "openvpn" | head -1) ]] && [[ -e /etc/openvpn/openvpn-status.log ]] && newclient "$nomeuser" "$senhauser"
-        rebootnb "backbaseu" 2>/dev/null
 
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
     }
@@ -155,10 +154,10 @@ crearCuentaSSH() {
     cuenta_hwid() {
         clear
         msg -bar
-        echo -e "\e[1;97m               ----- CUENTA HWID  ------"
+        msgCentrado -amarillo "----- CUENTA HWID  ------"
         msg -bar
         while true; do
-            echo -ne "\e[1;93mDigite HWID: \e[1;32m" && read nomeuser
+            msgne -blanco "Digite HWID: " && read nomeuser
             nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
             if [[ -z $nomeuser ]]; then
                 errorFun "nullo" && continue
@@ -173,7 +172,7 @@ crearCuentaSSH() {
         done
 
         while true; do
-            echo -ne "\e[1;93mDigite Nombre: \e[1;32m" && read nickhwid
+            msgne -blanco "Digite Nombre: " && read nickhwid
             nickhwid="$(echo $nickhwid | sed -e 's/[^a-z0-9 -]//ig')"
             if [[ -z $nickhwid ]]; then
                 errorFun "nullo" && continue
@@ -187,7 +186,7 @@ crearCuentaSSH() {
             break
         done
         while true; do
-            echo -ne "\e[1;93mDigite Tiempo de Validez: \e[1;32m" && read diasuser
+            msgne -blanco "Digite Tiempo de Validez: " && read diasuser
             if [[ -z "$diasuser" ]]; then
                 errorFun "nullo" && continue
             elif [[ "$diasuser" != +([0-9]) ]]; then
@@ -204,13 +203,13 @@ crearCuentaSSH() {
         echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
         msg -bar
         [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
-            msg -rojo "         Error, Usuario no creado"
+            msgCentrado -rojo "Error, Usuario no creado"
             return 0
         }
         valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
         userdel $nomeuser >/dev/null 2>&1
         useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
-            msg -rojo "         Error, Usuario no creado"
+            msgCentrado -rojo "Error, Usuario no creado"
             return 0
         }
         (
@@ -221,13 +220,16 @@ crearCuentaSSH() {
 
             return 1
         }
+
+        validarArchivo "$mainPath/cuentahwid"
+        validarArchivo "$mainPath/regtotal"
+
         echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/cuentahwid
         echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/regtotal
-        msg -amarillo "\e[1;32m            Usuario Creado con Exito"
+        msgCentrado -verde "Usuario Creado con Exito"
         msg -bar
-        rebootnb "backbaseu" 2>/dev/null
 
-        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
     }
     #####-----CUENTA TOKEN
     cuenta_token() {
@@ -309,7 +311,6 @@ crearCuentaSSH() {
         echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/cuentatoken
         echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/regtotal
         msg -amarillo "\e[1;32m            Usuario Creado con Exito"
-        rebootnb "backbaseu" 2>/dev/null
 
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
