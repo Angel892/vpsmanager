@@ -44,7 +44,7 @@ menuProtocols() {
         option[$num]="nodejs"
         let num++
 
-        msgCentradoBarra -amarillo "PROTOCOLOS NET"
+        msgCentradoBarra -gris "PROTOCOLOS NET"
 
         # BADVPN
         opcionMenu -blanco $num "BADVPN" true 0 "badvpn"
@@ -111,7 +111,7 @@ menuProtocols() {
         option[$num]="psiphone"
         let num++
 
-        msgCentradoBarra -amarillo "PROXY´S"
+        msgCentradoBarra -gris "PROXY´S"
 
         # WEB SOCKET
         opcionMenu -blanco $num "WEBSOKET STATUS EDITABLE" true 0 "pydic-*"
