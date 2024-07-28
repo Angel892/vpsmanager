@@ -37,6 +37,8 @@ crearCuentaTemporalSSH() {
     while true; do
         clear && clear
 
+        echo "$temporalPath"
+
         msg -bar
         msg -tit
         msg -bar
