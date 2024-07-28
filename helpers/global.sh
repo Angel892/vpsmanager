@@ -172,8 +172,6 @@ opcionMenu() {
 
     local isNewLine=${3:-true}  # Por defecto es true si no se proporciona un tercer parámetro
 
-    echo -ne "$isNewLine $padding $(numOption % 3 == 0)"
-
     printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption"
 
     if ((numOption % 3 == 0 || isNewLine == true)); then
@@ -181,4 +179,6 @@ opcionMenu() {
     else
         printf "%${padding}s"
     fi
+
+    echo -ne "$isNewLine $padding $(numOption % 3 == 0)"
 }
