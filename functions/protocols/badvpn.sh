@@ -2,7 +2,6 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
-
 # Función para verificar los puertos
 mportas() {
     unset portas
@@ -25,7 +24,7 @@ activar_badvpn() {
     echo -e "${INFO}Digite los puertos a activar de forma secuencial${NC}"
     echo -e "${INFO}Ejemplo: 7300 7200 7100 | Puerto recomendado: 7300${NC}"
     read -p "Digite los puertos: " -e -i "7200 7300" portasx
-    local BADVPNLOGPATH="/etc/vpsmanager/PortM/Badvpn.log";
+    local BADVPNLOGPATH="/etc/vpsmanager/PortM/Badvpn.log"
     validarArchivo $BADVPNLOGPATH
     echo "$portasx" >$BADVPNLOGPATH
     msg -bar
@@ -68,33 +67,34 @@ desactivar_badvpn() {
 
 # Función principal para manejar BadVPN
 proto_badvpn() {
-    clear
-    msg -bar
-    msgCentrado -ama "Instalador de BadVPN (UDP)"
-    msg -bar
-    if [[ ! -e /bin/badvpn-udpgw ]]; then
-        wget -O /bin/badvpn-udpgw https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/badvpn-udpgw &>/dev/null
-        chmod 777 /bin/badvpn-udpgw
-    fi
-    echo -e "${SECUNDARIO}1. Instalar un BadVPN${NC}"
-    echo -e "${SECUNDARIO}2. Detener todos los BadVPN${NC}"
-    echo -e "${SALIR}0. Volver${NC}"
-    msg -bar
-    read -p "Digite solo el número según su respuesta: " opcao
-    case $opcao in
-    1)
-        activar_badvpn
-        ;;
-    2)
-        desactivar_badvpn
-        ;;
-    0)
-        menu
-        ;;
-    *)
-        echo -e "${ROJO}Por favor use números del [0-2]${NC}"
+    while true; do
+        clear
         msg -bar
-        menu
-        ;;
-    esac
+        msgCentrado -ama "Instalador de BadVPN (UDP)"
+        msg -bar
+        if [[ ! -e /bin/badvpn-udpgw ]]; then
+            wget -O /bin/badvpn-udpgw https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/badvpn-udpgw &>/dev/null
+            chmod 777 /bin/badvpn-udpgw
+        fi
+        echo -e "${SECUNDARIO}1. Instalar un BadVPN${NC}"
+        echo -e "${SECUNDARIO}2. Detener todos los BadVPN${NC}"
+        echo -e "${SALIR}0. Volver${NC}"
+        msg -bar
+        read -p "Digite solo el número según su respuesta: " opcao
+        case $opcao in
+        1)
+            activar_badvpn
+            ;;
+        2)
+            desactivar_badvpn
+            ;;
+        0)
+            break
+            ;;
+        *)
+            echo -e "${ROJO}Por favor use números del [0-2]${NC}"
+            msg -bar
+            ;;
+        esac
+    done
 }
