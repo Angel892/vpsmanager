@@ -19,6 +19,10 @@ crearCuentaSSH() {
             userdel --force $user
             return 1
         }
+
+        validarArchivo "$mainPath/cuentassh"
+        validarArchivo "$mainPath/regtotal"
+
         echo "$1|$password|${datexp}|$conex" >>$mainPath/cuentassh
         echo "$1|$password|${datexp}|$conex" >>$mainPath/regtotal
         echo "" >/dev/null 2>&1
