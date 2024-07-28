@@ -32,61 +32,62 @@ menuSSH() {
         msg -bar
 
         # CREAR CUENTA
-        echo -e "${SECUNDARIO}$num. Crear cuenta${NC}"
+        opcionMenu -blanco $num "Crear cuenta"
         option[$num]="crear"
         let num++
 
         # CREAR CUENTA TEMPORAL
-        echo -e "${SECUNDARIO}$num. Crear cuenta temporal${NC}"
+        opcionMenu -blanco $num "Crear cuenta temporal"
         option[$num]="crearTemporal"
         let num++
 
         # REMOVER USUARIO
-        echo -e "${SECUNDARIO}$num. Remover usuario${NC}"
+        opcionMenu -blanco $num "Remover usuario"
         option[$num]="remover"
         let num++
 
         # BLOQUEAR USUARIO
-        echo -e "${SECUNDARIO}$num. Bloquear / Desbloquear usuario${NC}"
+        opcionMenu -blanco $num "Bloquear / Desbloquear usuario"
         option[$num]="bloquear"
         let num++
 
         # EDITAR USUARIO
-        echo -e "${SECUNDARIO}$num. Editar cuenta${NC}"
+        opcionMenu -blanco $num "Editar cuenta"
         option[$num]="editar"
         let num++
 
         # DETALLES
-        echo -e "${SECUNDARIO}$num. Detalle de todos los usuarios${NC}"
+        opcionMenu -blanco $num "Detalle de todos los usuarios"
         option[$num]="detalles"
         let num++
 
         # USUARIOS CONECTADOS
-        echo -e "${SECUNDARIO}$num. Usuarios conectados${NC}"
+        opcionMenu -blanco $num "Usuarios conectados"
         option[$num]="conectados"
         let num++
 
         # ELIMINAR USUARIOS VENCIDOS
-        echo -e "${SECUNDARIO}$num. Eliminar usuarios vencidos${NC}"
+        opcionMenu -blanco $num "Eliminar usuarios vencidos"
         option[$num]="eliminarVencidos"
         let num++
 
         # BACKUP
-        echo -e "${SECUNDARIO}$num. Backup de usuarios${NC}"
+        opcionMenu -blanco $num "Backup de usuarios"
         option[$num]="backup"
         let num++
 
         # BANNER
-        echo -e "${SECUNDARIO}$num. Agregar / Eliminar banner${NC}"
+        opcionMenu -blanco $num "Agregar / Eliminar banner"
         option[$num]="banner"
         let num++
 
         # ELIMINAR TODOS LOS USUARIOS
-        echo -e "${SECUNDARIO}$num. Eliminar todos los usuarios${NC}"
+        opcionMenu -blanco $num "Eliminar todos los usuarios"
         option[$num]="eliminarTodos"
         let num++
 
-        echo -e "${SALIR}0. Regresar al menú anterior${NC}"
+        # SALIR
+        opcionMenu -rojo 0 "Regresar al menú anterior"
         option[0]="volver"
 
         msg -bar
