@@ -65,7 +65,9 @@ mostrar_menu() {
         option[$num]="puertos"
         let num++
 
-        echo -e "${SALIR}0. Salir${NC}"
+        msg -bar
+
+        opcionMenu 0 "Salir"
         option[0]="volver"
 
         msg -bar
