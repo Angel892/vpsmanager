@@ -36,7 +36,7 @@ mostrar_menu() {
         let num++
 
         # PROTOCOLOS
-        opcionMenu -blanco $num "Instalar Protocolos" false
+        opcionMenu -blanco $num "Instalar Protocolos" false 2
         option[$num]="protocolos"
         let num++
 
