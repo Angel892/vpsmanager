@@ -8,15 +8,15 @@ mainPath="/etc/vpsmanager";
 source $HELPERS_PATH/colors.sh
 
 #Eliminar linea anterior
-#eliminarl=$(
-#    tput cuu1
-#    tput el
-#)
-
 eliminarl=$(
     tput cuu1
-    tput dl1
+    tput el
 )
+
+#eliminarl=$(
+#    tput cuu1
+#    tput dl1
+#)
 
 barra="════════════════════════════════════════════════════"
 
