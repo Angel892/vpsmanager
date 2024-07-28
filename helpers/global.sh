@@ -53,7 +53,7 @@ selectionFun() {
             # Si la entrada está vacía, muestra un mensaje de error y repite el bucle
             echo -ne "\033[1;31mPor favor, ingrese una opción válida.\033[0m" >&2
             sleep 1
-            echo -ne "${eliminarl} ${eliminarl}" >&2
+            echo -e "${eliminarl} ${eliminarl}" >&2
         elif [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
             echo $selection
             break
@@ -61,7 +61,7 @@ selectionFun() {
             # Si la opción no es válida, muestra el mensaje de error y repite el bucle
             echo -ne "\033[1;31mSelección no válida: $selection\033[0m" >&2
             sleep 1
-            echo -ne "${eliminarl} ${eliminarl}" >&2
+            echo -e "${eliminarl} ${eliminarl}" >&2
         fi
     done
 }
