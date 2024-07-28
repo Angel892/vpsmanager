@@ -36,8 +36,13 @@ mostrar_menu() {
         let num++
 
         # PROTOCOLOS
-        opcionMenu -blanco $num "Administrar Protocolos"
+        opcionMenu -blanco $num "Instalar Protocolos" false
         option[$num]="protocolos"
+        let num++
+
+        # PUERTOS ACTIVOS
+        opcionMenu -blanco $num "Puertos activos"
+        option[$num]="puertos"
         let num++
 
         # PROTOCOLOS
@@ -53,11 +58,6 @@ mostrar_menu() {
         # AUTOINICIAR
         opcionMenu -blanco $num "Autoiniciar Script"
         option[$num]="autoIniciar"
-        let num++
-
-        # PUERTOS ACTIVOS
-        opcionMenu -blanco $num "Puertos activos"
-        option[$num]="puertos"
         let num++
 
         msg -bar
