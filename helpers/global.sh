@@ -198,6 +198,9 @@ opcionMenu() {
         local width=${#barra}
         local textLength=${#textOption}
         local statusLength=${#currentStatus}
+
+        echo -e "$statusLength"
+
         local dashCount=$((width - textLength - statusLength - 10)) # Ajusta 10 para los caracteres adicionales
 
         # Función para generar guiones
