@@ -319,6 +319,8 @@ crearCuentaSSH() {
 
         clear && clear
         msg -bar
+        ##-->>GENERAR USUARIOS TOTALES
+        cat /etc/SCRIPT-LATAM/cuentassh /etc/SCRIPT-LATAM/cuentahwid /etc/SCRIPT-LATAM/cuentatoken 2>/dev/null | cut -d '|' -f1 >/etc/SCRIPT-LATAM/cuentasactivast
         if [[ -e "$mainPath/cuentasactivas" ]]; then
             readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivas)
         fi
