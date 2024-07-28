@@ -266,7 +266,7 @@ msgCentradoRead() {
     -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
     -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && read -p "${cor}${2}${SINCOLOR}" ;;
     -verm2) cor="${NEGRITA}${ROJO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
-    -azul) cor="${NEGRITA}${BLANCO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
+    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
     -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
     -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && read -p "${cor}${2}${SINCOLOR}" ;;
     -noStyle) read -p "${2}${SINCOLOR}" ;;
