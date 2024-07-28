@@ -50,11 +50,6 @@ mostrar_menu() {
         option[$num]="actualizar"
         let num++
 
-        # ELIMINAR
-        opcionMenu $num "Eliminar Script"
-        option[$num]="eliminar"
-        let num++
-
         # AUTOINICIAR
         opcionMenu $num "Autoiniciar Script"
         option[$num]="autoIniciar"
@@ -66,6 +61,13 @@ mostrar_menu() {
         let num++
 
         msg -bar
+
+        # SALIR
+
+        # ELIMINAR
+        opcionMenu $num "Eliminar Script" false
+        option[$num]="eliminar"
+        let num++
 
         opcionMenu 0 "Salir"
         option[0]="volver"
