@@ -168,7 +168,7 @@ opcionMenu() {
     local numOption=$1
     local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
     local width=${#barra}
-    local padding=$(((width - 40) / 2)) # Adjust padding to ensure justify-between effect
+    local padding=$(((width - 60) / 2)) # Adjust padding to ensure justify-between effect
 
     printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption"
 
