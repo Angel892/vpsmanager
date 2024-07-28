@@ -63,7 +63,7 @@ mostrar_menu() {
         msg -bar
 
         # ELIMINAR
-        opcionMenu -rojo $num "|- DESINSTALAR -|" false 10
+        opcionMenu -rojo $num "|- DESINSTALAR -|" false 7
         option[$num]="eliminar"
         let num++
 
