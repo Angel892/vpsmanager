@@ -176,4 +176,5 @@ opcionMenu() {
         echo
     else
         printf "%10s" ""
+    fi
 }
