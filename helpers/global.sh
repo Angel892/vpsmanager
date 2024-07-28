@@ -158,6 +158,6 @@ validarDirectorio() {
 
 opcionMenu() {
     local numOption=$1;
-    local textOption=$2;
+    local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
     echo -e "${AMARILLO}[${VERDE}$numOption${AMARILLO}] ${ROJO}> ${BLANCO}$textOption${NC}";
 }
