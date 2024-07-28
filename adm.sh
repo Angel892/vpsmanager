@@ -31,7 +31,7 @@ mostrar_menu() {
         msg -bar
 
         # SSH
-        opcionMenu -blanco $num "SSH / OPEN VPN"
+        opcionMenu -amarillo $num "SSH / OPEN VPN"
         option[$num]="ssh"
         let num++
 
