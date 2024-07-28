@@ -90,6 +90,7 @@ crearCuentaSSH() {
         }
 
         cuenta_normal() {
+            clear
             msg -bar
             echo -e "\e[1;97m             ----- CUENTA NORMAL  ------"
             msg -bar
@@ -161,6 +162,7 @@ crearCuentaSSH() {
         }
         #####-----CUENTA HWID
         cuenta_hwid() {
+            clear
             msg -bar
             echo -e "\e[1;97m               ----- CUENTA HWID  ------"
             msg -bar
@@ -239,6 +241,7 @@ crearCuentaSSH() {
         }
         #####-----CUENTA TOKEN
         cuenta_token() {
+            clear
             msg -bar
             echo -e "\e[1;97m               ----- CUENTA TOKEN  ------"
             msg -bar
