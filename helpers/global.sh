@@ -163,5 +163,5 @@ opcionMenu() {
     local opcionCommand=$4;
     echo -e "${SECUNDARIO}$opcionNum. $opcionText${NC}"
     opcionArray[$opcionNum]="$opcionCommand"
-    let $1++
+    let $opcionNum++
 }
