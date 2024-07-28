@@ -2,13 +2,20 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
+mainPath="/etc/vpsmanager";
+
 # COLORES
 source $HELPERS_PATH/colors.sh
 
 #Eliminar linea anterior
+#eliminarl=$(
+#    tput cuu1
+#    tput el
+#)
+
 eliminarl=$(
     tput cuu1
-    tput el
+    tput dl1
 )
 
 barra="════════════════════════════════════════════════════"
@@ -234,4 +241,34 @@ opcionMenu() {
     else
         printf "%${spacing}s" ""
     fi
+}
+
+vpsIP() {
+  if [[ -e /tmp/IP ]]; then
+    echo "$(cat /tmp/IP)"
+  else
+    MEU_IP=$(wget -qO- ifconfig.me)
+    echo "$MEU_IP" >/tmp/IP
+  fi
+}
+
+
+msgCentradoRead() {
+    texto="$2"
+    texto_len=${#texto}
+    barra_len=${#barra}
+    espacios=$(((barra_len - texto_len) / 2))
+
+    printf "%${espacios}s" "" # Add spaces to center the text
+
+    case $1 in
+    -ne) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
+    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && read -p "${cor}${2}${SINCOLOR}" ;;
+    -verm2) cor="${NEGRITA}${ROJO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
+    -azul) cor="${NEGRITA}${BLANCO}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
+    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && read -p "${cor}${2}${SINCOLOR}" ;;
+    -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && read -p "${cor}${2}${SINCOLOR}" ;;
+    -noStyle) read -p "${2}${SINCOLOR}" ;;
+    esac
 }
