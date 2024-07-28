@@ -168,7 +168,7 @@ opcionMenu() {
 
     case $option in
     -rojo) printf "\033[1;1m${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
-    -blanco) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption" ;;
+    -blanco) printf "\033[1;1m${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption" ;;
     -amarillo) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AMARILLO}%-20s${NC}" "$numOption" "$textOption" ;;
     -verde) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${VERDE}%-20s${NC}" "$numOption" "$textOption" ;;
     -azul) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AZUL}%-20s${NC}" "$numOption" "$textOption" ;;
