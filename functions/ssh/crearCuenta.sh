@@ -317,7 +317,7 @@ crearCuentaSSH() {
         let num++
 
         # TOKEN
-        opcionMenu -blanco $num "TOKEN" false 2
+        opcionMenu -blanco $num "TOKEN"
         option[$num]="token"
         let num++
 
