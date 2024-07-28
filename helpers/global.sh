@@ -224,7 +224,7 @@ opcionMenu() {
 
         # Agrega el estado actual si está definido
         if [[ -n $currentStatus ]]; then
-            printf "%s" " $dashes $currentStatus"
+            printf "%s" "$currentStatus"
         fi
 
     fi
