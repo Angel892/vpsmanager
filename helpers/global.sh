@@ -199,7 +199,7 @@ opcionMenu() {
         local textLength=${#textOption}
         local statusLength=${#currentStatus}
 
-        local dashCount=$((width - textLength - statusLength)) # Ajusta 10 para los caracteres adicionales
+        local dashCount=$((width - textLength - statusLength - 30)) # Ajusta 10 para los caracteres adicionales
 
         # Función para generar guiones
         generate_dashes() {
