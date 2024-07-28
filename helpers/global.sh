@@ -173,10 +173,6 @@ opcionMenu() {
 
     local typeChek=${7:-""}
 
-    local width=${#barra}
-    local textLength=${#textOption}
-    local dashCount=$((width - textLength - 10)) # Ajusta 10 para los caracteres adicionales
-
     if [[ $checkStatus == "" ]]; then
 
         case $option in
@@ -199,6 +195,23 @@ opcionMenu() {
             currentStatus=$(checkStatusF $checkStatus)
         fi
 
+        local width=${#barra}
+        local textLength=${#textOption}
+        local statusLength=${#currentStatus}
+        local dashCount=$((width - textLength - statusLength - 10)) # Ajusta 10 para los caracteres adicionales
+
+        # Función para generar guiones
+        generate_dashes() {
+            local count=$1
+            local dashes=""
+            for ((i = 0; i < count; i++)); do
+                dashes+="-"
+            done
+            echo "$dashes"
+        }
+
+        local dashes=$(generate_dashes $dashCount)
+
         case $option in
         -rojo) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
         -blanco) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption" ;;
@@ -210,7 +223,7 @@ opcionMenu() {
 
         # Agrega el estado actual si está definido
         if [[ -n $currentStatus ]]; then
-            printf "%s" "$currentStatus"
+            printf "%s" " $dashes $currentStatus"
         fi
 
     fi
