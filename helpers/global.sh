@@ -165,14 +165,23 @@ validarDirectorio() {
 # Function to print menu options
 # Function to print menu options with justified spacing
 opcionMenu() {
-    local numOption=$1
-    local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
+    local option=$1
+    local numOption=$2
+    local textOption=$(echo "$3" | tr '[:lower:]' '[:upper:]')
 
-    local isNewLine=${3:-true}  # Por defecto es true si no se proporciona un tercer parámetro
+    local isNewLine=${4:-true} # Por defecto es true si no se proporciona un tercer parámetro
 
-    local spacing=${4:-3}
+    local spacing=${5:-3}
 
-    printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption"
+    case $option in
+    -rojo) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
+    -blanco) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption" ;;
+    -amarillo) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AMARILLO}%-20s${NC}" "$numOption" "$textOption" ;;
+    -verde) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${VERDE}%-20s${NC}" "$numOption" "$textOption" ;;
+    -azul) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AZUL}%-20s${NC}" "$numOption" "$textOption" ;;
+    -gris) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${GRIS}%-20s${NC}" "$numOption" "$textOption" ;;
+    -salir) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> \033[1;41m  ❗️${BLANCO} %s ❗️  ${NC}\n" "$numOption" "$textOption" ;;
+    esac
 
     if ($isNewLine == true); then
         echo

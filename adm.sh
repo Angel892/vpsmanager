@@ -31,45 +31,44 @@ mostrar_menu() {
         msg -bar
 
         # SSH
-        opcionMenu $num "SSH / OPEN VPN"
+        opcionMenu -blanco $num "SSH / OPEN VPN"
         option[$num]="ssh"
         let num++
 
         # PROTOCOLOS
-        opcionMenu $num "Administrar Protocolos"
+        opcionMenu -blanco $num "Administrar Protocolos"
         option[$num]="protocolos"
         let num++
 
         # PROTOCOLOS
-        opcionMenu $num "Monitorear Recursos"
+        opcionMenu -blanco $num "Monitorear Recursos"
         option[$num]="monitorear"
         let num++
 
         # ACTUALIZAR
-        opcionMenu $num "Actualizar Script"
+        opcionMenu -blanco $num "Actualizar Script"
         option[$num]="actualizar"
         let num++
 
         # AUTOINICIAR
-        opcionMenu $num "Autoiniciar Script"
+        opcionMenu -blanco $num "Autoiniciar Script"
         option[$num]="autoIniciar"
         let num++
 
         # PUERTOS ACTIVOS
-        opcionMenu $num "Puertos activos"
+        opcionMenu -blanco $num "Puertos activos"
         option[$num]="puertos"
         let num++
 
         msg -bar
 
-        # SALIR
-
         # ELIMINAR
-        opcionMenu $num "|- DESINSTALAR -|" false 10
+        opcionMenu -rojo $num "|- DESINSTALAR -|" false 10
         option[$num]="eliminar"
         let num++
 
-        opcionMenu 0 "Salir"
+        # SALIR
+        opcionMenu -salir 0 "Salir"
         option[0]="volver"
 
         msg -bar
