@@ -167,8 +167,6 @@ validarDirectorio() {
 opcionMenu() {
     local numOption=$1
     local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
-    local width=${#barra}
-    local padding=$(((width - 65) / 2)) # Adjust padding to ensure justify-between effect
 
     local isNewLine=${3:-true}  # Por defecto es true si no se proporciona un tercer parámetro
 
@@ -177,6 +175,5 @@ opcionMenu() {
     if ($isNewLine == true); then
         echo
     else
-        printf "%10s"
-    fi
+        printf "%10s" ""
 }
