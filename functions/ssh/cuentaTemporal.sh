@@ -43,10 +43,12 @@ crearCuentaTemporalSSH() {
         msg -blanco "Digite Nuevo Usuario: " && read name
         if [[ -z $name ]]; then
             msg -rojo "No a digitado el Nuevo Usuario"
+            sleep 2
             continue
         fi
         if cat /etc/passwd | grep $name: | grep -vi [a-z]$name | grep -v [0-9]$name >/dev/null; then
             msg -rojo "Usuario $name ya existe"
+            sleep 2
             continue
         fi
         msg -blanco "Digite Nueva Contraseña: " && read pass
