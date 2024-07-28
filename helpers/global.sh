@@ -177,6 +177,6 @@ opcionMenu() {
     if ($isNewLine == true); then
         echo
     else
-        printf "%${padding}s"
+        printf "%10s"
     fi
 }
