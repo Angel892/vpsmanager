@@ -54,8 +54,8 @@ selectionFun() {
             echo -e "\033[1;31mPor favor, ingrese una opción válida.\033[0m" >&2
             sleep 1
 
-            eliminarl
-            eliminarl
+            echo -ne ${eliminarl}
+            echo -ne ${eliminarl}
         elif [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
             echo $selection
             break
@@ -64,8 +64,8 @@ selectionFun() {
             echo -e "\033[1;31mSelección no válida: $selection\033[0m" >&2
             sleep 1
 
-            eliminarl
-            eliminarl
+            echo -ne ${eliminarl}
+            echo -ne ${eliminarl}
         fi
     done
 }
