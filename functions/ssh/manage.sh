@@ -28,7 +28,7 @@ menuSSH() {
 
         clear
         msg -bar
-        msgCentrado -ama "SSH MANAGER"
+        msgCentrado -amarillo "SSH MANAGER"
         msg -bar
 
         # CREAR CUENTA
