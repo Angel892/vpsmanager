@@ -177,7 +177,7 @@ opcionMenu() {
     local textLength=${#textOption}
     local dashCount=$((width - textLength - 10)) # Ajusta 10 para los caracteres adicionales
 
-    if [[ -n $checkStatus ]]; then
+    if [[ $checkStatus == "" ]]; then
 
         case $option in
         -rojo) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
