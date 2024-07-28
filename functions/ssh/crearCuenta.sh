@@ -82,10 +82,10 @@ crearCuentaSSH() {
     cuenta_normal() {
         clear
         msg -bar
-        echo -e "\e[1;97m             ----- CUENTA NORMAL  ------"
+        msgCentrado -blanco "----- CUENTA NORMAL  ------"
         msg -bar
         while true; do
-            echo -ne "\e[1;93mDigite Nuevo Usuario: \e[1;32m" && read nomeuser
+            msg -blanco "Digite Nuevo Usuario: " && read nomeuser
             nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
             if [[ -z $nomeuser ]]; then
                 errorFun "nullo" && continue
@@ -102,7 +102,7 @@ crearCuentaSSH() {
         done
 
         while true; do
-            echo -ne "\e[1;93mDigite Nueva Contraseña: \e[1;32m" && read senhauser
+            msg -blanco "Digite Nueva Contraseña: " && read senhauser
             if [[ -z $senhauser ]]; then
                 errorFun "nullo" && continue
             elif [[ "${#senhauser}" -lt "$minCaracteres" ]]; then
@@ -113,7 +113,7 @@ crearCuentaSSH() {
             break
         done
         while true; do
-            echo -ne "\e[1;93mDigite Tiempo de Validez: \e[1;32m" && read diasuser
+            msg -blanco "Digite Tiempo de Validez: " && read diasuser
             if [[ -z "$diasuser" ]]; then
                 errorFun "nullo" && continue
             elif [[ "$diasuser" != +([0-9]) ]]; then
@@ -122,7 +122,7 @@ crearCuentaSSH() {
             break
         done
         while true; do
-            echo -ne "\e[1;93mDigite conexiones maximas: \e[1;32m" && read limiteuser
+            msg -blanco "Digite conexiones maximas: " && read limiteuser
             if [[ -z "$limiteuser" ]]; then
                 errorFun "nullo" && continue
             elif [[ "$limiteuser" != +([0-9]) ]]; then
