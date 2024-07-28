@@ -10,7 +10,7 @@ NC="\e[0m"
 ##-->> COLORES
 GRIS='\033[1;37m' #GRIS='\033[1;37m'
 ROJO='\033[1;31m'     #ROJO='\e[31m'
-VERDE='\e[32m'     #VERDE='\e[32m'
+VERDE='\033[32m'     #VERDE='\e[32m'
 AMARILLO='\e[1;38;5;220m'     #AMARILLO='\e[33m'
 AZUL='\e[34m'     #AZUL='\e[34m'
 ROJONEON='\e[91m'     #ROJO-NEON='\e[91m'
