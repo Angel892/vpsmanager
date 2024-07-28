@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HELPERS_PATH="$mainPath/helpers"
+HELPERS_PATH="/etc/vpsmanager/helpers"
 # Enable debugging
 #set -x
 
