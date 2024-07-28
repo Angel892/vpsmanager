@@ -172,7 +172,7 @@ opcionMenu() {
 
     printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption"
 
-    if (($((numOption % 2)) == 0)); then
+    if (($((numOption % 3)) == 0)); then
         echo
     else
         printf "%${padding}s"
