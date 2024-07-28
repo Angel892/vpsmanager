@@ -81,7 +81,6 @@ selectionFun() {
 msg() { ##-->> COLORES, TITULO, BARRAS
 
     case $1 in
-    -ne) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
     -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     -rojo) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
@@ -91,6 +90,18 @@ msg() { ##-->> COLORES, TITULO, BARRAS
     "-bar2" | "-bar") cor="${NEGRITA}${ROJO}════════════════════════════════════════════════════" && echo -e "${SINCOLOR}${cor}${SINCOLOR}" ;;
     # Centrar texto
     -tit) msgCentrado -noStyle "\e[48;5;214m\e[38;5;0m 💻 S C R I P T | L X M A N A G E R 💻 " ;;
+    esac
+}
+
+msgne() { ##-->> COLORES, TITULO, BARRAS
+
+    case $1 in
+    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -rojo) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
     esac
 }
 
