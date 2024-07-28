@@ -4,8 +4,6 @@ crearCuentaTemporalSSH() {
 
     local temporalPath="$mainPath/temp/demo-ssh"
 
-    #rm -rf "$temporalPath" 2>/dev/null
-    #mkdir "$temporalPath"  2>/dev/null
     tmpusr() {
         time="$1"
         timer=$(($time * 60))
@@ -16,6 +14,7 @@ crearCuentaTemporalSSH() {
         userdel --force $2
         rm -rf /tmp/$2
         rm -rf "$temporalPath/$2"
+        rm -rf /home/$2
         exit" >/tmp/$2
     }
 
@@ -30,6 +29,7 @@ crearCuentaTemporalSSH() {
         userdel --force $2
         rm -rf /tmp/$2
         rm -rf "$temporalPath/$2"
+        rm -rf /home/$2
         exit" >/tmp/$2
 
     }
