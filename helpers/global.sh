@@ -175,6 +175,6 @@ opcionMenu() {
     if ($isNewLine == true); then
         echo
     else
-        printf "%10s" ""
+        printf "%5s" ""
     fi
 }
