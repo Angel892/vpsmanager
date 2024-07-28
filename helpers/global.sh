@@ -118,7 +118,7 @@ msgCentradoBarra() {
     -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" ;;
     -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" ;;
     -verm2) cor="${NEGRITA}${ROJO}${NEGRITO}" ;;
-    -azul) cor="${NEGRITA}${BLANCO}${NEGRITO}" ;;
+    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" ;;
     -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" ;;
     -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" ;;
     esac
