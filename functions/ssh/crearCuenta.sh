@@ -82,7 +82,7 @@ crearCuentaSSH() {
     cuenta_normal() {
         clear
         msg -bar
-        msgCentrado -blanco "----- CUENTA NORMAL  ------"
+        msgCentrado -amarillo "----- CUENTA NORMAL  ------"
         msg -bar
         while true; do
             msgne -blanco "Digite Nuevo Usuario: " && read nomeuser
