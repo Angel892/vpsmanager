@@ -68,7 +68,7 @@ mostrar_menu() {
         let num++
 
         # SALIR
-        opcionMenu -salir 0 "Salir" false
+        opcionMenu -salir 0 "Salir"
         option[0]="volver"
 
         msg -bar
