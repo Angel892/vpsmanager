@@ -156,7 +156,7 @@ menuProtocols() {
         let num++
 
         # VOLVER AL MENU ANTERIOR
-        opcionMenu -rojo 0 "Regresar al menú anterior"
+        opcionMenu -rojo 0 "Regresar al menu anterior"
         option[0]="volver"
 
         msg -bar
