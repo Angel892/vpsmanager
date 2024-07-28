@@ -329,12 +329,12 @@ crearCuentaSSH() {
         echo -e "\033[1;36m   --   Seleccione primero Tipo de Cuenta   --"
 
         # NORMAL
-        opcionMenu -blanco $num "NORMAL" false 2
+        opcionMenu -blanco $num "NORMAL" false 0
         option[$num]="normal"
         let num++
 
         # HWID
-        opcionMenu -blanco $num "HWID" false 2
+        opcionMenu -blanco $num "HWID" false 0
         option[$num]="hwid"
         let num++
 
