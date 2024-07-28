@@ -14,8 +14,17 @@ mostrarInActivo() {
 }
 
 validarArchivo() {
-    if [ ! -e "$1" ]; then
-        touch "$1"
+    local filePath="$1"
+    local dirPath=$(dirname "$filePath")
+
+    if [ ! -d "$dirPath" ]; then
+        # Si el directorio no existe, se crea
+        mkdir -p "$dirPath"
+    fi
+
+    if [ ! -e "$filePath" ]; then
+        # Si el archivo no existe, se crea
+        touch "$filePath"
     fi
 }
 
