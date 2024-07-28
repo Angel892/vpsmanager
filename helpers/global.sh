@@ -14,11 +14,11 @@ eliminarl=$(
 barra="════════════════════════════════════════════════════"
 
 mostrarActivo() {
-    echo "${VERDE}[ ACTIVO ]${NC}"
+    echo -e "${VERDE}[ ACTIVO ]${NC}"
 }
 
 mostrarInActivo() {
-    echo "${ROJO}[ OFF ]${NC}"
+    echo -e "${ROJO}[ OFF ]${NC}"
 }
 
 validarArchivo() {
