@@ -21,7 +21,7 @@ menuProtocols() {
 
         # APACHE
         currentStatus=$(checkStatusF "apache2")
-        opcionMenu -blanco $num "Apache $currentStatus"
+        opcionMenu -blanco $num "Apache $currentStatus" true 0 "apache2" "f"
         option[$num]="apache"
         let num++
 
