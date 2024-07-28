@@ -2,9 +2,91 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
-
 #funciones globales
 
+demo_ssh() {
+
+    rm -rf /etc/SCRIPT-LATAM/temp/demo-ssh 2>/dev/null
+    mkdir /etc/SCRIPT-LATAM/temp/demo-ssh 2>/dev/null
+    SCPdir="/etc/SCRIPT-LATAM"
+    declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
+    tmpusr() {
+        time="$1"
+        timer=$(($time * 60))
+        timer2="'$timer's"
+        echo "#!/bin/bash
+        sleep $timer2
+        kill"' $(ps -u '"$2 |awk '{print"' $1'"}') 1> /dev/null 2> /dev/null
+        userdel --force $2
+        rm -rf /tmp/$2
+        exit" >/tmp/$2
+    }
+
+    tmpusr2() {
+        time="$1"
+        timer=$(($time * 60))
+        timer2="'$timer's"
+        echo "#!/bin/bash
+        sleep $timer2
+        kill=$(dropb | grep "$2" | awk '{print $2}')
+        kill $kill
+        userdel --force $2
+        rm -rf /tmp/$2
+        exit" >/tmp/$2
+    }
+    clear && clear
+    msg -bar
+    msg -tit
+    msg -bar
+    msg -ama "        CREAR USUARIO POR TIEMPO (Minutos)"
+    msg -bar
+    echo -e "\033[1;97m Los Usuarios que cres en esta opcion se eliminaran\n automaticamete pasando el tiempo designado.\033[0m"
+    msg -bar
+    echo -ne "\033[1;91m [1]- \033[1;93mDigite Nuevo Usuario:\033[1;32m " && read name
+    if [[ -z $name ]]; then
+        echo "No a digitado el Nuevo Usuario"
+        exit
+    fi
+    if cat /etc/passwd | grep $name: | grep -vi [a-z]$name | grep -v [0-9]$name >/dev/null; then
+        echo -e "\033[1;31mUsuario $name ya existe\033[0m"
+        exit
+    fi
+    echo -ne "\033[1;91m [2]- \033[1;93mDigite Nueva Contraseña:\033[1;32m " && read pass
+    echo -ne "\033[1;91m [3]- \033[1;93mDigite Tiempo (Minutos):\033[1;32m " && read tmp
+    if [ "$tmp" = "" ]; then
+        tmp="30"
+        echo -e "\033[1;32mFue Definido 30 minutos Por Defecto!\033[0m"
+        msg -bar
+        sleep 2s
+    fi
+    useradd -m -s /bin/false $name
+    (
+        echo $pass
+        echo $pass
+    ) | passwd $name 2>/dev/null
+    touch /tmp/$name
+    tmpusr $tmp $name
+    chmod 777 /tmp/$name
+    touch /tmp/cmd
+    chmod 777 /tmp/cmd
+    echo "nohup /tmp/$name & >/dev/null" >/tmp/cmd
+    /tmp/cmd 2>/dev/null 1>/dev/null
+    rm -rf /tmp/cmd
+    touch /etc/SCRIPT-LATAM/temp/demo-ssh/$name
+    echo "senha: $pass" >>/etc/SCRIPT-LATAM/temp/demo-ssh/$name
+    echo "data: ($tmp)Minutos" >>/etc/SCRIPT-LATAM/temp/demo-ssh/$name
+    msg -bar2
+    echo -e "\033[1;93m        ¡¡  USUARIO TEMPORAL x MINUTOS  !!\033[1;0m"
+    msg -bar2
+    echo -e "\033[1;97m\e[38;5;202m IP del Servidor: \033[1;32m$(meu_ip) "
+    echo -e "\e[38;5;202m Usuario: \033[1;32m$name"
+    echo -e "\e[38;5;202m Contraseña: \033[1;32m$pass"
+    echo -e "\e[38;5;202m Minutos de Duración: \033[1;32m$tmp"
+    msg -bar2
+    read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    controlador_ssh
+
+}
 
 crearCuentaTemporalSSH() {
     clear
