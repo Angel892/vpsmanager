@@ -21,7 +21,6 @@ source $functionsPath/puertosActivos.sh
 mostrar_menu() {
     while true; do
         local num=1
-        local option[];
 
         clear
         msg -bar

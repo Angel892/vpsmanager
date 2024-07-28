@@ -2,7 +2,7 @@
 
 HELPERS_PATH="/etc/vpsmanager/helpers"
 
-mainPath="/etc/vpsmanager";
+mainPath="/etc/vpsmanager"
 
 # COLORES
 source $HELPERS_PATH/colors.sh
@@ -244,14 +244,13 @@ opcionMenu() {
 }
 
 vpsIP() {
-  if [[ -e /tmp/IP ]]; then
-    echo "$(cat /tmp/IP)"
-  else
-    MEU_IP=$(wget -qO- ifconfig.me)
-    echo "$MEU_IP" >/tmp/IP
-  fi
+    if [[ -e /tmp/IP ]]; then
+        echo "$(cat /tmp/IP)"
+    else
+        MEU_IP=$(wget -qO- ifconfig.me)
+        echo "$MEU_IP" >/tmp/IP
+    fi
 }
-
 
 msgCentradoRead() {
     texto="$2"
@@ -270,5 +269,72 @@ msgCentradoRead() {
     -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && printf "${cor}${2}${SINCOLOR}" && read -r ;;
     -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && printf "${cor}${2}${SINCOLOR}" && read -r ;;
     -noStyle) printf "${2}${SINCOLOR}" && read -r ;;
+    esac
+}
+
+minCaracteres=1;
+maxCaracteres=15;
+duracionMaxima=999;
+limiteMaximo=999;
+
+errorFun() {
+    local valor=${2:-""};
+    case $1 in
+    "nullo")
+        msg -rojo "Respuesta nulla"
+        sleep 3s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
+    "minimo")
+        msg -rojo "Respuesta muy corta ($minCaracteres - $maxCaracteres caracteres)"
+        sleep 2s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
+    "maximo")
+        msg -rojo "Respuesta muy larga ($minCaracteres - $maxCaracteres caracteres)"
+        sleep 2s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
+    "soloNumeros")
+        msg -rojo "Respuesta invalida, solo se permiten numeros"
+        sleep 2s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
+    "duracionMaxima")
+        msg -rojo "Duracion maxima: $duracionMaxima dias"
+        sleep 2s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
+    "limiteMaximo")
+        msg -rojo "Limite maximo de $limiteMaximo"
+        sleep 2s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
+    "existente")
+        msg -rojo "$valor Ya Existe"
+        sleep 2s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
     esac
 }
