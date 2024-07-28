@@ -8,9 +8,9 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 
 detalleUsuariosSSH() {
     clear
-    echo -e "${AMARILLO}=========================${NC}"
+    msg -bar
     echo -e "${AMARILLO} INFORMACION DE USUARIOS REGISTRADOS${NC}"
-    echo -e "${AMARILLO}=========================${NC}"
+    msg -bar
 
     if [ ! -f /etc/vpsmanager/users.txt ]; then
         echo -e "${ROJO}No hay usuarios SSH disponibles.${NC}"
@@ -43,6 +43,6 @@ detalleUsuariosSSH() {
     column -t -s $'\t' /tmp/user_details.txt
     rm /tmp/user_details.txt
 
-    echo -e "${AMARILLO}=========================${NC}"
+    msg -bar
     read -p "Presione Enter para continuar..."
 }
