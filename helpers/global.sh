@@ -159,5 +159,5 @@ validarDirectorio() {
 opcionMenu() {
     local numOption=$1;
     local textOption=$2;
-    echo -e "${SECUNDARIO}$numOption. $textOption${NC}";
+    echo -e "${AMARILLO}[${VERDE}$numOption${AMARILLO}] ${ROJO}> ${BLANCO}$textOption${NC}";
 }
