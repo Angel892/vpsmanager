@@ -65,7 +65,7 @@ mostrar_menu() {
         # SALIR
 
         # ELIMINAR
-        opcionMenu $num "Eliminar Script" false
+        opcionMenu $num "Eliminar Script" false 10
         option[$num]="eliminar"
         let num++
 
