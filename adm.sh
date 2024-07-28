@@ -41,7 +41,7 @@ mostrar_menu() {
         let num++
 
         # PROTOCOLOS
-        opcionMenu $num "Monitorear Recursos" false
+        opcionMenu $num "Monitorear Recursos"
         option[$num]="monitorear"
         let num++
 
