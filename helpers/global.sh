@@ -156,14 +156,7 @@ validarDirectorio() {
     fi
 }
 
-#opcionMenu() {
-#    local numOption=$1;
-#    local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
-#    echo -e "${AMARILLO}[${VERDE}$numOption${AMARILLO}] ${ROJO}> ${BLANCO}$textOption${NC}";
-#}
-
 # Function to print menu options
-# Function to print menu options with justified spacing
 opcionMenu() {
     local option=$1
     local numOption=$2
@@ -174,7 +167,7 @@ opcionMenu() {
     local spacing=${5:-3}
 
     case $option in
-    -rojo) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
+    -rojo) printf "\033[1;1m${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
     -blanco) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption" ;;
     -amarillo) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AMARILLO}%-20s${NC}" "$numOption" "$textOption" ;;
     -verde) printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${VERDE}%-20s${NC}" "$numOption" "$textOption" ;;
