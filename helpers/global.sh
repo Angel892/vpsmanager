@@ -179,6 +179,4 @@ opcionMenu() {
     else
         printf "%${padding}s"
     fi
-
-    echo -ne "$isNewLine $padding $((numOption % 3 == 0))"
 }
