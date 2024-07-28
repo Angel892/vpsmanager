@@ -50,14 +50,14 @@ mostrar_menu() {
         option[$num]="monitorear"
         let num++
 
-        # ACTUALIZAR
-        opcionMenu -verde $num "----------| Actualizar Script |----------"
-        option[$num]="actualizar"
-        let num++
-
         # AUTOINICIAR
         opcionMenu -blanco $num "Autoiniciar Script"
         option[$num]="autoIniciar"
+        let num++
+
+        # ACTUALIZAR
+        opcionMenu -verde $num "----------| Actualizar Script |----------"
+        option[$num]="actualizar"
         let num++
 
         msg -bar
