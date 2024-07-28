@@ -107,7 +107,7 @@ msgCentrado() {
     -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     -verm2) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
-    -azul) cor="${NEGRITA}${BLANCO}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -azul) cor="${NEGRITA}${AZUL}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && echo -e "${cor}${2}${SINCOLOR}" ;;
     -noStyle) echo -e "${2}${SINCOLOR}" ;;
