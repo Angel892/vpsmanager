@@ -163,7 +163,7 @@ opcionMenu() {
     local numOption=$2
     local textOption=$(echo "$3" | tr '[:lower:]' '[:upper:]')
 
-    echo -e "${textOption}"
+    #echo -e "${textOption}"
 
     local isNewLine=${4:-true} # Por defecto es true si no se proporciona un tercer parámetro
 
