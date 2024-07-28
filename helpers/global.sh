@@ -170,9 +170,11 @@ opcionMenu() {
     local width=${#barra}
     local padding=$(((width - 65) / 2)) # Adjust padding to ensure justify-between effect
 
+    local isNewLine=${3:-true}  # Por defecto es true si no se proporciona un tercer parámetro
+
     printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption"
 
-    if (($((numOption % 3)) == 0)); then
+    if ((numOption % 3 == 0 || isNewLine == true)); then
         echo
     else
         printf "%${padding}s"
