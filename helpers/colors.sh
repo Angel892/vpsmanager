@@ -11,7 +11,7 @@ NC="\e[0m"
 GRIS='\033[1;37m' #GRIS='\033[1;37m'
 ROJO='\e[31m'     #ROJO='\e[31m'
 VERDE='\e[32m'     #VERDE='\e[32m'
-AMARILLO='\e[33m'     #AMARILLO='\e[33m'
+AMARILLO='\e[1;38;5;220m'     #AMARILLO='\e[33m'
 AZUL='\e[34m'     #AZUL='\e[34m'
 ROJONEON='\e[91m'     #ROJO-NEON='\e[91m'
 BLANCO='\033[1;97m' #BALNCO='\033[1;97m'
