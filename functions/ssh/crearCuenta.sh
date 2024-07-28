@@ -330,7 +330,7 @@ crearCuentaSSH() {
         local num=1
 
         msg -bar
-        msgCentrado -azul -e "--   Seleccione primero Tipo de Cuenta   --"
+        msgCentrado -azul "--   Seleccione primero Tipo de Cuenta   --"
 
         # NORMAL
         opcionMenu -blanco $num "NORMAL" false 0
