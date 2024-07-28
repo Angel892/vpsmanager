@@ -156,8 +156,16 @@ validarDirectorio() {
     fi
 }
 
+
+#opcionMenu() {
+#    local numOption=$1;
+#    local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
+#    echo -e "${AMARILLO}[${VERDE}$numOption${AMARILLO}] ${ROJO}> ${BLANCO}$textOption${NC}";
+#}
+
+# Function to print menu options
 opcionMenu() {
-    local numOption=$1;
+    local numOption=$1
     local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
-    echo -e "${AMARILLO}[${VERDE}$numOption${AMARILLO}] ${ROJO}> ${BLANCO}$textOption${NC}";
+    printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-30s${NC}" "$numOption" "$textOption"
 }
