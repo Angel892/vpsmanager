@@ -20,138 +20,116 @@ menuProtocols() {
         msg -bar
 
         # APACHE
-        currentStatus=$(checkStatusF "apache2")
         opcionMenu -blanco $num "Apache" true 0 "apache2" "f"
         option[$num]="apache"
         let num++
 
         # NGINX
-        currentStatus=$(checkStatusF "nginx")
-        opcionMenu -blanco $num "Nginx $currentStatus"
+        opcionMenu -blanco $num "Nginx" true 0 "nginx" "f"
         option[$num]="nginx"
         let num++
 
         # DOTNET
-        currentStatus=$(checkStatusF "dotnet")
-        opcionMenu -blanco $num "Dotnet $currentStatus"
+        opcionMenu -blanco $num "Dotnet" true 0 "dotnet" "f"
         option[$num]="dotnet"
         let num++
 
         # MYSQL
-        currentStatus=$(checkStatusF "mysql")
-        opcionMenu -blanco $num "Mysql $currentStatus"
+        opcionMenu -blanco $num "Mysql" true 0 "mysql" "f"
         option[$num]="mysql"
         let num++
 
         # NODE JS
-        currentStatus=$(checkStatusF "node")
-        opcionMenu -blanco $num "Node js $currentStatus"
+        opcionMenu -blanco $num "Node js" true 0 "node" "f"
         option[$num]="nodejs"
         let num++
 
         msgCentradoBarra -verd "PROTOCOLOS NET"
 
         # BADVPN
-        currentStatus=$(checkStatus "badvpn")
-        opcionMenu -blanco $num "BADVPN $currentStatus"
+        opcionMenu -blanco $num "BADVPN" true 0 "badvpn"
         option[$num]="badvpn"
         let num++
 
         # DROPBEAR
-        currentStatus=$(checkStatus "dropbear")
-        opcionMenu -blanco $num "DROPBEAR $currentStatus"
+        opcionMenu -blanco $num "DROPBEAR" true 0 "dropbear"
         option[$num]="dropbear"
         let num++
 
         # SSL
-        currentStatus=$(checkStatus "stunnel4")
-        opcionMenu -blanco $num "SSL $currentStatus"
+        opcionMenu -blanco $num "SSL" true 0 "stunnel4"
         option[$num]="ssl"
         let num++
 
         # SQUID
-        currentStatus=$(checkStatus "squid")
-        opcionMenu -blanco $num "SQUID $currentStatus"
+        opcionMenu -blanco $num "SQUID" true 0 "squid"
         option[$num]="squid"
         let num++
 
         # OPENVPN
-        currentStatus=$(checkStatus "openvpn")
-        opcionMenu -blanco $num "OPENVPN $currentStatus"
+        opcionMenu -blanco $num "OPENVPN" true 0 "openvpn"
         option[$num]="openvpn"
         let num++
 
         # SHADOWSOCK NORMAL
-        currentStatus=$(checkStatus "ssserver")
-        opcionMenu -blanco $num "SHADOWSOCK NORMAL $currentStatus"
+        opcionMenu -blanco $num "SHADOWSOCK NORMAL" true 0 "ssserver"
         option[$num]="shadowSock"
         let num++
 
         # SHADOWSHOW LIV
-        currentStatus=$(checkStatus "ss-server")
-        opcionMenu -blanco $num "SHADOWSOCK LIV +OBFS $currentStatus"
+        opcionMenu -blanco $num "SHADOWSOCK LIV +OBFS" true 0 "ss-server"
         option[$num]="shadowSockLiv"
         let num++
 
         # SLOWDNS
-        currentStatus=$(checkStatus "slowdns")
-        opcionMenu -blanco $num "SLOWDNS $currentStatus"
+        opcionMenu -blanco $num "SLOWDNS" true 0 "slowdns"
         option[$num]="slowdns"
         let num++
 
         # GETTUNEL
-        currentStatus=$(checkStatus "PGet.py")
-        opcionMenu -blanco $num "GETTUNEL $currentStatus"
+        opcionMenu -blanco $num "GETTUNEL" true 0 "PGet.py"
         option[$num]="gettunel"
         let num++
 
         # TCP OVER
-        currentStatus=$(checkStatus "scktcheck")
-        opcionMenu -blanco $num "TCP-OVER $currentStatus"
+        opcionMenu -blanco $num "TCP-OVER" true 0 "scktcheck"
         option[$num]="tcpover"
         let num++
 
         # SSLH
-        currentStatus=$(checkStatusF "/var/run/sslh/sslh.pid")
-        opcionMenu -blanco $num "SSLH $currentStatus"
+        opcionMenu -blanco $num "SSLH" true 0 "/var/run/sslh/sslh.pid" "f"
         option[$num]="sslh"
         let num++
 
         # UDP REQUEST
-        currentStatus=$(checkStatus "/usr/bin/udpServer")
-        opcionMenu -blanco $num "UDP-REQUEST $currentStatus"
+        opcionMenu -blanco $num "UDP-REQUEST" true 0 "/usr/bin/udpServer"
         option[$num]="udprequest"
         let num++
 
         # PSIPHON
-        currentStatus=$(checkStatus "psiserver")
-        opcionMenu -blanco $num "SERVIDOR PSIPHONE $currentStatus"
+        opcionMenu -blanco $num "SERVIDOR PSIPHONE" true 0 "psiserver"
         option[$num]="psiphone"
         let num++
 
         msgCentradoBarra -verd "PROXY´S"
 
         # WEB SOCKET
-        currentStatus=$(checkStatus "pydic-*")
-        opcionMenu -blanco $num "WEBSOKET STATUS EDITABLE $currentStatus"
+        opcionMenu -blanco $num "WEBSOKET STATUS EDITABLE" true 0 "pydic-*"
         option[$num]="websocket"
         let num++
 
         # PROXY VPN
-        currentStatus=$(checkStatus "POpen.py")
-        opcionMenu -blanco $num "PROXY OPENVPN $currentStatus"
+        opcionMenu -blanco $num "PROXY OPENVPN" true 0 "POpen.py"
         option[$num]="proxyOpenVpn"
         let num++
 
         # PROXY PUBLICO
-        currentStatus=$(checkStatus "PPub.py")
-        opcionMenu -blanco $num "PROXY PUBLICO $currentStatus"
+        opcionMenu -blanco $num "PROXY PUBLICO" true 0 "PPub.py"
         option[$num]="proxyPublico"
         let num++
 
         # PROXY PRIVADO
-        currentStatus=$(checkStatus "PPriv.py")
-        opcionMenu -blanco $num "PROXY PRIVADO $currentStatus"
+        opcionMenu -blanco $num "PROXY PRIVADO" true 0 "PPriv.py"
         option[$num]="proxyPrivado"
         let num++
 
