@@ -11,6 +11,8 @@ eliminarl=$(
     tput el
 )
 
+barra="════════════════════════════════════════════════════"
+
 mostrarActivo() {
     echo -e "${VERDE}[ ON ]${NC}"
 }
@@ -86,7 +88,6 @@ msg() { ##-->> COLORES, TITULO, BARRAS
 }
 
 msgCentrado() {
-    barra="════════════════════════════════════════════════════"
     texto="$2"
     texto_len=${#texto}
     barra_len=${#barra}
@@ -106,7 +107,6 @@ msgCentrado() {
 }
 
 msgCentradoBarra() {
-    barra="════════════════════════════════════════════════════"
     texto="$2"
     texto_len=${#texto}
     barra_len=${#barra}
@@ -156,7 +156,6 @@ validarDirectorio() {
     fi
 }
 
-
 #opcionMenu() {
 #    local numOption=$1;
 #    local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
@@ -164,8 +163,18 @@ validarDirectorio() {
 #}
 
 # Function to print menu options
+# Function to print menu options with justified spacing
 opcionMenu() {
     local numOption=$1
     local textOption=$(echo "$2" | tr '[:lower:]' '[:upper:]')
-    printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-30s${NC}" "$numOption" "$textOption"
+    local width=$(tput cols)
+    local padding=$(((width - 40) / 2)) # Adjust padding to ensure justify-between effect
+
+    printf "${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption"
+
+    if (($((numOption % 2)) == 0)); then
+        echo
+    else
+        printf "%${padding}s"
+    fi
 }
