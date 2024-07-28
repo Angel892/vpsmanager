@@ -9,7 +9,7 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 detalleUsuariosSSH() {
     clear
     msg -bar
-    echo -e "${AMARILLO} INFORMACION DE USUARIOS REGISTRADOS${NC}"
+    msgCentrado -amarillo "INFORMACION DE USUARIOS REGISTRADOS"
     msg -bar
 
     if [ ! -f /etc/vpsmanager/users.txt ]; then
