@@ -34,7 +34,7 @@ validarArchivo() {
 
     if [ ! -d "$dirPath" ]; then
         # Si el directorio no existe, se crea
-        mkdir -p "$dirPath"
+        mkdir -p "$dirPath" 2>/dev/null
     fi
 
     if [ ! -e "$filePath" ]; then
