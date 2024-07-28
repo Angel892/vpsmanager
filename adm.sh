@@ -31,7 +31,9 @@ mostrar_menu() {
         msg -bar
 
         # SSH
-        opcionMenu $num $option "SSH / OPEN VPN" "ssh"
+        opcionMenu $num "SSH / OPEN VPN"
+        option[$num]="ssh"
+        let num++
 
         # PROTOCOLOS
         echo -e "${SECUNDARIO}$num. Administrar Protocolos${NC}"

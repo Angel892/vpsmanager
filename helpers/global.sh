@@ -157,11 +157,7 @@ validarDirectorio() {
 }
 
 opcionMenu() {
-    local opcionNum=$1;
-    local opcionArray=$2;
-    local opcionText=$3;
-    local opcionCommand=$4;
-    echo -e "${SECUNDARIO}$opcionNum. $opcionText${NC}"
-    opcionArray[$opcionNum]="$opcionCommand"
-    let $opcionNum++
+    local numOption=$1;
+    local textOption=$2;
+    echo -e "${SECUNDARIO}$numOption. $textOption${NC}";
 }
