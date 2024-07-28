@@ -5,7 +5,7 @@ SECUNDARIO="\e[1;33m"
 INFO="\e[1;33m"
 
 SALIR="\e[1;31m"
-NC="\e[0m"
+NC="\033[0m"
 
 ##-->> COLORES
 GRIS='\033[1;37m' #GRIS='\033[1;37m'
