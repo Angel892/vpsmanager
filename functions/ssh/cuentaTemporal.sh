@@ -4,8 +4,6 @@ crearCuentaTemporalSSH() {
 
     local temporalPath="$mainPath/temp/demo-ssh"
 
-    echo "$temporalPath"
-
     rm -rf $temporalPath 2>/dev/null
     mkdir $temporalPath 2>/dev/null
     tmpusr() {
@@ -35,6 +33,8 @@ crearCuentaTemporalSSH() {
 
     while true; do
         clear && clear
+
+        echo "$temporalPath"
 
         msg -bar
         msg -tit
