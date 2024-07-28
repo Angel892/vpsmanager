@@ -67,6 +67,28 @@ crearCuentaSSH() {
             done
         fi
 
+        add_user() {
+
+            local user=$1;
+            local password=$2;
+            local exp=$3;
+            local conex=$4;
+            #nome senha Dias limite
+            [[ $(cat /etc/passwd | grep $user: | grep -vi [a-z]$user | grep -v [0-9]$user >/dev/null) ]] && return 1
+            valid=$(date '+%C%y-%m-%d' -d " +$exp days") && datexp=$(date "+%F" -d " + $exp days")
+            useradd -m -s /bin/false $user -e ${valid} >/dev/null 2>&1 || return 1
+            (
+                echo $password
+                echo $password
+            ) | passwd $user 2>/dev/null || {
+                userdel --force $user
+                return 1
+            }
+            echo "$1|$password|${datexp}|$conex" >>$mainPath/cuentassh
+            echo "$1|$password|${datexp}|$conex" >>$mainPath/regtotal
+            echo "" >/dev/null 2>&1
+        }
+
         cuenta_normal() {
             msg -bar
             echo -e "\e[1;97m             ----- CUENTA NORMAL  ------"
