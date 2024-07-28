@@ -13,7 +13,7 @@ detalleUsuariosSSH() {
     msg -bar
 
     if [ ! -f /etc/vpsmanager/users.txt ]; then
-        echo -e "${ROJO}No hay usuarios SSH disponibles.${NC}"
+        msg -rojo "No hay usuarios SSH disponibles."
         read -p "Presione Enter para continuar..."
         return
     fi
