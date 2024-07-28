@@ -14,7 +14,7 @@ eliminarl=$(
 barra="════════════════════════════════════════════════════"
 
 mostrarActivo() {
-    echo "${VERDE}[ ON ]${NC}"
+    echo "${VERDE}[ ACTIVO ]${NC}"
 }
 
 mostrarInActivo() {
@@ -199,8 +199,6 @@ opcionMenu() {
             currentStatus=$(checkStatusF $checkStatus)
         fi
 
-        textOption=$(printf "%-20s %s" "$textOption" "[$currentStatus]")
-
         case $option in
         -rojo) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
         -blanco) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption" ;;
@@ -209,6 +207,11 @@ opcionMenu() {
         -azul) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AZUL}%-20s${NC}" "$numOption" "$textOption" ;;
         -gris) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${GRIS}%-20s${NC}" "$numOption" "$textOption" ;;
         esac
+
+        # Agrega el estado actual si está definido
+        if [[ -n $currentStatus ]]; then
+            printf "%s" "$currentStatus"
+        fi
 
     fi
 
