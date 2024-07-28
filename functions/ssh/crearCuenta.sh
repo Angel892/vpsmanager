@@ -2,6 +2,319 @@
 
 crearCuentaSSH() {
 
+    validarArchivo "$mainPath/cuentasactivas"
+
+    add_user() {
+
+        local user=$1
+        local password=$2
+        local exp=$3
+        local conex=$4
+
+        #nome senha Dias limite
+        [[ $(cat /etc/passwd | grep $user: | grep -vi [a-z]$user | grep -v [0-9]$user >/dev/null) ]] && return 1
+        valid=$(date '+%C%y-%m-%d' -d " +$exp days") && datexp=$(date "+%F" -d " + $exp days")
+        useradd -m -s /bin/false $user -e ${valid} >/dev/null 2>&1 || return 1
+        (
+            echo $password
+            echo $password
+        ) | passwd $user 2>/dev/null || {
+            userdel --force $user
+            return 1
+        }
+
+        validarArchivo "$mainPath/cuentassh"
+        validarArchivo "$mainPath/regtotal"
+
+        echo "$user|$password|${datexp}|$conex" >>$mainPath/cuentassh
+        echo "$user|$password|${datexp}|$conex" >>$mainPath/regtotal
+        echo "" >/dev/null 2>&1
+    }
+
+    # Open VPN
+    newclient() {
+
+        local user=$1
+        local password=$2
+
+        #Nome #Senha
+        usermod -p $(openssl passwd -1 $password) $user
+        while [[ ${newfile} != @(s|S|y|Y|n|N) ]]; do
+            msg -bar
+            read -p "Crear Archivo OpenVPN? [S/N]: " -e -i S newfile
+            tput cuu1 && tput dl1
+        done
+        if [[ ${newfile} = @(s|S) ]]; then
+            # Generates the custom client.ovpn
+            rm -rf /etc/openvpn/easy-rsa/pki/reqs/$user.req
+            rm -rf /etc/openvpn/easy-rsa/pki/issued/$user.crt
+            rm -rf /etc/openvpn/easy-rsa/pki/private/$user.key
+            cd /etc/openvpn/easy-rsa/
+            ./easyrsa build-client-full $user nopass >/dev/null 2>&1
+            cd
+
+            cp /etc/openvpn/client-common.txt ~/$user.ovpn
+            echo "<ca>" >>~/$user.ovpn
+            cat /etc/openvpn/easy-rsa/pki/ca.crt >>~/$user.ovpn
+            echo "</ca>" >>~/$user.ovpn
+            echo "<cert>" >>~/$user.ovpn
+            cat /etc/openvpn/easy-rsa/pki/issued/$user.crt >>~/$user.ovpn
+            echo "</cert>" >>~/$user.ovpn
+            echo "<key>" >>~/$user.ovpn
+            cat /etc/openvpn/easy-rsa/pki/private/$user.key >>~/$user.ovpn
+            echo "</key>" >>~/$user.ovpn
+            echo "<tls-auth>" >>~/$user.ovpn
+            cat /etc/openvpn/ta.key >>~/$user.ovpn
+            echo "</tls-auth>" >>~/$user.ovpn
+
+            while [[ ${ovpnauth} != @(s|S|y|Y|n|N) ]]; do
+                read -p "Colocar autenticacion de usuario en el archivo? [S/N]: " -e -i S ovpnauth
+                tput cuu1 && tput dl1
+            done
+            [[ ${ovpnauth} = @(s|S) ]] && sed -i "s;auth-user-pass;<auth-user-pass>\n$user\n$password\n</auth-user-pass>;g" ~/$user.ovpn
+            cd $HOME
+            zip ./$user.zip ./$user.ovpn >/dev/null 2>&1
+            rm ./$user.ovpn >/dev/null 2>&1
+
+            echo -e "\033[1;31mArchivo creado: ($HOME/$user.zip)"
+
+        fi
+    }
+
+    cuenta_normal() {
+        clear
+        msg -bar
+        msgCentrado -amarillo "----- CUENTA NORMAL  ------"
+        msg -bar
+        while true; do
+            msgne -blanco "Digite Nuevo Usuario: " && read nomeuser
+            nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
+            if [[ -z $nomeuser ]]; then
+                errorFun "nullo" && continue
+            elif [[ "${#nomeuser}" -lt "$minCaracteres" ]]; then
+                errorFun "corto" && continue
+            elif [[ "${#nomeuser}" -gt "$maxCaracteres" ]]; then
+                errorFun "largo" && continue
+            elif [[ "$(echo ${usuarios_ativos1[@]} | grep -w "$nomeuser")" ]]; then
+                errorFun "existente" $nomeuser && continue
+            elif [[ "$(echo ${usuarios_ativosf2[@]} | grep -w "$nomeuser")" ]]; then
+                errorFun "existente" $nomeuser && continue
+            fi
+            break
+        done
+
+        while true; do
+            msgne -blanco "Digite Nueva Contraseña: " && read senhauser
+            if [[ -z $senhauser ]]; then
+                errorFun "nullo" && continue
+            elif [[ "${#senhauser}" -lt "$minCaracteres" ]]; then
+                errorFun "corto" && continue
+            elif [[ "${#senhauser}" -gt "$maxCaracteres" ]]; then
+                errorFun "largo" && continue
+            fi
+            break
+        done
+        while true; do
+            msgne -blanco "Digite Tiempo de Validez: " && read diasuser
+            if [[ -z "$diasuser" ]]; then
+                errorFun "nullo" && continue
+            elif [[ "$diasuser" != +([0-9]) ]]; then
+                errorFun "soloNumeros" && continue
+            fi
+            break
+        done
+        while true; do
+            msgne -blanco "Digite conexiones maximas: " && read limiteuser
+            if [[ -z "$limiteuser" ]]; then
+                errorFun "nullo" && continue
+            elif [[ "$limiteuser" != +([0-9]) ]]; then
+                errorFun "soloNumeros" && continue
+            elif [[ "$limiteuser" -gt "$limiteMaximo" ]]; then
+                errorFun "limiteMaximo" && continue
+            fi
+            break
+        done
+        tput cuu1 && tput dl1
+        tput cuu1 && tput dl1
+        tput cuu1 && tput dl1
+        tput cuu1 && tput dl1
+        echo -ne "\e[38;5;202mIP del Servidor \e[1;97m" && echo -e "$(vpsIP)"
+        echo -ne "\e[38;5;202mUsuario: \e[1;97m" && echo -e "$nomeuser"
+        echo -ne "\e[38;5;202mContraseña: \e[1;97m" && echo -e "$senhauser"
+        echo -ne "\e[38;5;202mDias de Duracion: \e[1;97m" && echo -e "$diasuser"
+        echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
+        echo -ne "\e[38;5;202mLimite de Conexiones: \e[1;97m" && echo -e "$limiteuser"
+        msg -bar
+        add_user "${nomeuser}" "${senhauser}" "${diasuser}" "${limiteuser}" && msgCentrado -verde "Usuario Creado con Exito" || msgCentrado -rojo "Error, Usuario no creado" && msg -bar
+        [[ $(dpkg --get-selections | grep -w "openvpn" | head -1) ]] && [[ -e /etc/openvpn/openvpn-status.log ]] && newclient "$nomeuser" "$senhauser"
+        rebootnb "backbaseu" 2>/dev/null
+
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    }
+    #####-----CUENTA HWID
+    cuenta_hwid() {
+        clear
+        msg -bar
+        echo -e "\e[1;97m               ----- CUENTA HWID  ------"
+        msg -bar
+        while true; do
+            echo -ne "\e[1;93mDigite HWID: \e[1;32m" && read nomeuser
+            nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
+            if [[ -z $nomeuser ]]; then
+                errorFun "nullo" && continue
+            elif [[ "${#nomeuser}" -lt "$minCaracteres" ]]; then
+                errorFun "minimo" && continue
+            elif [[ "${#nomeuser}" -gt "$maxCaracteres" ]]; then
+                errorFun "maximo" && continue
+            elif [[ "$(echo ${usuarios_ativos2[@]} | grep -w "$nomeuser")" ]]; then
+                errorFun "existente" $nomeuser && continue
+            fi
+            break
+        done
+
+        while true; do
+            echo -ne "\e[1;93mDigite Nombre: \e[1;32m" && read nickhwid
+            nickhwid="$(echo $nickhwid | sed -e 's/[^a-z0-9 -]//ig')"
+            if [[ -z $nickhwid ]]; then
+                errorFun "nullo" && continue
+            elif [[ "${#nickhwid}" -lt "$minCaracteres" ]]; then
+                errorFun "minimo" && continue
+            elif [[ "${#nickhwid}" -gt "$maxCaracteres" ]]; then
+                errorFun "maximo" && continue
+            elif [[ "$(echo ${usuarios_ativos2[@]} | grep -w "$nickhwid")" ]]; then
+                errorFun "existente" $nickhwid && continue
+            fi
+            break
+        done
+        while true; do
+            echo -ne "\e[1;93mDigite Tiempo de Validez: \e[1;32m" && read diasuser
+            if [[ -z "$diasuser" ]]; then
+                errorFun "nullo" && continue
+            elif [[ "$diasuser" != +([0-9]) ]]; then
+                errorFun "soloNumeros" && continue
+            fi
+            break
+        done
+        tput cuu1 && tput dl1
+        tput cuu1 && tput dl1
+        echo -ne "\e[38;5;202mIP del Servidor \e[1;97m" && echo -e "$(vpsIP)"
+        echo -ne "\e[38;5;202mHWID: \e[1;97m" && echo -e "$nomeuser"
+        echo -ne "\e[38;5;202mUsuario: \e[1;97m" && echo -e "$nickhwid"
+        echo -ne "\e[38;5;202mDias de Duracion: \e[1;97m" && echo -e "$diasuser"
+        echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
+        msg -bar
+        [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
+            msg -rojo "         Error, Usuario no creado"
+            return 0
+        }
+        valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
+        userdel $nomeuser >/dev/null 2>&1
+        useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
+            msg -rojo "         Error, Usuario no creado"
+            return 0
+        }
+        (
+            echo $nomeuser
+            echo $nomeuser
+        ) | passwd $nomeuser 2>/dev/null || {
+            userdel --force $nomeuser
+
+            return 1
+        }
+        echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/cuentahwid
+        echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/regtotal
+        msg -amarillo "\e[1;32m            Usuario Creado con Exito"
+        msg -bar
+        rebootnb "backbaseu" 2>/dev/null
+
+        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    }
+    #####-----CUENTA TOKEN
+    cuenta_token() {
+        clear
+        msg -bar
+        echo -e "\e[1;97m               ----- CUENTA TOKEN  ------"
+        msg -bar
+        passgeneral() {
+            echo -ne "\e[1;93mDIGITE SU TOKEN GENERAL:\e[1;32m " && read passgeneral
+            echo "$passgeneral" >$mainPath/temp/.passw
+            msg -bar
+        }
+        [[ -e "$mainPath/temp/.passw" ]] || passgeneral
+        while true; do
+            echo -ne "\e[1;93mDigite TOKEN: \e[1;32m" && read nomeuser
+            nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
+            if [[ -z $nomeuser ]]; then
+                errorFun "nullo" && continue
+            elif [[ "${#nomeuser}" -lt "$minCaracteres" ]]; then
+                errorFun "minimo" && continue
+            elif [[ "${#nomeuser}" -gt "$maxCaracteres" ]]; then
+                errorFun "maximo" && continue
+            elif [[ "$(echo ${usuarios_ativos3[@]} | grep -w "$nomeuser")" ]]; then
+                errorFun "existente" $nomeuser && continue
+            fi
+            break
+        done
+
+        while true; do
+            echo -ne "\e[1;93mDigite Nombre: \e[1;32m" && read nickhwid
+            nickhwid="$(echo $nickhwid | sed -e 's/[^a-z0-9 -]//ig')"
+            if [[ -z $nickhwid ]]; then
+                errorFun "nullo" && continue
+            elif [[ "${#nickhwid}" -lt "$minCaracteres" ]]; then
+                errorFun "minimo" && continue
+            elif [[ "${#nickhwid}" -gt "$maxCaracteres" ]]; then
+                errorFun "maximo" && continue
+            elif [[ "$(echo ${usuarios_ativos2[@]} | grep -w "$nickhwid")" ]]; then
+                errorFun "existente" $nickhwid && continue
+            fi
+            break
+        done
+
+        while true; do
+            echo -ne "\e[1;93mDigite Tiempo de Validez: \e[1;32m" && read diasuser
+            if [[ -z "$diasuser" ]]; then
+                errorFun "nullo" && continue
+            elif [[ "$diasuser" != +([0-9]) ]]; then
+                errorFun "soloNumeros" && continue
+            fi
+            break
+        done
+        tput cuu1 && tput dl1
+        tput cuu1 && tput dl1
+        echo -ne "\e[38;5;202mIP del Servidor \e[1;97m" && echo -e "$(vpsIP)"
+        echo -ne "\e[38;5;202mToken: \e[1;97m" && echo -e "$nomeuser"
+        echo -ne "\e[38;5;202mUsuario: \e[1;97m" && echo -e "$nickhwid"
+        echo -ne "\e[38;5;202mDias de Duracion: \e[1;97m" && echo -e "$diasuser"
+        echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
+        msg -bar
+        passtoken=$(cat $mainPath/temp/.passw | tr -d " \t\n\r")
+
+        [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
+            msg -rojo "         Error, Usuario no creado"
+            return 0
+        }
+        valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
+        useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
+            msg -rojo "         Error, Usuario no creado"
+            return 0
+        }
+        (
+            echo $passtoken
+            echo $passtoken
+        ) | passwd $nomeuser 2>/dev/null || {
+            userdel --force $nomeuser
+            return 1
+        }
+        echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/cuentatoken
+        echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/regtotal
+        msg -amarillo "\e[1;32m            Usuario Creado con Exito"
+        rebootnb "backbaseu" 2>/dev/null
+
+        msg -bar
+        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    }
+
     while true; do
 
         clear && clear
@@ -67,317 +380,6 @@ crearCuentaSSH() {
                 let i++
             done
         fi
-
-        add_user() {
-
-            local user=$1
-            local password=$2
-            local exp=$3
-            local conex=$4
-
-            #nome senha Dias limite
-            [[ $(cat /etc/passwd | grep $user: | grep -vi [a-z]$user | grep -v [0-9]$user >/dev/null) ]] && return 1
-            valid=$(date '+%C%y-%m-%d' -d " +$exp days") && datexp=$(date "+%F" -d " + $exp days")
-            useradd -m -s /bin/false $user -e ${valid} >/dev/null 2>&1 || return 1
-            (
-                echo $password
-                echo $password
-            ) | passwd $user 2>/dev/null || {
-                userdel --force $user
-                return 1
-            }
-
-            validarArchivo "$mainPath/cuentassh"
-            validarArchivo "$mainPath/regtotal"
-
-            echo "$user|$password|${datexp}|$conex" >>$mainPath/cuentassh
-            echo "$user|$password|${datexp}|$conex" >>$mainPath/regtotal
-            echo "" >/dev/null 2>&1
-        }
-
-        # Open VPN
-        newclient() {
-
-            local user=$1
-            local password=$2
-
-            #Nome #Senha
-            usermod -p $(openssl passwd -1 $password) $user
-            while [[ ${newfile} != @(s|S|y|Y|n|N) ]]; do
-                msg -bar
-                read -p "Crear Archivo OpenVPN? [S/N]: " -e -i S newfile
-                tput cuu1 && tput dl1
-            done
-            if [[ ${newfile} = @(s|S) ]]; then
-                # Generates the custom client.ovpn
-                rm -rf /etc/openvpn/easy-rsa/pki/reqs/$user.req
-                rm -rf /etc/openvpn/easy-rsa/pki/issued/$user.crt
-                rm -rf /etc/openvpn/easy-rsa/pki/private/$user.key
-                cd /etc/openvpn/easy-rsa/
-                ./easyrsa build-client-full $user nopass >/dev/null 2>&1
-                cd
-
-                cp /etc/openvpn/client-common.txt ~/$user.ovpn
-                echo "<ca>" >>~/$user.ovpn
-                cat /etc/openvpn/easy-rsa/pki/ca.crt >>~/$user.ovpn
-                echo "</ca>" >>~/$user.ovpn
-                echo "<cert>" >>~/$user.ovpn
-                cat /etc/openvpn/easy-rsa/pki/issued/$user.crt >>~/$user.ovpn
-                echo "</cert>" >>~/$user.ovpn
-                echo "<key>" >>~/$user.ovpn
-                cat /etc/openvpn/easy-rsa/pki/private/$user.key >>~/$user.ovpn
-                echo "</key>" >>~/$user.ovpn
-                echo "<tls-auth>" >>~/$user.ovpn
-                cat /etc/openvpn/ta.key >>~/$user.ovpn
-                echo "</tls-auth>" >>~/$user.ovpn
-
-                while [[ ${ovpnauth} != @(s|S|y|Y|n|N) ]]; do
-                    read -p "Colocar autenticacion de usuario en el archivo? [S/N]: " -e -i S ovpnauth
-                    tput cuu1 && tput dl1
-                done
-                [[ ${ovpnauth} = @(s|S) ]] && sed -i "s;auth-user-pass;<auth-user-pass>\n$user\n$password\n</auth-user-pass>;g" ~/$user.ovpn
-                cd $HOME
-                zip ./$user.zip ./$user.ovpn >/dev/null 2>&1
-                rm ./$user.ovpn >/dev/null 2>&1
-
-                echo -e "\033[1;31mArchivo creado: ($HOME/$user.zip)"
-
-            fi
-        }
-
-        cuenta_normal() {
-            clear
-            msg -bar
-            msgCentrado -amarillo "----- CUENTA NORMAL  ------"
-            msg -bar
-            while true; do
-                msgne -blanco "Digite Nuevo Usuario: " && read nomeuser
-                nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
-                if [[ -z $nomeuser ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "${#nomeuser}" -lt "$minCaracteres" ]]; then
-                    errorFun "corto" && continue
-                elif [[ "${#nomeuser}" -gt "$maxCaracteres" ]]; then
-                    errorFun "largo" && continue
-                elif [[ "$(echo ${usuarios_ativos1[@]} | grep -w "$nomeuser")" ]]; then
-                    errorFun "existente" $nomeuser && continue
-                elif [[ "$(echo ${usuarios_ativosf2[@]} | grep -w "$nomeuser")" ]]; then
-                    errorFun "existente" $nomeuser && continue
-                fi
-                break
-            done
-
-            while true; do
-                msgne -blanco "Digite Nueva Contraseña: " && read senhauser
-                if [[ -z $senhauser ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "${#senhauser}" -lt "$minCaracteres" ]]; then
-                    errorFun "corto" && continue
-                elif [[ "${#senhauser}" -gt "$maxCaracteres" ]]; then
-                    errorFun "largo" && continue
-                fi
-                break
-            done
-            while true; do
-                msgne -blanco "Digite Tiempo de Validez: " && read diasuser
-                if [[ -z "$diasuser" ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "$diasuser" != +([0-9]) ]]; then
-                    errorFun "soloNumeros" && continue
-                fi
-                break
-            done
-            while true; do
-                msgne -blanco "Digite conexiones maximas: " && read limiteuser
-                if [[ -z "$limiteuser" ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "$limiteuser" != +([0-9]) ]]; then
-                    errorFun "soloNumeros" && continue
-                elif [[ "$limiteuser" -gt "$limiteMaximo" ]]; then
-                    errorFun "limiteMaximo" && continue
-                fi
-                break
-            done
-            tput cuu1 && tput dl1
-            tput cuu1 && tput dl1
-            tput cuu1 && tput dl1
-            tput cuu1 && tput dl1
-            echo -ne "\e[38;5;202mIP del Servidor \e[1;97m" && echo -e "$(vpsIP)"
-            echo -ne "\e[38;5;202mUsuario: \e[1;97m" && echo -e "$nomeuser"
-            echo -ne "\e[38;5;202mContraseña: \e[1;97m" && echo -e "$senhauser"
-            echo -ne "\e[38;5;202mDias de Duracion: \e[1;97m" && echo -e "$diasuser"
-            echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
-            echo -ne "\e[38;5;202mLimite de Conexiones: \e[1;97m" && echo -e "$limiteuser"
-            msg -bar
-            add_user "${nomeuser}" "${senhauser}" "${diasuser}" "${limiteuser}" && msgCentrado -verde "Usuario Creado con Exito" || msgCentrado -rojo "Error, Usuario no creado" && msg -bar
-            [[ $(dpkg --get-selections | grep -w "openvpn" | head -1) ]] && [[ -e /etc/openvpn/openvpn-status.log ]] && newclient "$nomeuser" "$senhauser"
-            rebootnb "backbaseu" 2>/dev/null
-
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        }
-        #####-----CUENTA HWID
-        cuenta_hwid() {
-            clear
-            msg -bar
-            echo -e "\e[1;97m               ----- CUENTA HWID  ------"
-            msg -bar
-            while true; do
-                echo -ne "\e[1;93mDigite HWID: \e[1;32m" && read nomeuser
-                nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
-                if [[ -z $nomeuser ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "${#nomeuser}" -lt "$minCaracteres" ]]; then
-                    errorFun "minimo" && continue
-                elif [[ "${#nomeuser}" -gt "$maxCaracteres" ]]; then
-                    errorFun "maximo" && continue
-                elif [[ "$(echo ${usuarios_ativos2[@]} | grep -w "$nomeuser")" ]]; then
-                    errorFun "existente" $nomeuser && continue
-                fi
-                break
-            done
-
-            while true; do
-                echo -ne "\e[1;93mDigite Nombre: \e[1;32m" && read nickhwid
-                nickhwid="$(echo $nickhwid | sed -e 's/[^a-z0-9 -]//ig')"
-                if [[ -z $nickhwid ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "${#nickhwid}" -lt "$minCaracteres" ]]; then
-                    errorFun "minimo" && continue
-                elif [[ "${#nickhwid}" -gt "$maxCaracteres" ]]; then
-                    errorFun "maximo" && continue
-                elif [[ "$(echo ${usuarios_ativos2[@]} | grep -w "$nickhwid")" ]]; then
-                    errorFun "existente" $nickhwid && continue
-                fi
-                break
-            done
-            while true; do
-                echo -ne "\e[1;93mDigite Tiempo de Validez: \e[1;32m" && read diasuser
-                if [[ -z "$diasuser" ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "$diasuser" != +([0-9]) ]]; then
-                    errorFun "soloNumeros" && continue
-                fi
-                break
-            done
-            tput cuu1 && tput dl1
-            tput cuu1 && tput dl1
-            echo -ne "\e[38;5;202mIP del Servidor \e[1;97m" && echo -e "$(vpsIP)"
-            echo -ne "\e[38;5;202mHWID: \e[1;97m" && echo -e "$nomeuser"
-            echo -ne "\e[38;5;202mUsuario: \e[1;97m" && echo -e "$nickhwid"
-            echo -ne "\e[38;5;202mDias de Duracion: \e[1;97m" && echo -e "$diasuser"
-            echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
-            msg -bar
-            [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
-                msg -rojo "         Error, Usuario no creado"
-                return 0
-            }
-            valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
-            userdel $nomeuser >/dev/null 2>&1
-            useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
-                msg -rojo "         Error, Usuario no creado"
-                return 0
-            }
-            (
-                echo $nomeuser
-                echo $nomeuser
-            ) | passwd $nomeuser 2>/dev/null || {
-                userdel --force $nomeuser
-
-                return 1
-            }
-            echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/cuentahwid
-            echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/regtotal
-            msg -amarillo "\e[1;32m            Usuario Creado con Exito"
-            msg -bar
-            rebootnb "backbaseu" 2>/dev/null
-
-            read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        }
-        #####-----CUENTA TOKEN
-        cuenta_token() {
-            clear
-            msg -bar
-            echo -e "\e[1;97m               ----- CUENTA TOKEN  ------"
-            msg -bar
-            passgeneral() {
-                echo -ne "\e[1;93mDIGITE SU TOKEN GENERAL:\e[1;32m " && read passgeneral
-                echo "$passgeneral" >$mainPath/temp/.passw
-                msg -bar
-            }
-            [[ -e "$mainPath/temp/.passw" ]] || passgeneral
-            while true; do
-                echo -ne "\e[1;93mDigite TOKEN: \e[1;32m" && read nomeuser
-                nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
-                if [[ -z $nomeuser ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "${#nomeuser}" -lt "$minCaracteres" ]]; then
-                    errorFun "minimo" && continue
-                elif [[ "${#nomeuser}" -gt "$maxCaracteres" ]]; then
-                    errorFun "maximo" && continue
-                elif [[ "$(echo ${usuarios_ativos3[@]} | grep -w "$nomeuser")" ]]; then
-                    errorFun "existente" $nomeuser && continue
-                fi
-                break
-            done
-
-            while true; do
-                echo -ne "\e[1;93mDigite Nombre: \e[1;32m" && read nickhwid
-                nickhwid="$(echo $nickhwid | sed -e 's/[^a-z0-9 -]//ig')"
-                if [[ -z $nickhwid ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "${#nickhwid}" -lt "$minCaracteres" ]]; then
-                    errorFun "minimo" && continue
-                elif [[ "${#nickhwid}" -gt "$maxCaracteres" ]]; then
-                    errorFun "maximo" && continue
-                elif [[ "$(echo ${usuarios_ativos2[@]} | grep -w "$nickhwid")" ]]; then
-                    errorFun "existente" $nickhwid && continue
-                fi
-                break
-            done
-
-            while true; do
-                echo -ne "\e[1;93mDigite Tiempo de Validez: \e[1;32m" && read diasuser
-                if [[ -z "$diasuser" ]]; then
-                    errorFun "nullo" && continue
-                elif [[ "$diasuser" != +([0-9]) ]]; then
-                    errorFun "soloNumeros" && continue
-                fi
-                break
-            done
-            tput cuu1 && tput dl1
-            tput cuu1 && tput dl1
-            echo -ne "\e[38;5;202mIP del Servidor \e[1;97m" && echo -e "$(vpsIP)"
-            echo -ne "\e[38;5;202mToken: \e[1;97m" && echo -e "$nomeuser"
-            echo -ne "\e[38;5;202mUsuario: \e[1;97m" && echo -e "$nickhwid"
-            echo -ne "\e[38;5;202mDias de Duracion: \e[1;97m" && echo -e "$diasuser"
-            echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
-            msg -bar
-            passtoken=$(cat $mainPath/temp/.passw | tr -d " \t\n\r")
-
-            [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
-                msg -rojo "         Error, Usuario no creado"
-                return 0
-            }
-            valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
-            useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
-                msg -rojo "         Error, Usuario no creado"
-                return 0
-            }
-            (
-                echo $passtoken
-                echo $passtoken
-            ) | passwd $nomeuser 2>/dev/null || {
-                userdel --force $nomeuser
-                return 1
-            }
-            echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/cuentatoken
-            echo "$nomeuser||${datexp}||${nickhwid}" >>$mainPath/regtotal
-            msg -amarillo "\e[1;32m            Usuario Creado con Exito"
-            rebootnb "backbaseu" 2>/dev/null
-
-            msg -bar
-            read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        }
 
         local num=1
 
