@@ -6,7 +6,10 @@ HELPERS_PATH="/etc/vpsmanager/helpers"
 source $HELPERS_PATH/colors.sh
 
 #Eliminar linea anterior
-eliminarl=$(tput cuu1; tput el;)
+eliminarl=$(
+    tput cuu1
+    tput el
+)
 
 mostrarActivo() {
     echo -e "${VERDE}[ ON ]${NC}"
@@ -151,4 +154,14 @@ validarDirectorio() {
         fi
         echo "Directorio $directorio creado."
     fi
+}
+
+opcionMenu() {
+    local opcionNum=$1;
+    local opcionArray=$2;
+    local opcionText=$3;
+    local opcionCommand=$4;
+    echo -e "${SECUNDARIO}$opcionNum. $opcionText${NC}"
+    opcionArray[$opcionNum]="$opcionCommand"
+    let $1++
 }

@@ -21,6 +21,7 @@ source $MAIN_PATH/puertosActivos.sh
 mostrar_menu() {
     while true; do
         local num=1
+        local option[];
 
         clear
         msg -bar
@@ -30,9 +31,7 @@ mostrar_menu() {
         msg -bar
 
         # SSH
-        echo -e "${SECUNDARIO}$num. SSH / OPEN VPN${NC}"
-        option[$num]="ssh"
-        let num++
+        opcionMenu $num $option "SSH / OPEN VPN" "ssh"
 
         # PROTOCOLOS
         echo -e "${SECUNDARIO}$num. Administrar Protocolos${NC}"
