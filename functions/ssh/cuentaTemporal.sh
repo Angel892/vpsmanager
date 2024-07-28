@@ -4,8 +4,8 @@ crearCuentaTemporalSSH() {
 
     local temporalPath="$mainPath/temp/demo-ssh"
 
-    rm -rf $temporalPath 2>/dev/null
-    mkdir $temporalPath  2>/dev/null
+    rm -rf "$temporalPath" 2>/dev/null
+    mkdir "$temporalPath"  2>/dev/null
     tmpusr() {
         time="$1"
         timer=$(($time * 60))
@@ -73,9 +73,15 @@ crearCuentaTemporalSSH() {
         echo "nohup /tmp/$name & >/dev/null" >/tmp/cmd
         /tmp/cmd 2>/dev/null 1>/dev/null
         rm -rf /tmp/cmd
+
+        #validarArchivo "$temporalPath/$name"
+
+
         touch $temporalPath/$name
         echo "senha: $pass" >>$temporalPath/$name
         echo "data: ($tmp)Minutos" >>$temporalPath/$name
+
+
         msg -bar
         msgCentrado -verde "¡¡  USUARIO TEMPORAL x MINUTOS  !!"
         msg -bar
