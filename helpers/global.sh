@@ -63,6 +63,9 @@ selectionFun() {
             # Si la opción no es válida, muestra el mensaje de error y repite el bucle
             echo -e "\033[1;31mSelección no válida: $selection\033[0m" >&2
             sleep 1
+
+            eliminarl
+            eliminarl
         fi
     done
 }
