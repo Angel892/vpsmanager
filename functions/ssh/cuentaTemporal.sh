@@ -15,9 +15,8 @@ crearCuentaTemporalSSH() {
         kill"' $(ps -u '"$2 |awk '{print"' $1'"}') 1> /dev/null 2> /dev/null
         userdel --force $2
         rm -rf /tmp/$2
+        rm -rf "$temporalPath/$2"
         exit" >/tmp/$2
-
-        rm "$temporalPath/$2"
     }
 
     tmpusr2() {
@@ -30,9 +29,9 @@ crearCuentaTemporalSSH() {
         kill $kill
         userdel --force $2
         rm -rf /tmp/$2
+        rm -rf "$temporalPath/$2"
         exit" >/tmp/$2
 
-        rm "$temporalPath/$2"
     }
 
     while true; do
