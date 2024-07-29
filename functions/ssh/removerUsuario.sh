@@ -48,7 +48,7 @@ removerUsuarioSSH() {
         fi
         for us in $(echo ${usuarios_ativos2[@]}); do
             nomhwid="$(cat $mainPath/cuentahwid | grep -w "${us}" | cut -d'|' -f5)"
-            msg -ne "\e[1;93m [\e[1;32m$i\e[1;93m]\033[1;31m >" && echo -e "\e[1;97m ${us} \e[1;93m| \e[1;96m$nomhwid"
+            opcionMenu -blanco $i "$nomhwid"
             let i++
         done
         #TOKEN
@@ -59,7 +59,7 @@ removerUsuarioSSH() {
         fi
         for us in $(echo ${usuarios_ativos3[@]}); do
             nomtoken="$(cat $mainPath/cuentatoken | grep -w "${us}" | cut -d'|' -f5)"
-            msg -ne "\e[1;93m [\e[1;32m$i\e[1;93m]\033[1;31m >" && echo -e "\e[1;97m ${us} \e[1;93m| \e[1;96m$nomtoken"
+            opcionMenu -blanco $i "$nomtoken"
             let i++
         done
     fi
