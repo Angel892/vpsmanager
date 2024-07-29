@@ -13,6 +13,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/dropbear.sh
     source $PROTOCOLS_PATH/ssl.sh
     source $PROTOCOLS_PATH/squid.sh
+    source $PROTOCOLS_PATH/openvpn.sh
 
     while true; do
         local num=1
@@ -152,6 +153,7 @@ menuProtocols() {
         "dropbear") proto_dropbear ;;
         "ssl") proto_ssl ;;
         "squid") proto_squid ;;
+        "openvpn") proto_openvpn;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
