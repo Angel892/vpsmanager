@@ -192,9 +192,7 @@ limitadorMenu() {
     msg -bar
     echo -e "Esta Opcion Limita las Conexiones de SSH/SSL/DROPBEAR"
 
-    verif_fun_output=$(verif_fun);
-
-    PIDVRF="$(ps aux | grep "$verif_fun_output" | grep -v grep | awk '{print $2}')"
+    PIDVRF="$(ps aux | grep "$(verif_fun)" | grep -v grep | awk '{print $2}')"
 
     if [[ -z $PIDVRF ]]; then
         msg -bar
