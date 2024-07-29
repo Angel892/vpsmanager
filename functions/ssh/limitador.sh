@@ -181,7 +181,6 @@ limitadorMenu() {
         EXPIRADO3="/10"
         echo "${EXPIRADO2}${EXPIRADO3}" | bc >$mainPath/temp/USRexpired
 
-        clear
     }
 
     clear && clear
