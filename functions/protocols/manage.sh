@@ -17,6 +17,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/shadowsocksnormal.sh
     source $PROTOCOLS_PATH/shadowsockliv.sh
     source $PROTOCOLS_PATH/slowdns.sh
+    source $PROTOCOLS_PATH/gettunnel.sh
 
     while true; do
         local num=1
@@ -95,7 +96,7 @@ menuProtocols() {
 
         # GETTUNEL
         opcionMenu -blanco $num "GETTUNEL" true 0 "PGet.py"
-        option[$num]="gettunel"
+        option[$num]="gettunnel"
         let num++
 
         # TCP OVER
@@ -160,6 +161,7 @@ menuProtocols() {
         "shadowsocksnormal") proto_shadowsockN;;
         "shadowsockliv") proto_shadowsockL;;
         "slowdns") proto_slowndns;;
+        "gettunnel") proto_pgettunel ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
