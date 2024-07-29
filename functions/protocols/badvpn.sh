@@ -19,7 +19,7 @@ mportas() {
 activar_badvpn() {
     clear
     msg -bar
-    msgCentrado -ama "Instalador de BadVPN (UDP)"
+    msgCentrado -amarillo "Instalador de BadVPN (UDP)"
     msg -bar
     echo -e "${INFO}Digite los puertos a activar de forma secuencial${NC}"
     echo -e "${INFO}Ejemplo: 7300 7200 7100 | Puerto recomendado: 7300${NC}"
@@ -54,7 +54,7 @@ activar_badvpn() {
 desactivar_badvpn() {
     clear
     msg -bar
-    msgCentrado -ama "Desinstalando puertos BadVPN"
+    msgCentrado -amarillo "Desinstalando puertos BadVPN"
     msg -bar
     kill -9 $(ps x | grep badvpn | grep -v grep | awk '{print $1'}) >/dev/null 2>&1
     killall badvpn-udpgw >/dev/null 2>&1
@@ -70,7 +70,7 @@ proto_badvpn() {
     while true; do
         clear
         msg -bar
-        msgCentrado -ama "Instalador de BadVPN (UDP)"
+        msgCentrado -amarillo "Instalador de BadVPN (UDP)"
         msg -bar
         if [[ ! -e /bin/badvpn-udpgw ]]; then
             wget -O /bin/badvpn-udpgw https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/badvpn-udpgw &>/dev/null
