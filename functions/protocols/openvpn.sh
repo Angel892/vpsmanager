@@ -850,8 +850,6 @@ EOF
             ;;
         esac
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        return
-
     else
         #[[ -e /etc/squid/squid.conf ]] && instala_ovpn2
         #[[ -e /etc/squid3/squid.conf ]] && instala_ovpn2
