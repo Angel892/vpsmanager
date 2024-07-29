@@ -351,6 +351,13 @@ errorFun() {
 }
 
 GetAllUsers() {
+
+    ##-->>GENERAR USUARIOS TOTALES
+    cat $mainPath/cuentassh $mainPath/cuentahwid $mainPath/cuentatoken 2>/dev/null | cut -d '|' -f1 >$mainPath/cuentasactivast
+    if [[ -e "$mainPath/cuentasactivast" ]]; then
+        readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivast)
+    fi
+
     ##-->>LECTOR DE CUENTAS
     if [[ -e "$mainPath/cuentassh" ]]; then
         readarray -t usuarios_ativos1 < <(cut -d '|' -f1 $mainPath/cuentassh)
