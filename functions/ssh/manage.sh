@@ -15,6 +15,7 @@ source $SSH_PATH/usuariosConectados.sh
 source $SSH_PATH/eliminarVencidos.sh
 source $SSH_PATH/backup.sh
 source $SSH_PATH/eliminarTodos.sh
+source $SSH_PATH/renovarCuentas.sh
 
 menuSSH() {
 
@@ -109,6 +110,11 @@ menuSSH() {
         option[$num]="editar"
         let num++
 
+        # EDITAR USUARIO
+        opcionMenu -blanco $num "Renovar cuenta"
+        option[$num]="renovar"
+        let num++
+
         # DETALLES
         opcionMenu -blanco $num "Detalle de todos los usuarios"
         option[$num]="detalles"
@@ -157,6 +163,7 @@ menuSSH() {
         "backup") backupUsuariosSSH ;;
         "banner") gestionarBannerSSH ;;
         "eliminarTodos") eliminarTodosUsuariosSSH ;;
+        "renovar") renovarCuentaSSH ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
