@@ -70,6 +70,9 @@ limitadorMenu() {
         validarArchivo "$LIMITERLOG2"
 
         validarArchivo "$mainPath/temp/userexp";
+        validarArchivo "$mainPath/temp/USRexpired";
+        validarArchivo "$mainPath/temp/USRbloqueados";
+        validarArchivo "$mainPath/temp/USRonlines"
 
         [[ $(dpkg --get-selections | grep -w "openssh" | head -1) ]] && local SSH=ON || local SSH=OFF
         [[ $(dpkg --get-selections | grep -w "dropbear" | head -1) ]] && local DROP=ON || local DROP=OFF
@@ -148,7 +151,6 @@ limitadorMenu() {
                 [[ $DROP = ON ]] && PID+="$(dropbear_pids | grep -w "$user" | wc -l 2>/dev/null)+"
                 [[ $OPEN = ON ]] && [[ $(openvpn_pids | grep -w "$user" | cut -d'|' -f2) ]] && PID+="$(openvpn_pids | grep -w "$user" | cut -d'|' -f2)+"
                 local ONLINES+="$(echo ${PID}0 | bc)+"
-                validarArchivo "$mainPath/temp/USRonlines"
                 echo "${ONLINES}0" | bc >$mainPath/temp/USRonlines
 
                 #----CONTADOR DE LIMITE X USER
