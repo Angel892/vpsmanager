@@ -76,17 +76,17 @@ proto_openvpn() {
         18) dns[$2]='push "dhcp-option DNS 176.103.130.131"' ;;
         esac
     }
-    meu_ip() {
+    vpsIP() {
         if [[ -e $mainPath/MEUIPvps ]]; then
             echo "$(cat $mainPath/MEUIPvps)"
         else
-            MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-            MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
-            [[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
-            echo "$MEU_IP" >$mainPath/MEUIPvps
+            vpsIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+            vpsIP2=$(wget -qO- ipv4.icanhazip.com)
+            [[ "$vpsIP" != "$vpsIP2" ]] && echo "$vpsIP2" || echo "$vpsIP"
+            echo "$vpsIP" >$mainPath/MEUIPvps
         fi
     }
-    IP="$(meu_ip)"
+    IP="$(vpsIP)"
 
     instala_ovpn2() {
         clear && clear
@@ -492,7 +492,7 @@ proto_openvpn() {
         apt-get update -q >/dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
         echo -ne " \033[1;31m[ ! ] apt-get install openvpn curl openssl"
         apt-get install -qy openvpn curl >/dev/null 2>&1 && apt-get install openssl ca-certificates -y >/dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-        SERVER_IP="$(meu_ip)" # IP Address
+        SERVER_IP="$(vpsIP)" # IP Address
         [[ -z "${SERVER_IP}" ]] && SERVER_IP=$(ip a | awk -F"[ /]+" '/global/ && !/127.0/ {print $3; exit}')
         echo -ne " \033[1;31m[ ! ] Generating Server Config" # Gerando server.con
         (
@@ -851,7 +851,6 @@ EOF
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
             
         }
-        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
         [[ -e /etc/squid/squid.conf ]] && instala_ovpn2
         [[ -e /etc/squid3/squid.conf ]] && instala_ovpn2
 
