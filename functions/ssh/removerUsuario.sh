@@ -6,7 +6,6 @@ removerUsuarioSSH() {
     ##-->>LECTOR DE CUENTAS
     if [[ -e "$mainPath/cuentassh" ]]; then
         readarray -t usuarios_ativos1 < <(cut -d '|' -f1 $mainPath/cuentassh)
-        readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 $mainPath/cuentassh)
     fi
     if [[ -e "$mainPath/cuentahwid" ]]; then
         readarray -t usuarios_ativos2 < <(cut -d '|' -f1 $mainPath/cuentahwid)
@@ -38,7 +37,7 @@ removerUsuarioSSH() {
         fi
         i=0
         for us in $(echo ${usuarios_ativos1[@]}); do
-            msg -ne "\e[1;93m [\e[1;32m$i\e[1;93m]\033[1;31m >" && echo -e "\e[1;97m ${us}"
+            opcionMenu -blanco $i $us
             let i++
         done
         #HWID
