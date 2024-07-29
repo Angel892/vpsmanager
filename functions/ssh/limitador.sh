@@ -180,8 +180,6 @@ limitadorMenu() {
         EXPIRADO2="$(echo ${EXPIRADO} | bc)0"
         EXPIRADO3="/10"
         echo "${EXPIRADO2}${EXPIRADO3}" | bc >$mainPath/temp/USRexpired
-
-        echo "hola"
     }
 
     clear && clear
@@ -194,9 +192,9 @@ limitadorMenu() {
 
     verif_fun
 
-    msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-
     PIDVRF="$(ps aux | grep "$(verif_fun)" | grep -v grep | awk '{print $2}')"
+
+    msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
     if [[ -z $PIDVRF ]]; then
         msg -bar
         echo -ne "\033[1;96m   ¿Cada cuantos segundos ejecutar el limitador?\n\033[1;97m  +Segundos = -Uso de CPU | -Segundos = +Uso de CPU\033[0;92m \n                Predeterminado:\033[1;37m 120s\n     Cuantos Segundos (Numeros Unicamente): " && read tiemlim
