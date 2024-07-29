@@ -275,6 +275,7 @@ proto_squid() {
         done
         if [[ "$varpay" = "0" ]]; then
 
+            exit 1
         elif [[ "$varpay" = "1" ]]; then
             echo -e "${cor[4]}     Hosts Actuales Dentro del Squid"
             msg -bar
@@ -337,10 +338,12 @@ proto_squid() {
                 service squid3 restart
             fi
 
+            exit 1
         elif [[ "$varpay" = "3" ]]; then
             fun_squid
         fi
     }
+    
     if [[ -e /etc/squid/squid.conf ]]; then
         online_squid
     elif [[ -e /etc/squid3/squid.conf ]]; then
