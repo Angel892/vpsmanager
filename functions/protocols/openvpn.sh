@@ -284,7 +284,7 @@ proto_openvpn() {
             #
             if [[ "$OS" = 'debian' && ! -e $RCLOCAL ]]; then
                 echo '#!/bin/sh -e
-              exit 1' >$RCLOCAL
+              return' >$RCLOCAL
             fi
             chmod +x $RCLOCAL
             #
@@ -355,14 +355,14 @@ proto_openvpn() {
         msg -bar
         echo -e "\033[1;32m Configuracion Finalizada!"
         msg -bar
-        exit 1
+        return
     }
 
     instala_ovpn() {
         parametros_iniciais() {
             #Verifica o Sistema
-            [[ "$EUID" -ne 0 ]] && echo " Lo siento, usted necesita ejecutar esto como ROOT" && exit 1
-            [[ ! -e /dev/net/tun ]] && echo " TUN no esta Disponible" && exit 1
+            [[ "$EUID" -ne 0 ]] && echo " Lo siento, usted necesita ejecutar esto como ROOT" && return
+            [[ ! -e /dev/net/tun ]] && echo " TUN no esta Disponible" && return
             if [[ -e /etc/debian_version ]]; then
                 OS="debian"
                 VERSION_ID=$(cat /etc/os-release | grep "VERSION_ID")
@@ -375,7 +375,7 @@ proto_openvpn() {
                     while [[ $CONTINUE != @(y|Y|s|S|n|N) ]]; do
                         read -p "Continuar ? [y/n]: " -e CONTINUE
                     done
-                    [[ "$CONTINUE" = @(n|N) ]] && exit 1
+                    [[ "$CONTINUE" = @(n|N) ]] && return
                 }
             else
                 msg -amarillo " Parece que no estas ejecutando este instalador en un sistema Debian o Ubuntu"
@@ -813,17 +813,17 @@ EOF
                 msg -bar
             fi
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-            exit 1
+            return
             ;;
         2)
             nano /etc/openvpn/client-common.txt
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-            exit 1
+            return
             ;;
         3)
             nano /etc/openvpn/server.conf
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-            exit 1
+            return
             ;;
         4) edit_ovpn_host ;;
         5)
@@ -841,16 +841,16 @@ EOF
             msg -amarillo " Procedimiento Hecho con Exito"
             msg -bar
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-            exit 1
+            return
 
             ;;
         0)
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-            exit 1
+            return
             ;;
         esac
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        exit 1
+        return
 
     else
         #[[ -e /etc/squid/squid.conf ]] && instala_ovpn2
