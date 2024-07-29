@@ -744,120 +744,118 @@ EOF
         msg -amarillo " Para que las configuraciones sean efectudas"
         msg -bar
     }
-    fun_openvpn() {
-        [[ -e /etc/openvpn/server.conf ]] && {
-            unset OPENBAR
-            [[ $(mportas | grep -w "openvpn") ]] && OPENBAR="\033[1;32m ONLINE" || OPENBAR="\033[1;31m OFFLINE"
-            clear && clear
-            msg -bar
-            msg -amarillo " OPENVPN YA ESTA INSTALADO"
-            msg -bar
-            echo -e "\033[1;32m [1] >\033[1;36m DESINSTALAR  OPENVPN"
-            echo -e "\033[1;32m [2] >\033[1;36m EDITAR CONFIGURACION CLIENTE \033[1;31m(MEDIANTE NANO)"
-            echo -e "\033[1;32m [3] >\033[1;36m EDITAR CONFIGURACION SERVIDOR \033[1;31m(MEDIANTE NANO)"
-            echo -e "\033[1;32m [4] >\033[1;36m CAMBIAR HOST DE OPENVPN"
-            echo -e "\033[1;32m [5] >\033[1;36m INICIAR O PARAR OPENVPN - $OPENBAR"
-            msg -bar
-            while [[ $xption != @([0|1|2|3|4|5]) ]]; do
-                echo -ne "\033[1;33m Opcion: " && read xption
-                tput cuu1 && tput dl1
-            done
-            case $xption in
-            1)
-                clear
-                msg -bar
-                echo -ne "\033[1;97m"
-                read -p "QUIERES DESINTALAR OPENVPN? [Y/N]: " -e REMOVE
-                msg -bar
-                if [[ "$REMOVE" = 'y' || "$REMOVE" = 'Y' ]]; then
-                    PORT=$(grep '^port ' /etc/openvpn/server.conf | cut -d " " -f 2)
-                    PROTOCOL=$(grep '^proto ' /etc/openvpn/server.conf | cut -d " " -f 2)
-                    if pgrep firewalld; then
-                        IP=$(firewall-cmd --direct --get-rules ipv4 nat POSTROUTING | grep '\-s 10.8.0.0/24 '"'"'!'"'"' -d 10.8.0.0/24 -j SNAT --to ' | cut -d " " -f 10)
-                        #
-                        firewall-cmd --zone=public --remove-port=$PORT/$PROTOCOL
-                        firewall-cmd --zone=trusted --remove-source=10.8.0.0/24
-                        firewall-cmd --permanent --zone=public --remove-port=$PORT/$PROTOCOL
-                        firewall-cmd --permanent --zone=trusted --remove-source=10.8.0.0/24
-                        firewall-cmd --direct --remove-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
-                        firewall-cmd --permanent --direct --remove-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
-                    else
-                        IP=$(grep 'iptables -t nat -A POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to ' $RCLOCAL | cut -d " " -f 14)
-                        iptables -t nat -D POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
-                        sed -i '/iptables -t nat -A POSTROUTING -s 10.8.0.0\/24 ! -d 10.8.0.0\/24 -j SNAT --to /d' $RCLOCAL
-                        if iptables -L -n | grep -qE '^ACCEPT'; then
-                            iptables -D INPUT -p $PROTOCOL --dport $PORT -j ACCEPT
-                            iptables -D FORWARD -s 10.8.0.0/24 -j ACCEPT
-                            iptables -D FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
-                            sed -i "/iptables -I INPUT -p $PROTOCOL --dport $PORT -j ACCEPT/d" $RCLOCAL
-                            sed -i "/iptables -I FORWARD -s 10.8.0.0\/24 -j ACCEPT/d" $RCLOCAL
-                            sed -i "/iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT/d" $RCLOCAL
-                        fi
-                    fi
-                    if sestatus 2>/dev/null | grep "Current mode" | grep -q "enforcing" && [[ "$PORT" != '1194' ]]; then
-                        semanage port -d -t openvpn_port_t -p $PROTOCOL $PORT
-                    fi
-                    if [[ "$OS" = 'debian' ]]; then
-                        apt-get remove --purge -y openvpn
-                    else
-                        yum remove openvpn -y
-                    fi
-                    rm -rf /etc/openvpn
-                    rm -f /etc/sysctl.d/30-openvpn-forward.conf
-                    msg -bar
-                    echo "OpenVPN removido!"
-                    msg -bar
-                else
-                    msg -bar
-                    echo "Desinstalacion abortada!"
-                    msg -bar
-                fi
-                read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit 0
-                ;;
-            2)
-                nano /etc/openvpn/client-common.txt
-                read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit 0
-                ;;
-            3)
-                nano /etc/openvpn/server.conf
-                read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit 0
-                ;;
-            4) edit_ovpn_host ;;
-            5)
-                [[ $(mportas | grep -w openvpn) ]] && {
-                    /etc/init.d/openvpn stop >/dev/null 2>&1
-                    killall openvpn &>/dev/null
-                    systemctl stop openvpn@server.service &>/dev/null
-                    service openvpn stop &>/dev/null
-                    #ps x |grep openvpn |grep -v grep|awk '{print $1}' | while read pid; do kill -9 $pid; done
-                } || {
-                    cd /etc/openvpn
-                    screen -dmS ovpnscr openvpn --config "server.conf" >/dev/null 2>&1
-                    cd $HOME
-                }
-                msg -amarillo " Procedimiento Hecho con Exito"
-                msg -bar
-                read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit 0
 
-                ;;
-            0)
-                read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit 0
-                ;;
-            esac
+    if [[ -e /etc/openvpn/server.conf ]]; then
+        unset OPENBAR
+        [[ $(mportas | grep -w "openvpn") ]] && OPENBAR="\033[1;32m ONLINE" || OPENBAR="\033[1;31m OFFLINE"
+        clear && clear
+        msg -bar
+        msg -amarillo " OPENVPN YA ESTA INSTALADO"
+        msg -bar
+        echo -e "\033[1;32m [1] >\033[1;36m DESINSTALAR  OPENVPN"
+        echo -e "\033[1;32m [2] >\033[1;36m EDITAR CONFIGURACION CLIENTE \033[1;31m(MEDIANTE NANO)"
+        echo -e "\033[1;32m [3] >\033[1;36m EDITAR CONFIGURACION SERVIDOR \033[1;31m(MEDIANTE NANO)"
+        echo -e "\033[1;32m [4] >\033[1;36m CAMBIAR HOST DE OPENVPN"
+        echo -e "\033[1;32m [5] >\033[1;36m INICIAR O PARAR OPENVPN - $OPENBAR"
+        msg -bar
+        while [[ $xption != @([0|1|2|3|4|5]) ]]; do
+            echo -ne "\033[1;33m Opcion: " && read xption
+            tput cuu1 && tput dl1
+        done
+        case $xption in
+        1)
+            clear
+            msg -bar
+            echo -ne "\033[1;97m"
+            read -p "QUIERES DESINTALAR OPENVPN? [Y/N]: " -e REMOVE
+            msg -bar
+            if [[ "$REMOVE" = 'y' || "$REMOVE" = 'Y' ]]; then
+                PORT=$(grep '^port ' /etc/openvpn/server.conf | cut -d " " -f 2)
+                PROTOCOL=$(grep '^proto ' /etc/openvpn/server.conf | cut -d " " -f 2)
+                if pgrep firewalld; then
+                    IP=$(firewall-cmd --direct --get-rules ipv4 nat POSTROUTING | grep '\-s 10.8.0.0/24 '"'"'!'"'"' -d 10.8.0.0/24 -j SNAT --to ' | cut -d " " -f 10)
+                    #
+                    firewall-cmd --zone=public --remove-port=$PORT/$PROTOCOL
+                    firewall-cmd --zone=trusted --remove-source=10.8.0.0/24
+                    firewall-cmd --permanent --zone=public --remove-port=$PORT/$PROTOCOL
+                    firewall-cmd --permanent --zone=trusted --remove-source=10.8.0.0/24
+                    firewall-cmd --direct --remove-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+                    firewall-cmd --permanent --direct --remove-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+                else
+                    IP=$(grep 'iptables -t nat -A POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to ' $RCLOCAL | cut -d " " -f 14)
+                    iptables -t nat -D POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+                    sed -i '/iptables -t nat -A POSTROUTING -s 10.8.0.0\/24 ! -d 10.8.0.0\/24 -j SNAT --to /d' $RCLOCAL
+                    if iptables -L -n | grep -qE '^ACCEPT'; then
+                        iptables -D INPUT -p $PROTOCOL --dport $PORT -j ACCEPT
+                        iptables -D FORWARD -s 10.8.0.0/24 -j ACCEPT
+                        iptables -D FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+                        sed -i "/iptables -I INPUT -p $PROTOCOL --dport $PORT -j ACCEPT/d" $RCLOCAL
+                        sed -i "/iptables -I FORWARD -s 10.8.0.0\/24 -j ACCEPT/d" $RCLOCAL
+                        sed -i "/iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT/d" $RCLOCAL
+                    fi
+                fi
+                if sestatus 2>/dev/null | grep "Current mode" | grep -q "enforcing" && [[ "$PORT" != '1194' ]]; then
+                    semanage port -d -t openvpn_port_t -p $PROTOCOL $PORT
+                fi
+                if [[ "$OS" = 'debian' ]]; then
+                    apt-get remove --purge -y openvpn
+                else
+                    yum remove openvpn -y
+                fi
+                rm -rf /etc/openvpn
+                rm -f /etc/sysctl.d/30-openvpn-forward.conf
+                msg -bar
+                echo "OpenVPN removido!"
+                msg -bar
+            else
+                msg -bar
+                echo "Desinstalacion abortada!"
+                msg -bar
+            fi
+            read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+            exit 0
+            ;;
+        2)
+            nano /etc/openvpn/client-common.txt
+            read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+            exit 0
+            ;;
+        3)
+            nano /etc/openvpn/server.conf
+            read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+            exit 0
+            ;;
+        4) edit_ovpn_host ;;
+        5)
+            [[ $(mportas | grep -w openvpn) ]] && {
+                /etc/init.d/openvpn stop >/dev/null 2>&1
+                killall openvpn &>/dev/null
+                systemctl stop openvpn@server.service &>/dev/null
+                service openvpn stop &>/dev/null
+                #ps x |grep openvpn |grep -v grep|awk '{print $1}' | while read pid; do kill -9 $pid; done
+            } || {
+                cd /etc/openvpn
+                screen -dmS ovpnscr openvpn --config "server.conf" >/dev/null 2>&1
+                cd $HOME
+            }
+            msg -amarillo " Procedimiento Hecho con Exito"
+            msg -bar
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
             exit 0
 
-        }
-        [[ -e /etc/squid/squid.conf ]] && instala_ovpn2
-        [[ -e /etc/squid3/squid.conf ]] && instala_ovpn2
+            ;;
+        0)
+            read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+            exit 0
+            ;;
+        esac
+        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+        exit 0
+
+    else
+        #[[ -e /etc/squid/squid.conf ]] && instala_ovpn2
+        #[[ -e /etc/squid3/squid.conf ]] && instala_ovpn2
 
         instala_ovpn2
-    }
-
-    fun_openvpn
+    fi
 }
