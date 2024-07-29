@@ -37,7 +37,8 @@ removerUsuarioSSH() {
         fi
         i=0
         for us in $(echo ${usuarios_ativos1[@]}); do
-            opcionMenu -blanco $i $us
+            echo -ne $i
+            opcionMenu -blanco $i "$us"
             let i++
         done
         #HWID
