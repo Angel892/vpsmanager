@@ -265,10 +265,10 @@ proto_squid() {
         msg -bar
         echo -e "\033[1;33m            CONFIGURACIONES EXTRA PARA SQUID"
         msg -bar
-        echo -ne " $(msg -verd "[1]") $(msg -verm2 "=>>") \e[1;97mCOLOCAR HOST EN SQUID \e[97m \n"
-        echo -ne " $(msg -verd "[2]") $(msg -verm2 "=>>") \e[1;97mREMOVER HOST DE SQUID\e[97m \n"
-        echo -ne " $(msg -verd "[3]") $(msg -verm2 "=>>") \e[1;31mDESINSTALAR SQUID \e[97m \n"
-        echo -ne "$(msg -bar2)\n$(msg -verd " [0]") $(msg -verm2 ">") " && msg -bra "\e[97m\033[1;41m VOLVER \033[1;37m"
+        echo -ne " $(msg -verde "[1]") $(msg -rojo "=>>") \e[1;97mCOLOCAR HOST EN SQUID \e[97m \n"
+        echo -ne " $(msg -verde "[2]") $(msg -rojo "=>>") \e[1;97mREMOVER HOST DE SQUID\e[97m \n"
+        echo -ne " $(msg -verde "[3]") $(msg -rojo "=>>") \e[1;31mDESINSTALAR SQUID \e[97m \n"
+        echo -ne "$(msg -bar2)\n$(msg -verde " [0]") $(msg -rojo ">") " && msg -bra "\e[97m\033[1;41m VOLVER \033[1;37m"
         msg -bar
         while [[ $varpay != @(0|[1-3]) ]]; do
             read -p "[0/3]: " varpay
