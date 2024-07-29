@@ -21,7 +21,11 @@ source $SSH_PATH/limitador.sh
 menuSSH() {
 
     mostrar_usuarios() {
-        for u in $(awk -F : '$3 > 900 { print $1 }' /etc/passwd | grep -v "nobody" | grep -vi polkitd | grep -vi system-); do
+        #for u in $(awk -F : '$3 > 900 { print $1 }' /etc/passwd | grep -v "nobody" | grep -vi polkitd | grep -vi system-); do
+        #    echo "$u"
+        #done
+
+        for u in $(cat $mainPath/cuentassh | cut -d'|' -f1); do
             echo "$u"
         done
     }
@@ -194,7 +198,8 @@ menuSSH() {
         option[$num]="eliminarTodos"
         let num++
 
-        # ELIMINAR TODOS LOS USUARIOS
+        # LIMITADOR DE CUENTAS
+        [[ -z ${VERY} ]] && verificar="\e[1;93m[\033[1;31m DESACTIVADO \e[1;93m]" || verificar="\e[1;93m[\033[1;32m ACTIVO \e[1;93m]"
         opcionMenu -blanco $num "Limitador de cuentas"
         option[$num]="limitador"
         let num++
