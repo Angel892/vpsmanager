@@ -813,17 +813,17 @@ EOF
                     msg -bar
                 fi
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit;
+               break
                 ;;
             2)
                 nano /etc/openvpn/client-common.txt
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit;
+               break
                 ;;
             3)
                 nano /etc/openvpn/server.conf
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit;
+               break
                 ;;
             4) edit_ovpn_host ;;
             5)
@@ -841,16 +841,16 @@ EOF
                 msg -amarillo " Procedimiento Hecho con Exito"
                 msg -bar
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit;
+               break
                 
                 ;;
             0)
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-                exit;
+               break
                 ;;
             esac
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-            exit;
+           break
 
             
         }
