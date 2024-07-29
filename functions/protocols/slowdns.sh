@@ -54,7 +54,7 @@ proto_slowndns() {
             let n++
         done
         msg -bar
-        opc=$(selection_fun $num_opc)
+        opc=$(selectionFun $num_opc)
         echo "${drop[$opc]}" >${SlowDNSconf}/puerto
         PORT=$(cat ${SlowDNSconf}/puerto)
         msg -bar "              INSTALADOR SLOWDNS"
