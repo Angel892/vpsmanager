@@ -69,9 +69,9 @@ limitadorMenu() {
         local LIMITERLOG2="$mainPath/temp/Limiter2.log"
         validarArchivo "$LIMITERLOG2"
 
-        validarArchivo "$mainPath/temp/userexp";
-        validarArchivo "$mainPath/temp/USRexpired";
-        validarArchivo "$mainPath/temp/USRbloqueados";
+        validarArchivo "$mainPath/temp/userexp"
+        validarArchivo "$mainPath/temp/USRexpired"
+        validarArchivo "$mainPath/temp/USRbloqueados"
         validarArchivo "$mainPath/temp/USRonlines"
 
         [[ $(dpkg --get-selections | grep -w "openssh" | head -1) ]] && local SSH=ON || local SSH=OFF
@@ -180,8 +180,6 @@ limitadorMenu() {
         EXPIRADO2="$(echo ${EXPIRADO} | bc)0"
         EXPIRADO3="/10"
         echo "${EXPIRADO2}${EXPIRADO3}" | bc >$mainPath/temp/USRexpired
-
-        clear
     }
 
     clear && clear
@@ -191,6 +189,11 @@ limitadorMenu() {
     echo -e "\033[1;32m             LIMITADOR DE CUENTAS"
     msg -bar
     echo -e "Esta Opcion Limita las Conexiones de SSH/SSL/DROPBEAR"
+
+    verif_fun
+
+    msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+
     PIDVRF="$(ps aux | grep "$(verif_fun)" | grep -v grep | awk '{print $2}')"
     if [[ -z $PIDVRF ]]; then
         msg -bar
