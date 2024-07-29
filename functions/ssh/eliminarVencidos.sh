@@ -1,71 +1,139 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
-
-#funciones globales
-
-
 eliminarUsuariosVencidosSSH() {
-    clear
-    echo -e "${PRINCIPAL}=========================${NC}"
-    echo -e "${PRINCIPAL}  Eliminar Usuarios SSH Vencidos${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
+    clear && clear
+    msg -bar
+    msg -tit
+    msg -bar
+    msgCentrado -amarillo "BORRANDO USUARIOS EXPIRADOS "
+    msg -bar
+    red=$(tput setaf 1)
+    gren=$(tput setaf 2)
+    yellow=$(tput setaf 3)
+    txtvar=$(printf '%-42s' "\e[1;97m   USUARIOS")
+    txtvar+=$(printf '%-1s' "\e[1;32m  VALIDIDEZ")
+    echo -e "\033[1;92m${txtvar}"
 
-    if [ ! -f /etc/vpsmanager/users.txt ]; then
-        echo -e "${ROJO}No hay usuarios registrados.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
-    fi
-
-    users=$(cat /etc/vpsmanager/users.txt)
-    current_date=$(date +%Y-%m-%d)
-
-    if [ -z "$users" ]; then
-        echo -e "${ROJO}No hay usuarios registrados.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
-    fi
-
-    expired_users=0
-    to_delete=()
-
-    while IFS=: read -r username password expiration_date limit; do
-        if [ "$expiration_date" != "never" ]; then
-            expiration_seconds=$(date -d "$expiration_date" +%s)
-            current_seconds=$(date -d "$current_date" +%s)
-            if [ $current_seconds -gt $expiration_seconds ]; then
-                to_delete+=("$username")
-                expired_users=$((expired_users + 1))
-            fi
-        fi
-    done <<< "$users"
-
-    if [ $expired_users -eq 0 ]; then
-        echo -e "${AMARILLO}No se encontraron usuarios vencidos para eliminar.${NC}"
-    else
-        echo -e "${ROJO}Usuarios vencidos a eliminar:${NC}"
-        for username in "${to_delete[@]}"; do
-            echo -e "${ROJO}- $username${NC}"
+    expired="${red}Usuario Expirado"
+    valid="${gren}Usuario Vigente"
+    never="${yellow}Usuario Ilimitado"
+    removido="${red}Eliminado"
+    DataVPS=$(date +%s)
+    #CUENTAS SSH
+    mostrar_usuariosssh() {
+        for u in $(cat $mainPath/cuentassh | cut -d'|' -f1); do
+            echo "$u"
         done
-
-        read -p "¿Está seguro que desea eliminar estos usuarios? (s/n): " confirm
-        if [[ $confirm =~ ^[sS][iI]|[sS]$ ]]; then
-            for username in "${to_delete[@]}"; do
-                sudo deluser --remove-home "$username"
-                if [ $? -eq 0 ]; then
-                    sudo sed -i "/^$username:/d" /etc/vpsmanager/users.txt
-                    echo -e "${VERDE}Usuario SSH '$username' eliminado.${NC}"
-                else
-                    echo -e "${ROJO}Error al eliminar el usuario '$username'.${NC}"
-                fi
+    }
+    [[ -e "$mainPath/cuentassh" ]] && usuarios_ativos1=($(mostrar_usuariosssh))
+    if [[ -z ${usuarios_ativos1[@]} ]]; then
+        echo "" >/dev/null 2>&1
+    else
+        echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS NORMALES  \e[0m\e[38;5;239m════════════════"
+        while read user; do
+            DataUser=$(chage -l "${user}" | grep -i co | awk -F ":" '{print $2}')
+            usr=$user
+            while [[ ${#usr} -lt 34 ]]; do
+                usr=$usr" "
             done
-            echo -e "${VERDE}$expired_users usuarios vencidos eliminados.${NC}"
-        else
-            echo -e "${AMARILLO}Operación cancelada.${NC}"
-        fi
+            [[ "$DataUser" = " never" ]] && {
+                echo -e "\e[1;97m$usr $never"
+                continue
+            }
+            DataSEC=$(date +%s --date="$DataUser")
+            if [[ "$DataSEC" -lt "$DataVPS" ]]; then
+                echo -ne "\e[1;97m$usr $expired"
+                pkill -u $user &>/dev/null
+                droplim=$(dropbear_pids | grep -w "$user" | cut -d'|' -f2)
+                kill -9 $droplim &>/dev/null
+                # droplim=`droppids|grep -w "$user"|cut -d'|' -f2`
+                # kill -9 $droplim &>/dev/null
+                rm_user "$user" && echo -e " y ($removido)"
+                userb=$(cat $mainPath/cuentassh | grep -n -w $user | cut -d'|' -f1 | cut -d':' -f1)
+                sed -i "${userb}d" $mainPath/cuentassh
+            else
+                echo -e "\e[1;97m$usr $valid"
+            fi
+        done <<<"$(mostrar_usuariosssh)"
     fi
+    #---SSH HWID
+    mostrar_usuarioshwid() {
+        for u in $(cat $mainPath/cuentahwid | cut -d'|' -f1); do
+            echo "$u"
+        done
+    }
+    [[ -e "$mainPath/cuentahwid" ]] && usuarios_ativos2=($(mostrar_usuarioshwid))
+    if [[ -z ${usuarios_ativos2[@]} ]]; then
+        echo "" >/dev/null 2>&1
+    else
+        echo -e "\033[38;5;239m═════════════════\e[100m\e[97m  CUENTAS HWID  \e[0m\e[38;5;239m═════════════════"
 
-    echo -e "${PRINCIPAL}=========================${NC}"
-    read -p "Presione Enter para continuar..."
+        while read user; do
+            DataUser=$(chage -l "${user}" | grep -i co | awk -F ":" '{print $2}')
+            usr=$user
+            while [[ ${#usr} -lt 34 ]]; do
+                usr=$usr" "
+            done
+            [[ "$DataUser" = " never" ]] && {
+                echo -e "\e[1;97m$usr $never"
+                continue
+            }
+            DataSEC=$(date +%s --date="$DataUser")
+            if [[ "$DataSEC" -lt "$DataVPS" ]]; then
+                echo -ne "\e[1;97m$usr $expired"
+                pkill -u $user &>/dev/null
+                droplim=$(dropbear_pids | grep -w "$user" | cut -d'|' -f2)
+                kill -9 $droplim &>/dev/null
+                # droplim=`droppids|grep -w "$user"|cut -d'|' -f2`
+                # kill -9 $droplim &>/dev/null
+                rm_user "$user" && echo -e " y ($removido)"
+                sed -i '/'$user'/d' $mainPath/cuentahwid
+            else
+                echo -e "\e[1;97m$usr $valid"
+            fi
+        done <<<"$(mostrar_usuarioshwid)"
+    fi
+    #--- CUENTAS TOKEN
+    mostrar_usuariotoken() {
+        for u in $(cat $mainPath/cuentatoken | cut -d'|' -f1); do
+            echo "$u"
+        done
+    }
+    [[ -e "$mainPath/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
+    if [[ -z ${usuarios_ativos3[@]} ]]; then
+        echo "" >/dev/null 2>&1
+    else
+        echo -e "\033[38;5;239m═════════════════\e[100m\e[97m  CUENTAS TOKEN  \e[0m\e[38;5;239m═════════════════"
+        while read user; do
+            DataUser=$(chage -l "${user}" | grep -i co | awk -F ":" '{print $2}')
+            usr=$user
+            while [[ ${#usr} -lt 34 ]]; do
+                usr=$usr" "
+            done
+            [[ "$DataUser" = " never" ]] && {
+                echo -e "\e[1;97m$usr $never"
+                continue
+            }
+            DataSEC=$(date +%s --date="$DataUser")
+            if [[ "$DataSEC" -lt "$DataVPS" ]]; then
+                echo -ne "\e[1;97m$usr $expired"
+                pkill -u $user &>/dev/null
+                droplim=$(dropbear_pids | grep -w "$user" | cut -d'|' -f2)
+                kill -9 $droplim &>/dev/null
+                # droplim=`droppids|grep -w "$user"|cut -d'|' -f2`
+                # kill -9 $droplim &>/dev/null
+                rm_user "$user" && echo -e "y ($removido)"
+                sed -i '/'$user'/d' $mainPath/cuentatoken
+            else
+                echo -e "\e[1;97m$usr $valid"
+            fi
+        done <<<"$(mostrar_usuariotoken)"
+    fi
+    validarArchivo "$mainPath/temp/userlock"
+    rm -rf $mainPath/temp/userlock
+    validarArchivo "$mainPath/temp/userexp"
+    rm -rf $mainPath/temp/userexp
+    unlockall2
+    msg -bar
+    msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
 }
