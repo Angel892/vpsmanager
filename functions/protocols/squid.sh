@@ -194,9 +194,9 @@ proto_squid() {
             #reply_header_access X-Cache deny all
             #reply_header_access X-Cache-Lookup deny all
 
-            #portas" >"$var_squid"
+            #portas" >$var_squid
             for pts in $(echo -e $PORT); do
-                echo -e "http_port $pts" >>"$var_squid"
+                echo -e "http_port $pts" >>$var_squid
             done
             echo -e "
             #nome
@@ -204,7 +204,7 @@ proto_squid() {
 
             via off
             forwarded_for off
-            pipeline_prefetch off" >>"$var_squid"
+            pipeline_prefetch off" >>$var_squid
         else
             echo -e "#Configuracion SquiD
             acl localhost src 127.0.0.1/32 ::1
@@ -229,9 +229,9 @@ proto_squid() {
             http_access deny all
             coredump_dir /var/spool/squid
 
-            #Puertos" >"$var_squid"
+            #Puertos" >$var_squid
             for pts in $(echo -e $PORT); do
-                echo -e "http_port $pts" >>"$var_squid"
+                echo -e "http_port $pts" >>$var_squid
             done
             echo -e "
             #HostName
@@ -239,7 +239,7 @@ proto_squid() {
 
             via off
             forwarded_for off
-            pipeline_prefetch off" >>"$var_squid"
+            pipeline_prefetch off" >>$var_squid
         fi
         touch /etc/opendns
         fun_eth
