@@ -15,6 +15,8 @@ removerUsuarioSSH() {
         readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivast)
     fi
 
+    GetAllUsers
+
     selection=$(GetAllUsers)
 
     if [[ ! $(echo "${selection}" | egrep '[^0-9]') ]]; then
