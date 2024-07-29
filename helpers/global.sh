@@ -96,12 +96,12 @@ msg() { ##-->> COLORES, TITULO, BARRAS
 msgne() { ##-->> COLORES, TITULO, BARRAS
 
     case $1 in
-    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
-    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
-    -rojo) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
-    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
-    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
-    -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && echo -ne "${cor}${2}" ;;
+    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -ne "${cor}${2}" ;;
+    -rojo) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -ne "${cor}${2}" ;;
+    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && echo -ne "${cor}${2}" ;;
+    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && echo -ne "${cor}${2}" ;;
+    -gris) cor="${NEGRITA}${GRIS}${NEGRITO}" && echo -ne "${cor}${2}" ;;
     esac
 }
 
@@ -411,6 +411,45 @@ GetAllUsers() {
         for us in $(echo ${usuarios_ativos3[@]}); do
             nomtoken="$(cat $mainPath/cuentatoken | grep -w "${us}" | cut -d'|' -f5)"
             opcionMenu -blanco $i "$nomtoken"
+            let i++
+        done
+    fi
+
+}
+
+GetNormalUsers() {
+
+    ##-->>GENERAR USUARIOS TOTALES
+    cat $mainPath/cuentassh 2>/dev/null | cut -d '|' -f1 >$mainPath/cuentasactivast
+    if [[ -e "$mainPath/cuentasactivast" ]]; then
+        readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivast)
+    fi
+
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "$mainPath/cuentassh" ]]; then
+        readarray -t usuarios_ativos1 < <(cut -d '|' -f1 $mainPath/cuentassh)
+    fi
+
+    if [[ -z ${mostrar_totales[@]} ]]; then
+        msg -tit
+        msg -bar
+        msgCentrado -rojo "Ningun usuario registrado"
+        msg -bar
+
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    else
+        msg -tit
+        msg -bar
+        msgCentrado -amarillo "Usuarios Activos del Servidor"
+        #SSH
+        if [[ -z ${usuarios_ativos1[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS NORMALES  \e[0m\e[38;5;239m════════════════"
+        fi
+        local i=0
+        for us in $(echo ${usuarios_ativos1[@]}); do
+            opcionMenu -blanco $i "$us"
             let i++
         done
     fi
