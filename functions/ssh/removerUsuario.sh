@@ -45,6 +45,7 @@ removerUsuarioSSH() {
         return 1
     }
     msgne -amarillo "Usuario Seleccionado: " && echo -ne "$usuario_del"
+    
     pkill -u $usuario_del
     droplim=$(dropbear_pids | grep -w "$usuario_del" | cut -d'|' -f2)
     kill -9 $droplim &>/dev/null
