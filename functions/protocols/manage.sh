@@ -12,6 +12,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/badvpn.sh
     source $PROTOCOLS_PATH/dropbear.sh
     source $PROTOCOLS_PATH/ssl.sh
+    source $PROTOCOLS_PATH/squid.sh
 
     while true; do
         local num=1
