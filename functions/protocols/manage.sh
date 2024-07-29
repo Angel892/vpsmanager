@@ -150,6 +150,7 @@ menuProtocols() {
         "badvpn") proto_badvpn ;;
         "dropbear") proto_dropbear ;;
         "ssl") proto_ssl ;;
+        "squid") proto_squid ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
