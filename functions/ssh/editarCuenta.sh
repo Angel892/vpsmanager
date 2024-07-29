@@ -97,11 +97,11 @@ editarCuentaSSH() {
     tput cuu1 && tput dl1
     tput cuu1 && tput dl1
     tput cuu1 && tput dl1
-    msg -ne "\e[38;5;202m Usuario: " && echo -e "$useredit"
-    msg -ne "\e[38;5;202m Contraseña: " && echo -e "$senhauser"
-    msg -ne "\e[38;5;202m Dias de Duracion: " && echo -e "$diasuser"
-    msg -ne "\e[38;5;202m Fecha de Expiracion: " && echo -e "$(date "+%F" -d " + $diasuser days")"
-    msg -ne "\e[38;5;202m Limite de Conexiones: " && echo -e "$limiteuser"
+    msgne -blanco "Usuario: " && echo -e "$useredit"
+    msgne -blanco "Contraseña: " && echo -e "$senhauser"
+    msgne -blanco "Dias de Duracion: " && echo -e "$diasuser"
+    msgne -blanco "Fecha de Expiracion: " && echo -e "$(date "+%F" -d " + $diasuser days")"
+    msgne -blanco "Limite de Conexiones: " && echo -e "$limiteuser"
     msg -bar
 
     validarArchivo "$mainPath/temp/Limiter.log"
