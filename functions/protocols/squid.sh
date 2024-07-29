@@ -275,7 +275,6 @@ proto_squid() {
         done
         if [[ "$varpay" = "0" ]]; then
 
-            menu_inst
         elif [[ "$varpay" = "1" ]]; then
             echo -e "${cor[4]}     Hosts Actuales Dentro del Squid"
             msg -bar
@@ -338,7 +337,6 @@ proto_squid() {
                 service squid3 restart
             fi
 
-            menu_inst
         elif [[ "$varpay" = "3" ]]; then
             fun_squid
         fi
