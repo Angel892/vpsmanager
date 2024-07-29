@@ -97,7 +97,7 @@ proto_squid() {
         msg -bar
         echo -e " INSTALANDO SQUID"
         msg -bar
-        fun_bar "apt-get install squid3 -y"
+        fun_bar "apt-get install squid -y"
 
         msg -bar
         echo -e " INICIANDO CONFIGURACION"
