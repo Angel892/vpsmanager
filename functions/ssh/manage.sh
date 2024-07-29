@@ -17,6 +17,15 @@ source $SSH_PATH/backup.sh
 source $SSH_PATH/eliminarTodos.sh
 
 menuSSH() {
+
+    unlockall2() {
+        for user in $(cat /etc/passwd | awk -F : '$3 > 900 {print $1}' | grep -v "rick" | grep -vi "nobody"); do
+            userpid=$(ps -u $user | awk {'print $1'})
+
+            usermod -U $user &>/dev/null
+        done
+    }
+
     while true; do
 
         local num=1
@@ -88,17 +97,17 @@ menuSSH() {
         msg -bar
         selection=$(selectionFun $num)
         case ${option[$selection]} in
-        "crear") crearCuentaSSH;;
-        "crearTemporal") crearCuentaTemporalSSH;;
-        "remover") removerUsuarioSSH;;
-        "bloquear") bloquearDesbloquearUsuarioSSH;;
-        "editar") editarCuentaSSH;;
-        "detalles") detalleUsuariosSSH;;
-        "conectados") usuariosConectadosSSH;;
-        "eliminarVencidos") eliminarUsuariosVencidosSSH;;
-        "backup") backupUsuariosSSH;;
-        "banner") gestionarBannerSSH;;
-        "eliminarTodos") eliminarTodosUsuariosSSH;;
+        "crear") crearCuentaSSH ;;
+        "crearTemporal") crearCuentaTemporalSSH ;;
+        "remover") removerUsuarioSSH ;;
+        "bloquear") bloquearDesbloquearUsuarioSSH ;;
+        "editar") editarCuentaSSH ;;
+        "detalles") detalleUsuariosSSH ;;
+        "conectados") usuariosConectadosSSH ;;
+        "eliminarVencidos") eliminarUsuariosVencidosSSH ;;
+        "backup") backupUsuariosSSH ;;
+        "banner") gestionarBannerSSH ;;
+        "eliminarTodos") eliminarTodosUsuariosSSH ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
