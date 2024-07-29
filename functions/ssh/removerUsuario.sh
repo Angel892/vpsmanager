@@ -37,7 +37,6 @@ removerUsuarioSSH() {
         fi
         i=0
         for us in $(echo ${usuarios_ativos1[@]}); do
-            echo -ne $i
             opcionMenu -blanco $i "$us"
             let i++
         done
