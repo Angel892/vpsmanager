@@ -14,6 +14,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/ssl.sh
     source $PROTOCOLS_PATH/squid.sh
     source $PROTOCOLS_PATH/openvpn.sh
+    source $PROTOCOLS_PATH/shadowsocksnormal.sh
 
     while true; do
         local num=1
@@ -77,7 +78,7 @@ menuProtocols() {
 
         # SHADOWSOCK NORMAL
         opcionMenu -blanco $num "SHADOWSOCK NORMAL" true 0 "ssserver"
-        option[$num]="shadowSock"
+        option[$num]="shadowsocksnormal"
         let num++
 
         # SHADOWSHOW LIV
@@ -154,6 +155,7 @@ menuProtocols() {
         "ssl") proto_ssl ;;
         "squid") proto_squid ;;
         "openvpn") proto_openvpn;;
+        "shadowsocksnormal") proto_shadowsockN;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
