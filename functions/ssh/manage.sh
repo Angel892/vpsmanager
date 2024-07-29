@@ -82,6 +82,10 @@ menuSSH() {
         done
     }
 
+    rm_user() {
+        userdel --force "$1" &>/dev/null
+    }
+
     openvpn_pids() {
         #nome|#loguin|#rcv|#snd|#time
         byte() {
