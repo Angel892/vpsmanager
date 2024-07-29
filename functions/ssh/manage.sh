@@ -199,8 +199,9 @@ menuSSH() {
         let num++
 
         # LIMITADOR DE CUENTAS
+        VERY="$(ps aux | grep "$(verif_fun)" | grep -v grep)"
         [[ -z ${VERY} ]] && verificar="\e[1;93m[\033[1;31m DESACTIVADO \e[1;93m]" || verificar="\e[1;93m[\033[1;32m ACTIVO \e[1;93m]"
-        opcionMenu -blanco $num "Limitador de cuentas"
+        opcionMenu -blanco $num "Limitador de cuentas ${VERY}"
         option[$num]="limitador"
         let num++
 
