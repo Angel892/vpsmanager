@@ -758,10 +758,12 @@ EOF
         echo -e "\033[1;32m [4] >\033[1;36m CAMBIAR HOST DE OPENVPN"
         echo -e "\033[1;32m [5] >\033[1;36m INICIAR O PARAR OPENVPN - $OPENBAR"
         msg -bar
+        unset xption
         while [[ $xption != @([0|1|2|3|4|5]) ]]; do
             echo -ne "\033[1;33m Opcion: " && read xption
             tput cuu1 && tput dl1
         done
+
         case $xption in
         1)
             clear
