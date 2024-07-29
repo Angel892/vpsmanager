@@ -1,81 +1,42 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
-
-#funciones globales
-
-
 bloquearDesbloquearUsuarioSSH() {
-    clear
-    echo -e "${PRINCIPAL}=========================${NC}"
-    echo -e "${PRINCIPAL}  Bloquear/Desbloquear cuenta SSH${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
+    clear && clear
+    msg -bar
 
-    # Leer la lista de usuarios creados por el administrador
-    if [ ! -f /etc/vpsmanager/users.txt ]; then
-        echo -e "${ROJO}No hay usuarios SSH disponibles para bloquear/desbloquear.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
+    local USRloked="$mainPath/temp/userlock"
+    validarArchivo "$USRloked"
+
+    ##-->>GENERAR USUARIOS TOTALES
+    cat $mainPath/cuentassh $mainPath/cuentahwid $mainPath/cuentatoken 2>/dev/null | cut -d '|' -f1 >$mainPath/cuentasactivas
+    if [[ -e "$mainPath/cuentasactivas" ]]; then
+        readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivas)
     fi
 
-    users=$(cat /etc/vpsmanager/users.txt)
-
-    if [ -z "$users" ]; then
-        echo -e "${ROJO}No hay usuarios SSH disponibles para bloquear/desbloquear.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
-    fi
-
-    echo -e "${INFO}Usuarios disponibles:${NC}"
+    selection=$(GetAllUsers)
     
-    # Crear un archivo temporal para la tabla de usuarios
-    user_details="/tmp/user_details.txt"
-    echo -e "N°\tUsuario\tEstado" > $user_details
-    count=1
-    
-    while IFS=: read -r username password expiration_date limit; do
-        if sudo passwd -S "$username" | grep -q " L "; then
-            status="${ROJO}Bloqueado${NC}"
-        else
-            status="${VERDE}Desbloqueado${NC}"
-        fi
-        echo -e "$count\t$username\t$status" >> $user_details
-        count=$((count + 1))
-    done <<< "$users"
-
-    # Añadir la opción para salir
-    echo -e "0\tSalir\t" >> $user_details
-
-    # Mostrar la tabla de usuarios
-    column -t -s $'\t' $user_details
-    rm $user_details
-
-    echo -e "${INFO}Seleccione el número del usuario que desea bloquear/desbloquear o 0 para salir:${NC}"
-    read -p "Opción: " user_num
-
-    if ! [[ "$user_num" =~ ^[0-9]+$ ]] || [ "$user_num" -lt 0 ] || [ "$user_num" -gt $count ]; then
-        echo -e "${ROJO}Selección inválida. Por favor intente de nuevo.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
-    fi
-
-    if [ "$user_num" -eq 0 ]; then
-        echo -e "${INFO}Operación cancelada.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
-    fi
-
-    username=$(echo "$users" | sed -n "${user_num}p" | awk -F: '{print $1}')
-
-    if sudo passwd -S $username | grep -q " L "; then
-        sudo passwd -u $username
-        echo -e "${VERDE}Usuario SSH $username desbloqueado.${NC}"
+    while [[ ${selection} = "" ]]; do
+        echo -ne "\033[1;97m No. \e[1;32m" && read selection
+        tput cuu1 && tput dl1
+    done
+    if [[ ! $(echo "${selection}" | egrep '[^0-9]') ]]; then
+        usuario_del="${mostrar_totales[$selection]}"
     else
-        sudo passwd -l $username
-        echo -e "${ROJO}Usuario SSH $username bloqueado.${NC}"
+        usuario_del="$selection"
     fi
-
-    echo -e "${PRINCIPAL}=========================${NC}"
-    read -p "Presione Enter para continuar..."
+    [[ -z $usuario_del ]] && {
+        msg -rojo "Error, Usuario Invalido"
+        msg -bar
+        return 1
+    }
+    [[ ! $(echo ${mostrar_totales[@]} | grep -w "$usuario_del") ]] && {
+        msg -rojo "Error, Usuario Invalido"
+        msg -bar
+        return 1
+    }
+    msg -ne " " && echo -ne "\e[1;36m$usuario_del "
+    block_userfun "$usuario_del" && msg -rojo "[ Bloqueado ]" || msg -verd "[ Desbloqueado ]"
+    msg -bar
+    read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    controlador_ssh
 }

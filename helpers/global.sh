@@ -283,13 +283,13 @@ msgCentradoRead() {
     esac
 }
 
-minCaracteres=1;
-maxCaracteres=15;
-duracionMaxima=999;
-limiteMaximo=999;
+minCaracteres=1
+maxCaracteres=15
+duracionMaxima=999
+limiteMaximo=999
 
 errorFun() {
-    local valor=${2:-""};
+    local valor=${2:-""}
     case $1 in
     "nullo")
         msg -rojo "Respuesta nulla"
@@ -348,4 +348,73 @@ errorFun() {
         tput dl1
         ;;
     esac
+}
+
+GetAllUsers() {
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "$mainPath/cuentassh" ]]; then
+        readarray -t usuarios_ativos1 < <(cut -d '|' -f1 $mainPath/cuentassh)
+    fi
+    if [[ -e "$mainPath/cuentahwid" ]]; then
+        readarray -t usuarios_ativos2 < <(cut -d '|' -f1 $mainPath/cuentahwid)
+    fi
+    if [[ -e "$mainPath/cuentatoken" ]]; then
+        readarray -t usuarios_ativos3 < <(cut -d '|' -f1 $mainPath/cuentatoken)
+    fi
+
+    if [[ -z ${mostrar_totales[@]} ]]; then
+        msg -tit
+        msg -bar
+        msgCentrado -rojo "Ningun usuario registrado"
+        msg -bar
+
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    else
+        msg -tit
+        msg -bar
+        msgCentrado -amarillo "Usuarios Activos del Servidor"
+        #SSH
+        if [[ -z ${usuarios_ativos1[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS NORMALES  \e[0m\e[38;5;239m════════════════"
+        fi
+        local i=0
+        for us in $(echo ${usuarios_ativos1[@]}); do
+            opcionMenu -blanco $i "$us"
+            let i++
+        done
+        #HWID
+        if [[ -z ${usuarios_ativos2[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS CON HWID  \e[0m\e[38;5;239m════════════════"
+        fi
+        for us in $(echo ${usuarios_ativos2[@]}); do
+            nomhwid="$(cat $mainPath/cuentahwid | grep -w "${us}" | cut -d'|' -f5)"
+            opcionMenu -blanco $i "$nomhwid"
+            let i++
+        done
+        #TOKEN
+        if [[ -z ${usuarios_ativos3[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS CON TOKEN \e[0m\e[38;5;239m═══════════════"
+        fi
+        for us in $(echo ${usuarios_ativos3[@]}); do
+            nomtoken="$(cat $mainPath/cuentatoken | grep -w "${us}" | cut -d'|' -f5)"
+            opcionMenu -blanco $i "$nomtoken"
+            let i++
+        done
+    fi
+    msg -bar
+    msgCentrado -amarillo "Escriba o Seleccione un Usuario"
+    msg -bar
+    unset selection
+    while [[ -z ${selection} ]]; do
+        msgne -blanco "Seleccione Una Opcion: " && read selection
+        tput cuu1 && tput dl1
+    done
+
+    echo "$selection"
 }
