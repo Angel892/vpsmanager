@@ -16,6 +16,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/openvpn.sh
     source $PROTOCOLS_PATH/shadowsocksnormal.sh
     source $PROTOCOLS_PATH/shadowsockliv.sh
+    source $PROTOCOLS_PATH/slowdns.sh
 
     while true; do
         local num=1
@@ -158,6 +159,7 @@ menuProtocols() {
         "openvpn") proto_openvpn;;
         "shadowsocksnormal") proto_shadowsockN;;
         "shadowsockliv") proto_shadowsockL;;
+        "slowdns") proto_slowndns;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac

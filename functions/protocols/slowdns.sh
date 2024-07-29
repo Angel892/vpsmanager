@@ -12,8 +12,8 @@ proto_slowndns() {
             return 1
         }
         echo -e "\e[1;97m        INFORMACION DE SU CONECCION SLOWDNS"
-        [[ -e ${SlowDNSconf}/domain_ns ]] && msg -ama "Su NS (Nameserver): $(cat ${SlowDNSconf}/domain_ns)" || nodata
-        [[ -e ${SlowDNSconf}/server.pub ]] && msg -ama "Su Llave: $(cat ${SlowDNSconf}/server.pub)"
+        [[ -e ${SlowDNSconf}/domain_ns ]] && msg -amarillo "Su NS (Nameserver): $(cat ${SlowDNSconf}/domain_ns)" || nodata
+        [[ -e ${SlowDNSconf}/server.pub ]] && msg -amarillo "Su Llave: $(cat ${SlowDNSconf}/server.pub)"
     }
 
     drop_port() {
@@ -48,7 +48,7 @@ proto_slowndns() {
             proto=$(echo $i | awk -F ":" '{print $1}')
             proto2=$(printf '%-12s' "$proto")
             port=$(echo $i | awk -F ":" '{print $2}')
-            echo -e " \e[1;93m [\e[1;32m$n\e[1;93m]\033[1;31m $(msg -verm2 ">") $(msg -ama "$proto2")$(msg -azu "$port")"
+            echo -e " \e[1;93m [\e[1;32m$n\e[1;93m]\033[1;31m $(msg -rojo2 ">") $(msg -amarillo "$proto2")$(msg -azu "$port")"
             drop[$n]=$port
             num_opc="$n"
             let n++
@@ -57,9 +57,9 @@ proto_slowndns() {
         opc=$(selection_fun $num_opc)
         echo "${drop[$opc]}" >${SlowDNSconf}/puerto
         PORT=$(cat ${SlowDNSconf}/puerto)
-        msg -bra "              INSTALADOR SLOWDNS"
+        msg -bar "              INSTALADOR SLOWDNS"
         msg -bar
-        echo -e " $(msg -ama "Puerto de coneccion atraves de SlowDNS:") $(msg -verd "$PORT")"
+        echo -e " $(msg -amarillo "Puerto de coneccion atraves de SlowDNS:") $(msg -verde "$PORT")"
         msg -bar
 
         unset NS
@@ -68,19 +68,19 @@ proto_slowndns() {
             tput cuu1 && tput dl1
         done
         echo "$NS" >${SlowDNSconf}/domain_ns
-        echo -e " $(msg -ama "Tu dominio NS:") $(msg -verd "$NS")"
+        echo -e " $(msg -amarillo "Tu dominio NS:") $(msg -verde "$NS")"
         msg -bar
 
         if [[ ! -e ${SlowDNSinstall}/dns-server ]]; then
-            msg -ama " Descargando ejecutable SlowDNS"
-            if wget -O ${SlowDNSinstall}/dns-server https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/dns-server &>/dev/null; then
+            msg -amarillo " Descargando ejecutable SlowDNS"
+            if wget -O ${SlowDNSinstall}/dns-server https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/dns-server &>/dev/null; then
                 chmod +x ${SlowDNSinstall}/dns-server
-                msg -verd "[OK]"
+                msg -verde "[OK]"
             else
-                msg -verm "[fail]"
+                msg -rojo "[fail]"
                 msg -bar
-                msg -ama "No se pudo descargar el binario"
-                msg -verm "Instalacion canselada"
+                msg -amarillo "No se pudo descargar el binario"
+                msg -rojo "Instalacion canselada"
             fi
             msg -bar
         fi
@@ -93,14 +93,14 @@ proto_slowndns() {
             case $ex_key in
             s | S | y | Y)
                 tput cuu1 && tput dl1
-                echo -e " $(msg -ama "Tu clave:") $(msg -verd "$(cat ${SlowDNSconf}/server.pub)")"
+                echo -e " $(msg -amarillo "Tu clave:") $(msg -verde "$(cat ${SlowDNSconf}/server.pub)")"
                 ;;
             n | N)
                 tput cuu1 && tput dl1
                 rm -rf ${SlowDNSconf}/server.key
                 rm -rf ${SlowDNSconf}/server.pub
                 ${SlowDNSinstall}/dns-server -gen-key -privkey-file ${SlowDNSconf}/server.key -pubkey-file ${SlowDNSconf}/server.pub &>/dev/null
-                echo -e " $(msg -ama "Tu clave:") $(msg -verd "$(cat ${SlowDNSconf}/server.pub)")"
+                echo -e " $(msg -amarillo "Tu clave:") $(msg -verde "$(cat ${SlowDNSconf}/server.pub)")"
                 ;;
             *) ;;
             esac
@@ -108,10 +108,10 @@ proto_slowndns() {
             rm -rf ${SlowDNSconf}/server.key
             rm -rf ${SlowDNSconf}/server.pub
             ${SlowDNSinstall}/dns-server -gen-key -privkey-file ${SlowDNSconf}/server.key -pubkey-file ${SlowDNSconf}/server.pub &>/dev/null
-            echo -e " $(msg -ama "Tu clave:") $(msg -verd "$(cat ${SlowDNSconf}/server.pub)")"
+            echo -e " $(msg -amarillo "Tu clave:") $(msg -verde "$(cat ${SlowDNSconf}/server.pub)")"
         fi
         msg -bar
-        msg -ama "   Iniciando SlowDNS...."
+        msg -amarillo "   Iniciando SlowDNS...."
 
         iptables -I INPUT -p udp --dport 5300 -j ACCEPT
         iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300
@@ -119,9 +119,9 @@ proto_slowndns() {
         echo "nameserver 1.0.0.1 " >>/etc/resolv.conf
 
         if screen -dmS slowdns ${SlowDNSinstall}/dns-server -udp :5300 -privkey-file ${SlowDNSconf}/server.key $NS 127.0.0.1:$PORT; then
-            msg -verd "              >> INSTALADO CON EXITO <<"
+            msg -verde "              >> INSTALADO CON EXITO <<"
         else
-            msg -verm "Con fallo!!!"
+            msg -rojo "Con fallo!!!"
         fi
 
     }
@@ -129,19 +129,19 @@ proto_slowndns() {
     reset_slow() {
         clear && clear
         msg -bar
-        msg -ama "                REINICIANDO SLOWDNS...."
+        msg -amarillo "                REINICIANDO SLOWDNS...."
         screen -S slowdns -p 0 -X quit
         [[ -e ${SlowDNSconf}/domain_ns ]] && NS=$(cat ${SlowDNSconf}/domain_ns)
         [[ -e ${SlowDNSconf}/puerto ]] && PORT=$(cat ${SlowDNSconf}/puerto)
         screen -dmS slowdns ${SlowDNSinstall}/dns-server -udp :5300 -privkey-file /root/server.key $NS 127.0.0.1:$PORT
-        msg -verd "              >> REINICIADO CON EXITO << "
+        msg -verde "              >> REINICIADO CON EXITO << "
 
     }
     stop_slow() {
 
         echo -e "\e[1;31m                DESISNTALAR SLOWDNS"
         screen -S slowdns -p 0 -X quit
-        msg -verd "            >> DESINSTALADO CON EXITO << "
+        msg -verde "            >> DESINSTALADO CON EXITO << "
 
     }
     clear && clear
