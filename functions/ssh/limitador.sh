@@ -195,7 +195,7 @@ limitadorMenu() {
 
     verif_fun
 
-    echo "holaa"
+    echo -e "holaa $PIDVRF"
 
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
 
