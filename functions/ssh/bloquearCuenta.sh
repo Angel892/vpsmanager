@@ -4,11 +4,9 @@ bloquearDesbloquearUsuarioSSH() {
     clear && clear
     msg -bar
 
-    local USRloked="$mainPath/temp/userlock"
-    validarArchivo "$USRloked"
-
     block_userfun() {
         local USRloked="$mainPath/temp/userlock"
+        validarArchivo "$USRloked"
         local LIMITERLOG="$mainPath/temp/Limiter.log"
         validarArchivo "$LIMITERLOG"
         local LIMITERLOG2="$mainPath/temp/Limiter2.log"
@@ -55,7 +53,7 @@ bloquearDesbloquearUsuarioSSH() {
         readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivas)
     fi
 
-    GetAllUsers
+    GetAllUsersBlock
 
     msg -bar
     msgCentrado -amarillo "Escriba o Seleccione un Usuario"

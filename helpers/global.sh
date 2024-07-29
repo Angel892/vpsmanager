@@ -414,4 +414,87 @@ GetAllUsers() {
             let i++
         done
     fi
+
+}
+
+GetAllUsersBlock() {
+
+    local USRloked="$mainPath/temp/userlock"
+    validarArchivo "$USRloked"
+
+    ##-->>GENERAR USUARIOS TOTALES
+    cat $mainPath/cuentassh $mainPath/cuentahwid $mainPath/cuentatoken 2>/dev/null | cut -d '|' -f1 >$mainPath/cuentasactivast
+    if [[ -e "$mainPath/cuentasactivast" ]]; then
+        readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivast)
+    fi
+
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "$mainPath/cuentassh" ]]; then
+        readarray -t usuarios_ativos1 < <(cut -d '|' -f1 $mainPath/cuentassh)
+    fi
+    if [[ -e "$mainPath/cuentahwid" ]]; then
+        readarray -t usuarios_ativos2 < <(cut -d '|' -f1 $mainPath/cuentahwid)
+    fi
+    if [[ -e "$mainPath/cuentatoken" ]]; then
+        readarray -t usuarios_ativos3 < <(cut -d '|' -f1 $mainPath/cuentatoken)
+    fi
+
+    if [[ -z ${mostrar_totales[@]} ]]; then
+        msg -tit
+        msg -bar
+        msgCentrado -rojo "Ningun usuario registrado"
+        msg -bar
+
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    else
+        msg -tit
+        msg -bar
+        msgCentrado -amarillo "Usuarios Activos del Servidor"
+        #SSH
+        if [[ -z ${usuarios_ativos1[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS NORMALES  \e[0m\e[38;5;239m════════════════"
+        fi
+        local i=0
+        for us in $(echo ${usuarios_ativos1[@]}); do
+            if [[ $(cat ${USRloked} | grep -w "${us}") ]]; then
+                opcionMenu -blanco $i "$us \033[1;31m[ Lock ]"
+            else
+                opcionMenu -blanco $i "$us \033[1;32m[ Unlock ]"
+            fi
+            let i++
+        done
+        #HWID
+        if [[ -z ${usuarios_ativos2[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS CON HWID  \e[0m\e[38;5;239m════════════════"
+        fi
+        for us in $(echo ${usuarios_ativos2[@]}); do
+            nomhwid="$(cat $mainPath/cuentahwid | grep -w "${us}" | cut -d'|' -f5)"
+            if [[ $(cat ${USRloked} | grep -w "${us}") ]]; then
+                opcionMenu -blanco $i "$nomhwid \033[1;31m[ Lock ]"
+            else
+                opcionMenu -blanco $i "$nomhwid \033[1;32m[ Unlock ]"
+            fi
+            let i++
+        done
+        #TOKEN
+        if [[ -z ${usuarios_ativos3[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS CON TOKEN \e[0m\e[38;5;239m═══════════════"
+        fi
+        for us in $(echo ${usuarios_ativos3[@]}); do
+            nomtoken="$(cat $mainPath/cuentatoken | grep -w "${us}" | cut -d'|' -f5)"
+            if [[ $(cat ${USRloked} | grep -w "${us}") ]]; then
+                opcionMenu -blanco $i "$nomtoken \033[1;31m[ Lock ]"
+            else
+                opcionMenu -blanco $i "$nomtoken \033[1;32m[ Unlock ]"
+            fi
+            let i++
+        done
+    fi
+
 }
