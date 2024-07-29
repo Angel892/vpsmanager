@@ -1,65 +1,29 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
-
-#funciones globales
-
-
 eliminarTodosUsuariosSSH() {
-    clear
-    echo -e "${PRINCIPAL}=========================${NC}"
-    echo -e "${PRINCIPAL}  Eliminar Todos los Usuarios SSH${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
-
-    if [ ! -f /etc/vpsmanager/users.txt ]; then
-        echo -e "${ROJO}No hay usuarios registrados.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
-    fi
-
-    users=$(cat /etc/vpsmanager/users.txt)
-
-    if [ -z "$users" ]; then
-        echo -e "${ROJO}No hay usuarios registrados.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
-    fi
-
-    echo -e "${ROJO}Usuarios registrados para eliminar:${NC}"
-    
-    # Crear un archivo temporal para la tabla de usuarios
-    user_details="/tmp/user_details.txt"
-    echo -e "N°\tUsuario" > $user_details
-    count=1
-    
-    while IFS=: read -r username password expiration_date limit; do
-        echo -e "$count\t$username" >> $user_details
-        count=$((count + 1))
-    done <<< "$users"
-
-    # Mostrar la tabla de usuarios
-    column -t -s $'\t' $user_details
-    rm $user_details
-
-    read -p "¿Está seguro que desea eliminar todos los usuarios listados? (s/n): " confirm
-    if [[ ! $confirm =~ ^[sS][iI]|[sS]$ ]]; then
-        echo -e "${AMARILLO}Operación cancelada.${NC}"
-        read -p "Presione Enter para continuar..."
-        return
-    fi
-
-    while IFS=: read -r username password expiration_date limit; do
-        sudo deluser --remove-home "$username"
-        if [ $? -eq 0 ]; then
-            sudo sed -i "/^$username:/d" /etc/vpsmanager/users.txt
-            echo -e "${VERDE}Usuario SSH '$username' eliminado exitosamente.${NC}"
-        else
-            echo -e "${ROJO}Error: No se pudo eliminar al usuario '$username'.${NC}"
-        fi
-    done <<< "$users"
-
-    echo -e "${VERDE}Todos los usuarios SSH eliminados.${NC}"
-    echo -e "${PRINCIPAL}=========================${NC}"
-    read -p "Presione Enter para continuar..."
+    clear && clear
+    msg -bar
+    msg -tit
+    msg -bar
+    echo -e "\033[1;31m       BORRAR TODOS LOS USUARIOS REGISTRADOS"
+    msg -bar
+    read -p "   ►► Enter para Continuar  o CTRL + C Cancelar ◄◄"
+    echo ""
+    for user in $(cat /etc/passwd | awk -F : '$3 > 900 {print $1}' | grep -v "rick" | grep -vi "nobody"); do
+        userdel --force $user
+        echo -e "\033[1;32mUSUARIO:\033[1;33m $user \033[1;31mEliminado"
+    done
+    rm -rf $mainPath/cuentassh &>/dev/null
+    rm -rf $mainPath/cuentahwid &>/dev/null
+    rm -rf $mainPath/cuentatoken &>/dev/null
+    service sshd restart &>/dev/null
+    service ssh restart &>/dev/null
+    service dropbear start &>/dev/null
+    service stunnel4 start &>/dev/null
+    service squid restart &>/dev/null
+    rm -rf $mainPath/temp/userlock &>/dev/null
+    rm -rf $mainPath/temp/Limiter.log &>/dev/null
+    unlockall2
+    msg -bar
+    msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
 }
