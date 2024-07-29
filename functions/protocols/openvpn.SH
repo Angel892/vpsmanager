@@ -355,7 +355,7 @@ proto_openvpn() {
         msg -bar
         echo -e "\033[1;32m Configuracion Finalizada!"
         msg -bar
-
+        exit 1
     }
 
     instala_ovpn() {
