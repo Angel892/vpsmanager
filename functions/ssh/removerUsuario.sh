@@ -35,11 +35,13 @@ removerUsuarioSSH() {
     [[ -z $usuario_del ]] && {
         msg -rojo "Error, Usuario Invalido"
         msg -bar
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         return 1
     }
     [[ ! $(echo ${mostrar_totales[@]} | grep -w "$usuario_del") ]] && {
         msg -rojo "error, Usuario Invalido"
         msg -bar
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         return 1
     }
     msgne -amarillo "Usuario Seleccionado: " && echo -ne "$usuario_del"

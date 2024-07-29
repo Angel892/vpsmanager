@@ -13,8 +13,13 @@ bloquearDesbloquearUsuarioSSH() {
         readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivas)
     fi
 
-    selection=$(GetAllUsers)
-    
+    GetAllUsers
+
+    msg -bar
+    msgCentrado -amarillo "Escriba o Seleccione un Usuario"
+    msg -bar
+    unset selection
+
     while [[ ${selection} = "" ]]; do
         echo -ne "\033[1;97m No. \e[1;32m" && read selection
         tput cuu1 && tput dl1
