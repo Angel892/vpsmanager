@@ -459,9 +459,9 @@ GetAllUsersBlock() {
         local i=0
         for us in $(echo ${usuarios_ativos1[@]}); do
             if [[ $(cat ${USRloked} | grep -w "${us}") ]]; then
-                opcionMenu -blanco $i "$us \033[1;31m[ Lock ]"
+                opcionMenu -blanco $i "$us" false 0 && echo -e "\033[1;31m[ Lock ]"
             else
-                opcionMenu -blanco $i "$us \033[1;32m[ Unlock ]"
+                opcionMenu -blanco $i "$us" false 0 && echo -e "\033[1;32m[ Unlock ]"
             fi
             let i++
         done
@@ -474,9 +474,9 @@ GetAllUsersBlock() {
         for us in $(echo ${usuarios_ativos2[@]}); do
             nomhwid="$(cat $mainPath/cuentahwid | grep -w "${us}" | cut -d'|' -f5)"
             if [[ $(cat ${USRloked} | grep -w "${us}") ]]; then
-                opcionMenu -blanco $i "$nomhwid \033[1;31m[ Lock ]"
+                opcionMenu -blanco $i "$nomhwid" false 0 && echo -e "\033[1;31m[ Lock ]"
             else
-                opcionMenu -blanco $i "$nomhwid \033[1;32m[ Unlock ]"
+                opcionMenu -blanco $i "$nomhwid" false 0 && echo -e "\033[1;32m[ Unlock ]"
             fi
             let i++
         done
@@ -489,9 +489,9 @@ GetAllUsersBlock() {
         for us in $(echo ${usuarios_ativos3[@]}); do
             nomtoken="$(cat $mainPath/cuentatoken | grep -w "${us}" | cut -d'|' -f5)"
             if [[ $(cat ${USRloked} | grep -w "${us}") ]]; then
-                opcionMenu -blanco $i "$nomtoken \033[1;31m[ Lock ]"
+                opcionMenu -blanco $i "$nomtoken" false 0 && echo -e "\033[1;31m[ Lock ]"
             else
-                opcionMenu -blanco $i "$nomtoken \033[1;32m[ Unlock ]"
+                opcionMenu -blanco $i "$nomtoken" false 0 && echo -e "\033[1;32m[ Unlock ]"
             fi
             let i++
         done
