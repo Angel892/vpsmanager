@@ -11,6 +11,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/nodejs.sh
     source $PROTOCOLS_PATH/badvpn.sh
     source $PROTOCOLS_PATH/dropbear.sh
+    source $PROTOCOLS_PATH/ssl.sh
 
     while true; do
         local num=1
@@ -148,6 +149,7 @@ menuProtocols() {
         "nodejs") menuNodeJS ;;
         "badvpn") proto_badvpn ;;
         "dropbear") proto_dropbear ;;
+        "ssl") proto_ssl ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
