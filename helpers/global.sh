@@ -7,6 +7,8 @@ mainPath="/etc/vpsmanager"
 # COLORES
 source $HELPERS_PATH/colors.sh
 
+source $HELPERS_PATH/rebootnb.sh
+
 #Eliminar linea anterior
 eliminarl=$(
     tput cuu1

@@ -1,38 +1,15 @@
 #!/bin/bash
 
-local MENU="SSH"
 
-SSH_PATH="$functionsPath/ssh"
 
-#ARCHIVOS NECESARIOS
-source $SSH_PATH/crearCuenta.sh
-source $SSH_PATH/cuentaTemporal.sh
-source $SSH_PATH/detalleUsuarios.sh
-source $SSH_PATH/removerUsuario.sh
-source $SSH_PATH/bloquearCuenta.sh
-source $SSH_PATH/editarCuenta.sh
-source $SSH_PATH/usuariosConectados.sh
-source $SSH_PATH/eliminarVencidos.sh
-source $SSH_PATH/backup.sh
-source $SSH_PATH/eliminarTodos.sh
-source $SSH_PATH/renovarCuentas.sh
+#---CONTADOR ONLINE
+contador_online() {
 
-menuSSH() {
-
-    mostrar_usuarios() {
-        for u in $(awk -F : '$3 > 900 { print $1 }' /etc/passwd | grep -v "nobody" | grep -vi polkitd | grep -vi system-); do
+    mostrar_totales() {
+        for u in $(cat $mainPath/cuentasactivas | cut -d'|' -f1); do
             echo "$u"
         done
     }
-
-    unlockall2() {
-        for user in $(cat /etc/passwd | awk -F : '$3 > 900 {print $1}' | grep -v "rick" | grep -vi "nobody"); do
-            userpid=$(ps -u $user | awk {'print $1'})
-
-            usermod -U $user &>/dev/null
-        done
-    }
-
     dropbear_pids() {
         local pids
         local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
@@ -81,9 +58,12 @@ menuSSH() {
             fi
         done
     }
-
     openvpn_pids() {
-        #nome|#loguin|#rcv|#snd|#time
+        mostrar_usuariossh() {
+            for u in $(cat $mainPath/cuentassh | cut -d'|' -f1); do
+                echo "$u"
+            done
+        }
         byte() {
             while read B dummy; do
                 [[ "$B" -lt 1024 ]] && echo "${B} bytes" && break
@@ -96,7 +76,7 @@ menuSSH() {
                 echo $(((GB + 512) / 1024)) terabytes
             done
         }
-        for user in $(mostrar_usuarios); do
+        for user in $(mostrar_usuariossh); do
             user="$(echo $user | sed -e 's/[^a-z0-9 -]//ig')"
             [[ ! $(sed -n "/^${user},/p" /etc/openvpn/openvpn-status.log) ]] && continue
             i=0
@@ -120,96 +100,17 @@ menuSSH() {
         done
     }
 
-    while true; do
+    [[ $(dpkg --get-selections | grep -w "openssh" | head -1) ]] && SSH=ON || SSH=OFF
+    [[ $(dpkg --get-selections | grep -w "dropbear" | head -1) ]] && DROP=ON || DROP=OFF
+    [[ $(dpkg --get-selections | grep -w "openvpn" | head -1) ]] && [[ -e /etc/openvpn/openvpn-status.log ]] && OPEN=ON || OPEN=OFF
+    while read user; do
 
-        local num=1
-
-        clear
-        msg -bar
-        msgCentrado -amarillo "SSH MANAGER"
-        msg -bar
-
-        # CREAR CUENTA
-        opcionMenu -blanco $num "Crear cuenta"
-        option[$num]="crear"
-        let num++
-
-        # CREAR CUENTA TEMPORAL
-        opcionMenu -blanco $num "Crear cuenta temporal"
-        option[$num]="crearTemporal"
-        let num++
-
-        # REMOVER USUARIO
-        opcionMenu -blanco $num "Remover usuario"
-        option[$num]="remover"
-        let num++
-
-        # BLOQUEAR USUARIO
-        opcionMenu -blanco $num "Bloquear / Desbloquear usuario"
-        option[$num]="bloquear"
-        let num++
-
-        # EDITAR USUARIO
-        opcionMenu -blanco $num "Editar cuenta"
-        option[$num]="editar"
-        let num++
-
-        # EDITAR USUARIO
-        opcionMenu -blanco $num "Renovar cuenta"
-        option[$num]="renovar"
-        let num++
-
-        # DETALLES
-        opcionMenu -blanco $num "Detalle de todos los usuarios"
-        option[$num]="detalles"
-        let num++
-
-        # USUARIOS CONECTADOS
-        opcionMenu -blanco $num "Usuarios conectados"
-        option[$num]="conectados"
-        let num++
-
-        # ELIMINAR USUARIOS VENCIDOS
-        opcionMenu -blanco $num "Eliminar usuarios vencidos"
-        option[$num]="eliminarVencidos"
-        let num++
-
-        # BACKUP
-        opcionMenu -blanco $num "Backup de usuarios"
-        option[$num]="backup"
-        let num++
-
-        # BANNER
-        opcionMenu -blanco $num "Agregar / Eliminar banner"
-        option[$num]="banner"
-        let num++
-
-        # ELIMINAR TODOS LOS USUARIOS
-        opcionMenu -blanco $num "Eliminar todos los usuarios"
-        option[$num]="eliminarTodos"
-        let num++
-
-        # SALIR
-        opcionMenu -rojo 0 "Regresar al menú anterior"
-        option[0]="volver"
-
-        msg -bar
-        selection=$(selectionFun $num)
-        case ${option[$selection]} in
-        "crear") crearCuentaSSH ;;
-        "crearTemporal") crearCuentaTemporalSSH ;;
-        "remover") removerUsuarioSSH ;;
-        "bloquear") bloquearDesbloquearUsuarioSSH ;;
-        "editar") editarCuentaSSH ;;
-        "detalles") detalleUsuariosSSH ;;
-        "conectados") usuariosConectadosSSH ;;
-        "eliminarVencidos") eliminarUsuariosVencidosSSH ;;
-        "backup") backupUsuariosSSH ;;
-        "banner") gestionarBannerSSH ;;
-        "eliminarTodos") eliminarTodosUsuariosSSH ;;
-        "renovar") renovarCuentaSSH ;;
-        "volver") break ;;
-        *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
-        esac
-    done
+        #----CONTADOR DE ONLINES
+        PID="0+"
+        [[ $SSH = ON ]] && PID+="$(ps aux | grep -v grep | grep sshd | grep -w "$user" | grep -v root | wc -l 2>/dev/null)+"
+        [[ $DROP = ON ]] && PID+="$(dropbear_pids | grep -w "$user" | wc -l 2>/dev/null)+"
+        [[ $OPEN = ON ]] && [[ $(openvpn_pids | grep -w "$user" | cut -d'|' -f2) ]] && PID+="$(openvpn_pids | grep -w "$user" | cut -d'|' -f2)+"
+        ONLINES+="$(echo ${PID}0 | bc)+"
+        echo "${ONLINES}0" | bc >$mainPath/temp/Tonli
+    done <<<"$(mostrar_totales)"
 }
