@@ -10,6 +10,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/mysql.sh
     source $PROTOCOLS_PATH/nodejs.sh
     source $PROTOCOLS_PATH/badvpn.sh
+    source $PROTOCOLS_PATH/dropbear.sh
 
     while true; do
         local num=1
@@ -146,6 +147,7 @@ menuProtocols() {
         "mysql") menuMysql ;;
         "nodejs") menuNodeJS ;;
         "badvpn") proto_badvpn ;;
+        "dropbear") proto_dropbear ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
