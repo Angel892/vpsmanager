@@ -43,9 +43,6 @@ limitadorMenu() {
 
             pkill -u $1 &>/dev/null
 
-            # droplim=`droppids|grep -w "$1"|cut -d'|' -f2`
-            # kill -9 $droplim &>/dev/null
-
             droplim=$(dropbear_pids | grep -w "$1" | cut -d'|' -f2)
             kill -9 $droplim &>/dev/null
 
@@ -104,20 +101,20 @@ limitadorMenu() {
         [[ -e "$mainPath/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
         for us in $(echo ${usuarios_ativos1[@]}); do
             echo "${us}"
-        done >$mainPath/cuentasactivast
+        done >$mainPath/cuentasactivas
         for us in $(echo ${usuarios_ativos2[@]}); do
             echo "${us}"
-        done >>$mainPath/cuentasactivast
+        done >>$mainPath/cuentasactivas
         for us in $(echo ${usuarios_ativos3[@]}); do
             echo "${us}"
-        done >>$mainPath/cuentasactivast
+        done >>$mainPath/cuentasactivas
         mostrar_totales() {
-            for u in $(cat $mainPath/cuentasactivast | cut -d'|' -f1); do
+            for u in $(cat $mainPath/cuentasactivas | cut -d'|' -f1); do
                 echo "$u"
             done
         }
 
-        [[ -e "$mainPath/cuentasactivast" ]] && usuarios_totales=($(mostrar_totales))
+        [[ -e "$mainPath/cuentasactivas" ]] && usuarios_totales=($(mostrar_totales))
         if [[ -z ${usuarios_totales[@]} ]]; then
             echo "" >/dev/null 2>&1
         else
