@@ -1,5 +1,6 @@
 #--- PROTOCOLO OPENVPN
 proto_openvpn() {
+    #
     #timedatectl set-timezone UTC
     # Detect Debian users running the script with "sh" instead of bash
     if readlink /proc/$$/exe | grep -q "dash"; then
