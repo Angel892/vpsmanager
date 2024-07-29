@@ -46,6 +46,7 @@ proto_squid() {
     }
 
     fun_squid() {
+        unset var_squid
         if [[ -e /etc/squid/squid.conf ]]; then
             var_squid="/etc/squid/squid.conf"
         elif [[ -e /etc/squid3/squid.conf ]]; then
@@ -204,8 +205,8 @@ proto_squid() {
             via off
             forwarded_for off
             pipeline_prefetch off" >>$var_squid
-                    else
-                        echo -e "#Configuracion SquiD
+        else
+            echo -e "#Configuracion SquiD
             acl localhost src 127.0.0.1/32 ::1
             acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
             acl SSL_ports port 443
@@ -343,7 +344,7 @@ proto_squid() {
             fun_squid
         fi
     }
-    
+
     if [[ -e /etc/squid/squid.conf ]]; then
         online_squid
     elif [[ -e /etc/squid3/squid.conf ]]; then
