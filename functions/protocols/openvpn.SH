@@ -727,7 +727,7 @@ EOF
         msg -amarillo " Ahora crear una SSH para generar el (.ovpn)!"
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        
+
     }
     edit_ovpn_host() {
         msg -bar3
@@ -813,17 +813,17 @@ EOF
                     msg -bar
                 fi
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-               exit 0;
+                exit 0
                 ;;
             2)
                 nano /etc/openvpn/client-common.txt
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-               exit 0;
+                exit 0
                 ;;
             3)
                 nano /etc/openvpn/server.conf
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-               exit 0;
+                exit 0
                 ;;
             4) edit_ovpn_host ;;
             5)
@@ -841,18 +841,17 @@ EOF
                 msg -amarillo " Procedimiento Hecho con Exito"
                 msg -bar
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-               exit 0;
-                
+                exit 0
+
                 ;;
             0)
                 read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-               exit 0;
+                exit 0
                 ;;
             esac
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-           exit 0;
+            exit 0
 
-            
         }
         [[ -e /etc/squid/squid.conf ]] && instala_ovpn2
         [[ -e /etc/squid3/squid.conf ]] && instala_ovpn2
