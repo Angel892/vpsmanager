@@ -16,6 +16,7 @@ source $SSH_PATH/eliminarVencidos.sh
 source $SSH_PATH/backup.sh
 source $SSH_PATH/eliminarTodos.sh
 source $SSH_PATH/renovarCuentas.sh
+source $SSH_PATH/limitador.sh
 
 menuSSH() {
 
@@ -193,6 +194,11 @@ menuSSH() {
         option[$num]="eliminarTodos"
         let num++
 
+        # ELIMINAR TODOS LOS USUARIOS
+        opcionMenu -blanco $num "Limitador de cuentas"
+        option[$num]="limitador"
+        let num++
+
         # SALIR
         opcionMenu -rojo 0 "Regresar al menú anterior"
         option[0]="volver"
@@ -212,6 +218,7 @@ menuSSH() {
         "banner") gestionarBannerSSH ;;
         "eliminarTodos") eliminarTodosUsuariosSSH ;;
         "renovar") renovarCuentaSSH ;;
+        "limitador") limitadorMenu ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
