@@ -414,14 +414,4 @@ GetAllUsers() {
             let i++
         done
     fi
-    msg -bar
-    msgCentrado -amarillo "Escriba o Seleccione un Usuario"
-    msg -bar
-    unset selection
-    while [[ -z ${selection} ]]; do
-        msgne -blanco "Seleccione Una Opcion: " && read selection
-        tput cuu1 && tput dl1
-    done
-
-    echo "$selection"
 }

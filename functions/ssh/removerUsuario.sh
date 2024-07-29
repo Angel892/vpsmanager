@@ -17,7 +17,14 @@ removerUsuarioSSH() {
 
     GetAllUsers
 
-    selection=$(GetAllUsers)
+    msg -bar
+    msgCentrado -amarillo "Escriba o Seleccione un Usuario"
+    msg -bar
+    unset selection
+    while [[ -z ${selection} ]]; do
+        msgne -blanco "Seleccione Una Opcion: " && read selection
+        tput cuu1 && tput dl1
+    done
 
     if [[ ! $(echo "${selection}" | egrep '[^0-9]') ]]; then
         usuario_del="${mostrar_totales[$selection]}"
