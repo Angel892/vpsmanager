@@ -1,6 +1,11 @@
 #!/bin/bash
 
 removerUsuarioSSH() {
+
+    rm_user() {
+        userdel --force "$1" &>/dev/null
+    }
+
     clear && clear
     msg -bar
     ##-->>LECTOR DE CUENTAS
