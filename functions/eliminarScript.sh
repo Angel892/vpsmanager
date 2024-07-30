@@ -29,4 +29,6 @@ eliminar_script() {
         exit
     fi
 
+    return;
+
 }
