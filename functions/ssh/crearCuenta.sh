@@ -396,12 +396,12 @@ crearCuentaSSH() {
         msgCentrado -azul "--   Seleccione primero Tipo de Cuenta   --"
 
         # NORMAL
-        opcionMenu -blanco $num "NORMAL" false 0
+        opcionMenu -blanco $num "NORMAL" false 4
         option[$num]="normal"
         let num++
 
         # HWID
-        opcionMenu -blanco $num "HWID" false 0
+        opcionMenu -blanco $num "HWID" false 4
         option[$num]="hwid"
         let num++
 
