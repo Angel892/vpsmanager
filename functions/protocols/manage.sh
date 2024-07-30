@@ -171,7 +171,7 @@ menuProtocols() {
         "sslh") sshl_install ;;
         "udpserver") udp_serverr ;;
         "psiphone") server_psiphones ;;
-        "websokete") proto_websockete ;;
+        "websockete") proto_websockete ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
