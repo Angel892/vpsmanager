@@ -225,7 +225,7 @@ fi
 read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
 
 # Ejecutar el script principal desde su nueva ubicación (evitar usando exec para mantener la sesión)
-$ALIAS_COMMAND >/dev/null 2>&1
+$ALIAS_COMMAND
 
 if [ $? -ne 0 ]; then
     echo "Error: Falló la ejecución del script principal."
