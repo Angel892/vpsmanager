@@ -162,6 +162,7 @@ menuProtocols() {
         "shadowsockliv") proto_shadowsockL;;
         "slowdns") proto_slowndns;;
         "gettunnel") proto_pgettunel ;;
+        "tcpover") proto_ptcpover ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac

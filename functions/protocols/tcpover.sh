@@ -38,7 +38,7 @@ proto_ptcpover() {
         [[ -d $HOME/socks ]] && rm -rf $HOME/socks >/dev/null 2>&1
         cd $HOME && mkdir socks >/dev/null 2>&1
         cd socks
-        patch="https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/backsocz.zip"
+        patch="https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/backsocz.zip"
         arq="backsocz.zip"
         wget $patch >/dev/null 2>&1
         unzip $arq >/dev/null 2>&1
@@ -75,7 +75,7 @@ proto_ptcpover() {
     echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR TCPOVER  \e[97m \n"
     echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER TCPOVER \e[97m \n"
     msg -bar
-    echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -bra "  \e[97m\033[1;41m VOLVER \033[1;37m"
+    echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -rojo "  \e[97m\033[1;41m VOLVER \033[1;37m"
     msg -bar
     echo -ne "\033[1;97mDigite solo el numero segun su respuesta:\e[32m "
     read opcao
@@ -91,6 +91,4 @@ proto_ptcpover() {
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
         ;;
     esac
-    menu_inst
-
 }
