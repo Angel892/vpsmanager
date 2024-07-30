@@ -20,12 +20,14 @@ menuPython() {
         msgCentrado -blanco "DESINSTALACION PYTHON"
         msg -bar
 
+        # Elimina todos los paquetes relacionados con Python 3
         msgCentrado -amarillo "DESINSTALANDO PYTHON"
-        fun_bar "sudo apt-get remove --purge python3 -y"
+        fun_bar "sudo apt-get purge -y python3 python3-*"
 
-        msg -bar
-        msgCentrado -verde "PYTHON DESINSTALADO CON ÉXITO"
-        msg -bar
+        # Limpia paquetes y dependencias innecesarias
+        msgCentrado -amarillo "LIMPIANDO DEPENDENDIAS"
+        fun_bar "sudo apt-get autoremove -y"
+        fun_bar "sudo apt-get autoclean"
     }
 
     local num=1
