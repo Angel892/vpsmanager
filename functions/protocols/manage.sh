@@ -26,6 +26,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/popenvpn.sh
     source $PROTOCOLS_PATH/ppublico.sh
     source $PROTOCOLS_PATH/pprivado.sh
+    source $PROTOCOLS_PATH/python.sh
 
     while true; do
         local num=1
@@ -58,6 +59,11 @@ menuProtocols() {
         # NODE JS
         opcionMenu -blanco $num "Node js" true 0 "node" "f"
         option[$num]="nodejs"
+        let num++
+
+        # NODE JS
+        opcionMenu -blanco $num "Python" true 0 "node" "f"
+        option[$num]="python"
         let num++
 
         msgCentradoBarra -amarillo "PROTOCOLOS NET"
@@ -180,6 +186,7 @@ menuProtocols() {
         "popenvpn") proto_popenvpn ;;
         "ppublico") proto_ppublico ;;
         "pprivado") proto_pprivado ;;
+        "python") menuPython ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
