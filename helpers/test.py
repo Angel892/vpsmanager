@@ -219,10 +219,10 @@ class ConnectionHandler(threading.Thread):
                     except:
                         error = True
                         break
-        if count == TIMEOUT:
-            error = True
-        if error:
-            break
+            if count == TIMEOUT:
+                error = True
+            if error:
+                break
 
 
 def print_usage():
