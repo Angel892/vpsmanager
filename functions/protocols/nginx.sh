@@ -1,55 +1,62 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
-
-#funciones globales
-
-
-installNginx() {
-    echo -e "${INFO}Instalando Nginx...${NC}"
-
-    sudo apt-get update
-    sudo apt-get install -y nginx
-
-    echo -e "${SECUNDARIO}Nginx instalado.${NC}"
-    read -p "Presione Enter para continuar..."
-}
-
-uninstallNginx() {
-    echo -e "${INFO}Desinstalando Nginx...${NC}"
-    sudo systemctl stop nginx
-
-    echo -e "${INFO}Removiendo dependencias...${NC}"
-    sudo apt-get remove -y --purge nginx nginx-common nginx-core
-
-    echo -e "${INFO}Removiendo carpetas...${NC}"
-    sudo rm -rf /etc/nginx
-
-    echo -e "${INFO}Limpiando dependencias...${NC}"
-    sudo apt-get autoremove -y
-    sudo apt-get autoclean -y
-
-    echo -e "${SECUNDARIO}Nginx Desinstalado.${NC}"
-    read -p "Presione Enter para continuar..."
-}
-
 menuNginx() {
-    while true; do
-        clear
-        echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${PRINCIPAL}    Nginx manager${NC}"
-        echo -e "${PRINCIPAL}=========================${NC}"
-        echo -e "${SECUNDARIO}1. Instalar Nginx${NC}"
-        echo -e "${SECUNDARIO}2. Desinstalar Nginxe[0m"
-        echo -e "${SALIR}0. Regresar al menú anterior${NC}"
-        echo -e "${PRINCIPAL}=========================${NC}"
-        read -p "Seleccione una opción: " opcion
-        case $opcion in
-        1) installNginx ;;
-        2) uninstallNginx ;;
-        0) break ;;
-        *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
-        esac
-    done
+    install() {
+        showCabezera "Instalacion NGINX"
+
+        msgInstall "Instalando nginx";
+        barra_intall "apt-get install nginx -y"
+        
+        msgSuccess
+    }
+
+    uninstall() {
+
+        showCabezera "DESINSTALACION nginx"
+
+        sudo systemctl stop nginx
+
+        msgInstall "Removiendo dependencias"
+        barra_intallb "sudo apt-get remove -y --purge nginx nginx-common nginx-core"
+
+        msgInstall "Eliminando carpetas"
+        sudo rm -rf /etc/nginx 2>&1
+
+        msgInstall "Limpiando dependencias sin usar"
+        barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
+
+        msgSuccess
+    }
+
+    showCabezera "MENU NGINX"
+
+    # INSTALAR
+    opcionMenu -blanco $num "Instalar nginx"
+    option[$num]="install"
+    let num++
+
+    # DESINSTALAR
+    opcionMenu -blanco $num "Desinstalar nginx"
+    option[$num]="uninstall"
+    let num++
+
+    msg -bar
+
+    # SALIR
+    opcionMenu -rojo 0 "Regresar al menú anterior"
+    option[0]="volver"
+
+    msg -bar
+    selection=$(selectionFun $num)
+
+    case ${option[$selection]} in
+    "install") install ;;
+    "uninstall") uninstall ;;
+    "volver") return ;;
+    *)
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+        sleep 2
+        menuNginx
+        ;;
+    esac
 }

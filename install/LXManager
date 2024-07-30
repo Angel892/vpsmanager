@@ -80,7 +80,7 @@ instalacionInicial() {
 
     #--VERIFICAR IP MANUAL
     tu_ip() {
-        echo ""
+        echo ""p
         echo -ne "\033[1;96m #Digite tu IP Publica (IPV4): \033[32m" && read IP
         val_ip() {
             local ip=$IP
