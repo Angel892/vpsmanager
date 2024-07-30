@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Definir la variable para el alias
-$mainPath="/etc/vpsmanager"
+mainPath="/etc/vpsmanager"
 MENU_PATH="$mainPath/adm.sh"
 ALIAS_COMMAND="sudo $MENU_PATH"
 
@@ -178,11 +178,6 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
 }
 
 instalacionInicial
-
-clear;
-
-echo -e "${mainPath}"
-read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
 
 #CARPETAS PRINCIPALES
 mkdir -p "${mainPath}" >/dev/null 2>&1
