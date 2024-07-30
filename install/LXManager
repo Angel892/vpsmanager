@@ -184,7 +184,9 @@ instalacionInicial
 mkdir -p "${mainPath}" >/dev/null 2>&1
 
 # Clonar el repositorio en un directorio temporal
-git clone https://github.com/Angel892/vpsmanager.git $mainPath
+echo -e "\033[1;97m    ◽️ CLONANDO REPOSITORIO "
+barra_intallb "git clone https://github.com/Angel892/vpsmanager.git $mainPath"
+#git clone https://github.com/Angel892/vpsmanager.git $mainPath
 if [ $? -ne 0 ]; then
     echo "Error: La clonación del repositorio falló."
     exit 1
@@ -222,6 +224,9 @@ fi
 
 # Ejecutar el script principal desde su nueva ubicación (evitar usando exec para mantener la sesión)
 $ALIAS_COMMAND
+
+read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
+
 if [ $? -ne 0 ]; then
     echo "Error: Falló la ejecución del script principal."
     exit 1
