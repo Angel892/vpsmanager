@@ -77,12 +77,12 @@ install_paquetes() {
 instalacionInicial() {
     clear && clear
     #CARPETAS PRINCIPALES
-    mkdir -p "$mainPath" >/dev/null 2>&1
-    mkdir -p $mainPath/temp >/dev/null 2>&1
-    mkdir -p $mainPath/filespy >/dev/null 2>&1
-    mkdir -p $mainPath/botmanager >/dev/null 2>&1
-    mkdir -p $mainPath/PortM >/dev/null 2>&1
-    mkdir -p $mainPath/v2ray >/dev/null 2>&1
+    mkdir -p "${mainPath}" >/dev/null 2>&1
+    mkdir -p "${mainPath}/temp" >/dev/null 2>&1
+    mkdir -p "${mainPath}/filespy" >/dev/null 2>&1
+    mkdir -p "${mainPath}/botmanager" >/dev/null 2>&1
+    mkdir -p "${mainPath}/PortM" >/dev/null 2>&1
+    mkdir -p "${mainPath}/v2ray" >/dev/null 2>&1
     mkdir -p /root/.ssh >/dev/null 2>&1
 
     #--VERIFICAR IP MANUAL
