@@ -7,5 +7,5 @@ Este proyecto proporciona un script para administrar un servidor VPS. Las funcio
 Para instalar el script y todas sus funciones, ejecute el siguiente comando:
 
 ```bash
-wget https://raw.githubusercontent.com/Angel892/vpsmanager/master/install/LX; chmod 777 LX; ./LX --start
+wget https://raw.githubusercontent.com/Angel892/vpsmanager/master/LXManager -O LXManager && chmod +x LXManager && ./LXManager
 
