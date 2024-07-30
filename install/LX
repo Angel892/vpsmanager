@@ -1,6 +1,9 @@
 #!/bin/bash
 ##-->> INSTALADOR --- ACTUALIZADO EL 16-03-2023 -- >> By @Kalix1 << ---
 clear && clear
+
+$mainPath="/etc/vpsmanager";
+
 colores="$(pwd)/colores"
 rm -rf ${colores}
 wget -O ${colores} "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/colores" &>/dev/null
@@ -184,7 +187,7 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
     clear && clear
     apt update
     apt upgrade -y
-    wget -O /usr/bin/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM &>/dev/null
+    wget -O /usr/bin/LATAM https://raw.githubusercontent.com/Angel892/vpsmanager/master/install/LX &>/dev/null
     chmod +x /usr/bin/LATAM
 }
 
@@ -256,7 +259,7 @@ instalador_final() {
     tput cuu1 && tput dl1
     echo -e "     \033[1;4;32mLA KEY ES VALIDA FINALIZANDO INSTALACION \033[0;39m"
     ##-->> ACOPLANDO INSTALL EN /BIN
-    wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
+    wget /root/LATAM https://raw.githubusercontent.com/Angel892/vpsmanager/master/install/LX -O /usr/bin/LATAM &>/dev/null
     chmod +x /usr/bin/LATAM
     ##-->> LIMPIAR BASHRC
     /bin/cp /etc/skel/.bashrc ~/
