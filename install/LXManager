@@ -181,11 +181,6 @@ instalacionInicial
 
 #CARPETAS PRINCIPALES
 mkdir -p "${mainPath}" >/dev/null 2>&1
-mkdir -p "${mainPath}/temp" >/dev/null 2>&1
-mkdir -p "${mainPath}/filespy" >/dev/null 2>&1
-mkdir -p "${mainPath}/botmanager" >/dev/null 2>&1
-mkdir -p "${mainPath}/PortM" >/dev/null 2>&1
-mkdir -p "${mainPath}/v2ray" >/dev/null 2>&1
 
 # Clonar el repositorio en un directorio temporal
 git clone https://github.com/Angel892/vpsmanager.git $mainPath
@@ -193,6 +188,12 @@ if [ $? -ne 0 ]; then
     echo "Error: La clonación del repositorio falló."
     exit 1
 fi
+
+mkdir -p "${mainPath}/temp" >/dev/null 2>&1
+mkdir -p "${mainPath}/filespy" >/dev/null 2>&1
+mkdir -p "${mainPath}/botmanager" >/dev/null 2>&1
+mkdir -p "${mainPath}/PortM" >/dev/null 2>&1
+mkdir -p "${mainPath}/v2ray" >/dev/null 2>&1
 
 # Dar permisos de ejecución al script principal y a los scripts de funciones de manera recursiva
 sudo find $mainPath/ -type f -name "*.sh" -exec chmod +x {} \;
