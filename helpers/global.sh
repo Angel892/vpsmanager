@@ -700,8 +700,8 @@ barra_intallb() {
             echo -ne "\033[1;31m>"
 
             if [ "$i" -ge 39 ]; then
-                echo -ne "\033[1;33m]"
-                echo -e "  \033[1;33m["
+                echo -ne "\033[1;33m]\n"
+                echo -ne "  \033[1;33m["
             fi
 
             sleep 0.1
@@ -730,8 +730,8 @@ barra_intall() {
             echo -ne "\033[1;31m>"
 
             if [ "$i" -ge 19 ]; then
-                echo -ne "\033[1;33m]"
-                echo -e "  \033[1;33m["
+                echo -ne "\033[1;33m]\n"
+                echo -ne "  \033[1;33m["
             fi
 
             sleep 0.08
