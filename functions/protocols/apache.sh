@@ -50,9 +50,9 @@ menuApache() {
     msg -bar
     selection=$(selectionFun $num)
     case ${option[$selection]} in
-    1) install ;;
-    2) uninstall ;;
-    0) return ;;
+    "install") install ;;
+    "uninstall") uninstall ;;
+    "volver") return ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
