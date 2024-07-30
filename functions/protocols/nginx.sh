@@ -50,7 +50,6 @@ menuNginx() {
 
     msg -bar
     selection=$(selectionFun $num)
-
     case ${option[$selection]} in
     "install") install ;;
     "uninstall") uninstall ;;
