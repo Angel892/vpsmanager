@@ -25,6 +25,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/pwebsokete.sh
     source $PROTOCOLS_PATH/popenvpn.sh
     source $PROTOCOLS_PATH/ppublico.sh
+    source $PROTOCOLS_PATH/pprivado.sh
 
     while true; do
         local num=1
@@ -145,7 +146,7 @@ menuProtocols() {
 
         # PROXY PRIVADO
         opcionMenu -blanco $num "PROXY PRIVADO" true 0 "PPriv.py"
-        option[$num]="proxyPrivado"
+        option[$num]="pprivado"
         let num++
 
         # VOLVER AL MENU ANTERIOR
@@ -176,6 +177,7 @@ menuProtocols() {
         "websockete") proto_websockete ;;
         "popenvpn") proto_popenvpn ;;
         "ppublico") proto_ppublico ;;
+        "pprivado") proto_pprivado ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
