@@ -39,7 +39,7 @@ menuApache() {
 
     # DESINSTALAR
     opcionMenu -blanco $num "Desinstalar apache"
-    option[$num]="unistall"
+    option[$num]="uninstall"
     let num++
 
     msg -bar
