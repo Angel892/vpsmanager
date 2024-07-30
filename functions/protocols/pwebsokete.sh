@@ -176,7 +176,7 @@ class ConnectionHandler(threading.Thread):
         except Exception as e:
             self.log += ' - error: ' + e.strerror
             self.server.printLog(self.log)
-	    pass
+	        pass
         finally:
             self.close()
             self.server.removeConn(self)
