@@ -7,4 +7,5 @@ Este proyecto proporciona un script para administrar un servidor VPS. Las funcio
 Para instalar el script y todas sus funciones, ejecute el siguiente comando:
 
 ```bash
-wget https://raw.githubusercontent.com/Angel892/vpsmanager/master/install.sh -O install.sh && chmod +x install.sh && ./install.sh
+wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM; chmod 777 LATAM; ./LATAM --start
+

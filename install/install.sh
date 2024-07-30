@@ -6,13 +6,13 @@ $mainPath="/etc/vpsmanager";
 
 colores="$(pwd)/colores"
 rm -rf ${colores}
-wget -O ${colores} "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/colores" &>/dev/null
+wget -O ${colores} "https://raw.githubusercontent.com/Angel892/vpsmanager/master/install/colores.sh" &>/dev/null
 [[ ! -e ${colores} ]] && exit
 chmod +x ${colores} &>/dev/null
 source ${colores}
 CTRL_C() {
     rm -rf ${colores}
-    rm -rf /root/LATAM
+    rm -rf /root/vpsmanager
     exit
 }
 trap "CTRL_C" INT TERM EXIT
@@ -30,12 +30,6 @@ os_system() {
     case $distro in
     Debian) vercion=$(echo $system | awk '{print $3}' | cut -d '.' -f1) ;;
     Ubuntu) vercion=$(echo $system | awk '{print $2}' | cut -d '.' -f1,2) ;;
-    esac
-}
-repo() {
-    link="https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Source-List/$1.list"
-    case $1 in
-    8 | 9 | 10 | 11 | 16.04 | 18.04 | 20.04 | 20.10 | 21.04 | 21.10 | 22.04) wget -O /etc/apt/sources.list ${link} &>/dev/null ;;
     esac
 }
 ## PRIMER PASO DE INSTALACION
@@ -78,7 +72,7 @@ install_inicial() {
     }
     #CONFIGURAR SSH-ROOT PRINCIPAL AMAZON, GOOGLE
     pass_root() {
-        wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/sshd_config >/dev/null 2>&1
+        wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/Angel892/vpsmanager/master/install/sshd_config >/dev/null 2>&1
         chmod +rwx /etc/ssh/sshd_config
         service ssh restart
         msgi -bar
@@ -93,18 +87,13 @@ install_inicial() {
         echo -e "\033[1;97m TU CONTRASEÑA ROOT AHORA ES: \e[41m $pass \033[0;37m"
 
     }
-    #-- VERIFICAR VERSION
-    v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version")
-    echo "$v1" >$mainPath/temp/version_instalacion
-    v22=$(cat $mainPath/temp/version_instalacion)
-    vesaoSCT="\033[1;31m [ \033[1;32m($v22)\033[1;97m\033[1;31m ]"
+
     #-- CONFIGURACION BASICA
     os_system
-    repo "${vercion}"
     msgi -bar2
     echo -e " \e[5m\033[1;100m   =====>> ►►  🖥  SCRIPT | LATAM  🖥  ◄◄ <<=====   \033[1;37m"
     msgi -bar2
-    msgi -ama "   PREPARANDO INSTALACION | VERSION: $vesaoSCT"
+    msgi -ama "   PREPARANDO INSTALACION "
     msgi -bar2
     ## PAQUETES-UBUNTU PRINCIPALES
     echo ""
@@ -145,20 +134,20 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
     clear && clear
     apt update
     apt upgrade -y
-    wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
-    chmod +x /usr/bin/LATAM
+    wget /root/vpsmanager https://raw.githubusercontent.com/Angel892/vpsmanager/master/install/LX.sh -O /usr/bin/vpsmanager &>/dev/null
+    chmod +x /usr/bin/vpsmanager
 }
 
 post_reboot() {
     /bin/cp /etc/skel/.bashrc ~/
-    echo 'LATAM -c' >>.bashrc
+    echo 'adm -c' >>.bashrc
 }
 
 time_reboot() {
     clear && clear
     msgi -bar
     echo -e "\e[1;93m     CONTINUARA INSTALACION DESPUES DEL REBOOT"
-    echo -e "\e[1;93m         O EJECUTE EL COMANDO: \e[1;92mLATAM -c "
+    echo -e "\e[1;93m         O EJECUTE EL COMANDO: \e[1;92madm -c "
     msgi -bar
     REBOOT_TIMEOUT="$1"
     while [ $REBOOT_TIMEOUT -gt 0 ]; do
@@ -181,8 +170,8 @@ dependencias() {
 }
 
 install_paquetes() {
-    wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
-    chmod +x /usr/bin/LATAM
+    wget /root/vpsmanager https://raw.githubusercontent.com/Angel892/vpsmanager/master/install/LX.sh -O /usr/bin/vpsmanager &>/dev/null
+    chmod +x /usr/bin/vpsmanager
     clear && clear
     #------- BARRA DE ESPERA
     msgi -bar2
@@ -212,7 +201,7 @@ while :; do
     -s | --start) install_inicial && post_reboot && time_reboot "15" ;;
     -c | --continue)
         install_paquetes
-        rm -rf /root/LATAM &>/dev/null
+        rm -rf /root/vpsmanager &>/dev/null
         break
         ;;
     -k | --key)
@@ -225,8 +214,8 @@ done
 
 ## PASO DOS
 Install_key() {
-    wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
-    chmod +x /usr/bin/LATAM
+    wget /root/vpsmanager https://raw.githubusercontent.com/Angel892/vpsmanager/master/install/LX.sh -O /usr/bin/vpsmanager &>/dev/null
+    chmod +x /usr/bin/vpsmanager
     /bin/cp /etc/skel/.bashrc ~/
     clear && clear
     SCPdir="$mainPath"
@@ -236,7 +225,7 @@ Install_key() {
     Filotros="${SCPdir}/temp"
     IP=$(cat /root/.ssh/authrized_key.reg)
     function_verify() {
-        permited=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Control-IP")
+        permited=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/vpsmanager_Oficial/main/Control-IP")
         [[ $(echo $permited | grep "${IP}") = "" ]] && {
             clear && clear
             echo -e "\n\n\n\033[1;91m————————————————————————————————————————————————————\n      ¡ESTA KEY NO CONCUERDA CON EL INSTALADOR! \n                 CONATACTE A @Kalix1\n————————————————————————————————————————————————————\n\n\n"
@@ -244,7 +233,7 @@ Install_key() {
             exit 1
         } || {
             ### INSTALAR VERSION DE SCRIPT
-            v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version")
+            v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/vpsmanager_Oficial/main/Version")
             echo "$v1" >$mainPath/temp/version_instalacion
             FIns=$(printf '%(%D-%H:%M:%S)T')
             echo "$FIns" >$mainPath/F-Instalacion
@@ -264,9 +253,9 @@ Install_key() {
     }
     install_fim() {
         echo -e "               \033[1;4;32mFinalizando Instalacion\033[0;39m"
-        wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
+        wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/vpsmanager_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
         chmod +x /bin/rebootnb
-        wget -O $mainPath/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version &>/dev/null
+        wget -O $mainPath/temp/version_actual https://raw.githubusercontent.com/NetVPS/vpsmanager_Oficial/main/Version &>/dev/null
         msgi -bar2
         echo '#!/bin/sh -e' >/etc/rc.local
         sudo chmod +x /etc/rc.local
@@ -286,10 +275,10 @@ Install_key() {
         echo 'echo -e "\033[92m  -->> SLOGAN:\033[93m $mess1 "' >>.bashrc
         echo 'echo "" ' >>.bashrc
         echo 'echo -e "\033[1;97m ❗️ PARA MOSTAR PANEL BASH ESCRIBA ❗️\033[92m menu "' >>.bashrc
-        echo 'wget -O $mainPath/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version &>/dev/null' >>.bashrc
+        echo 'wget -O $mainPath/temp/version_actual https://raw.githubusercontent.com/NetVPS/vpsmanager_Oficial/main/Version &>/dev/null' >>.bashrc
         echo 'echo ""' >>.bashrc
         #-BASH SOPORTE ONLINE
-        wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Fixs%20Remotos/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
+        wget https://raw.githubusercontent.com/NetVPS/vpsmanager_Oficial/main/Fixs%20Remotos/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
         chmod +x /usr/bin/SPR
         SPR >/dev/null 2>&1
         timeespera="1"
@@ -459,4 +448,6 @@ Install_key() {
     }
     incertar_key
 }
+
+
 Install_key
