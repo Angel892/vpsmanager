@@ -28,6 +28,8 @@ menuNginx() {
         msgSuccess
     }
 
+    local num=1
+
     showCabezera "MENU NGINX"
 
     # INSTALAR
