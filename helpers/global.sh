@@ -748,3 +748,28 @@ barra_intall() {
 
     echo -e ""
 }
+
+showCabezera() {
+    local messageText=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+    clear && clear
+    msg -bar
+
+    msg -tit
+    msg -bar
+    msgCentrado -amarillo "${messageText}"
+    msg -bar
+}
+
+msgSuccess() {
+    msg -bar
+    msgCentrado -verde "PROCESO REALIZADO CON EXITO"
+    msg -bar
+    msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+}
+
+msgError() {
+    msg -bar
+    msgCentrado -rojo "ALGO FALLO EN EL PROCESO"
+    msg -bar
+    msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+}
