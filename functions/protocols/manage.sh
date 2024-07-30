@@ -61,8 +61,8 @@ menuProtocols() {
         option[$num]="nodejs"
         let num++
 
-        # NODE JS
-        opcionMenu -blanco $num "Python" true 0 "node" "f"
+        # PYTHON
+        opcionMenu -blanco $num "Python" true 0 "python3" "f"
         option[$num]="python"
         let num++
 
