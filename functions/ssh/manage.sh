@@ -205,6 +205,8 @@ menuSSH() {
         option[$num]="limitador"
         let num++
 
+        msg -bar
+
         # SALIR
         opcionMenu -rojo 0 "Regresar al menú anterior"
         option[0]="volver"
