@@ -20,6 +20,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/gettunnel.sh
     source $PROTOCOLS_PATH/tcpover.sh
     source $PROTOCOLS_PATH/sshl.sh
+    source $PROTOCOLS_PATH/udpserver.sh
 
     while true; do
         local num=1
@@ -113,7 +114,7 @@ menuProtocols() {
 
         # UDP REQUEST
         opcionMenu -blanco $num "UDP-REQUEST" true 0 "/usr/bin/udpServer"
-        option[$num]="udprequest"
+        option[$num]="udpserver"
         let num++
 
         # PSIPHON
@@ -166,6 +167,7 @@ menuProtocols() {
         "gettunnel") proto_pgettunel ;;
         "tcpover") proto_ptcpover ;;
         "sslh") sshl_install ;;
+        "udpserver") udp_serverr ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
