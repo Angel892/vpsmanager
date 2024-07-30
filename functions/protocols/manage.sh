@@ -22,6 +22,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/sshl.sh
     source $PROTOCOLS_PATH/udpserver.sh
     source $PROTOCOLS_PATH/psiphone.sh
+    source $PROTOCOLS_PATH/pwebsokete.sh
 
     while true; do
         local num=1
@@ -127,7 +128,7 @@ menuProtocols() {
 
         # WEB SOCKET
         opcionMenu -blanco $num "WEBSOKET STATUS EDITABLE" true 0 "pydic-*"
-        option[$num]="websocket"
+        option[$num]="websockete"
         let num++
 
         # PROXY VPN
@@ -170,6 +171,7 @@ menuProtocols() {
         "sslh") sshl_install ;;
         "udpserver") udp_serverr ;;
         "psiphone") server_psiphones ;;
+        "websokete") proto_websockete ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
