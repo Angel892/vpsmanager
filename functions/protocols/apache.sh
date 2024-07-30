@@ -5,7 +5,8 @@ menuApache() {
     install() {
         showCabezera "INSTALACION APACHE"
 
-        barra_intall "apache2"
+        msgInstall "Instalando apache2";
+        barra_intall "apt-get install apache2 -y"
         
         msgSuccess
     }
