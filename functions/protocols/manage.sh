@@ -149,6 +149,8 @@ menuProtocols() {
         option[$num]="pprivado"
         let num++
 
+        msg -bar
+
         # VOLVER AL MENU ANTERIOR
         opcionMenu -rojo 0 "Regresar al menu anterior"
         option[0]="volver"
