@@ -23,6 +23,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/udpserver.sh
     source $PROTOCOLS_PATH/psiphone.sh
     source $PROTOCOLS_PATH/pwebsokete.sh
+    source $PROTOCOLS_PATH/popenvpn.sh
 
     while true; do
         local num=1
@@ -133,7 +134,7 @@ menuProtocols() {
 
         # PROXY VPN
         opcionMenu -blanco $num "PROXY OPENVPN" true 0 "POpen.py"
-        option[$num]="proxyOpenVpn"
+        option[$num]="popenvpn"
         let num++
 
         # PROXY PUBLICO
@@ -172,6 +173,7 @@ menuProtocols() {
         "udpserver") udp_serverr ;;
         "psiphone") server_psiphones ;;
         "websockete") proto_websockete ;;
+        "popenvpn") proto_popenvpn ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
