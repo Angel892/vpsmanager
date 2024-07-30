@@ -15,7 +15,7 @@ msgi() {
     esac
 }
 # ------- BARRA DE INTALL BASICO
-barra_instalacion() {
+barra_intallb() {
     comando="$1"
     _=$(
         $comando >/dev/null 2>&1
@@ -29,11 +29,17 @@ barra_instalacion() {
                 break
             fi
             echo -ne "\033[1;31m>"
+
+            if [ "$i" -ge 39 ]; then
+                echo -ne "\033[1;33m]"
+                echo
+            fi
+
             sleep 0.1
         done
     done
 
-    echo -e "\033[1;33m] - \033[1;32m OK \033[0m"
+    echo -ne "\033[1;33m] - \033[1;32m OK \033[0m\n"
 }
 #barra_intallb() {
 #    comando="$1"
@@ -73,11 +79,15 @@ barra_intall() {
                 break
             fi
             echo -ne "\033[1;31m>"
+
+            if [ "$i" -ge 39 ]; then
+                echo -ne "\033[1;33m]"
+                echo
+            fi
+
             sleep 0.08
         done
     done
-
-    echo -e "\033[1;33m]"
 
     if dpkg --get-selections | grep -qw "$paquete"; then
         ESTATUS="\033[1;33m       \033[92mINSTALADO"
@@ -85,7 +95,9 @@ barra_intall() {
         ESTATUS="\033[91m  FALLO DE INSTALACION"
     fi
 
-    echo -ne "  \033[1;33m[\033[1;31m>>>>>>>>>>>>>>>>>>>>\033[1;33m] $ESTATUS \033[0m\n"
+    echo -ne "\033[1;33m] $ESTATUS \033[0m\n"
+
+    echo -e ""
 }
 
 #barra_intall() {
