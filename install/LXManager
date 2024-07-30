@@ -171,8 +171,9 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
     msgi -bar
     read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
     clear && clear
-    apt update
-    apt upgrade -y
+
+    echo -e "\033[1;97m    ◽️ ACTUALIZANDO "
+    barra_intallb "sudo apt update && sudo apt upgrade -y"
 
     install_paquetes
 }
