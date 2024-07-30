@@ -38,7 +38,7 @@ proto_pgettunel() {
             echo "127.0.0.1:$(echo $service | cut -d' ' -f2)=$(echo $service | cut -d' ' -f1)"
         done <<<"$(mportas)"
         screen -dmS getpy python $mainPath/filespy/PGet.py -b "0.0.0.0:porta_socket" -p "$mainPath/filespy/pwd.pwd"
-        [[ "$(ps x | grep PGet.py | grep -v grep | awk '{print $1}')" ]] && msg -verd "      >> GETTUNEL INSTALADO CON EXITO <<" || msg -ama "               ERROR VERIFIQUE"
+        [[ "$(ps x | grep PGet.py | grep -v grep | awk '{print $1}')" ]] && msg -verde "      >> GETTUNEL INSTALADO CON EXITO <<" || msg -amarillo "               ERROR VERIFIQUE"
         msg -bar
     }
 
@@ -63,7 +63,7 @@ proto_pgettunel() {
     echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR GETTUNEL  \e[97m \n"
     echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER GETTUNEL \e[97m \n"
     msg -bar
-    echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -bra "  \e[97m\033[1;41m VOLVER \033[1;37m"
+    echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -rojo "  \e[97m\033[1;41m VOLVER \033[1;37m"
     msg -bar
     echo -ne "\033[1;97mDigite solo el numero segun su respuesta:\e[32m "
     read opcao
