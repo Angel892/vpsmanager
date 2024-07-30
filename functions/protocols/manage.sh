@@ -164,6 +164,7 @@ menuProtocols() {
         "slowdns") proto_slowndns;;
         "gettunnel") proto_pgettunel ;;
         "tcpover") proto_ptcpover ;;
+        "sslh") sshl_install ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
