@@ -177,6 +177,16 @@ validarDirectorio() {
     fi
 }
 
+# Function to generate a string with a given number of spaces
+generate_spaces() {
+    local count=$1
+    local spaces=""
+    for ((i = 0; i < count; i++)); do
+        spaces+=" "
+    done
+    echo "$spaces"
+}
+
 # Function to print menu options
 opcionMenu() {
     local option=$1
@@ -196,13 +206,13 @@ opcionMenu() {
     if [[ $checkStatus == "" ]]; then
 
         case $option in
-        -rojo) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
-        -blanco) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption" ;;
-        -amarillo) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AMARILLO}%-20s${NC}" "$numOption" "$textOption" ;;
-        -verde) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${VERDE}%-20s${NC}" "$numOption" "$textOption" ;;
-        -azul) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AZUL}%-20s${NC}" "$numOption" "$textOption" ;;
-        -gris) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${GRIS}%-20s${NC}" "$numOption" "$textOption" ;;
-        -salir) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> \033[1;41m  ❗️${BLANCO} %s ❗️  ${NC}\n" "$numOption" "$textOption" ;;
+        -rojo) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${ROJO}${textOption}${NC}" ;;
+        -blanco) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${BLANCO}${textOption}${NC}" ;;
+        -amarillo) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${AMARILLO}${textOption}${NC}" ;;
+        -verde) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${VERDE}${textOption}${NC}" ;;
+        -azul) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${AZUL}${textOption}${NC}" ;;
+        -gris) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${GRIS}${textOption}${NC}" ;;
+        -salir) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> \033[1;41m  ❗️${BLANCO} ${textOption} ❗️  ${NC}\n" ;;
         esac
 
     else
@@ -234,17 +244,17 @@ opcionMenu() {
         local dashes=$(generate_dashes $dashCount)
 
         case $option in
-        -rojo) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${ROJO}%-20s${NC}" "$numOption" "$textOption" ;;
-        -blanco) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${BLANCO}%-20s${NC}" "$numOption" "$textOption" ;;
-        -amarillo) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AMARILLO}%-20s${NC}" "$numOption" "$textOption" ;;
-        -verde) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${VERDE}%-20s${NC}" "$numOption" "$textOption" ;;
-        -azul) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${AZUL}%-20s${NC}" "$numOption" "$textOption" ;;
-        -gris) printf " ${NEGRITA}${AMARILLO}[${VERDE}%d${AMARILLO}] ${ROJO}> ${GRIS}%-20s${NC}" "$numOption" "$textOption" ;;
+        -rojo) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${ROJO}${textOption}${NC}" ;;
+        -blanco) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${BLANCO}${textOption}${NC}" ;;
+        -amarillo) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${AMARILLO}${textOption}${NC}" ;;
+        -verde) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${VERDE}${textOption}${NC}" ;;
+        -azul) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${AZUL}${textOption}${NC}" ;;
+        -gris) echo -ne " ${NEGRITA}${AMARILLO}[${VERDE}${numOption}${AMARILLO}] ${ROJO}> ${GRIS}${textOption}${NC}" ;;
         esac
 
         # Agrega el estado actual si está definido
         if [[ -n $currentStatus ]]; then
-            printf "%s" "  $currentStatus"
+            echo -ne "  $currentStatus"
         fi
 
     fi
@@ -252,7 +262,8 @@ opcionMenu() {
     if ($isNewLine == true); then
         echo
     else
-        printf "%${spacing}s" ""
+        local spaces=$(generate_spaces $spacing)
+        echo -ne "$spaces"
     fi
 }
 
