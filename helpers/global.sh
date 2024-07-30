@@ -702,6 +702,7 @@ barra_intallb() {
             if [ "$i" -ge 39 ]; then
                 echo -ne "\033[1;33m]"
                 echo -e ""
+                echo -ne "  \033[1;33m["
             fi
 
             sleep 0.1
@@ -723,15 +724,16 @@ barra_intall() {
     echo -ne "  \033[1;33m["
 
     while kill -0 $pid 2>/dev/null; do
-        for ((i = 0; i < 40; i++)); do
+        for ((i = 0; i < 20; i++)); do
             if ! kill -0 $pid 2>/dev/null; then
                 break
             fi
             echo -ne "\033[1;31m>"
 
-            if [ "$i" -ge 39 ]; then
+            if [ "$i" -ge 19 ]; then
                 echo -ne "\033[1;33m]"
-                echo -e ""
+                echo -e "" 
+                echo -ne "  \033[1;33m["
             fi
 
             sleep 0.08
