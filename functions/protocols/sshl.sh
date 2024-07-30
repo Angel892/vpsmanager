@@ -39,7 +39,7 @@ sshl_install() {
         clear && clear
         apt-get install sslh -y
         msg -bar
-        msg -verd "              >> INSTALADO CON EXITO <<"
+        msg -verde "              >> INSTALADO CON EXITO <<"
         msg -bar
         return 0
     }
