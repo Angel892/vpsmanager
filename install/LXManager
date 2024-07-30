@@ -2,7 +2,6 @@
 
 # Definir la variable para el alias
 $mainPath="/etc/vpsmanager"
-ALIAS_NAME="adm"
 MENU_PATH="$mainPath/adm.sh"
 ALIAS_COMMAND="sudo $MENU_PATH"
 
@@ -77,12 +76,6 @@ install_paquetes() {
 instalacionInicial() {
     clear && clear
     #CARPETAS PRINCIPALES
-    mkdir -p "${mainPath}" >/dev/null 2>&1
-    mkdir -p "${mainPath}/temp" >/dev/null 2>&1
-    mkdir -p "${mainPath}/filespy" >/dev/null 2>&1
-    mkdir -p "${mainPath}/botmanager" >/dev/null 2>&1
-    mkdir -p "${mainPath}/PortM" >/dev/null 2>&1
-    mkdir -p "${mainPath}/v2ray" >/dev/null 2>&1
     mkdir -p /root/.ssh >/dev/null 2>&1
 
     #--VERIFICAR IP MANUAL
@@ -172,7 +165,7 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
     #read -p " Seleccione [ S / N ]: " tu_ip
     [[ "$pass_root" = "s" || "$pass_root" = "S" ]] && pass_root
     for i in {1..6}; do tput cuu 1 && tput el; done
-    
+
     msgi -bar2
     echo -e "\033[1;93m\a\a\a      SE PROCEDERA A INSTALAR LAS ACTULIZACIONES\n PERTINENTES DEL SISTEMA, ESTE PROCESO PUEDE TARDAR\n VARIOS MINUTOS Y PUEDE PEDIR ALGUNAS CONFIRMACIONES \033[0;37m"
     msgi -bar
@@ -185,6 +178,19 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
 }
 
 instalacionInicial
+
+clear;
+
+echo -e "${mainPath}"
+read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
+
+#CARPETAS PRINCIPALES
+mkdir -p "${mainPath}" >/dev/null 2>&1
+mkdir -p "${mainPath}/temp" >/dev/null 2>&1
+mkdir -p "${mainPath}/filespy" >/dev/null 2>&1
+mkdir -p "${mainPath}/botmanager" >/dev/null 2>&1
+mkdir -p "${mainPath}/PortM" >/dev/null 2>&1
+mkdir -p "${mainPath}/v2ray" >/dev/null 2>&1
 
 # Clonar el repositorio en un directorio temporal
 git clone https://github.com/Angel892/vpsmanager.git $mainPath
