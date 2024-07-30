@@ -17,7 +17,7 @@ menuPython() {
     detener() {
         clear && clear
         msg -bar
-        msgCentrado -amarillo "DESINSTALACION PYTHON"
+        msgCentrado -blanco "DESINSTALACION PYTHON"
         msg -bar
 
         msgCentrado -amarillo "DESINSTALANDO PYTHON"

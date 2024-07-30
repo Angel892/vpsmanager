@@ -222,7 +222,7 @@ opcionMenu() {
         if [[ $typeChek == "f" ]]; then
             currentStatus=$(checkStatusF $checkStatus)
         else
-            currentStatus=$(checkStatusF $checkStatus)
+            currentStatus=$(checkStatus $checkStatus)
         fi
 
         local width=${#barra}
