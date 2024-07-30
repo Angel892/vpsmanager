@@ -1,45 +1,12 @@
-#--- PROTO WEBSOCKET EDITABLE
-proto_websockete() {
-
-    activar_websokete() {
-        mportas() {
-            unset portas
-            portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
-            while read port; do
-                var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-                [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-            done <<<"$portas_var"
-            i=1
-            echo -e "$portas"
-        }
-        clear && clear
-        msg -bar
-        msg -tit
-        msg -bar
-        echo -e "\033[1;33m  INSTALADOR DE WEBSOCKET EDITABLE | SCRIPT LXServer \033[1;37m"
-        msg -bar
-        porta_socket=
-        while [[ -z $porta_socket || ! -z $(mportas | grep -w $porta_socket) ]]; do
-            echo -ne "\033[1;97m Digite el Puerto para el Websoket:\033[1;92m" && read -p " " -e -i "8081" porta_socket
-        done
-        msg -bar
-        echo -ne "\033[1;97m Introduzca el texto de estado plano o en HTML:\n \033[1;31m" && read -p " " -e -i "By SCRIP | LX" texto_soket
-        msg -bar
-        echo -ne "\033[1;97m Digite algun puerto de anclaje\n Puede ser un SSH/DROPBEAR/SSL/OPENVPN:\033[1;92m" && read -p " " -e -i "443" puetoantla
-        msg -bar
-        echo -ne "\033[1;97m Estatus de encabezado (200,101,404,500,etc):\033[1;92m" && read -p " " -e -i "200" rescabeza
-        msg -bar
-        (
-            less <<PYTHON >$mainPath/filespy/PDirect-$porta_socket.py
 import socket, threading, thread, select, signal, sys, time, getopt
 
 # Listen
 LISTENING_ADDR = '0.0.0.0'
 if sys.argv[1:]:
-    LISTENING_PORT = sys.argv[1]
+  LISTENING_PORT = sys.argv[1]
 else:
-    LISTENING_PORT = '$porta_socket'
-# Pass
+  LISTENING_PORT = '$porta_socket' 
+#Pass
 PASS = ''
 
 # CONST
@@ -47,9 +14,7 @@ BUFLEN = 4096 * 4
 TIMEOUT = 60
 DEFAULT_HOST = '127.0.0.1:$puetoantla'
 RESPONSE = 'HTTP/1.1 $rescabeza <strong>$texto_soket</strong>\r\nContent-length: 0\r\n\r\nHTTP/1.1 $rescabeza Connection established\r\n\r\n'
-
-
-# RESPONSE = 'HTTP/1.1 200 Hello_World!\r\nContent-length: 0\r\n\r\nHTTP/1.1 200 Connection established\r\n\r\n'  # lint:ok
+#RESPONSE = 'HTTP/1.1 200 Hello_World!\r\nContent-length: 0\r\n\r\nHTTP/1.1 200 Connection established\r\n\r\n'  # lint:ok
 
 class Server(threading.Thread):
     def __init__(self, host, port):
@@ -162,7 +127,7 @@ class ConnectionHandler(threading.Thread):
 
             if hostPort != '':
                 passwd = self.findHeader(self.client_buffer, 'X-Pass')
-
+				
                 if len(PASS) != 0 and passwd == PASS:
                     self.method_CONNECT(hostPort)
                 elif len(PASS) != 0 and passwd != PASS:
@@ -178,7 +143,7 @@ class ConnectionHandler(threading.Thread):
         except Exception as e:
             self.log += ' - error: ' + e.strerror
             self.server.printLog(self.log)
-            pass
+	        pass
         finally:
             self.close()
             self.server.removeConn(self)
@@ -190,7 +155,7 @@ class ConnectionHandler(threading.Thread):
             return ''
 
         aux = head.find(':', aux)
-        head = head[aux + 2:]
+        head = head[aux+2:]
         aux = head.find('\r\n')
 
         if aux == -1:
@@ -201,10 +166,10 @@ class ConnectionHandler(threading.Thread):
     def connect_target(self, host):
         i = host.find(':')
         if i != -1:
-            port = int(host[i + 1:])
+            port = int(host[i+1:])
             host = host[:i]
         else:
-            if self.method == 'CONNECT':
+            if self.method=='CONNECT':
                 port = $puetoantla
             else:
                 port = sys.argv[1]
@@ -236,26 +201,26 @@ class ConnectionHandler(threading.Thread):
                 error = True
             if recv:
                 for in_ in recv:
-                    try:
+		    try:
                         data = in_.recv(BUFLEN)
                         if data:
-                            if in_ is self.target:
-                                self.client.send(data)
+			    if in_ is self.target:
+				self.client.send(data)
                             else:
                                 while data:
                                     byte = self.target.send(data)
                                     data = data[byte:]
 
-                                    count = 0
-                        else:
-                            break
-                    except:
+                            count = 0
+			else:
+			    break
+		    except:
                         error = True
                         break
-        if count == TIMEOUT:
-            error = True
-        if error:
-            break
+            if count == TIMEOUT:
+                error = True
+            if error:
+                break
 
 
 def print_usage():
@@ -263,13 +228,12 @@ def print_usage():
     print('       proxy.py -b <bindAddr> -p <port>')
     print('       proxy.py -b 0.0.0.0 -p 80')
 
-
 def parse_args(argv):
     global LISTENING_ADDR
     global LISTENING_PORT
-
+    
     try:
-        opts, args = getopt.getopt(argv, "hb:p:", ["bind=", "port="])
+        opts, args = getopt.getopt(argv,"hb:p:",["bind=","port="])
     except getopt.GetoptError:
         print_usage()
         sys.exit(2)
@@ -298,70 +262,6 @@ def main(host=LISTENING_ADDR, port=LISTENING_PORT):
             server.close()
             break
 
-
-#######    parse_args(sys.argv[1:])
+ #######    parse_args(sys.argv[1:])
 if __name__ == '__main__':
     main()
-
-
-PYTHON
-        ) >$HOME/proxy.log
-
-        validarArchivo "$mainPath/filespy/PDirect.py"
-        validarArchivo "$mainPath/PortM/PDirect.log"
-
-        chmod +x $mainPath/filespy/PDirect.py
-        screen -dmS pydic-"$porta_socket" python $mainPath/filespy/PDirect-$porta_socket.py && echo "$porta_socket" >>$mainPath/PortM/PDirect.log
-        [[ "$(ps x | grep pydic-"$porta_socket" | grep -v grep | awk -F "pts" '{print $1}')" ]] && msg -verde "       >> WEBSOCKET INSTALADO CON EXITO <<" || msg -amarillo "               ERROR VERIFIQUE"
-        msg -bar
-    }
-
-    desactivar_websokete() {
-        clear && clear
-        msg -bar
-        echo -e "\033[1;31m              DESINSTALAR WEBSOKET's "
-        msg -bar
-
-        validarArchivo "$mainPath/PortM/PDirect.log"
-
-        for portdic in $(cat $mainPath/PortM/PDirect.log); do
-            echo -e "\e[1;93m Puertos Activos: \e[1;32m$portdic"
-        done
-        msg -bar
-        echo -ne "\033[1;97m Digite el Puero a Desisntalar: \e[1;32m" && read portselect
-        screen -wipe >/dev/null 2>&1
-        screen -S pydic-"$portselect" -p 0 -X quit
-        rm -rf $mainPath/filespy/PDirect-$portselect.py >/dev/null 2>&1
-        sed -i '/'$portselect'/d' $mainPath/PortM/PDirect.log >/dev/null 2>&1
-        msg -bar
-        [[ ! "$(ps x | grep pydic-"$portselect" | grep -v grep | awk '{print $1}')" ]] && echo -e "\033[1;32m      >> WEBSOCKET DESINSTALADO CON EXITO << "
-        msg -bar
-    }
-
-    clear && clear
-    msg -bar
-    msg -tit
-    msg -bar
-    echo -e "\033[1;33m INSTALADOR DE WEBSOCKET EDITABLE | SCRIPT LXServer \033[1;37m"
-    msg -bar
-    echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR UN PROXY  \e[97m \n"
-    echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER UN PROXY WEBSOCKET's \e[97m \n"
-    msg -bar
-    echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -rojo "  \e[97m\033[1;41m VOLVER \033[1;37m"
-    msg -bar
-    echo -ne "\033[1;97mDigite solo el numero segun su respuesta:\e[32m "
-    read opcao
-    case $opcao in
-    1)
-        msg -bar
-        activar_websokete
-        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        ;;
-    2)
-        msg -bar
-        desactivar_websokete
-        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        ;;
-    esac
-
-}
