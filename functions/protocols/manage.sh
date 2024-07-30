@@ -21,6 +21,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/tcpover.sh
     source $PROTOCOLS_PATH/sshl.sh
     source $PROTOCOLS_PATH/udpserver.sh
+    source $PROTOCOLS_PATH/psiphone.sh
 
     while true; do
         local num=1
@@ -168,6 +169,7 @@ menuProtocols() {
         "tcpover") proto_ptcpover ;;
         "sslh") sshl_install ;;
         "udpserver") udp_serverr ;;
+        "psiphone") server_psiphones ;;
         "volver") break ;;
         *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
         esac
