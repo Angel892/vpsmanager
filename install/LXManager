@@ -223,7 +223,7 @@ else
 fi
 
 # Ejecutar el script principal desde su nueva ubicación (evitar usando exec para mantener la sesión)
-$ALIAS_COMMAND
+$ALIAS_COMMAND >/dev/null 2>&1
 
 read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
 
