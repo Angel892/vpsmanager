@@ -59,7 +59,6 @@ barra_instalacion() {
 # ------- BARRA DE INSTALL PAQUETES
 barra_intall() {
     comando="$1"
-    paquete="$2"
 
     _=$(
         $comando >/dev/null 2>&1
