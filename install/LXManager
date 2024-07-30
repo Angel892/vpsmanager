@@ -129,7 +129,7 @@ instalacionInicial() {
     msgi -bar2
     echo -e " \e[5m\033[1;100m   =====>> ►►  🖥  SCRIPT | LXManager  🖥  ◄◄ <<=====   \033[1;37m"
     msgi -bar2
-    msgi -ama "         PREPARANDO INSTALACION"
+    msgi -ama "             PREPARANDO INSTALACION"
     msgi -bar2
     ## PAQUETES-UBUNTU PRINCIPALES
     echo ""
