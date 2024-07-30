@@ -18,6 +18,7 @@ menuProtocols() {
     source $PROTOCOLS_PATH/shadowsockliv.sh
     source $PROTOCOLS_PATH/slowdns.sh
     source $PROTOCOLS_PATH/gettunnel.sh
+    source $PROTOCOLS_PATH/tcpover.sh
 
     while true; do
         local num=1
