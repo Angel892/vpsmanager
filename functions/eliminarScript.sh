@@ -1,35 +1,32 @@
 #!/bin/bash
 
 eliminar_script() {
-    clear
-    echo -e "${SALIR}=========================${NC}"
-    echo -e "${SALIR}  Eliminando el Script${NC}"
-    echo -e "${SALIR}=========================${NC}"
-    read -p "¿Está seguro de que desea eliminar todos los scripts y archivos relacionados? (s/n): " confirmar
-    if [[ $confirmar == [sS] ]]; then
-        # Verificar si el directorio /etc/vpsmanager existe
-        if [ -d "/etc/vpsmanager" ]; then
-            sudo rm -rf /etc/vpsmanager
-            echo -e "${SECUNDARIO}Directorio /etc/vpsmanager eliminado.${NC}"
-        else
-            echo -e "${INFO}El directorio /etc/vpsmanager no existe.${NC}"
-        fi
-
-        alias1="/usr/bin/adm"
-        alias2="/usr/bin/ADM"
-
-        if [ -e "$alias1" ]; then
-            sudo rm $alias1
-        fi
-
-        if [ -e "$alias2" ]; then
-            sudo rm $alias2
-        fi
-
-        echo -e "${SECUNDARIO}Todos los archivos y configuraciones han sido eliminados.${NC}"
-        exit 0
-    else
-        echo -e "${INFO}Operación cancelada.${NC}"
-        read -p "Presione Enter para continuar..."
+    clear && clear
+    msg -bar
+    msg -tit
+    msg -bar
+    msg -amarillo "          ¿ DESEA DESINSTALAR SCRIPT ?"
+    msg -bar
+    echo -e "\e[1;97m        Esto borrara todos los archivos LXManager"
+    msg -bar
+    while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+        read -p " [ S / N ]: " yesno
+        tput cuu1 && tput dl1
+    done
+    if [[ ${yesno} = @(s|S|y|Y) ]]; then
+        [[ -e /bin/adm ]] && sudo rm /bin/adm
+        [[ -e /usr/bin/adm ]] && sudo rm /usr/bin/adm
+        [[ -e /bin/ADM ]] && sudo rm /bin/ADM
+        [[ -e /usr/bin/adm ]] && sudo rm /usr/bin/adm
+        [[ -d /etc/vpsmanager ]] && sudo rm -rf /etc/vpsmanager &>/dev/null
+        sudo apt-get --purge remove squid -y >/dev/null 2>&1
+        sudo apt-get --purge remove stunnel4 -y >/dev/null 2>&1
+        sudo apt-get --purge remove dropbear -y >/dev/null 2>&1
+        rm -rf /root/* >/dev/null 2>&1
+        cd /root
+        clear && clear
+        exit
+        exit
     fi
+
 }
