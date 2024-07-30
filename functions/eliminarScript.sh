@@ -1,7 +1,5 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
 eliminar_script() {
     clear
     echo -e "${SALIR}=========================${NC}"
