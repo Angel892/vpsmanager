@@ -15,14 +15,14 @@ proto_popenvpn() {
         msg -bar
         msg -tit
         msg -bar
-        echo -e "\033[1;33m     INSTALADOR DE PROXY OPENVPN | SCRIPT LATAM \033[1;37m"
+        echo -e "\033[1;33m     INSTALADOR DE PROXY OPENVPN | SCRIPT LXServer \033[1;37m"
         msg -bar
         porta_socket=
         while [[ -z $porta_socket || ! -z $(mportas | grep -w $porta_socket) ]]; do
             echo -ne "\033[1;97m Digite el Puerto para el Websoket:\033[1;92m" && read -p " " -e -i "8081" porta_socket
         done
         msg -bar
-        echo -ne "\033[1;97m Introduzca el texto de estado plano o en HTML:\n \033[1;31m" && read -p " " -e -i "By SCRIP | LATAM" texto_soket
+        echo -ne "\033[1;97m Introduzca el texto de estado plano o en HTML:\n \033[1;31m" && read -p " " -e -i "By SCRIP | LXServer" texto_soket
         msg -bar
 
         validarArchivo "$mainPath/filespy/POpen.py"
@@ -50,7 +50,7 @@ proto_popenvpn() {
     msg -bar
     msg -tit
     msg -bar
-    echo -e "\033[1;33m     INSTALADOR DE PROXY OPENVPN | SCRIPT LATAM \033[1;37m"
+    echo -e "\033[1;33m     INSTALADOR DE PROXY OPENVPN | SCRIPT LXServer \033[1;37m"
     msg -bar
     echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR UN PROXY  \e[97m \n"
     echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER TODOS LOS PROXY OPENVPN \e[97m \n"

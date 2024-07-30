@@ -58,7 +58,7 @@ proto_shadowsockN() {
             msg -bar
             msg -tit
             msg -bar
-            msg -ama "      INSTALADOR SHADOWSOCKS | SCRIPT LATAM"
+            msg -ama "      INSTALADOR SHADOWSOCKS | SCRIPT LXServer"
             msg -bar
             echo -e "\033[1;97m Selecione una Criptografia"
             msg -bar

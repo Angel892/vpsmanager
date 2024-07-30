@@ -15,7 +15,7 @@ openvpn_pids() {
     done
   }
   mostrar_usuariossh() {
-    for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f1); do
+    for u in $(cat /etc/SCRIPT-LXServer/cuentassh | cut -d'|' -f1); do
       echo "$u"
     done
   }

@@ -14,11 +14,6 @@ server_psiphones() {
         msg -amarillo "            INSTALADOR DE SERVR-PSIPHONE"
         msg -bar
         echo -e "\033[1;97m Ingrese los puertos segun su necesidad\033[1;97m\n"
-        #echo -e "\033[1;97mDigite los puertos a activar \033[1;97m | \033[1;93mPuerto recomendados \033[1;32m 5300\n"
-        #echo -ne "\033[1;97mDigite los Puertos:\033[1;32m " && read -p " " -e -i "22" portasx
-        #echo "$portasx" >/etc/SCRIPT-LATAM/PortM/UDP-server.log
-
-        #tput cuu1 && tput dl1
 
         rm -rf /root/psi
         kill $(ps aux | grep 'psiphond' | awk '{print $2}') 1>/dev/null 2>/dev/null

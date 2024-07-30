@@ -627,8 +627,8 @@ EOF
         }
 
         install_prepare_password() {
-            echo -ne "\033[1;97m Digite una contraseña:\033[1;32m" && read -p " " -e -i latam shadowsockspwd
-            [ -z "${shadowsockspwd}" ] && shadowsockspwd="latam"
+            echo -ne "\033[1;97m Digite una contraseña:\033[1;32m" && read -p " " -e -i lxserver shadowsockspwd
+            [ -z "${shadowsockspwd}" ] && shadowsockspwd="lxserver"
             msg -bar
             echo -e "\e[1;97m Contraseña Digitada:\e[1;31m ${shadowsockspwd}"
             msg -bar
@@ -1404,7 +1404,7 @@ EOF
         msg -bar
         msg -tit
         msg -bar
-        echo -e "\033[1;93m INSTALADOR SHADOWSOCK-LIBEV+(obfs) | SCRIPT LATAM"
+        echo -e "\033[1;93m INSTALADOR SHADOWSOCK-LIBEV+(obfs) | SCRIPT LXServer"
         msg -bar
         instaladossb_fun
 

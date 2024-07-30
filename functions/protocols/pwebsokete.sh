@@ -16,7 +16,7 @@ proto_websockete() {
         msg -bar
         msg -tit
         msg -bar
-        echo -e "\033[1;33m  INSTALADOR DE WEBSOCKET EDITABLE | SCRIPT LATAM \033[1;37m"
+        echo -e "\033[1;33m  INSTALADOR DE WEBSOCKET EDITABLE | SCRIPT LXServer \033[1;37m"
         msg -bar
         porta_socket=
         while [[ -z $porta_socket || ! -z $(mportas | grep -w $porta_socket) ]]; do
@@ -337,7 +337,7 @@ PYTHON
     msg -bar
     msg -tit
     msg -bar
-    echo -e "\033[1;33m INSTALADOR DE WEBSOCKET EDITABLE | SCRIPT LATAM \033[1;37m"
+    echo -e "\033[1;33m INSTALADOR DE WEBSOCKET EDITABLE | SCRIPT LXServer \033[1;37m"
     msg -bar
     echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR UN PROXY  \e[97m \n"
     echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER UN PROXY WEBSOCKET's \e[97m \n"

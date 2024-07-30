@@ -28,7 +28,7 @@ sshl_install() {
         msg -bar
         msg -tit
         msg -bar
-        echo -e "\033[1;93m           INSTALADOR SSLH SCRIPT LATAM"
+        echo -e "\033[1;93m           INSTALADOR SSLH SCRIPT LXServer"
         msg -bar
         echo -e "\033[1;32m                 Instalando SSLH"
         msg -bar
@@ -108,7 +108,7 @@ sshl_install() {
     msg -bar
     msg -tit
     msg -bar
-    echo -e "\e[1;93m          INSTALADOR DE SSLH | SCRIPT LATAM"
+    echo -e "\e[1;93m          INSTALADOR DE SSLH | SCRIPT LXServer"
     msg -bar
     echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR | DESISNTALAR SSLH \e[97m \n"
     echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m EDITAR PUERTOS SSLH\e[97m \n"

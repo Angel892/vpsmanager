@@ -31,7 +31,7 @@ proto_ssl() {
         msg -bar
         msg -tit
         msg -bar
-        echo -e "\033[1;93m             INSTALADOR SSL SCRIPT LATAM"
+        echo -e "\033[1;93m             INSTALADOR SSL SCRIPT LXServer"
         msg -bar
         echo -e "\033[1;97m Seleccione un puerto de anclaje."
         echo -e "\033[1;97m Puede ser un SSH/DROPBEAR/SQUID/OPENVPN/WEBSOCKET"
@@ -359,7 +359,7 @@ proto_ssl() {
 
         msg -tit
         msg -bar
-        echo -e "\e[1;93m    INSTALADOR MONO Y MULTI SSL | SCRIPT LATAM"
+        echo -e "\e[1;93m    INSTALADOR MONO Y MULTI SSL | SCRIPT LXServer"
         msg -bar
 
         local num=1

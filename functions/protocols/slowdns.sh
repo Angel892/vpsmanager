@@ -40,7 +40,7 @@ proto_slowndns() {
         msg -bar
         msg -tit
         msg -bar
-        msg -bra "               INSTALADOR SLOWDNS"
+        msg -amarillo "               INSTALADOR SLOWDNS"
         msg -bar
         drop_port
         n=1
@@ -155,7 +155,7 @@ proto_slowndns() {
     echo -ne " \e[1;93m [\e[1;32m3\e[1;93m]\033[1;31m > \033[1;97m INFORMACON \e[97m \n"
     echo -ne " \e[1;93m [\e[1;32m4\e[1;93m]\033[1;31m > \033[1;97m DETENER SLOWNDNS \e[97m \n"
     msg -bar
-    echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -bra "  \e[97m\033[1;41m VOLVER \033[1;37m"
+    echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -rojo "  \e[97m\033[1;41m VOLVER \033[1;37m"
     msg -bar
     echo -ne "\033[1;97mDigite solo el numero segun su respuesta:\e[32m "
     read opcao

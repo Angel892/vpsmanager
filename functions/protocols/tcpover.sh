@@ -21,14 +21,14 @@ proto_ptcpover() {
         msg -bar
         msg -tit
         msg -bar
-        echo -e "\033[1;33m     INSTALADOR DE TCPOVER | SCRIPT LATAM \033[1;37m"
+        echo -e "\033[1;33m     INSTALADOR DE TCPOVER | SCRIPT LXServer \033[1;37m"
         msg -bar
         porta_socket=
         while [[ -z $porta_socket || ! -z $(mportas | grep -w $porta_socket) ]]; do
             echo -ne "\033[1;97m Digite el Puerto para el TCPOVER:\033[1;92m" && read -p " " -e -i "8888" porta_socket
         done
         msg -bar
-        echo -ne "\033[1;97m Digite una banner txt:\n \033[1;31m" && read -p " " -e -i "SCRIP-LATAM" passg
+        echo -ne "\033[1;97m Digite una banner txt:\n \033[1;31m" && read -p " " -e -i "SCRIP-LXServer" passg
         msg -bar
         while read service; do
             [[ -z $service ]] && break
@@ -70,7 +70,7 @@ proto_ptcpover() {
     msg -bar
     msg -tit
     msg -bar
-    echo -e "\033[1;33m       INSTALADOR DE GETTUNEL | SCRIPT LATAM \033[1;37m"
+    echo -e "\033[1;33m       INSTALADOR DE GETTUNEL | SCRIPT LXServer \033[1;37m"
     msg -bar
     echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR TCPOVER  \e[97m \n"
     echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER TCPOVER \e[97m \n"

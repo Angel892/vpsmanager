@@ -16,14 +16,14 @@ proto_ppublico() {
         msg -bar
         msg -tit
         msg -bar
-        echo -e "\033[1;33m     INSTALADOR DE PROXY PUBLICO | SCRIPT LATAM \033[1;37m"
+        echo -e "\033[1;33m     INSTALADOR DE PROXY PUBLICO | SCRIPT LXServer \033[1;37m"
         msg -bar
         porta_socket=
         while [[ -z $porta_socket || ! -z $(mportas | grep -w $porta_socket) ]]; do
             echo -ne "\033[1;97m Digite el Puerto para el P. Publico:\033[1;92m" && read -p " " -e -i "8082" porta_socket
         done
         msg -bar
-        echo -ne "\033[1;97m Introduzca el texto de estado plano o en HTML:\n \033[1;31m" && read -p " " -e -i "By SCRIP | LATAM" texto_soket
+        echo -ne "\033[1;97m Introduzca el texto de estado plano o en HTML:\n \033[1;31m" && read -p " " -e -i "By SCRIP | LXServer" texto_soket
         msg -bar
 
         validarArchivo "$mainPath/filespy/PPub.py"
@@ -51,7 +51,7 @@ proto_ppublico() {
     msg -bar
     msg -tit
     msg -bar
-    echo -e "\033[1;33m     INSTALADOR DE PROXY PUBLICO | SCRIPT LATAM \033[1;37m"
+    echo -e "\033[1;33m     INSTALADOR DE PROXY PUBLICO | SCRIPT LXServer \033[1;37m"
     msg -bar
     echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR UN PROXY PUBLICO  \e[97m \n"
     echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER TODOS LOS PROXY PUBLICOS \e[97m \n"

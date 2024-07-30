@@ -69,7 +69,7 @@ proto_squid() {
         msg -bar
         msg -tit
         msg -bar
-        msg -ama "         INSTALADOR SQUID | SCRIPT LATAM "
+        msg -ama "         INSTALADOR SQUID | SCRIPT LXServer "
         msg -bar
         vpsIP
         echo -ne "\033[97m Confirme su ip:\033[1;32m"
@@ -200,7 +200,7 @@ proto_squid() {
             done
             echo -e "
             #nome
-            visible_hostname SCRIPT-LATAM
+            visible_hostname SCRIPT-LXServer
 
             via off
             forwarded_for off
@@ -235,7 +235,7 @@ proto_squid() {
             done
             echo -e "
             #HostName
-            visible_hostname SCRIPT-LATAM
+            visible_hostname SCRIPT-LXServer
 
             via off
             forwarded_for off
@@ -268,7 +268,7 @@ proto_squid() {
         echo -ne " $(msg -verde "[1]") $(msg -rojo "=>>") \e[1;97mCOLOCAR HOST EN SQUID \e[97m \n"
         echo -ne " $(msg -verde "[2]") $(msg -rojo "=>>") \e[1;97mREMOVER HOST DE SQUID\e[97m \n"
         echo -ne " $(msg -verde "[3]") $(msg -rojo "=>>") \e[1;31mDESINSTALAR SQUID \e[97m \n"
-        echo -ne "$(msg -bar2)\n$(msg -verde " [0]") $(msg -rojo ">") " && msg -bra "\e[97m\033[1;41m VOLVER \033[1;37m"
+        echo -ne "$(msg -bar2)\n$(msg -verde " [0]") $(msg -rojo ">") " && msg -rojo "\e[97m\033[1;41m VOLVER \033[1;37m"
         msg -bar
         while [[ $varpay != @(0|[1-3]) ]]; do
             read -p "[0/3]: " varpay

@@ -15,7 +15,7 @@ proto_dropbear() {
         msg -bar
         msg -tit
         msg -bar
-        msgCentrado -amarillo "INSTALADOR DROPBEAR | SCRIPT LATAM"
+        msgCentrado -amarillo "INSTALADOR DROPBEAR | SCRIPT LXServer"
         msg -bar
         echo -e "\033[1;97m Puede activar varios puertos en orden secuencial\n Ejemplo: \033[1;32m 442 443 444\033[1;37m"
         msg -bar
@@ -88,7 +88,7 @@ EOF
         msg -bar
         msg -tit
         msg -bar
-        msgCentrado -amarillo "INSTALADOR DROPBEAR | SCRIPT LATAM"
+        msgCentrado -amarillo "INSTALADOR DROPBEAR | SCRIPT LXServer"
         msg -bar
 
         local num=1
