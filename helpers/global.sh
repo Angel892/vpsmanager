@@ -677,3 +677,74 @@ fun_bar() {
     echo -ne " \033[1;33m[\033[1;31m########################################\033[1;33m] - \033[1;32m100%\033[0m\n"
     sleep 1s
 }
+
+msgInstall() {
+    local messageText=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+    echo -e "\033[1;97m    ◽️ $messageText"
+}
+
+# ------- BARRA DE INTALL BASICO
+barra_intallb() {
+    comando="$1"
+    _=$(
+        $comando >/dev/null 2>&1
+    ) &
+    pid=$!
+    echo -ne "  \033[1;33m["
+
+    while [[ -d /proc/$pid ]]; do
+        for ((i = 0; i < 40; i++)); do
+            if [[ ! -d /proc/$pid ]]; then
+                break
+            fi
+            echo -ne "\033[1;31m>"
+
+            if [ "$i" -ge 39 ]; then
+                echo -ne "\033[1;33m]"
+                echo
+            fi
+
+            sleep 0.1
+        done
+    done
+
+    echo -ne "\033[1;33m] - \033[1;32m OK \033[0m\n"
+}
+
+# ------- BARRA DE INSTALL PAQUETES
+barra_intall() {
+    comando="$1"
+
+    _=$(
+        $comando >/dev/null 2>&1
+    ) &
+    >/dev/null
+    pid=$!
+    echo -ne "  \033[1;33m["
+
+    while kill -0 $pid 2>/dev/null; do
+        for ((i = 0; i < 20; i++)); do
+            if ! kill -0 $pid 2>/dev/null; then
+                break
+            fi
+            echo -ne "\033[1;31m>"
+
+            if [ "$i" -ge 39 ]; then
+                echo -ne "\033[1;33m]"
+                echo
+            fi
+
+            sleep 0.08
+        done
+    done
+
+    if dpkg --get-selections | grep -qw "$paquete"; then
+        ESTATUS="\033[1;33m       \033[92mINSTALADO"
+    else
+        ESTATUS="\033[91m  FALLO DE INSTALACION"
+    fi
+
+    echo -ne "\033[1;33m] $ESTATUS \033[0m\n"
+
+    echo -e ""
+}
