@@ -31,7 +31,7 @@ proto_badvpn() {
         [[ -z $PORT ]] && {
             msgCentrado -rojo "No se ha elegido ninguna puerto valido, reintente"
             msgError
-            install
+            return
         }
 
         [[ "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && msgSuccess || msgError
