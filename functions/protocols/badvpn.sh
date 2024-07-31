@@ -56,7 +56,7 @@ proto_badvpn() {
 
     # INSTALAR
     opcionMenu -blanco $num "Instalar badvpn"
-    option[$num]="inll"
+    option[$num]="install"
     let num++
 
     # DESINSTALAR
