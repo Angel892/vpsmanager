@@ -19,76 +19,76 @@ source $functionsPath/autoiniciarScript.sh
 source $functionsPath/puertosActivos.sh
 
 mostrar_menu() {
-    while true; do
-        local num=1
+    local num=1
 
-        clear
-        msg -bar
-        msg -tit
-        msg -bar
-        msgCentrado -amarillo "LXMANAGER"
-        msg -bar
+    clear
+    msg -bar
+    msg -tit
+    msg -bar
+    msgCentrado -amarillo "LXMANAGER"
+    msg -bar
 
-        # SSH
-        opcionMenu -amarillo $num "SSH / OPEN VPN"
-        option[$num]="ssh"
-        let num++
+    # SSH
+    opcionMenu -amarillo $num "SSH / OPEN VPN"
+    option[$num]="ssh"
+    let num++
 
-        # PROTOCOLOS
-        opcionMenu -blanco $num "Instalar Protocolos" false 2
-        option[$num]="protocolos"
-        let num++
+    # PROTOCOLOS
+    opcionMenu -blanco $num "Instalar Protocolos" false 2
+    option[$num]="protocolos"
+    let num++
 
-        # PUERTOS ACTIVOS
-        opcionMenu -verde $num "Puertos activos"
-        option[$num]="puertos"
-        let num++
+    # PUERTOS ACTIVOS
+    opcionMenu -verde $num "Puertos activos"
+    option[$num]="puertos"
+    let num++
 
-        # PROTOCOLOS
-        opcionMenu -blanco $num "Monitorear Recursos"
-        option[$num]="monitorear"
-        let num++
+    # PROTOCOLOS
+    opcionMenu -blanco $num "Monitorear Recursos"
+    option[$num]="monitorear"
+    let num++
 
-        # AUTOINICIAR
-        opcionMenu -blanco $num "Autoiniciar Script"
-        option[$num]="autoIniciar"
-        let num++
+    # AUTOINICIAR
+    opcionMenu -blanco $num "Autoiniciar Script"
+    option[$num]="autoIniciar"
+    let num++
 
-        # ACTUALIZAR
-        opcionMenu -verde $num "----------| Actualizar Script |----------"
-        option[$num]="actualizar"
-        let num++
+    # ACTUALIZAR
+    opcionMenu -verde $num "----------| Actualizar Script |----------"
+    option[$num]="actualizar"
+    let num++
 
-        msg -bar
+    msg -bar
 
-        # ELIMINAR
-        opcionMenu -rojo $num "|- DESINSTALAR -|" false 4
-        option[$num]="eliminar"
-        let num++
+    # ELIMINAR
+    opcionMenu -rojo $num "|- DESINSTALAR -|" false 4
+    option[$num]="eliminar"
+    let num++
 
-        # SALIR
-        opcionMenu -salir 0 "Salir" false 0
-        option[0]="volver"
+    # SALIR
+    opcionMenu -salir 0 "Salir" false 0
+    option[0]="volver"
 
-        msg -bar
-        selection=$(selectionFun $num)
-        case ${option[$selection]} in
-        "ssh") menuSSH ;;
-        "protocolos") menuProtocols ;;
-        "monitorear") monitorear_recursos ;;
-        "actualizar") actualizar_script ;;
-        "eliminar") eliminar_script ;;
-        "autoIniciar") autoiniciarScript ;;
-        "puertos") mostrarPuertosActivos ;;
-        "volver")
-            echo -e "${INFO}Saliendo...${NC}"
-            break
-            ;;
-        *)
-            echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
-            ;;
-        esac
-    done
+    msg -bar
+    selection=$(selectionFun $num)
+    case ${option[$selection]} in
+    "ssh") menuSSH ;;
+    "protocolos") menuProtocols ;;
+    "monitorear") monitorear_recursos ;;
+    "actualizar") actualizar_script ;;
+    "eliminar") eliminar_script ;;
+    "autoIniciar") autoiniciarScript ;;
+    "puertos") mostrarPuertosActivos ;;
+    "volver")
+        echo -e "${INFO}Saliendo...${NC}"
+        return
+        ;;
+    *)
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+        sleep 2
+        mostrar_menu
+        ;;
+    esac
 }
 
 # Bucle para mostrar el menú hasta que el usuario decida salir
