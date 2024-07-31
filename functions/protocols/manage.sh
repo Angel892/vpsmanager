@@ -184,7 +184,7 @@ menuProtocols() {
     "pprivado") proto_pprivado ;;
     "python") menuPython ;;
     "volver")
-        exit
+        return
         ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"

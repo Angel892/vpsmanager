@@ -80,7 +80,7 @@ mainMenu() {
     "autoIniciar") autoiniciarScript ;;
     "puertos") mostrarPuertosActivos ;;
     "volver")
-        echo -e "${INFO}Saliendo...${NC}" && return
+        echo -e "${INFO}Saliendo...${NC}" && exit
         ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
