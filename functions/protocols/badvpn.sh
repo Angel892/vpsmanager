@@ -9,7 +9,7 @@ proto_badvpn() {
 
         msg -blanco "Digite los puertos a activar de forma secuencial"
         msg -verde "Ejemplo: 7300 7200 7100 | Puerto recomendado: 7300"
-        read -p "Digite los puertos: " -e -i "7200 7300" portasx
+        read -p "${AMARILLO}Digite los puertos: ${VERDE}" -e -i "7200 7300" portasx
         local BADVPNLOGPATH="/etc/vpsmanager/PortM/Badvpn.log"
         validarArchivo $BADVPNLOGPATH
         echo "$portasx" >$BADVPNLOGPATH
@@ -18,11 +18,11 @@ proto_badvpn() {
         unset PORT
         for ((i = 0; i < ${#totalporta[@]}; i++)); do
             [[ $(mportas | grep "${totalporta[$i]}") = "" ]] && {
-                echo -e "${SECUNDARIO}Puerto escogido: ${VERDE}${totalporta[$i]} OK${NC}"
+                echo -e "${BLANCO}Puerto escogido: ${VERDE}${totalporta[$i]} OK${NC}"
                 PORT+="${totalporta[$i]}\n"
                 screen -dmS badvpn /bin/badvpn-udpgw --listen-addr 127.0.0.1:${totalporta[$i]} --max-clients 1000 --max-connections-for-client 10
             } || {
-                echo -e "${SECUNDARIO}Puerto escogido: ${ROJO}${totalporta[$i]} FAIL${NC}"
+                echo -e "${BLANCO}Puerto escogido: ${ROJO}${totalporta[$i]} FAIL${NC}"
             }
         done
         [[ -z $PORT ]] && {
