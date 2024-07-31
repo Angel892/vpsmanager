@@ -80,14 +80,15 @@ mainMenu() {
     "autoIniciar") autoiniciarScript ;;
     "puertos") mostrarPuertosActivos ;;
     "volver")
-        echo -e "${INFO}Saliendo...${NC}"
+        echo -e "${INFO}Saliendo...${NC}" && return
         ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
-        mainMenu
         ;;
     esac
+
+    mainMenu
 }
 
 # Bucle para mostrar el menú hasta que el usuario decida salir

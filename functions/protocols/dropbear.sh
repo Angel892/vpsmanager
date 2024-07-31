@@ -25,7 +25,7 @@ proto_dropbear() {
         [[ -z $PORT2 ]] && {
             msgCentrado -rojo "Ningun Puerto Valido Fue Elegido"
             msgError
-            return;
+            return
         }
 
         msg -bar
@@ -104,11 +104,13 @@ EOF
         desactivar_dropbear
         ;;
     "volver")
-        menuProtocols
+        return
         ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         ;;
 
     esac
+
+    proto_dropbear
 }
