@@ -30,7 +30,6 @@ proto_badvpn() {
             return 1
         }
 
-        msg -bar
         [[ "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && msgSuccess || msgError
     }
 
