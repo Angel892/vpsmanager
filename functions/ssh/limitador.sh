@@ -149,11 +149,7 @@ verif_fun() {
             local PID="0+"
             [[ $SSH = ON ]] && PID+="$(ps aux | grep -v grep | grep sshd | grep -w "$user" | grep -v root | wc -l 2>/dev/null)+"
 
-            # AQUI ESTA DANDO EL ERROR
             [[ $DROP = ON ]] && PID+="$(dropbear_pids | grep -w "$user" | wc -l 2>/dev/null)+"
-            
-            echo "Hoalaa ${DataSEC}"
-            return
             [[ $OPEN = ON ]] && [[ $(openvpn_pids | grep -w "$user" | cut -d'|' -f2) ]] && PID+="$(openvpn_pids | grep -w "$user" | cut -d'|' -f2)+"
             local ONLINES+="$(echo ${PID}0 | bc)+"
             echo "${ONLINES}0" | bc >$mainPath/temp/USRonlines

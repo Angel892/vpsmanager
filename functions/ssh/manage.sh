@@ -54,12 +54,10 @@ menuSSH() {
                 ;;
             esac
         done <<<"${portasVAR}"
-
-        echo "hii"
-        return
         [[ ! -z $DPB ]] && echo -e $DPB
         #local port_dropbear="$DPB"
-        local port_dropbear=$(ps aux | grep dropbear | awk NR==1 | awk '{print $17;}')
+        port_drop=$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')
+        port_dropbear="$port_drop"
         cat /var/log/auth.log | grep -a -i dropbear | grep -a -i "Password auth succeeded" >/var/log/authday.log
         #cat /var/log/auth.log|grep "$(date|cut -d' ' -f2,3)" > /var/log/authday.log
         #cat /var/log/auth.log | tail -1000 >/var/log/authday.log

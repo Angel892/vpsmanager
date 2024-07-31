@@ -1,11 +1,49 @@
-mportas() {
-  unset portas
-  portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+dropbear_pids() {
+  local pids
+  local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+  local NOREPEAT
+  local reQ
+  local Port
   while read port; do
-    var1=$(echo $port | awk '{print $1}')
-    var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-    [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-  done <<<"$portas_var"
-  i=1
-  echo -e "$portas"
+    reQ=$(echo ${port} | awk '{print $1}')
+    Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
+    [[ $(echo -e $NOREPEAT | grep -w "$Port") ]] && continue
+    NOREPEAT+="$Port\n"
+    case ${reQ} in
+    dropbear)
+      [[ -z $DPB ]] && local DPB=""
+      DPB+="$Port "
+      ;;
+    esac
+  done <<<"${portasVAR}"
+  [[ ! -z $DPB ]] && echo -e $DPB
+  #local port_dropbear="$DPB"
+  port_drop=$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')
+  port_dropbear="$port_drop"
+  cat /var/log/auth.log | grep -a -i dropbear | grep -a -i "Password auth succeeded" >/var/log/authday.log
+  #cat /var/log/auth.log|grep "$(date|cut -d' ' -f2,3)" > /var/log/authday.log
+  #cat /var/log/auth.log | tail -1000 >/var/log/authday.log
+  local log=/var/log/authday.log
+  local loginsukses='Password auth succeeded'
+  [[ -z $port_dropbear ]] && return 1
+  for port in $(echo $port_dropbear); do
+    for pidx in $(ps ax | grep dropbear | grep "$port" | awk -F" " '{print $1}'); do
+      pids="${pids}$pidx\n"
+    done
+  done
+  for pid in $(echo -e "$pids"); do
+    pidlogs=$(grep $pid $log | grep "$loginsukses" | awk -F" " '{print $3}')
+    i=0
+    for pidend in $pidlogs; do
+      let i++
+    done
+    if [[ $pidend ]]; then
+      login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
+      PID=$pid
+      user=$(echo $login | awk -F" " '{print $10}' | sed -r "s/'//g")
+      waktu=$(echo $login | awk -F" " '{print $2"-"$1,$3}')
+      [[ -z $user ]] && continue
+      echo "$user|$PID|$waktu"
+    fi
+  done
 }
