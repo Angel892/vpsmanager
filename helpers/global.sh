@@ -50,6 +50,11 @@ checkStatus() {
     [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
 }
 
+checkStatusVersion() {
+    toCheck=$("${$1} --version")
+    [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
+}
+
 checkStatusF() {
     toCheck=$(ps -ef | grep "$1" | grep -v "grep" | awk -F "pts" '{print $1}')
     [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
@@ -221,6 +226,8 @@ opcionMenu() {
 
         if [[ $typeChek == "f" ]]; then
             currentStatus=$(checkStatusF $checkStatus)
+        elif [[ $typeChek == "v" ]]; then
+            currentStatus=$(checkStatusVersion $checkStatus)
         else
             currentStatus=$(checkStatus $checkStatus)
         fi
