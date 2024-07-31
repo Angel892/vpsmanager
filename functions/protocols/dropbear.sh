@@ -108,8 +108,9 @@ EOF
         ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
-        proto_dropbear
         ;;
 
     esac
+
+    proto_dropbear
 }
