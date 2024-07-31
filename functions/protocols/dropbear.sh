@@ -24,6 +24,7 @@ proto_dropbear() {
         done
         [[ -z $PORT2 ]] && {
             msgCentrado -rojo "Ningun Puerto Valido Fue Elegido"
+            msgError
             activar_dropbear
         }
 
@@ -68,7 +69,7 @@ EOF
         msgInstall "REMOVIENDO DROPBEAR"
         fun_bar "apt-get remove dropbear -y"
 
-        
+
         killall dropbear >/dev/null 2>&1
         rm -rf /etc/dropbear/* >/dev/null 2>&1
         [[ -e /etc/default/dropbear ]] && rm /etc/default/dropbear

@@ -9,7 +9,8 @@ proto_badvpn() {
 
         msg -blanco "Digite los puertos a activar de forma secuencial"
         msg -verde "Ejemplo: 7300 7200 7100 | Puerto recomendado: 7300"
-        read -p "Digite los puertos: " -e -i "7200 7300" portasx
+        msgne -blanco "Digite los puertos: "
+        read -p " " -e -i "7200 7300" portasx
         local BADVPNLOGPATH="/etc/vpsmanager/PortM/Badvpn.log"
         validarArchivo $BADVPNLOGPATH
         echo "$portasx" >$BADVPNLOGPATH
@@ -17,17 +18,20 @@ proto_badvpn() {
         totalporta=($portasx)
         unset PORT
         for ((i = 0; i < ${#totalporta[@]}; i++)); do
+            msgne -blanco "Puerto escogido: "
+
             [[ $(mportas | grep "${totalporta[$i]}") = "" ]] && {
-                echo -e "${BLANCO}Puerto escogido: ${VERDE}${totalporta[$i]} OK${NC}"
+                msg -verde "${totalporta[$i]} OK"
                 PORT+="${totalporta[$i]}\n"
                 screen -dmS badvpn /bin/badvpn-udpgw --listen-addr 127.0.0.1:${totalporta[$i]} --max-clients 1000 --max-connections-for-client 10
             } || {
-                echo -e "${BLANCO}Puerto escogido: ${ROJO}${totalporta[$i]} FAIL${NC}"
+                msg -rojo "${totalporta[$i]} FAIL"
             }
         done
         [[ -z $PORT ]] && {
-            msgError "No se ha elegido ninguna puerto valido, reintente"
-            return 1
+            msgCentrado -rojo "No se ha elegido ninguna puerto valido, reintente"
+            msgError
+            install
         }
 
         [[ "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && msgSuccess || msgError
