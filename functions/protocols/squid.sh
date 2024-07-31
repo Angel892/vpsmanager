@@ -90,6 +90,7 @@ proto_squid() {
             return 1
         }
 
+        clear
         msg -bar
         msg -blanco "SEGUIMIENTO SQUID"
         msg -bar
