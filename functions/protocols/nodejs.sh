@@ -55,7 +55,10 @@ menuNodeJS() {
     case ${option[$selection]} in
     "install") install ;;
     "uninstall") uninstall ;;
-    "volver") menuProtocols ;;
+    "volver")
+        menuProtocols
+        return
+        ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
@@ -63,4 +66,5 @@ menuNodeJS() {
     esac
 
     menuNodeJS
+    return
 }

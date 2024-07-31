@@ -87,7 +87,10 @@ menuDotnet() {
     "installef") installef ;;
     "uninstall") uninstall ;;
     "uninstallef") uninstallef ;;
-    "volver") menuProtocols ;;
+    "volver")
+        menuProtocols
+        return
+        ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
@@ -95,4 +98,5 @@ menuDotnet() {
     esac
 
     menuDotnet
+    return
 }

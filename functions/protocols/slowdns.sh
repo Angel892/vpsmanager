@@ -184,9 +184,11 @@ proto_slowndns() {
         ;;
     0)
         menuProtocols
+        return
         ;;
     esac
 
     proto_slowndns
+    return
 
 }

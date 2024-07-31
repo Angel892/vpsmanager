@@ -183,11 +183,16 @@ menuProtocols() {
     "ppublico") proto_ppublico ;;
     "pprivado") proto_pprivado ;;
     "python") menuPython ;;
-    "volver") mainMenu ;;
+    "volver")
+        mainMenu
+        return
+        ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
-        menuProtocols
         ;;
     esac
+
+    menuProtocols
+    return
 
 }

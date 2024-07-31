@@ -86,9 +86,11 @@ mainMenu() {
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
-        mainMenu
         ;;
     esac
+
+    mainMenu
+    return;
 }
 
 # Bucle para mostrar el menú hasta que el usuario decida salir

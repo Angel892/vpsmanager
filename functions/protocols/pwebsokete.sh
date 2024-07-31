@@ -355,9 +355,11 @@ PYTHON
         ;;
     0)
         menuProtocols
+        return
         ;;
     esac
 
     proto_websockete
+    return
 
 }

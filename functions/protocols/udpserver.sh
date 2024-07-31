@@ -100,6 +100,7 @@ EOF
         ;;
     0)
         menuProtocols
+        return
         ;;
     *)
         echo -e "$ Porfavor use numeros del [0-14]"
@@ -108,6 +109,7 @@ EOF
     esac
 
     udp_serverr
+    return
 
     #exit 0
 }

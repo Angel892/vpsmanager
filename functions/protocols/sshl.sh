@@ -120,8 +120,10 @@ sshl_install() {
         ;;
     0)
         menuProtocols
+        return
         ;;
     esac
 
     sshl_install
+    return
 }

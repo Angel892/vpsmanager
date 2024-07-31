@@ -66,9 +66,11 @@ proto_pprivado() {
         ;;
     0)
         menuProtocols
+        return
         ;;
     esac
 
     proto_pprivado
+    return
 
 }

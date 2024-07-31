@@ -220,11 +220,16 @@ menuSSH() {
     "eliminarTodos") eliminarTodosUsuariosSSH ;;
     "renovar") renovarCuentaSSH ;;
     "limitador") limitadorMenu ;;
-    "volver") mainMenu ;;
-    *) 
-        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" 
+    "volver")
+        mainMenu
+        return
+        ;;
+    *)
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
-        menuSSH
-    ;;
+        ;;
     esac
+
+    menuSSH
+    return
 }

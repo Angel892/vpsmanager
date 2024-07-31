@@ -58,7 +58,10 @@ menuPython() {
     case ${option[$selection]} in
     "instalar") instalar ;;
     "detener") detener ;;
-    "volver") menuProtocols ;;
+    "volver")
+        menuProtocols
+        return
+        ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
@@ -66,4 +69,5 @@ menuPython() {
     esac
 
     menuPython
+    return
 }

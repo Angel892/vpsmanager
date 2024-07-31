@@ -63,8 +63,10 @@ proto_ppublico() {
         ;;
     0)
         menuProtocols
+        return
         ;;
     esac
 
     proto_ppublico
+    return
 }

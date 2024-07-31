@@ -98,6 +98,7 @@ server_psiphones() {
         ;;
     0)
         menuProtocols;
+        return
         ;;
     *)
         echo -e "$ Porfavor use numeros del [0-2]"
@@ -106,6 +107,7 @@ server_psiphones() {
     esac
 
     server_psiphones
+    return
 
     #exit 0
 

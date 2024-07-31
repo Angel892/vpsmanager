@@ -840,6 +840,7 @@ EOF
         0)
             read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
             menuProtocols
+            return
             ;;
         esac
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
@@ -851,4 +852,5 @@ EOF
     fi
 
     proto_openvpn
+    return
 }

@@ -63,8 +63,10 @@ proto_popenvpn() {
         ;;
     0)
         menuProtocols
+        return
         ;;
     esac
 
     proto_popenvpn
+    return
 }

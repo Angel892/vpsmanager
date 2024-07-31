@@ -424,11 +424,15 @@ crearCuentaSSH() {
     "normal") cuenta_normal ;;
     "hwid") cuenta_hwid ;;
     "token") cuenta_token ;;
-    "volver") menuSSH ;;
+    "volver")
+        menuSSH
+        return
+        ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
-        crearCuentaSSH
         ;;
 
     esac
+    crearCuentaSSH
+    return
 }

@@ -71,9 +71,11 @@ proto_pgettunel() {
         ;;
     0)
         menuProtocols
+        return
         ;;
     esac
 
     proto_pgettunel
+    return
 
 }

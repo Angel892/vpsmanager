@@ -82,8 +82,10 @@ proto_ptcpover() {
         ;;
     0)
         menuProtocols
+        return
         ;;
     esac
 
     proto_ptcpover
+    return
 }
