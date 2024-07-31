@@ -13,12 +13,11 @@ proto_dropbear() {
         tput cuu1 && tput dl1
         TTOTAL2=($DPORT)
         for ((i = 0; i < ${#TTOTAL2[@]}; i++)); do
+            msgne -blanco "Puerto Elegido: "
             [[ $(mportas | grep "${TTOTAL2[$i]}") = "" ]] && {
-                msgne -blanco "Puerto Elegido: "
                 msg -verde "${TTOTAL2[$i]} OK"
                 PORT2="$PORT2 ${TTOTAL2[$i]}"
             } || {
-                msgne -blanco "Puerto Elegido: "
                 msg -rojo "${TTOTAL2[$i]} FAIL"
             }
         done
@@ -68,7 +67,6 @@ EOF
 
         msgInstall -blanco "REMOVIENDO DROPBEAR"
         fun_bar "apt-get remove dropbear -y"
-
 
         killall dropbear >/dev/null 2>&1
         rm -rf /etc/dropbear/* >/dev/null 2>&1
