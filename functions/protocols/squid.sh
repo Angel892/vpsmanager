@@ -1,7 +1,6 @@
 #--- PROTOCOLO SQUID
 proto_squid() {
-    clear
-    clear
+
     vpsIP() {
         MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
         MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
@@ -12,20 +11,22 @@ proto_squid() {
         eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Ethernet" | awk '{print $1}')
         [[ $eth != "" ]] && {
             msg -bar
-            echo -e "${cor[3]} Aplicar el sistema para mejorar los paquetes SSH?"
-            echo -e "${cor[3]} Opciones para usuarios avanzados"
+            msg -amarillo "Aplicar el sistema para mejorar los paquetes SSH?"
+            msg -amarillo "Opciones para usuarios avanzados"
             msg -bar
             read -p "[S/N]: " -e -i n sshsn
             tput cuu1 && tput dl1
+
             [[ "$sshsn" = @(s|S|y|Y) ]] && {
-                echo -e "${cor[1]} Correccion de problemas de paquetes en SSH..."
+                msg -amarillo "Correccion de problemas de paquetes en SSH..."
                 msg -bar
-                echo -e " Cual es la tasa RX"
-                echo -ne "[ 1 - 999999999 ]: "
+                msg -blanco "Cual es la tasa RX"
+                msgne -amarillo "[ 1 - 999999999 ]: " && msgne -verde ""
                 read rx
                 [[ "$rx" = "" ]] && rx="999999999"
-                echo -e " Cual es la tasa TX"
-                echo -ne "[ 1 - 999999999 ]: "
+
+                msg -blanco "Cual es la tasa TX"
+                msgne -amarillo "[ 1 - 999999999 ]: " && msgne -verde ""
                 read tx
                 [[ "$tx" = "" ]] && tx="999999999"
                 apt-get install ethtool -y >/dev/null 2>&1
@@ -43,69 +44,77 @@ proto_squid() {
             var_squid="/etc/squid3/squid.conf"
         fi
         [[ -e $var_squid ]] && {
-            clear
-            clear
-            msg -bar
-            echo -e "\033[1;31m                DESINSTALADO SQUID"
-            msg -bar
-            service squid stop >/dev/null 2>&1
+            showCabezera "DESINSTALADO SQUID"
+
+            msgInstall "Deteniendo squid"
+            fin_bar "service squid stop"
+
+            msgInstall "Removiendo squid"
             fun_bar "apt-get remove squid3 -y"
-            msg -bar
-            echo -e "\033[1;32m         >> SQUID DESINSTALADO CON EXITO << "
-            msg -bar
+
+            msgSuccess
             [[ -e $var_squid ]] && rm $var_squid
             return
         }
-        msg -bar
-        msg -tit
-        msg -bar
-        msg -ama "         INSTALADOR SQUID | SCRIPT LXServer "
-        msg -bar
+
+        showCabezera "INSTALADOR SQUID | SCRIPT LXServer"
         vpsIP
-        echo -ne "\033[97m Confirme su ip:\033[1;32m"
+
+        msgne -blanco "Confirme su ip: " && msgne -verde ""
         read -p " " -e -i $IP ip
+
         msg -bar
-        echo -e "\033[1;97mPuede activar varios puertosen forma secuencial\n \033[1;93mEjemplo: \033[1;32m80 8080 8799 3128"
+        msg -blanco "Puede activar varios puertosen forma secuencial"
+        msg -verde "Ejemplo: 80 8080 8799 3128"
         msg -bar
-        echo -ne "Digite losPuertos:\033[1;32m "
+
+        msgne -blanco "Digite losPuertos: " && msgne -verde ""
         read -p " " -e -i "8080 7999" portasx
         msg -bar
+
         totalporta=($portasx)
         unset PORT
         for ((i = 0; i < ${#totalporta[@]}; i++)); do
+            msgne -blanco "Puerto Escojido: - "
             [[ $(mportas | grep "${totalporta[$i]}") = "" ]] && {
-                echo -e "\033[1;33m Puerto Escojido:\033[1;32m ${totalporta[$i]} OK"
+                msg -verde "${totalporta[$i]} OK"
                 PORT+="${totalporta[$i]}\n"
             } || {
-                echo -e "\033[1;33m Puerto Escojido:\033[1;31m ${totalporta[$i]} FAIL"
+                msg -rojo "${totalporta[$i]} FAIL"
             }
         done
+
         [[ -z $PORT ]] && {
-            echo -e "\033[1;31m  No se ha elegido ninguna puerto valido, reintente\033[0m"
+            msg -rojo "No se ha elegido ninguna puerto valido, reintente"
+            msgError
             return 1
         }
+
         msg -bar
-        echo -e " INSTALANDO SQUID"
+        msg -blanco "SEGUIMIENTO SQUID"
         msg -bar
+
+        msgInstall "Instalando squid"
         fun_bar "apt-get install squid -y"
 
         msg -bar
-        echo -e " INICIANDO CONFIGURACION"
+        msg -blanco "INICIANDO CONFIGURACION"
         echo -e ".bookclaro.com.br/\n.claro.com.ar/\n.claro.com.br/\n.claro.com.co/\n.claro.com.ec/\n.claro.com.gt/\n.cloudfront.net/\n.claro.com.ni/\n.claro.com.pe/\n.claro.com.sv/\n.claro.cr/\n.clarocurtas.com.br/\n.claroideas.com/\n.claroideias.com.br/\n.claromusica.com/\n.clarosomdechamada.com.br/\n.clarovideo.com/\n.facebook.net/\n.facebook.com/\n.netclaro.com.br/\n.oi.com.br/\n.oimusica.com.br/\n.speedtest.net/\n.tim.com.br/\n.timanamaria.com.br/\n.vivo.com.br/\n.rdio.com/\n.compute-1.amazonaws.com/\n.portalrecarga.vivo.com.br/\n.vivo.ddivulga.com/" >/etc/payloads
         msg -bar
-        echo -e "\033[1;32m Ahora Escoja Una Conf Para Su Proxy"
+        msg -blanco "Ahora Escoja Una Conf Para Su Proxy"
         msg -bar
-        echo -e "|1| Basico"
-        echo -e "|2| Avanzado\033[1;37m"
+        msg -blanco "|1| Basico"
+        msg -blanco "|2| Avanzado"
         msg -bar
         read -p "[1/2]: " -e -i 1 proxy_opt
         tput cuu1 && tput dl1
+
         if [[ $proxy_opt = 1 ]]; then
-            echo -e "             INSTALANDO SQUID BASICO"
+            msgCentrado -verde "INSTALANDO SQUID BASICO"
         elif [[ $proxy_opt = 2 ]]; then
-            echo -e "            INSTALANDO SQUID AVANZADO"
+            msgCentrado -verde "INSTALANDO SQUID AVANZADO"
         else
-            echo -e "             INSTALANDO SQUID BASICO"
+            msgCentrado -verde "INSTALANDO SQUID BASICO"
             proxy_opt=1
         fi
         unset var_squid
@@ -233,113 +242,168 @@ proto_squid() {
         fi
         touch /etc/opendns
         fun_eth
+
         msg -bar
-        echo -ne " \033[1;31m   [ ! ] \033[1;33m    REINICIANDO SERVICIOS"
-        squid3 -k reconfigure >/dev/null 2>&1
-        squid -k reconfigure >/dev/null 2>&1
-        service ssh restart >/dev/null 2>&1
-        service squid3 restart >/dev/null 2>&1
-        service squid restart >/dev/null 2>&1
-        echo -e " \033[1;32m[OK]"
-        msg -bar
-        echo -e "\033[1;32m               >> SQUID CONFIGURADO << "
-        msg -bar
+        msgCentrado -amarillo "REINICIANDO SERVICIOS"
+
+        msgInstall "squid3 -k reconfigure"
+        fun_bar "squid3 -k reconfigure"
+
+        msgInstall "squid -k reconfigure"
+        fun_bar "squid -k reconfigure"
+
+        msgInstall "service ssh restart"
+        fun_bar "service ssh restart"
+
+        msgInstall "service squid3 restart"
+        fun_bar "service squid3 restart"
+
+        msgInstall "service squid restart"
+        fun_bar "service squid restart"
+
         #UFW
         for ufww in $(mportas | awk '{print $2}'); do
             ufw allow $ufww >/dev/null 2>&1
         done
-        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+        
+
+        msgSuccess
     }
-    online_squid() {
-        payload="/etc/payloads"
+
+    agregarHost() {
+        local payload="/etc/payloads"
+        msgCentrado -blanco "Hosts Actuales Dentro del Squid"
         msg -bar
-        echo -e "\033[1;33m            CONFIGURACIONES EXTRA PARA SQUID"
+
+        cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
         msg -bar
-        echo -ne " $(msg -verde "[1]") $(msg -rojo "=>>") \e[1;97mCOLOCAR HOST EN SQUID \e[97m \n"
-        echo -ne " $(msg -verde "[2]") $(msg -rojo "=>>") \e[1;97mREMOVER HOST DE SQUID\e[97m \n"
-        echo -ne " $(msg -verde "[3]") $(msg -rojo "=>>") \e[1;31mDESINSTALAR SQUID \e[97m \n"
-        echo -ne "$(msg -bar2)\n$(msg -verde " [0]") $(msg -rojo ">") " && msg -rojo "\e[97m\033[1;41m VOLVER \033[1;37m"
-        msg -bar
-        while [[ $varpay != @(0|[1-3]) ]]; do
-            read -p "[0/3]: " varpay
+
+        while [[ $hos != \.* ]]; do
+            msgne -blanco "Escriba el nuevo host: " && msgne -verde ""
+            read hos
+
+            tput cuu1 && tput dl1
+            [[ $hos = \.* ]] && continue
+            echo -e "\033[1;31m Comience con ."
+            sleep 3s
             tput cuu1 && tput dl1
         done
-        if [[ "$varpay" = "0" ]]; then
 
-            exit 1
-        elif [[ "$varpay" = "1" ]]; then
-            echo -e "${cor[4]}     Hosts Actuales Dentro del Squid"
-            msg -bar
-            cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
-            msg -bar
-            while [[ $hos != \.* ]]; do
-                echo -ne "\033[1;93mEscriba el nuevo host: \033[1;32m" && read hos
-                tput cuu1 && tput dl1
-                [[ $hos = \.* ]] && continue
-                echo -e "\033[1;31m Comience con ."
-                sleep 5s
-                tput cuu1 && tput dl1
-            done
-            host="$hos/"
-            [[ -z $host ]] && return 1
-            [[ $(grep -c "^$host" $payload) -eq 1 ]] && :echo -e "${cor[4]}Host ya Exciste${cor[0]}" && return 1
-            echo "$host" >>$payload && grep -v "^$" $payload >/tmp/a && mv /tmp/a $payload
-            echo -e "${cor[4]}Host Agregado con Exito"
-            msg -bar
-            cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
-            msg -bar
-            if [[ ! -f "/etc/init.d/squid" ]]; then
-                service squid3 reload
-                service squid3 restart
+        host="$hos/"
+        [[ -z $host ]] && return 1
+        [[ $(grep -c "^$host" $payload) -eq 1 ]] && msg -rojo "Host ya Exciste" && return 1
 
-            else
-                /etc/init.d/squid reload
-                service squid restart
+        echo "$host" >>$payload && grep -v "^$" $payload >/tmp/a && mv /tmp/a $payload
+        msgCentrado -verde "Host Agregado con Exito"
+        msg -bar
+        cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
+        msg -bar
+        if [[ ! -f "/etc/init.d/squid" ]]; then
+            service squid3 reload
+            service squid3 restart
 
-            fi
+        else
+            /etc/init.d/squid reload
+            service squid restart
 
-        elif [[ "$varpay" = "2" ]]; then
-            echo -e "${cor[4]} Hosts Actuales Dentro del Squid"
-            msg -bar
-            cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
-            msg -bar
-            while [[ $hos != \.* ]]; do
-                echo -ne "\033[1;93m Digite un Host: \033[1;32m " && read hos
-                tput cuu1 && tput dl1
-                [[ $hos = \.* ]] && continue
-                echo -e "\033[1;31m  Comience con ."
-                sleep 5s
-                tput cuu1 && tput dl1
-            done
-            host="$hos/"
-            [[ -z $host ]] && return 1
-            [[ $(grep -c "^$host" $payload) -ne 1 ]] && !echo -e "${cor[5]}Host No Encontrado" && return 1
-            grep -v "^$host" $payload >/tmp/a && mv /tmp/a $payload
-            echo -e "${cor[4]}Host Removido Con Exito"
-            msg -bar
-            cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
-            msg -bar
-            if [[ ! -f "/etc/init.d/squid" ]]; then
-                service squid3 reload
-                service squid3 restart
-                service squid reload
-                service squid restart
-            else
-                service squid restart
-                service squid3 restart
-            fi
-
-            exit 1
-        elif [[ "$varpay" = "3" ]]; then
-            fun_squid
         fi
     }
 
-    if [[ -e /etc/squid/squid.conf ]]; then
-        online_squid
-    elif [[ -e /etc/squid3/squid.conf ]]; then
-        online_squid
+    removerHost() {
+        local payload="/etc/payloads"
+        msgCentrado -blanco "Hosts Actuales Dentro del Squid"
+        msg -bar
+        cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
+        msg -bar
+
+        while [[ $hos != \.* ]]; do
+            msgne -blanco "Digite un Host: " && msgne -verde ""
+            read hos
+            tput cuu1 && tput dl1
+
+            [[ $hos = \.* ]] && continue
+            msg -rojo "Comience con ."
+            sleep 3s
+            tput cuu1 && tput dl1
+        done
+
+        host="$hos/"
+        [[ -z $host ]] && return 1
+        [[ $(grep -c "^$host" $payload) -ne 1 ]] && msg -rojo "Host No Encontrado" && return 1
+
+        grep -v "^$host" $payload >/tmp/a && mv /tmp/a $payload
+        msgCentrado -verde "Host Removido Con Exito"
+        msg -bar
+
+        cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
+        msg -bar
+        if [[ ! -f "/etc/init.d/squid" ]]; then
+            service squid3 reload
+            service squid3 restart
+            service squid reload
+            service squid restart
+        else
+            service squid restart
+            service squid3 restart
+        fi
+
+    }
+
+    showCabezera "SQUID CONFIG"
+
+    local num=1
+
+    if [[ -e /etc/squid/squid.conf || -e /etc/squid3/squid.conf ]]; then
+
+        # HOST SQUID
+        opcionMenu -blanco $num "COLOCAR HOST EN SQUID"
+        option[$num]="hostSquid"
+        let num++
+
+        # REMOVER HOST SQUID
+        opcionMenu -blanco $num "REMOVER HOST DE SQUID"
+        option[$num]="removeHostSquid"
+        let num++
+
+        # DESINSTALAR SQUID
+        opcionMenu -blanco $num "DESINSTALAR SQUID"
+        option[$num]="uninstall"
+        let num++
+
     else
-        fun_squid
+        # DESINSTALAR SQUID
+        opcionMenu -blanco $num "INSTALAR SQUID"
+        option[$num]="install"
+        let num++
     fi
+
+    msg -bar
+    # SALIR
+    opcionMenu -rojo 0 "Regresar al menú anterior"
+    option[0]="volver"
+    msg -bar
+    selection=$(selectionFun $num)
+    case ${option[$selection]} in
+    "hostSquid")
+        agregarHost
+        ;;
+    "removeHostSquid")
+        removerHost
+        ;;
+    "uninstall")
+        fun_squid
+        ;;
+    "install")
+        fun_squid
+        ;;
+
+    "volver")
+        return
+        ;;
+    *)
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+        ;;
+    esac
+
+    proto_squid
 }
