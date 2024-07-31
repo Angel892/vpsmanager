@@ -184,6 +184,7 @@ menuProtocols() {
     "pprivado") proto_pprivado ;;
     "python") menuPython ;;
     "volver")
+        exit
         return
         ;;
     *)

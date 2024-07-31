@@ -42,5 +42,5 @@ actualizar_script() {
 
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-    exec /etc/vpsmanager/adm.sh
+    exit && exec /etc/vpsmanager/adm.sh
 }
