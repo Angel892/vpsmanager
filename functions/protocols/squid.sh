@@ -278,6 +278,8 @@ proto_squid() {
         cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
         msg -bar
 
+        unset hos
+
         while [[ $hos != \.* ]]; do
             msgne -blanco "Escriba el nuevo host: " && msgne -verde ""
             read hos
@@ -321,6 +323,8 @@ proto_squid() {
         msg -bar
         cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
         msg -bar
+
+        unset hos
 
         while [[ $hos != \.* ]]; do
             msgne -blanco "Digite un Host: " && msgne -verde ""
