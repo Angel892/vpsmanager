@@ -129,106 +129,107 @@ menuSSH() {
         done
     }
 
-    while true; do
+    local num=1
 
-        local num=1
+    clear
+    msg -bar
+    msgCentrado -amarillo "SSH MANAGER"
+    msg -bar
 
-        clear
-        msg -bar
-        msgCentrado -amarillo "SSH MANAGER"
-        msg -bar
+    # CREAR CUENTA
+    opcionMenu -blanco $num "Crear cuenta"
+    option[$num]="crear"
+    let num++
 
-        # CREAR CUENTA
-        opcionMenu -blanco $num "Crear cuenta"
-        option[$num]="crear"
-        let num++
+    # CREAR CUENTA TEMPORAL
+    opcionMenu -blanco $num "Crear cuenta temporal"
+    option[$num]="crearTemporal"
+    let num++
 
-        # CREAR CUENTA TEMPORAL
-        opcionMenu -blanco $num "Crear cuenta temporal"
-        option[$num]="crearTemporal"
-        let num++
+    # REMOVER USUARIO
+    opcionMenu -blanco $num "Remover usuario"
+    option[$num]="remover"
+    let num++
 
-        # REMOVER USUARIO
-        opcionMenu -blanco $num "Remover usuario"
-        option[$num]="remover"
-        let num++
+    # BLOQUEAR USUARIO
+    opcionMenu -blanco $num "Bloquear / Desbloquear usuario"
+    option[$num]="bloquear"
+    let num++
 
-        # BLOQUEAR USUARIO
-        opcionMenu -blanco $num "Bloquear / Desbloquear usuario"
-        option[$num]="bloquear"
-        let num++
+    # EDITAR USUARIO
+    opcionMenu -blanco $num "Editar cuenta"
+    option[$num]="editar"
+    let num++
 
-        # EDITAR USUARIO
-        opcionMenu -blanco $num "Editar cuenta"
-        option[$num]="editar"
-        let num++
+    # EDITAR USUARIO
+    opcionMenu -blanco $num "Renovar cuenta"
+    option[$num]="renovar"
+    let num++
 
-        # EDITAR USUARIO
-        opcionMenu -blanco $num "Renovar cuenta"
-        option[$num]="renovar"
-        let num++
+    # DETALLES
+    opcionMenu -blanco $num "Detalle de todos los usuarios"
+    option[$num]="detalles"
+    let num++
 
-        # DETALLES
-        opcionMenu -blanco $num "Detalle de todos los usuarios"
-        option[$num]="detalles"
-        let num++
+    # USUARIOS CONECTADOS
+    opcionMenu -blanco $num "Usuarios conectados"
+    option[$num]="conectados"
+    let num++
 
-        # USUARIOS CONECTADOS
-        opcionMenu -blanco $num "Usuarios conectados"
-        option[$num]="conectados"
-        let num++
+    # ELIMINAR USUARIOS VENCIDOS
+    opcionMenu -blanco $num "Eliminar usuarios vencidos"
+    option[$num]="eliminarVencidos"
+    let num++
 
-        # ELIMINAR USUARIOS VENCIDOS
-        opcionMenu -blanco $num "Eliminar usuarios vencidos"
-        option[$num]="eliminarVencidos"
-        let num++
+    # BACKUP
+    opcionMenu -blanco $num "Backup de usuarios"
+    option[$num]="backup"
+    let num++
 
-        # BACKUP
-        opcionMenu -blanco $num "Backup de usuarios"
-        option[$num]="backup"
-        let num++
+    # BANNER
+    opcionMenu -blanco $num "Agregar / Eliminar banner"
+    option[$num]="banner"
+    let num++
 
-        # BANNER
-        opcionMenu -blanco $num "Agregar / Eliminar banner"
-        option[$num]="banner"
-        let num++
+    # ELIMINAR TODOS LOS USUARIOS
+    opcionMenu -blanco $num "Eliminar todos los usuarios"
+    option[$num]="eliminarTodos"
+    let num++
 
-        # ELIMINAR TODOS LOS USUARIOS
-        opcionMenu -blanco $num "Eliminar todos los usuarios"
-        option[$num]="eliminarTodos"
-        let num++
+    # LIMITADOR DE CUENTAS
+    VERY="$(ps aux | grep "$(verif_fun)" | grep -v grep)"
+    [[ -z ${VERY} ]] && verificar="\e[1;93m[\033[1;31m DESACTIVADO \e[1;93m]" || verificar="\e[1;93m[\033[1;32m ACTIVO \e[1;93m]"
+    opcionMenu -blanco $num "Limitador de cuentas ${VERY}"
+    option[$num]="limitador"
+    let num++
 
-        # LIMITADOR DE CUENTAS
-        VERY="$(ps aux | grep "$(verif_fun)" | grep -v grep)"
-        [[ -z ${VERY} ]] && verificar="\e[1;93m[\033[1;31m DESACTIVADO \e[1;93m]" || verificar="\e[1;93m[\033[1;32m ACTIVO \e[1;93m]"
-        opcionMenu -blanco $num "Limitador de cuentas ${VERY}"
-        option[$num]="limitador"
-        let num++
+    msg -bar
 
-        msg -bar
+    # SALIR
+    opcionMenu -rojo 0 "Regresar al menú anterior"
+    option[0]="volver"
 
-        # SALIR
-        opcionMenu -rojo 0 "Regresar al menú anterior"
-        option[0]="volver"
-
-        msg -bar
-        selection=$(selectionFun $num)
-        case ${option[$selection]} in
-        "crear") crearCuentaSSH ;;
-        "crearTemporal") crearCuentaTemporalSSH ;;
-        "remover") removerUsuarioSSH ;;
-        "bloquear") bloquearDesbloquearUsuarioSSH ;;
-        "editar") editarCuentaSSH ;;
-        "detalles") detalleUsuariosSSH ;;
-        "conectados") usuariosConectadosSSH ;;
-        "eliminarVencidos") eliminarUsuariosVencidosSSH ;;
-        "backup") backupUsuariosSSH ;;
-        "banner") gestionarBannerSSH ;;
-        "eliminarTodos") eliminarTodosUsuariosSSH ;;
-        "renovar") renovarCuentaSSH ;;
-        "limitador") limitadorMenu ;;
-        "volver") break ;;
-        *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
-        esac
-    done
+    msg -bar
+    selection=$(selectionFun $num)
+    case ${option[$selection]} in
+    "crear") crearCuentaSSH ;;
+    "crearTemporal") crearCuentaTemporalSSH ;;
+    "remover") removerUsuarioSSH ;;
+    "bloquear") bloquearDesbloquearUsuarioSSH ;;
+    "editar") editarCuentaSSH ;;
+    "detalles") detalleUsuariosSSH ;;
+    "conectados") usuariosConectadosSSH ;;
+    "eliminarVencidos") eliminarUsuariosVencidosSSH ;;
+    "backup") backupUsuariosSSH ;;
+    "banner") gestionarBannerSSH ;;
+    "eliminarTodos") eliminarTodosUsuariosSSH ;;
+    "renovar") renovarCuentaSSH ;;
+    "limitador") limitadorMenu ;;
+    "volver") mainMenu ;;
+    *) 
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" 
+        sleep 2
+        menuSSH
+    ;;
+    esac
 }

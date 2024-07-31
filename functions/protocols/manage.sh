@@ -1,32 +1,32 @@
 #!/bin/bash
 
+local PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
+
+source $PROTOCOLS_PATH/apache.sh
+source $PROTOCOLS_PATH/nginx.sh
+source $PROTOCOLS_PATH/dotnet.sh
+source $PROTOCOLS_PATH/mysql.sh
+source $PROTOCOLS_PATH/nodejs.sh
+source $PROTOCOLS_PATH/badvpn.sh
+source $PROTOCOLS_PATH/dropbear.sh
+source $PROTOCOLS_PATH/ssl.sh
+source $PROTOCOLS_PATH/squid.sh
+source $PROTOCOLS_PATH/openvpn.sh
+source $PROTOCOLS_PATH/shadowsocksnormal.sh
+source $PROTOCOLS_PATH/shadowsockliv.sh
+source $PROTOCOLS_PATH/slowdns.sh
+source $PROTOCOLS_PATH/gettunnel.sh
+source $PROTOCOLS_PATH/tcpover.sh
+source $PROTOCOLS_PATH/sshl.sh
+source $PROTOCOLS_PATH/udpserver.sh
+source $PROTOCOLS_PATH/psiphone.sh
+source $PROTOCOLS_PATH/pwebsokete.sh
+source $PROTOCOLS_PATH/popenvpn.sh
+source $PROTOCOLS_PATH/ppublico.sh
+source $PROTOCOLS_PATH/pprivado.sh
+source $PROTOCOLS_PATH/python.sh
+
 menuProtocols() {
-
-    local PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
-
-    source $PROTOCOLS_PATH/apache.sh
-    source $PROTOCOLS_PATH/nginx.sh
-    source $PROTOCOLS_PATH/dotnet.sh
-    source $PROTOCOLS_PATH/mysql.sh
-    source $PROTOCOLS_PATH/nodejs.sh
-    source $PROTOCOLS_PATH/badvpn.sh
-    source $PROTOCOLS_PATH/dropbear.sh
-    source $PROTOCOLS_PATH/ssl.sh
-    source $PROTOCOLS_PATH/squid.sh
-    source $PROTOCOLS_PATH/openvpn.sh
-    source $PROTOCOLS_PATH/shadowsocksnormal.sh
-    source $PROTOCOLS_PATH/shadowsockliv.sh
-    source $PROTOCOLS_PATH/slowdns.sh
-    source $PROTOCOLS_PATH/gettunnel.sh
-    source $PROTOCOLS_PATH/tcpover.sh
-    source $PROTOCOLS_PATH/sshl.sh
-    source $PROTOCOLS_PATH/udpserver.sh
-    source $PROTOCOLS_PATH/psiphone.sh
-    source $PROTOCOLS_PATH/pwebsokete.sh
-    source $PROTOCOLS_PATH/popenvpn.sh
-    source $PROTOCOLS_PATH/ppublico.sh
-    source $PROTOCOLS_PATH/pprivado.sh
-    source $PROTOCOLS_PATH/python.sh
 
     local num=1
 
