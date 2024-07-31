@@ -30,10 +30,7 @@ menuProtocols() {
 
     local num=1
 
-    clear
-    msg -bar
-    msgCentrado -amarillo "ADMINISTRADOR DE PROTOCOLOS"
-    msg -bar
+    showCabezera "ADMINISTRADOR DE PROTOCOLOS"
 
     # APACHE
     opcionMenu -blanco $num "Apache" true 0 "apache2" "f"

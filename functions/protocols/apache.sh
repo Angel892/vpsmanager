@@ -5,9 +5,9 @@ menuApache() {
     install() {
         showCabezera "INSTALACION APACHE"
 
-        msgInstall -blanco "Instalando apache2";
+        msgInstall -blanco "Instalando apache2"
         barra_intall "apt-get install apache2 -y"
-        
+
         msgSuccess
     }
 
@@ -36,7 +36,7 @@ menuApache() {
     opcionMenu -blanco $num "Instalar apache"
     option[$num]="inll"
     let num++
-sta
+
     # DESINSTALAR
     opcionMenu -blanco $num "Desinstalar apache"
     option[$num]="uninstall"

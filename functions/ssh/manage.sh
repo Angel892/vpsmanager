@@ -129,10 +129,7 @@ menuSSH() {
 
     local num=1
 
-    clear
-    msg -bar
-    msgCentrado -amarillo "SSH MANAGER"
-    msg -bar
+    showCabezera "SSH MANAGER"
 
     # CREAR CUENTA
     opcionMenu -blanco $num "Crear cuenta"
