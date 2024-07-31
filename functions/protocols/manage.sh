@@ -190,7 +190,4 @@ menuProtocols() {
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         ;;
     esac
-
-    menuProtocols
-
 }

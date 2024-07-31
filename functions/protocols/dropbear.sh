@@ -111,6 +111,4 @@ EOF
         ;;
 
     esac
-
-    proto_dropbear
 }
