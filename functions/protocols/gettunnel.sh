@@ -2,7 +2,7 @@
 proto_pgettunel() {
     activar_gettunel() {
 
-        validarArchivo "$mainPath/filespy/pwd.pwd";
+        validarArchivo "$mainPath/filespy/pwd.pwd"
         meu_ip() {
             MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
             MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
@@ -78,6 +78,11 @@ proto_pgettunel() {
         desactivar_gettunel
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
         ;;
+    0)
+        menuProtocols
+        ;;
     esac
+
+    proto_pgettunel
 
 }

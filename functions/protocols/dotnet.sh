@@ -43,7 +43,7 @@ menuDotnet() {
 
         msgInstall -blanco "Removiendo dependencias"
         barra_intallb "dotnet tool uninstall --global dotnet-ef"
-        
+
         msgInstall -blanco "Limpiando dependencias sin usar"
         barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
@@ -87,11 +87,12 @@ menuDotnet() {
     "installef") installef ;;
     "uninstall") uninstall ;;
     "uninstallef") uninstallef ;;
-    "volver") return ;;
+    "volver") menuProtocols ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
-        menuDotnet
         ;;
     esac
+
+    menuDotnet
 }

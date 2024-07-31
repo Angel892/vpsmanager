@@ -109,14 +109,15 @@ EOF
         desactivar_badvpn
         ;;
     0)
-        return;
+        menuProtocols
         ;;
     *)
         echo -e "$ Porfavor use numeros del [0-14]"
         msg -bar
-        udp_serverr
         ;;
     esac
+
+    udp_serverr
 
     #exit 0
 }

@@ -363,6 +363,11 @@ PYTHON
         desactivar_websokete
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
         ;;
+    0)
+        menuProtocols
+        ;;
     esac
+
+    proto_websockete
 
 }

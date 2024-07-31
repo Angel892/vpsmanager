@@ -67,34 +67,34 @@ desactivar_badvpn() {
 
 # Función principal para manejar BadVPN
 proto_badvpn() {
-    while true; do
-        clear
+    clear
+    msg -bar
+    msgCentrado -amarillo "Instalador de BadVPN (UDP)"
+    msg -bar
+    if [[ ! -e /bin/badvpn-udpgw ]]; then
+        wget -O /bin/badvpn-udpgw https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/badvpn-udpgw &>/dev/null
+        chmod 777 /bin/badvpn-udpgw
+    fi
+    echo -e "${SECUNDARIO}1. Instalar un BadVPN${NC}"
+    echo -e "${SECUNDARIO}2. Detener todos los BadVPN${NC}"
+    echo -e "${SALIR}0. Volver${NC}"
+    msg -bar
+    read -p "Digite solo el número según su respuesta: " opcao
+    case $opcao in
+    1)
+        activar_badvpn
+        ;;
+    2)
+        desactivar_badvpn
+        ;;
+    0)
+        menuProtocols
+        ;;
+    *)
+        echo -e "${ROJO}Por favor use números del [0-2]${NC}"
         msg -bar
-        msgCentrado -amarillo "Instalador de BadVPN (UDP)"
-        msg -bar
-        if [[ ! -e /bin/badvpn-udpgw ]]; then
-            wget -O /bin/badvpn-udpgw https://github.com/Angel892/vpsmanager/raw/master/LINKS_LIBRERIAS/badvpn-udpgw &>/dev/null
-            chmod 777 /bin/badvpn-udpgw
-        fi
-        echo -e "${SECUNDARIO}1. Instalar un BadVPN${NC}"
-        echo -e "${SECUNDARIO}2. Detener todos los BadVPN${NC}"
-        echo -e "${SALIR}0. Volver${NC}"
-        msg -bar
-        read -p "Digite solo el número según su respuesta: " opcao
-        case $opcao in
-        1)
-            activar_badvpn
-            ;;
-        2)
-            desactivar_badvpn
-            ;;
-        0)
-            break
-            ;;
-        *)
-            echo -e "${ROJO}Por favor use números del [0-2]${NC}"
-            msg -bar
-            ;;
-        esac
-    done
+        ;;
+    esac
+
+    proto_badvpn
 }

@@ -34,9 +34,9 @@ menuApache() {
 
     # INSTALAR
     opcionMenu -blanco $num "Instalar apache"
-    option[$num]="install"
+    option[$num]="inll"
     let num++
-
+sta
     # DESINSTALAR
     opcionMenu -blanco $num "Desinstalar apache"
     option[$num]="uninstall"
@@ -53,11 +53,12 @@ menuApache() {
     case ${option[$selection]} in
     "install") install ;;
     "uninstall") uninstall ;;
-    "volver") return ;;
+    "volver") menuProtocols ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
-        menuApache
         ;;
     esac
+
+    menuApache
 }

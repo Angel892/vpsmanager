@@ -4,9 +4,9 @@ menuNginx() {
     install() {
         showCabezera "Instalacion NGINX"
 
-        msgInstall -blanco "Instalando nginx";
+        msgInstall -blanco "Instalando nginx"
         barra_intall "apt-get install nginx -y"
-        
+
         msgSuccess
     }
 
@@ -53,11 +53,12 @@ menuNginx() {
     case ${option[$selection]} in
     "install") install ;;
     "uninstall") uninstall ;;
-    "volver") return ;;
+    "volver") menuProtocols ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
-        menuNginx
         ;;
     esac
+
+    menuNginx
 }

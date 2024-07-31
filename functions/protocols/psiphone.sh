@@ -97,14 +97,15 @@ server_psiphones() {
         desactivar_psiphone
         ;;
     0)
-        return;
+        menuProtocols;
         ;;
     *)
         echo -e "$ Porfavor use numeros del [0-2]"
         msg -bar
-        server_psiphones
         ;;
     esac
+
+    server_psiphones
 
     #exit 0
 

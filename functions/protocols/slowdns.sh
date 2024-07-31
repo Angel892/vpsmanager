@@ -166,29 +166,27 @@ proto_slowndns() {
         ini_slow
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        proto_slowndns
         ;;
     2)
         reset_slow
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        proto_slowndns
         ;;
     3)
         info
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        proto_slowndns
         ;;
     4)
         stop_slow
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        proto_slowndns
         ;;
-    *)
-        return
+    0)
+        menuProtocols
         ;;
     esac
+
+    proto_slowndns
 
 }

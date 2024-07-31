@@ -122,13 +122,16 @@ sshl_install() {
         msg -bar
         sslh_inicial
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        sshl_install
         ;;
     2)
         msg -bar
         edit_sslh
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        sshl_install
+        ;;
+    0)
+        menuProtocols
         ;;
     esac
+
+    sshl_install
 }

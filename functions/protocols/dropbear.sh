@@ -82,47 +82,46 @@ EOF
         [[ -e /etc/default/dropbear ]] && rm /etc/default/dropbear
     }
 
-    while true; do
+    clear && clear
+    msg -bar
+    msg -tit
+    msg -bar
+    msgCentrado -amarillo "INSTALADOR DROPBEAR | SCRIPT LXServer"
+    msg -bar
 
-        clear && clear
+    local num=1
+    # INSTALAR DROPBEAR
+    opcionMenu -blanco $num "INSTALAR UN DROPBEAR"
+    option[$num]="instalar"
+    let num++
+
+    # DETENER DROPBEAR
+    opcionMenu -blanco $num "DETENER TODOS LOS DROPBEAR"
+    option[$num]="detener"
+    let num++
+
+    msg -bar
+    # SALIR
+    opcionMenu -rojo 0 "Regresar al menú anterior"
+    option[0]="volver"
+    msg -bar
+    selection=$(selectionFun $num)
+    case ${option[$selection]} in
+
+    "instalar")
         msg -bar
-        msg -tit
+        activar_dropbear
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        ;;
+    "detener")
         msg -bar
-        msgCentrado -amarillo "INSTALADOR DROPBEAR | SCRIPT LXServer"
-        msg -bar
+        desactivar_dropbear
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        ;;
+    "volver") menuProtocols ;;
+    *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
 
-        local num=1
-        # INSTALAR DROPBEAR
-        opcionMenu -blanco $num "INSTALAR UN DROPBEAR"
-        option[$num]="instalar"
-        let num++
+    esac
 
-        # DETENER DROPBEAR
-        opcionMenu -blanco $num "DETENER TODOS LOS DROPBEAR"
-        option[$num]="detener"
-        let num++
-
-        msg -bar
-        # SALIR
-        opcionMenu -rojo 0 "Regresar al menú anterior"
-        option[0]="volver"
-        msg -bar
-        selection=$(selectionFun $num)
-        case ${option[$selection]} in
-
-        "instalar")
-            msg -bar
-            activar_dropbear
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            ;;
-        "detener")
-            msg -bar
-            desactivar_dropbear
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            ;;
-        "volver") break ;;
-        *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
-
-        esac
-    done
+    proto_dropbear
 }

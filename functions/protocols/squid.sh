@@ -64,7 +64,7 @@ proto_squid() {
             echo -e "\033[1;32m         >> SQUID DESINSTALADO CON EXITO << "
             msg -bar
             [[ -e $var_squid ]] && rm $var_squid
-            return 0
+            menuProtocols
         }
         msg -bar
         msg -tit
@@ -352,5 +352,7 @@ proto_squid() {
     else
         fun_squid
     fi
+
+    menuProtocols
 
 }

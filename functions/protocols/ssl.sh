@@ -352,87 +352,86 @@ proto_ssl() {
 
     }
 
-    while true; do
+    clear && clear
+    msg -bar
 
-        clear && clear
+    msg -tit
+    msg -bar
+    echo -e "\e[1;93m    INSTALADOR MONO Y MULTI SSL | SCRIPT LXServer"
+    msg -bar
+
+    local num=1
+    # INSTALAR DROPBEAR
+    opcionMenu -blanco $num "INSTALAR | PARAR SSL"
+    option[$num]="ssl_stunel"
+    let num++
+
+    # INSTALAR DROPBEAR
+    opcionMenu -blanco $num "AGREGAR PUERTOS SSL EXTRA"
+    option[$num]="ssl_stunel_2"
+    let num++
+
+    # INSTALAR DROPBEAR
+    opcionMenu -blanco $num "AGREGAR CERTIFICADO MANUAL (zip)"
+    option[$num]="cert_ssl"
+    let num++
+
+    # INSTALAR DROPBEAR
+    opcionMenu -blanco $num "AGREGAR CERTIFICADO ZEROSSL"
+    option[$num]="certificadom"
+    let num++
+
+    # INSTALAR DROPBEAR
+    opcionMenu -blanco $num "AGREGAR CERTIFICADO SSL (Let's Encript)"
+    option[$num]="gerar_cert"
+    let num++
+
+    # INSTALAR DROPBEAR
+    opcionMenu -blanco $num "AGREGAR CERTIFICADO SSL (Zerossl Directo)"
+    option[$num]="gerar_cert2"
+    let num++
+
+    msg -bar
+    # SALIR
+    opcionMenu -rojo 0 "Regresar al menú anterior"
+    option[0]="volver"
+    msg -bar
+    selection=$(selectionFun $num)
+    case ${option[$selection]} in
+    "ssl_stunel")
         msg -bar
-
-        msg -tit
+        ssl_stunel
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        ;;
+    "ssl_stunel_2")
         msg -bar
-        echo -e "\e[1;93m    INSTALADOR MONO Y MULTI SSL | SCRIPT LXServer"
+        ssl_stunel_2
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        ;;
+    "cert_ssl")
         msg -bar
-
-        local num=1
-        # INSTALAR DROPBEAR
-        opcionMenu -blanco $num "INSTALAR | PARAR SSL"
-        option[$num]="ssl_stunel"
-        let num++
-
-        # INSTALAR DROPBEAR
-        opcionMenu -blanco $num "AGREGAR PUERTOS SSL EXTRA"
-        option[$num]="ssl_stunel_2"
-        let num++
-
-        # INSTALAR DROPBEAR
-        opcionMenu -blanco $num "AGREGAR CERTIFICADO MANUAL (zip)"
-        option[$num]="cert_ssl"
-        let num++
-
-        # INSTALAR DROPBEAR
-        opcionMenu -blanco $num "AGREGAR CERTIFICADO ZEROSSL"
-        option[$num]="certificadom"
-        let num++
-
-        # INSTALAR DROPBEAR
-        opcionMenu -blanco $num "AGREGAR CERTIFICADO SSL (Let's Encript)"
-        option[$num]="gerar_cert"
-        let num++
-
-        # INSTALAR DROPBEAR
-        opcionMenu -blanco $num "AGREGAR CERTIFICADO SSL (Zerossl Directo)"
-        option[$num]="gerar_cert2"
-        let num++
-
+        cert_ssl
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        ;;
+    "certificadom")
         msg -bar
-        # SALIR
-        opcionMenu -rojo 0 "Regresar al menú anterior"
-        option[0]="volver"
+        certificadom
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        ;;
+    "gerar_cert")
         msg -bar
-        selection=$(selectionFun $num)
-        case ${option[$selection]} in
-        "ssl_stunel")
-            msg -bar
-            ssl_stunel
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            ;;
-        "ssl_stunel_2")
-            msg -bar
-            ssl_stunel_2
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            ;;
-        "cert_ssl")
-            msg -bar
-            cert_ssl
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            ;;
-        "certificadom")
-            msg -bar
-            certificadom
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            ;;
-        "gerar_cert")
-            msg -bar
-            gerar_cert 1
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            ;;
-        "gerar_cert2")
-            msg -bar
-            gerar_cert 2
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            ;;
+        gerar_cert 1
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        ;;
+    "gerar_cert2")
+        msg -bar
+        gerar_cert 2
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        ;;
 
-        "volver") break ;;
-        *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
-        esac
-    done
+    "volver") menuProtocols ;;
+    *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
+    esac
+
+    proto_ssl
 }
