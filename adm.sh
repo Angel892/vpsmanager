@@ -28,6 +28,8 @@ mainMenu() {
     msgCentrado -amarillo "LXMANAGER"
     msg -bar
 
+    echo "$PROTOCOLS_PATH/apache.sh"
+
     # SSH
     opcionMenu -amarillo $num "SSH / OPEN VPN"
     option[$num]="ssh"

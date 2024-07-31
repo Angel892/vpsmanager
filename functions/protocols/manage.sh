@@ -26,8 +26,6 @@ source $PROTOCOLS_PATH/ppublico.sh
 source $PROTOCOLS_PATH/pprivado.sh
 source $PROTOCOLS_PATH/python.sh
 
-echo "$PROTOCOLS_PATH/apache.sh"
-
 menuProtocols() {
 
     local num=1
