@@ -35,8 +35,6 @@ menuProtocols() {
     msgCentrado -amarillo "ADMINISTRADOR DE PROTOCOLOS"
     msg -bar
 
-    echo "$PROTOCOLS_PATH/apache.sh"
-
     # APACHE
     opcionMenu -blanco $num "Apache" true 0 "apache2" "f"
     option[$num]="apache"
