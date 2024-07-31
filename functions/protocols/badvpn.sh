@@ -9,7 +9,7 @@ proto_badvpn() {
 
         msg -blanco "Digite los puertos a activar de forma secuencial"
         msg -verde "Ejemplo: 7300 7200 7100 | Puerto recomendado: 7300"
-        read -p "${AMARILLO}Digite los puertos: ${VERDE}" -e -i "7200 7300" portasx
+        read -p "Digite los puertos: " -e -i "7200 7300" portasx
         local BADVPNLOGPATH="/etc/vpsmanager/PortM/Badvpn.log"
         validarArchivo $BADVPNLOGPATH
         echo "$portasx" >$BADVPNLOGPATH
