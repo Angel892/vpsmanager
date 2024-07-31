@@ -81,7 +81,6 @@ mainMenu() {
     "puertos") mostrarPuertosActivos ;;
     "volver")
         echo -e "${INFO}Saliendo...${NC}"
-        return
         ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
