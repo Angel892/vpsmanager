@@ -56,7 +56,7 @@ menuProtocols() {
     let num++
 
     # NODE JS
-    opcionMenu -blanco $num "Node js" true 0 "node" "f"
+    opcionMenu -blanco $num "Node js" true 0 "node" "v"
     option[$num]="nodejs"
     let num++
 
