@@ -153,9 +153,6 @@ verif_fun() {
             local ONLINES+="$(echo ${PID}0 | bc)+"
             echo "${ONLINES}0" | bc >$mainPath/temp/USRonlines
 
-            echo "Holaa"
-            return
-
             #----CONTADOR DE LIMITE X USER
             local conexao[$user]="$(echo ${PID}0 | bc)"
             local limite[$user]="$(cat $mainPath/cuentassh | grep -w "${user}" | cut -d'|' -f4)"
@@ -173,6 +170,9 @@ verif_fun() {
             echo "${EXPIRED}0" | bc >$mainPath/temp/USRexpired
         done <<<"$(mostrar_totales)"
     fi
+
+    echo "Holaa"
+    return
 
     sed -i '/'-loked'/d' $mainPath/temp/userlock
     BLOQUEADO="$(wc -l $mainPath/temp/userlock | awk '{print $1}')"
