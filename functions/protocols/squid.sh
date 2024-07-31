@@ -47,7 +47,7 @@ proto_squid() {
             showCabezera "DESINSTALADO SQUID"
 
             msgInstall -blanco "Deteniendo squid"
-            fin_bar "service squid stop"
+            fun_bar "service squid stop"
 
             msgInstall -blanco "Removiendo squid"
             fun_bar "apt-get remove squid3 -y"
