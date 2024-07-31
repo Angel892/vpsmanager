@@ -118,9 +118,6 @@ verif_fun() {
 
     [[ -e "$mainPath/cuentasactivas" ]] && usuarios_totales=($(mostrar_totales))
 
-    echo "Hoalaa ${usuarios_totales}"
-    return
-
     if [[ -z ${usuarios_totales[@]} ]]; then
         echo "" >/dev/null 2>&1
     else
@@ -173,6 +170,10 @@ verif_fun() {
             echo "${EXPIRED}0" | bc >$mainPath/temp/USRexpired
         done <<<"$(mostrar_totales)"
     fi
+
+    echo "Hoalaa ${usuarios_totales}"
+    return
+
     sed -i '/'-loked'/d' $mainPath/temp/userlock
     BLOQUEADO="$(wc -l $mainPath/temp/userlock | awk '{print $1}')"
     BLOQUEADO2="$(echo ${BLOQUEADO} | bc)0"
