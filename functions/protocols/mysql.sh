@@ -12,11 +12,11 @@ menuMysql() {
 
         # INICIANDO SERVICIO MYSQL
         msgInstall -verde "Iniciando servicio mysql"
-        sudo systemctl start mysql.service
+        barra_intallb "sudo systemctl start mysql.service"
 
         # HABILITANDO AUTOINICIO
         msgInstall -verde "Habilitando auto start"
-        sudo systemctl enable mysql.service
+        barra_intallb "sudo systemctl enable mysql.service"
 
         # SECURE INSTALATION
         msgInstall -verde "Configurar mysql de manera segura"
