@@ -171,9 +171,6 @@ verif_fun() {
         done <<<"$(mostrar_totales)"
     fi
 
-    echo "Holaa"
-    return
-
     sed -i '/'-loked'/d' $mainPath/temp/userlock
     BLOQUEADO="$(wc -l $mainPath/temp/userlock | awk '{print $1}')"
     BLOQUEADO2="$(echo ${BLOQUEADO} | bc)0"
@@ -184,6 +181,9 @@ verif_fun() {
     EXPIRADO2="$(echo ${EXPIRADO} | bc)0"
     EXPIRADO3="/10"
     echo "${EXPIRADO2}${EXPIRADO3}" | bc >$mainPath/temp/USRexpired
+
+    echo "Holaa"
+    return
 
     clear
 }
