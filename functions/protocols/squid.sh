@@ -46,10 +46,10 @@ proto_squid() {
         [[ -e $var_squid ]] && {
             showCabezera "DESINSTALADO SQUID"
 
-            msgInstall "Deteniendo squid"
+            msgInstall -blanco "Deteniendo squid"
             fin_bar "service squid stop"
 
-            msgInstall "Removiendo squid"
+            msgInstall -blanco "Removiendo squid"
             fun_bar "apt-get remove squid3 -y"
 
             msgSuccess
@@ -94,7 +94,7 @@ proto_squid() {
         msg -blanco "SEGUIMIENTO SQUID"
         msg -bar
 
-        msgInstall "Instalando squid"
+        msgInstall -blanco "Instalando squid"
         fun_bar "apt-get install squid -y"
 
         msg -bar
@@ -246,19 +246,19 @@ proto_squid() {
         msg -bar
         msgCentrado -amarillo "REINICIANDO SERVICIOS"
 
-        msgInstall "squid3 -k reconfigure"
+        msgInstall -blanco "squid3 -k reconfigure"
         fun_bar "squid3 -k reconfigure"
 
-        msgInstall "squid -k reconfigure"
+        msgInstall -blanco "squid -k reconfigure"
         fun_bar "squid -k reconfigure"
 
-        msgInstall "service ssh restart"
+        msgInstall -blanco "service ssh restart"
         fun_bar "service ssh restart"
 
-        msgInstall "service squid3 restart"
+        msgInstall -blanco "service squid3 restart"
         fun_bar "service squid3 restart"
 
-        msgInstall "service squid restart"
+        msgInstall -blanco "service squid restart"
         fun_bar "service squid restart"
 
         #UFW
