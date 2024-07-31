@@ -689,13 +689,8 @@ fun_bar() {
             sleep 0.08
         done
     done
-    if dpkg --get-selections | grep -qw "$paquete"; then
-        ESTATUS="\033[1;33m       \033[92mINSTALADO"
-    else
-        ESTATUS="\033[91m  FALLO DE INSTALACION"
-    fi
 
-    echo -ne " - \033[1;32m100%\033[0m\n"
+    echo -ne " - \033[1;32m100%\033[1;33m]\n"
     echo -e ""
 }
 
