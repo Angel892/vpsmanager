@@ -124,6 +124,9 @@ verif_fun() {
 
         while read user; do
 
+            echo "Hoalaa ${user}"
+            return
+
             ##EXPIRADOS
             local DataUser=$(chage -l "${user}" | grep -i co | awk -F ":" '{print $2}')
 
@@ -170,9 +173,6 @@ verif_fun() {
             echo "${EXPIRED}0" | bc >$mainPath/temp/USRexpired
         done <<<"$(mostrar_totales)"
     fi
-
-    echo "Hoalaa ${usuarios_totales}"
-    return
 
     sed -i '/'-loked'/d' $mainPath/temp/userlock
     BLOQUEADO="$(wc -l $mainPath/temp/userlock | awk '{print $1}')"
