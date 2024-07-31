@@ -7,19 +7,19 @@ menuMysql() {
         showCabezera "Instalacion MYSQL"
 
         # INSTALANDO MYSQL
-        msgInstall "Instalando mysql"
+        msgInstall -blanco "Instalando mysql"
         barra_intall "apt-get install mysql-server -y"
 
         # INICIANDO SERVICIO MYSQL
-        msgInstall "Iniciando servicio mysql"
+        msgInstall -verde "Iniciando servicio mysql"
         sudo systemctl start mysql.service
 
         # HABILITANDO AUTOINICIO
-        msgInstall "Habilitando auto start"
+        msgInstall -verde "Habilitando auto start"
         sudo systemctl enable mysql.service
 
         # SECURE INSTALATION
-        msgInstall "Configurar mysql de manera segura"
+        msgInstall -verde "Configurar mysql de manera segura"
         sudo mysql_secure_installation
 
         msgSuccess
@@ -30,18 +30,19 @@ menuMysql() {
         showCabezera "DESINSTALACION mysql"
 
         # Detener el servicio de MySQL
-        sudo systemctl stop mysql.service
+        msgInstall -blanco "Deteniendo mysql"
+        barra_intallb "sudo systemctl stop mysql.service"
 
         # Eliminar los paquetes de MySQL
-        msgInstall "Removiendo dependencias"
+        msgInstall -blanco "Removiendo dependencias"
         barra_intallb "sudo apt-get remove -y --purge mysql-server mysql-client mysql-common"
 
         # Limpiar dependencias no necesarias
-        msgInstall "Limpiando dependencias sin usar"
+        msgInstall -blanco "Limpiando dependencias sin usar"
         barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
         # Eliminar los archivos de configuración y datos
-        msgInstall "Eliminando carpetas"
+        msgInstall -blanco "Eliminando carpetas"
         sudo rm -rf /etc/mysql /var/lib/mysql /var/log/mysql
 
         msgSuccess

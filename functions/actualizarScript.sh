@@ -11,7 +11,7 @@ actualizar_script() {
     cd /etc/vpsmanager
 
     # Restablecer cualquier cambio local y obtener las actualizaciones más recientes
-    msgInstall "Extrayendo repositorio"
+    msgInstall -blanco "Extrayendo repositorio"
     barra_intallb "sudo git fetch --all"
     if [ $? -ne 0 ]; then
         msgCentrado -rojo "Error: Falló la obtención de las actualizaciones del repositorio."
@@ -19,7 +19,7 @@ actualizar_script() {
         return
     fi
 
-    msgInstall "Descartando cambios pendientes"
+    msgInstall -blanco "Descartando cambios pendientes"
     barra_intallb "git reset --hard origin/master"
     if [ $? -ne 0 ]; then
         msgCentrado -rojo "Error: Falló el restablecimiento del repositorio."
@@ -28,7 +28,7 @@ actualizar_script() {
     fi
 
     # Asignar permisos de ejecución al script principal y a los scripts de funciones
-    msgInstall "Habilitando permisos"
+    msgInstall -blanco "Habilitando permisos"
     sudo find /etc/vpsmanager/ -type f -name "*.sh" -exec chmod +x {} \;
     if [ $? -ne 0 ]; then
         msgCentrado -rojo "Error: No se pudieron asignar los permisos de ejecución."

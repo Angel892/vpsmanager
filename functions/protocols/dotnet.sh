@@ -4,10 +4,10 @@ menuDotnet() {
     install() {
         showCabezera "Instalacion DOTNET"
 
-        msgInstall "Instalando SDK"
+        msgInstall -blanco "Instalando SDK"
         barra_intall "apt-get install dotnet-sdk-8.0 -y"
 
-        msgInstall "Instalando RUNTIME"
+        msgInstall -blanco "Instalando RUNTIME"
         barra_intall "apt-get install aspnetcore-runtime-8.0 -y"
 
         msgSuccess
@@ -16,14 +16,14 @@ menuDotnet() {
     uninstall() {
         showCabezera "DESINSTALACION dotnet"
 
-        msgInstall "Removiendo dependencias"
+        msgInstall -blanco "Removiendo dependencias"
         barra_intallb "apt-get remove --purge -y dotnet-sdk-8.0"
 
         # Desinstalar .NET Runtime
-        msgInstall "Desinstalando runtime"
+        msgInstall -blanco "Desinstalando runtime"
         barra_intallb "apt-get remove --purge -y aspnetcore-runtime-8.0"
 
-        msgInstall "Limpiando dependencias sin usar"
+        msgInstall -blanco "Limpiando dependencias sin usar"
         barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
         msgSuccess
@@ -32,7 +32,7 @@ menuDotnet() {
     installef() {
         showCabezera "Instalacion dotnet ef"
 
-        msgInstall "Instalando dotnet ef"
+        msgInstall -blanco "Instalando dotnet ef"
         barra_intall "dotnet tool install --global dotnet-ef"
 
         msgSuccess
@@ -41,10 +41,10 @@ menuDotnet() {
     uninstallef() {
         showCabezera "DESINSTALACION dotnet ef"
 
-        msgInstall "Removiendo dependencias"
+        msgInstall -blanco "Removiendo dependencias"
         barra_intallb "dotnet tool uninstall --global dotnet-ef"
         
-        msgInstall "Limpiando dependencias sin usar"
+        msgInstall -blanco "Limpiando dependencias sin usar"
         barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
         msgSuccess

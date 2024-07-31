@@ -4,7 +4,7 @@ menuNginx() {
     install() {
         showCabezera "Instalacion NGINX"
 
-        msgInstall "Instalando nginx";
+        msgInstall -blanco "Instalando nginx";
         barra_intall "apt-get install nginx -y"
         
         msgSuccess
@@ -16,13 +16,13 @@ menuNginx() {
 
         sudo systemctl stop nginx
 
-        msgInstall "Removiendo dependencias"
+        msgInstall -blanco "Removiendo dependencias"
         barra_intallb "sudo apt-get remove -y --purge nginx nginx-common nginx-core"
 
-        msgInstall "Eliminando carpetas"
+        msgInstall -blanco "Eliminando carpetas"
         sudo rm -rf /etc/nginx 2>&1
 
-        msgInstall "Limpiando dependencias sin usar"
+        msgInstall -blanco "Limpiando dependencias sin usar"
         barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
         msgSuccess

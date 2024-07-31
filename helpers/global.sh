@@ -679,8 +679,19 @@ fun_bar() {
 }
 
 msgInstall() {
-    local messageText=$(echo "$1" | tr '[:lower:]' '[:upper:]')
-    echo -e "\033[1;97m    ◽️ $messageText"
+    local messageText=$(echo "$2" | tr '[:lower:]' '[:upper:]')
+
+    case $1 in
+    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -rojo) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    "-bar2" | "-bar") cor="${NEGRITA}${ROJO}════════════════════════════════════════════════════" && echo -e "${SINCOLOR}${cor}${SINCOLOR}" ;;
+    esac
+
+    #echo -e "\033[1;97m    ◽️ $messageText"
 }
 
 # ------- BARRA DE INTALL BASICO

@@ -5,7 +5,7 @@ menuApache() {
     install() {
         showCabezera "INSTALACION APACHE"
 
-        msgInstall "Instalando apache2";
+        msgInstall -blanco "Instalando apache2";
         barra_intall "apt-get install apache2 -y"
         
         msgSuccess
@@ -16,13 +16,13 @@ menuApache() {
 
         sudo systemctl stop apache2
 
-        msgInstall "Removiendo dependencias"
+        msgInstall -blanco "Removiendo dependencias"
         barra_intallb "sudo apt-get remove --purge apache2 apache2-utils apache2-bin apache2.2-common -y"
 
-        msgInstall "Eliminando carpetas"
+        msgInstall -blanco "Eliminando carpetas"
         sudo rm -rf /etc/apache2 2>&1
 
-        msgInstall "Limpiando dependencias sin usar"
+        msgInstall -blanco "Limpiando dependencias sin usar"
         barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
         msgSuccess
