@@ -6,7 +6,7 @@ proto_dropbear() {
         msgCentrado -verde "Ejemplo: 442 443 444"
         msg -bar
 
-        msgne -blanco "Digite  Puertos: "
+        msgne -blanco "Digite Puertos: "
         read -p " " -e -i "444 445" DPORT
 
         tput cuu1 && tput dl1
