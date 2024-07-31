@@ -11,7 +11,8 @@ proto_dropbear() {
         read -p " " -e -i "444 445" DPORT
 
         tput cuu1 && tput dl1
-        TTOTAL2=($DPORT)
+        local TTOTAL2=($DPORT)
+        unset PORT2
         for ((i = 0; i < ${#TTOTAL2[@]}; i++)); do
             msgne -blanco "Puerto Elegido: "
             [[ $(mportas | grep "${TTOTAL2[$i]}") = "" ]] && {
