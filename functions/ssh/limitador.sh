@@ -61,10 +61,11 @@ verif_fun() {
     declare -A limite
     declare -A TIMEUS
     local USRloked="$mainPath/temp/userlock"
-    validarArchivo "$USRloked"
     local LIMITERLOG="$mainPath/temp/Limiter.log"
-    validarArchivo "$LIMITERLOG"
     local LIMITERLOG2="$mainPath/temp/Limiter2.log"
+
+    validarArchivo "$USRloked"
+    validarArchivo "$LIMITERLOG"
     validarArchivo "$LIMITERLOG2"
 
     validarArchivo "$mainPath/temp/userexp"
@@ -115,6 +116,8 @@ verif_fun() {
         done
     }
 
+    echo "Hoalaa"
+    return
     [[ -e "$mainPath/cuentasactivas" ]] && usuarios_totales=($(mostrar_totales))
     if [[ -z ${usuarios_totales[@]} ]]; then
         echo "" >/dev/null 2>&1
