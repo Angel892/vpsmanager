@@ -3,11 +3,12 @@
 #-BLOQUEO
 block_userfun() {
     local USRloked="$mainPath/temp/userlock"
-    validarArchivo "$USRloked"
     local LIMITERLOG="$mainPath/temp/Limiter.log"
-    validarArchivo "$LIMITERLOG"
     local LIMITERLOG2="$mainPath/temp/Limiter2.log"
+
     validarArchivo "$LIMITERLOG2"
+    validarArchivo "$USRloked"
+    validarArchivo "$LIMITERLOG"
 
     if [[ $2 = "-loked" ]]; then
         [[ $(cat ${USRloked} | grep -w "$1") ]] && return 1
@@ -184,15 +185,15 @@ verif_fun() {
 ##LIMITADOR
 limitadorMenu() {
 
-    clear && clear
+    showCabezera "LIMITADOR DE CUENTAS"
+    msgCentrado -amarillo "Esta Opcion Limita las Conexiones de SSH/SSL/DROPBEAR"
     msg -bar
-    msg -tit
-    msg -bar
-    echo -e "\033[1;32m             LIMITADOR DE CUENTAS"
-    msg -bar
-    echo -e "Esta Opcion Limita las Conexiones de SSH/SSL/DROPBEAR"
 
-    PIDVRF="$(ps aux | grep "$(verif_fun)" | grep -v grep | awk '{print $2}')"
+    verif=$(verif_fun)
+
+    echo -e "${verif}"
+
+    PIDVRF="$(ps aux | grep "${verif}" | grep -v grep | awk '{print $2}')"
 
     if [[ -z $PIDVRF ]]; then
         msg -bar
