@@ -51,7 +51,7 @@ checkStatus() {
 }
 
 checkStatusVersion() {
-    toCheck=$("${1} --version")
+    toCheck=$("$1 --version")
     [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
 }
 
