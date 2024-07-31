@@ -50,13 +50,13 @@ editarCuentaSSH() {
         msg -rojo "Error, Usuario Invalido"
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        return 1
+        editarCuentaSSH
     }
     [[ ! $(echo ${mostrar_totales[@]} | grep -w "$useredit") ]] && {
         msg -rojo "error, Usuario Invalido"
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        return 1
+        editarCuentaSSH
     }
 
     while true; do
@@ -109,4 +109,5 @@ editarCuentaSSH() {
     edit_user_fun "${useredit}" "${senhauser}" "${diasuser}" "${limiteuser}" && msgCentrado -verde "Usuario Modificado Con Exito" && rm -rf $mainPath/temp/Limiter.log || msgCentrado -rojo "Error, Usuario no Modificado"
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    menuSSH
 }

@@ -89,13 +89,13 @@ renovarCuentaSSH() {
         msg -rojo "Error, Usuario Invalido"
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        return 1
+        renovarCuentaSSH
     }
     [[ ! $(echo ${mostrar_totales[@]} | grep -w "$useredit") ]] && {
         msg -rojo "Error, Usuario Invalido"
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        return 1
+        renovarCuentaSSH
     }
 
     while true; do
@@ -118,4 +118,5 @@ renovarCuentaSSH() {
 
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    menuSSH
 }

@@ -75,17 +75,18 @@ bloquearDesbloquearUsuarioSSH() {
         msg -rojo "Error, Usuario Invalido"
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        return 1
+        bloquearDesbloquearUsuarioSSH
     }
     [[ ! $(echo ${mostrar_totales[@]} | grep -w "$usuario_del") ]] && {
         msg -rojo "error, Usuario Invalido"
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        return 1
+        bloquearDesbloquearUsuarioSSH
     }
     msgne -amarillo "Usuario Seleccionado: " && echo -ne "$usuario_del"
 
     block_userfun "$usuario_del" && msg -rojo "[ Bloqueado ]" || msg -verd "[ Desbloqueado ]"
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    menuSSH
 }

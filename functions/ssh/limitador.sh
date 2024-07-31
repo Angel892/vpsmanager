@@ -233,4 +233,5 @@ limitadorMenu() {
     echo -e "            $verificar  --  CON EXITO"
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    menuSSH
 }

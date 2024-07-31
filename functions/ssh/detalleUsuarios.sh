@@ -155,5 +155,6 @@ detalleUsuariosSSH() {
         fi
     fi
     msg -bar
-   msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+    menuSSH
 }
