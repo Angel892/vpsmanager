@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #--- FUNCION INFORMACION DE SISTEMA
-systen_info() {
+monitorear_recursos() {
     clear && clear
     msg -bar
     msg -tit
