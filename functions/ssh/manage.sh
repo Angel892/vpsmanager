@@ -54,6 +54,9 @@ menuSSH() {
                 ;;
             esac
         done <<<"${portasVAR}"
+
+        echo "hii"
+        return
         [[ ! -z $DPB ]] && echo -e $DPB
         #local port_dropbear="$DPB"
         local port_dropbear=$(ps aux | grep dropbear | awk NR==1 | awk '{print $17;}')
@@ -194,7 +197,7 @@ menuSSH() {
     # LIMITADOR DE CUENTAS
     verif=$(verif_fun)
     echo -e "test ${verif}"
-    
+
     VERY="$(ps aux | grep "$(verif_fun)" | grep -v grep)"
     [[ -z ${VERY} ]] && verificar="\e[1;93m[\033[1;31m DESACTIVADO \e[1;93m]" || verificar="\e[1;93m[\033[1;32m ACTIVO \e[1;93m]"
     opcionMenu -blanco $num "Limitador de cuentas ${VERY}"

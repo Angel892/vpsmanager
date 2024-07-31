@@ -148,7 +148,10 @@ verif_fun() {
             #----CONTADOR DE ONLINES
             local PID="0+"
             [[ $SSH = ON ]] && PID+="$(ps aux | grep -v grep | grep sshd | grep -w "$user" | grep -v root | wc -l 2>/dev/null)+"
+
+            # AQUI ESTA DANDO EL ERROR
             [[ $DROP = ON ]] && PID+="$(dropbear_pids | grep -w "$user" | wc -l 2>/dev/null)+"
+            
             echo "Hoalaa ${DataSEC}"
             return
             [[ $OPEN = ON ]] && [[ $(openvpn_pids | grep -w "$user" | cut -d'|' -f2) ]] && PID+="$(openvpn_pids | grep -w "$user" | cut -d'|' -f2)+"
