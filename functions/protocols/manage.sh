@@ -46,7 +46,7 @@ menuProtocols() {
     let num++
 
     # DOTNET
-    opcionMenu -blanco $num "Dotnet" true 0 "dotnet" "f"
+    opcionMenu -blanco $num "Dotnet" true 0 "dotnet" "v"
     option[$num]="dotnet"
     let num++
 
