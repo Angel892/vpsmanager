@@ -25,6 +25,7 @@ proto_dropbear() {
             msgCentrado -rojo "Ningun Puerto Valido Fue Elegido"
             msgError
             activar_dropbear
+            return;
         }
 
         msg -bar
