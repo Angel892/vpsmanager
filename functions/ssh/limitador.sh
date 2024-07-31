@@ -194,7 +194,7 @@ limitadorMenu() {
 
     verif=$(verif_fun)
 
-    echo -e "${verif}"
+    echo -e "test ${verif}"
 
     PIDVRF="$(ps aux | grep "${verif}" | grep -v grep | awk '{print $2}')"
 
