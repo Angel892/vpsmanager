@@ -116,9 +116,11 @@ verif_fun() {
         done
     }
 
-    echo "Hoalaa"
-    return
     [[ -e "$mainPath/cuentasactivas" ]] && usuarios_totales=($(mostrar_totales))
+
+    echo "Hoalaa ${usuarios_totales}"
+    return
+
     if [[ -z ${usuarios_totales[@]} ]]; then
         echo "" >/dev/null 2>&1
     else
