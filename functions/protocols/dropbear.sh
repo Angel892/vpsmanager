@@ -2,7 +2,7 @@ proto_dropbear() {
     activar_dropbear() {
 
         showCabezera "INSTALADOR DROPBEAR | SCRIPT LXServer"
-        
+
         msgCentrado -blanco "Puede activar varios puertos en orden secuencial"
         msgCentrado -verde "Ejemplo: 442 443 444"
         msg -bar
@@ -62,9 +62,13 @@ EOF
     desactivar_dropbear() {
         showCabezera "DESINSTALANDO DROPBEAR"
 
-        service dropbear stop >/dev/null 2>&1
+        msgInstall "DETENIENDO DROPBEAR"
+        fun_bar "service dropbear stop"
+
         msgInstall "REMOVIENDO DROPBEAR"
         fun_bar "apt-get remove dropbear -y"
+
+        
         killall dropbear >/dev/null 2>&1
         rm -rf /etc/dropbear/* >/dev/null 2>&1
         [[ -e /etc/default/dropbear ]] && rm /etc/default/dropbear
