@@ -12,49 +12,50 @@ proto_ssl() {
             msg -bar
 
             msgInstall "Deteniendo ssl"
-            barra_intallb "service stunnel4 stop"
-            
+            fun_bar "service stunnel4 stop"
+
+            msgInstall "Eliminando ssl"
             fun_bar "apt-get purge  stunnel4 -y"
-            msg -bar
-            echo -e "\033[1;32m        >> SSL DESINSTALADO  CON EXITO <<"
-            msg -bar
-            return 0
+
+            msgSuccess
+            return
         }
-        msg -bar
-        msg -tit
-        msg -bar
-        echo -e "\033[1;93m             INSTALADOR SSL SCRIPT LXServer"
-        msg -bar
-        echo -e "\033[1;97m Seleccione un puerto de anclaje."
-        echo -e "\033[1;97m Puede ser un SSH/DROPBEAR/SQUID/OPENVPN/WEBSOCKET"
+
+        showCabezera "INSTALADOR SSL SCRIPT LXServer"
+
+        msg -blanco "Seleccione un puerto de anclaje."
+        msg -blanco "Puede ser un SSH/DROPBEAR/SQUID/OPENVPN/WEBSOCKET"
         msg -bar
         while true; do
-            echo -ne "\033[1;97m Puerto-Local:\033[1;32m" && read -p " " -e -i "22" portx
+            msgne -blanco "Puerto-Local:" && msgne -verde
+            read -p " " -e -i "22" portx
             if [[ ! -z $portx ]]; then
                 if [[ $(echo $portx | grep "[0-9]") ]]; then
-                    [[ $(mportas | grep $portx | awk '{print $2}' | head -1) ]] && break || echo -e "\033[1;31m Puerto Invalido - Reintente con otro Activo"
+                    [[ $(mportas | grep $portx | awk '{print $2}' | head -1) ]] && break || msg -rojo "Puerto Invalido - Reintente con otro Activo"
                 fi
             fi
         done
         msg -bar
         DPORT="$(mportas | grep $portx | awk '{print $2}' | head -1)"
-        echo -e "\033[1;33m             Ahora Que Puerto sera SSL"
+        msgCentrado -blanco "Ahora Que Puerto sera SSL"
         msg -bar
         while true; do
-            echo -ne "\033[1;97m Puerto para SSL:\033[1;32m" && read -p " " -e -i "443" SSLPORT
+            msgne -blanco "Puerto para SSL:" && msgne -verde ""
+            read -p " " -e -i "443" SSLPORT
             [[ $(mportas | grep -w "$SSLPORT") ]] || break
-            echo -e "\033[1;33m Este Puerto esta en Uso"
+            msg -rojo "Este Puerto esta en Uso"
             unset SSLPORT
         done
         msg -bar
-        echo -e "\033[1;32m                 Instalando SSL"
+        msgCentrado -verde "Instalando SSL"
         msg -bar
+
         fun_bar "apt-get install stunnel4 -y"
-        apt-get install stunnel4 -y >/dev/null 2>&1
+
         msg -bar
-        echo -e "\033[1;97m A continuacion se le pediran datos de su crt si\n desconoce que datos lleva presione puro ENTER"
+        msg -amarillo "A continuacion se le pediran datos de su crt si\n desconoce que datos lleva presione puro ENTER"
         msg -bar
-        sleep 5s
+
         echo -e "client = no\n[SSL]\ncert = /etc/stunnel/stunnel.pem\naccept = ${SSLPORT}\nconnect = 127.0.0.1:${portx}" >/etc/stunnel/stunnel.conf
         ####Coreccion2.0#####
         openssl genrsa -out stunnel.key 2048 >/dev/null 2>&1
@@ -66,73 +67,74 @@ proto_ssl() {
         sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
         echo "ENABLED=1" >>/etc/default/stunnel4
         service stunnel4 restart >/dev/null 2>&1
-        msg -bar
-        echo -e "\033[1;32m          >> SSL INSTALADO CON EXITO <<"
-        msg -bar
+
         rm -rf $mainPath/stunnel.crt >/dev/null 2>&1
         rm -rf $mainPath/stunnel.key >/dev/null 2>&1
         rm -rf /root/stunnel.crt >/dev/null 2>&1
         rm -rf /root/stunnel.key >/dev/null 2>&1
-        return 0
+
+        msgSuccess
     }
+
     ssl_stunel_2() {
-        clear
-        clear
+        showCabezera "AGREGAR MAS PUESRTOS SSL"
+
+        msg -blanco "Seleccione un puerto de anclaje."
+        msg -verde "Puede ser un SSH/DROPBEAR/SQUID/OPENVPN/SSL/PY"
         msg -bar
-        msg -tit
-        msg -bar
-        echo -e "\033[1;93m              AGREGAR MAS PUESRTOS SSL"
-        msg -bar
-        echo -e "\033[1;97m Seleccione un puerto de anclaje."
-        echo -e "\033[1;97m Puede ser un SSH/DROPBEAR/SQUID/OPENVPN/SSL/PY"
-        msg -bar
+
         while true; do
-            echo -ne "\033[1;97m Puerto-Local: \033[1;32m" && read portx
+            msgne -blanco "Puerto-Local: " && msgne -verde ""
+            read portx
             if [[ ! -z $portx ]]; then
                 if [[ $(echo $portx | grep "[0-9]") ]]; then
-                    [[ $(mportas | grep $portx | head -1) ]] && break || echo -e "\033[1;31m Puerto Invalido - Reintente con otro Activo"
+                    [[ $(mportas | grep $portx | head -1) ]] && break || msg -rojo "Puerto Invalido - Reintente con otro Activo"
                 fi
             fi
         done
+
         msg -bar
         DPORT="$(mportas | grep $portx | awk '{print $2}' | head -1)"
-        echo -e "\033[1;33m             Ahora Que Puerto sera SSL"
+        msgCentrado -blanco "Ahora Que Puerto sera SSL"
         msg -bar
+
         while true; do
-            echo -ne "\033[97m Puerto-SSL: \033[1;32m" && read SSLPORT
+            msgne -blanco "Puerto-SSL: " && msgne -verde ""
+            read SSLPORT
             [[ $(mportas | grep -w "$SSLPORT") ]] || break
-            echo -e "\033[1;33m Este Puerto esta en Uso"
+            msg -rojo "Este Puerto esta en Uso"
             unset SSLPORT
         done
+
         msg -bar
         echo -e "client = no\n[SSL+]\ncert = /etc/stunnel/stunnel.pem\naccept = ${SSLPORT}\nconnect = 127.0.0.1:${portx}" >>/etc/stunnel/stunnel.conf
         ##-->> AutoInicio
         sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
         echo "ENABLED=1" >>/etc/default/stunnel4
         service stunnel4 restart >/dev/null 2>&1
-        echo -e "\033[1;32m            PUERTO AGREGADO CON EXITO"
-        msg -bar
+
         rm -rf $mainPath/stunnel.crt >/dev/null 2>&1
         rm -rf $mainPath/stunnel.key >/dev/null 2>&1
         rm -rf /root/stunnel.crt >/dev/null 2>&1
         rm -rf /root/stunnel.key >/dev/null 2>&1
-        return 0
+
+        msgSuccess
     }
     cert_ssl() {
-        clear && clear
+        showCabezera "AGREGAR CERTIFICADO MANUAL"
+
+        msg -amarillo "Tenga ya su SSL activo y configurado Previamente"
+        msg -verde ">> Suba su certificado en zip a Dropbox"
         msg -bar
-        msg -tit
-        msg -bar
-        echo -e "\033[1;93m             AGREGAR CERTIFICADO MANUAL"
-        msg -bar
-        echo -e "\033[1;97m Tenga ya su SSL activo y configurado Previamente"
-        echo -e "\033[1;93m >> Suba su certificado en zip a Dropbox"
-        msg -bar
-        echo -ne "\033[1;97m Pegue el link Abajo:\e[1;96m\n  " && read linkd
+
+        msgne -blanco "Pegue el link Abajo:" && msg -verde ""
+        read linkd
+
         wget $linkd -O /etc/stunnel/certificado.zip &>/dev/null
         cd /etc/stunnel/
         unzip -o certificado.zip &>/dev/null
         cat private.key certificate.crt ca_bundle.crt >stunnel.pem
+
         ##-->> AutoInicio
         sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
         echo "ENABLED=1" >>/etc/default/stunnel4
@@ -141,10 +143,8 @@ proto_ssl() {
         systemctl restart stunnel4 &>/dev/null
         systemctl restart stunnel &>/dev/null
         cd
-        msg -bar
-        echo -e "\e[1;32m         >> CERTIFICADO INSTALADO CON EXITO <<"
-        msg -bar
 
+        msgSuccess
     }
 
     certificadom() {
@@ -170,33 +170,35 @@ proto_ssl() {
                     </IfModule> " >/etc/apache2/ports.conf
                 service apache2 restart
             }
-            clear && clear
-            msg -bar
-            msg -tit
-            msg -bar
-            echo -e "\033[1;93m             AGREGAR CERTIFICADO ZEROSSL"
-            msg -bar
-            echo -e "\e[1;37m Verificar dominio.......... \e[0m\n"
-            echo -e "\e[1;37m TIENES QUE MODIFICAR EL ARCHIVO DESCARGADO\n EJEMPLO: 530DDCDC3 comodoca.com 7bac5e210\e[0m"
+
+            showCabezera "AGREGAR CERTIFICADO ZEROSSL"
+
+            msg -amarillo "Verificar dominio.........."
+            msg -amarillo "TIENES QUE MODIFICAR EL ARCHIVO DESCARGADO"
+            msg -verde "EJEMPLO: 530DDCDC3 comodoca.com 7bac5e210"
             msg -bar
             read -p " LLAVE > Nombre Del Archivo: " keyy
             msg -bar
             read -p " DATOS > De La LLAVE: " dat2w
+
             [[ ! -d /var/www/html/.well-known ]] && mkdir /var/www/html/.well-known
             [[ ! -d /var/www/html/.well-known/pki-validation ]] && mkdir /var/www/html/.well-known/pki-validation
             datfr1=$(echo "$dat2w" | awk '{print $1}')
             datfr2=$(echo "$dat2w" | awk '{print $2}')
             datfr3=$(echo "$dat2w" | awk '{print $3}')
             echo -ne "${datfr1}\n${datfr2}\n${datfr3}" >/var/www/html/.well-known/pki-validation/$keyy.txt
+
             msg -bar
-            echo -e "\e[1;37m VERIFIQUE EN LA PÁGINA ZEROSSL \e[0m"
+            msg -amarillo "VERIFIQUE EN LA PÁGINA ZEROSSL"
             msg -bar
             read -p " ENTER PARA CONTINUAR"
             clear
+
             msg -bar
-            echo -e "\e[1;33m👇 LINK DEL CERTIFICADO 👇       \n     \e[0m"
-            echo -e "\e[1;36m LINK\e[37m: \e[34m"
+            msgCentrado -blanco "👇 LINK DEL CERTIFICADO 👇" && echo -e ""
+            msgne -blanco "LINK: " && msg -verde ""
             read link
+
             incertis() {
                 wget $link -O /etc/stunnel/certificado.zip
                 cd /etc/stunnel/
@@ -212,7 +214,7 @@ proto_ssl() {
             }
             incertis &>/dev/null && echo -e " \e[1;33mEXTRAYENDO CERTIFICADO " | pv -qL 10
             msg -bar
-            echo -e "${cor[4]} CERTIFICADO INSTALADO \e[0m"
+            msgCentrado -verde "CERTIFICADO INSTALADO"
             msg -bar
 
             for pid in $(pgrep apache2); do
@@ -248,7 +250,7 @@ proto_ssl() {
             done
         else
             msg -bar
-            echo -e "${cor[3]} SSL/TLS NO INSTALADO \e[0m"
+            msgCentrado -rojo "SSL/TLS NO INSTALADO"
             msg -bar
         fi
     }
