@@ -18,7 +18,7 @@ source $functionsPath/monitorearRecursos.sh
 source $functionsPath/autoiniciarScript.sh
 source $functionsPath/puertosActivos.sh
 
-mostrar_menu() {
+mainMenu() {
     local num=1
 
     clear
@@ -86,10 +86,10 @@ mostrar_menu() {
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
         sleep 2
-        mostrar_menu
+        mainMenu
         ;;
     esac
 }
 
 # Bucle para mostrar el menú hasta que el usuario decida salir
-mostrar_menu
+mainMenu
