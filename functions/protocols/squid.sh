@@ -92,17 +92,17 @@ proto_squid() {
 
         clear
         msg -bar
-        msg -blanco "SEGUIMIENTO SQUID"
+        msgCentrado -blanco "SEGUIMIENTO SQUID"
         msg -bar
 
         msgInstall -blanco "Instalando squid"
         fun_bar "apt-get install squid -y"
 
         msg -bar
-        msg -blanco "INICIANDO CONFIGURACION"
+        msgCentrado -blanco "INICIANDO CONFIGURACION"
         echo -e ".bookclaro.com.br/\n.claro.com.ar/\n.claro.com.br/\n.claro.com.co/\n.claro.com.ec/\n.claro.com.gt/\n.cloudfront.net/\n.claro.com.ni/\n.claro.com.pe/\n.claro.com.sv/\n.claro.cr/\n.clarocurtas.com.br/\n.claroideas.com/\n.claroideias.com.br/\n.claromusica.com/\n.clarosomdechamada.com.br/\n.clarovideo.com/\n.facebook.net/\n.facebook.com/\n.netclaro.com.br/\n.oi.com.br/\n.oimusica.com.br/\n.speedtest.net/\n.tim.com.br/\n.timanamaria.com.br/\n.vivo.com.br/\n.rdio.com/\n.compute-1.amazonaws.com/\n.portalrecarga.vivo.com.br/\n.vivo.ddivulga.com/" >/etc/payloads
         msg -bar
-        msg -blanco "Ahora Escoja Una Conf Para Su Proxy"
+        msgCentrado -blanco "Ahora Escoja Una Conf Para Su Proxy"
         msg -bar
         msg -blanco "|1| Basico"
         msg -blanco "|2| Avanzado"
