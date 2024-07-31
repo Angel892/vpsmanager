@@ -145,9 +145,6 @@ verif_fun() {
                 continue
             fi
 
-            echo "Hoalaa ${DataSEC}"
-            return
-
             #----CONTADOR DE ONLINES
             local PID="0+"
             [[ $SSH = ON ]] && PID+="$(ps aux | grep -v grep | grep sshd | grep -w "$user" | grep -v root | wc -l 2>/dev/null)+"
@@ -155,6 +152,9 @@ verif_fun() {
             [[ $OPEN = ON ]] && [[ $(openvpn_pids | grep -w "$user" | cut -d'|' -f2) ]] && PID+="$(openvpn_pids | grep -w "$user" | cut -d'|' -f2)+"
             local ONLINES+="$(echo ${PID}0 | bc)+"
             echo "${ONLINES}0" | bc >$mainPath/temp/USRonlines
+
+            echo "Hoalaa ${DataSEC}"
+            return
 
             #----CONTADOR DE LIMITE X USER
             local conexao[$user]="$(echo ${PID}0 | bc)"
