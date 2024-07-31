@@ -690,7 +690,7 @@ fun_bar() {
         done
     done
 
-    echo -ne " - \033[1;32m100%\033[1;33m]\n"
+    echo -ne "\033[1;33m] - \033[1;32m100%\n"
     echo -e ""
 }
 
