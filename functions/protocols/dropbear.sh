@@ -63,10 +63,10 @@ EOF
     desactivar_dropbear() {
         showCabezera "DESINSTALANDO DROPBEAR"
 
-        msgInstall "DETENIENDO DROPBEAR"
+        msgInstall -blanco "DETENIENDO DROPBEAR"
         fun_bar "service dropbear stop"
 
-        msgInstall "REMOVIENDO DROPBEAR"
+        msgInstall -blanco "REMOVIENDO DROPBEAR"
         fun_bar "apt-get remove dropbear -y"
 
 
