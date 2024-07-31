@@ -127,9 +127,6 @@ verif_fun() {
             ##EXPIRADOS
             local DataUser=$(chage -l "${user}" | grep -i co | awk -F ":" '{print $2}')
 
-            echo "Hoalaa ${DataUser}"
-            return
-
             if [[ ! -z "$(echo $DataUser | grep never)" ]]; then
                 echo -e "\033[1;31mILIMITADO"
                 continue
@@ -147,6 +144,9 @@ verif_fun() {
                 block_userfun $user -loked
                 continue
             fi
+
+            echo "Hoalaa ${DataSEC}"
+            return
 
             #----CONTADOR DE ONLINES
             local PID="0+"
