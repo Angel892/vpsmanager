@@ -97,15 +97,17 @@ EOF
     case ${option[$selection]} in
 
     "instalar")
-        msg -bar
         activar_dropbear
         ;;
     "detener")
-        msg -bar
         desactivar_dropbear
         ;;
-    "volver") menuProtocols ;;
-    *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
+    "volver")
+        menuProtocols
+        ;;
+    *)
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+        ;;
 
     esac
 
