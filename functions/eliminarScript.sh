@@ -5,9 +5,9 @@ eliminar_script() {
     msg -bar
     msg -tit
     msg -bar
-    msg -amarillo "          ¿ DESEA DESINSTALAR SCRIPT ?"
+    msgCentrado -amarillo "¿ DESEA DESINSTALAR SCRIPT ?"
     msg -bar
-    echo -e "\e[1;97m        Esto borrara todos los archivos LXManager"
+    msgCentrado -blanco "Esto borrara todos los archivos LXManager"
     msg -bar
     while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
         read -p " [ S / N ]: " yesno
