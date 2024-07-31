@@ -46,16 +46,7 @@ proto_openvpn() {
         [[ -z $NEWDNS ]] && NEWDNS="$SDNS" || NEWDNS="$NEWDNS $SDNS"
         unset SDNS
     }
-    mportas() {
-        unset portas
-        portas_var=$(lsof -V -i -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND")
-        while read port; do
-            var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-            [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-        done <<<"$portas_var"
-        i=1
-        echo -e "$portas"
-    }
+
     dns_fun() {
         case $1 in
         3) dns[$2]='push "dhcp-option DNS 1.0.0.1"' ;;

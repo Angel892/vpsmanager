@@ -1,15 +1,5 @@
 #--- SHADOWSOCK LIV + OBFS
 proto_shadowsockL() {
-    mportas() {
-        unset portas
-        portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
-        while read port; do
-            var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-            [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-        done <<<"$portas_var"
-        i=1
-        echo -e "$portas"
-    }
     fun_ip() {
         MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
         MEU_IP2=$(wget -qO- ipv4.icanhazip.com)

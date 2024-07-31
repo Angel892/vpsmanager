@@ -2,16 +2,6 @@
 sshl_install() {
     clear && clear
     declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
-    mportas() {
-        unset portas
-        portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
-        while read port; do
-            var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-            [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-        done <<<"$portas_var"
-        i=1
-        echo -e "$portas"
-    }
     sslh_inicial() {
         clear && clear
         [[ $(dpkg --get-selections | grep -w "sslh" | head -1) ]] && {

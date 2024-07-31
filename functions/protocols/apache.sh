@@ -28,9 +28,9 @@ menuApache() {
         msgSuccess
     }
 
-    local num=1
-
     showCabezera "MENU APACHE"
+
+    local num=1
 
     # INSTALAR
     opcionMenu -blanco $num "Instalar apache"
