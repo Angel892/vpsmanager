@@ -193,7 +193,7 @@ menuSSH() {
     let num++
 
     # LIMITADOR DE CUENTAS
-    #verif=$(verif_fun)
+    verif=$(verif_fun)
     #echo -e "test ${verif}"
 
     VERY="$(ps aux | grep "${verif}" | grep -v grep)"
