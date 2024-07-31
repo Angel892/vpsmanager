@@ -342,7 +342,4 @@ proto_squid() {
     else
         fun_squid
     fi
-
-    menuProtocols
-
 }

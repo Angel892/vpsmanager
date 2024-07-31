@@ -82,5 +82,4 @@ backupUsuariosSSH() {
     echo ""
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-    menuSSH
 }

@@ -221,7 +221,6 @@ menuSSH() {
     "renovar") renovarCuentaSSH ;;
     "limitador") limitadorMenu ;;
     "volver")
-        mainMenu
         return
         ;;
     *)
@@ -231,5 +230,4 @@ menuSSH() {
     esac
 
     menuSSH
-    return
 }

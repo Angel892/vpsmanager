@@ -425,7 +425,6 @@ crearCuentaSSH() {
     "hwid") cuenta_hwid ;;
     "token") cuenta_token ;;
     "volver")
-        menuSSH
         return
         ;;
     *)
@@ -434,5 +433,4 @@ crearCuentaSSH() {
 
     esac
     crearCuentaSSH
-    return
 }

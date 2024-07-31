@@ -109,5 +109,4 @@ editarCuentaSSH() {
     edit_user_fun "${useredit}" "${senhauser}" "${diasuser}" "${limiteuser}" && msgCentrado -verde "Usuario Modificado Con Exito" && rm -rf $mainPath/temp/Limiter.log || msgCentrado -rojo "Error, Usuario no Modificado"
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-    menuSSH
 }

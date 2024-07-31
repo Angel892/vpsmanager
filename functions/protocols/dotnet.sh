@@ -88,7 +88,6 @@ menuDotnet() {
     "uninstall") uninstall ;;
     "uninstallef") uninstallef ;;
     "volver")
-        menuProtocols
         return
         ;;
     *)
@@ -98,5 +97,4 @@ menuDotnet() {
     esac
 
     menuDotnet
-    return
 }

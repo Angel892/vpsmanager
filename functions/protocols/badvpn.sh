@@ -79,7 +79,6 @@ proto_badvpn() {
     "install") install ;;
     "uninstall") uninstall ;;
     "volver")
-        menuProtocols
         return
         ;;
     *)
@@ -89,5 +88,4 @@ proto_badvpn() {
     esac
 
     proto_badvpn
-    return
 }

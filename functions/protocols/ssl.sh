@@ -420,12 +420,12 @@ proto_ssl() {
         ;;
 
     "volver")
-        menuProtocols
         return
         ;;
-    *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
+    *)
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+        ;;
     esac
 
     proto_ssl
-    return
 }

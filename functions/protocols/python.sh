@@ -59,7 +59,6 @@ menuPython() {
     "instalar") instalar ;;
     "detener") detener ;;
     "volver")
-        menuProtocols
         return
         ;;
     *)
@@ -69,5 +68,4 @@ menuPython() {
     esac
 
     menuPython
-    return
 }

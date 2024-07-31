@@ -26,5 +26,4 @@ eliminarTodosUsuariosSSH() {
     unlockall2
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-    menuSSH
 }

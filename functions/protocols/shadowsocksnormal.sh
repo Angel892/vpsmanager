@@ -41,7 +41,7 @@ proto_shadowsockN() {
             echo -e "\033[1;32m     >> SHADOWSOCK-N DESINSTALADO CON EXITO << "
             msg -bar
             rm /etc/shadowsocks.json
-            menuProtocols
+            return
         }
         while true; do
             clear && clear

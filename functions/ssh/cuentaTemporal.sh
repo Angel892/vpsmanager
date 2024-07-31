@@ -91,6 +91,4 @@ crearCuentaTemporalSSH() {
     echo -e "\e[38;5;202m Minutos de Duración: \033[1;32m$tmp"
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-
-    menuSSH
 }

@@ -1387,7 +1387,7 @@ EOF
             msg -bar
             echo -e "\033[1;32m   >> SHADOWSOCK-LIB DESINSTALADO CON EXITO <<"
             msg -bar
-
+            return
         }
         clear && clear
         msg -bar
@@ -1407,5 +1407,4 @@ EOF
     fun_shadowsocks
 
     read -t 180 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-    menuProtocols
 }

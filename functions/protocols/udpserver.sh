@@ -99,7 +99,6 @@ EOF
         desactivar_badvpn
         ;;
     0)
-        menuProtocols
         return
         ;;
     *)
@@ -109,7 +108,4 @@ EOF
     esac
 
     udp_serverr
-    return
-
-    #exit 0
 }

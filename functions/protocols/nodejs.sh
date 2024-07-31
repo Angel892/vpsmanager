@@ -56,7 +56,6 @@ menuNodeJS() {
     "install") install ;;
     "uninstall") uninstall ;;
     "volver")
-        menuProtocols
         return
         ;;
     *)
@@ -66,5 +65,4 @@ menuNodeJS() {
     esac
 
     menuNodeJS
-    return
 }

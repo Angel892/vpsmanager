@@ -54,7 +54,6 @@ menuNginx() {
     "install") install ;;
     "uninstall") uninstall ;;
     "volver")
-        menuProtocols
         return
         ;;
     *)
@@ -64,5 +63,4 @@ menuNginx() {
     esac
 
     menuNginx
-    return
 }

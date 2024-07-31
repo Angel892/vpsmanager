@@ -118,5 +118,4 @@ renovarCuentaSSH() {
 
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-    menuSSH
 }

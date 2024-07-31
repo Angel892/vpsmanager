@@ -88,5 +88,4 @@ bloquearDesbloquearUsuarioSSH() {
     block_userfun "$usuario_del" && msg -rojo "[ Bloqueado ]" || msg -verd "[ Desbloqueado ]"
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-    menuSSH
 }

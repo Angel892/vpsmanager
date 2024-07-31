@@ -97,7 +97,6 @@ server_psiphones() {
         desactivar_psiphone
         ;;
     0)
-        menuProtocols;
         return
         ;;
     *)
@@ -107,8 +106,4 @@ server_psiphones() {
     esac
 
     server_psiphones
-    return
-
-    #exit 0
-
 }

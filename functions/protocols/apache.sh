@@ -54,7 +54,6 @@ menuApache() {
     "install") install ;;
     "uninstall") uninstall ;;
     "volver")
-        menuProtocols
         return
         ;;
     *)
@@ -64,5 +63,4 @@ menuApache() {
     esac
 
     menuApache
-    return
 }

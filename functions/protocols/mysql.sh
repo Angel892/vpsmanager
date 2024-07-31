@@ -74,7 +74,6 @@ menuMysql() {
     "install") install ;;
     "uninstall") uninstall ;;
     "volver")
-        menuProtocols
         return
         ;;
     *)
@@ -84,5 +83,4 @@ menuMysql() {
     esac
 
     menuMysql
-    return
 }
