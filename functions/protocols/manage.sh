@@ -1,6 +1,6 @@
 #!/bin/bash
 
-local PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
+PROTOCOLS_PATH="/etc/vpsmanager/functions/protocols"
 
 source $PROTOCOLS_PATH/apache.sh
 source $PROTOCOLS_PATH/nginx.sh
