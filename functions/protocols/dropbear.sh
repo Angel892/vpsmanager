@@ -94,12 +94,10 @@ EOF
     "instalar")
         msg -bar
         activar_dropbear
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         ;;
     "detener")
         msg -bar
         desactivar_dropbear
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         ;;
     "volver") menuProtocols ;;
     *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
