@@ -669,66 +669,34 @@ fun_bar() {
     ) &
     >/dev/null
     pid=$!
-    while [[ -d /proc/$pid ]]; do
-        echo -ne " \033[1;33m["
-        for ((i = 0; i < 20; i++)); do
-            echo -ne "\033[1;31m##"
-            sleep 0.2
-        done
-        echo -ne "\033[1;33m]"
-        sleep 1s
-        echo
-        tput cuu1
-        tput dl1
-    done
-    echo -ne " \033[1;33m[\033[1;31m########################################\033[1;33m] - \033[1;32m100%\033[0m\n"
-    sleep 1s
-}
 
-msgInstall() {
-    local messageText=$(echo "$2" | tr '[:lower:]' '[:upper:]')
-
-    case $1 in
-    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
-    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
-    -rojo) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
-    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
-    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
-    -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
-    "-bar2" | "-bar") cor="${NEGRITA}${ROJO}════════════════════════════════════════════════════" && echo -e "${SINCOLOR}${cor}${SINCOLOR}" ;;
-    esac
-
-    #echo -e "\033[1;97m    ◽️ $messageText"
-}
-
-# ------- BARRA DE INTALL BASICO
-barra_intallb() {
-    comando="$1"
-    _=$(
-        $comando >/dev/null 2>&1
-    ) &
-    pid=$!
     echo -ne "  \033[1;33m["
 
-    while [[ -d /proc/$pid ]]; do
-        for ((i = 0; i < 40; i++)); do
-            if [[ ! -d /proc/$pid ]]; then
+    while kill -0 $pid 2>/dev/null; do
+        for ((i = 0; i < 20; i++)); do
+            if ! kill -0 $pid 2>/dev/null; then
                 break
             fi
-            echo -ne "\033[1;31m>"
+            echo -ne "\033[1;31m#"
 
-            if [ "$i" -ge 39 ]; then
+            if [ "$i" -ge 19 ]; then
                 echo -ne "\033[1;33m]"
                 echo
                 tput cuu1 && tput dl1
                 echo -ne "  \033[1;33m["
             fi
 
-            sleep 0.1
+            sleep 0.08
         done
     done
+    if dpkg --get-selections | grep -qw "$paquete"; then
+        ESTATUS="\033[1;33m       \033[92mINSTALADO"
+    else
+        ESTATUS="\033[91m  FALLO DE INSTALACION"
+    fi
 
-    echo -ne "\033[1;33m] - \033[1;32m OK \033[0m\n"
+    echo -ne " - \033[1;32m100%\033[0m\n"
+    echo -e ""
 }
 
 # ------- BARRA DE INSTALL PAQUETES
@@ -771,6 +739,52 @@ barra_intall() {
     echo -e ""
 }
 
+# ------- BARRA DE INTALL BASICO
+barra_intallb() {
+    comando="$1"
+    _=$(
+        $comando >/dev/null 2>&1
+    ) &
+    pid=$!
+    echo -ne "  \033[1;33m["
+
+    while [[ -d /proc/$pid ]]; do
+        for ((i = 0; i < 40; i++)); do
+            if [[ ! -d /proc/$pid ]]; then
+                break
+            fi
+            echo -ne "\033[1;31m>"
+
+            if [ "$i" -ge 39 ]; then
+                echo -ne "\033[1;33m]"
+                echo
+                tput cuu1 && tput dl1
+                echo -ne "  \033[1;33m["
+            fi
+
+            sleep 0.1
+        done
+    done
+
+    echo -ne "\033[1;33m] - \033[1;32m OK \033[0m\n"
+}
+
+msgInstall() {
+    local messageText=$(echo "$2" | tr '[:lower:]' '[:upper:]')
+
+    case $1 in
+    -amarillo) cor="${NEGRITA}${AMARILLO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -verm) cor="${NEGRITA}${AMARILLO}${NEGRITO}[!] ${ROJO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -rojo) cor="${NEGRITA}${ROJO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -blanco) cor="${NEGRITA}${BLANCO}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -verde) cor="${NEGRITA}${VERDE}${NEGRITO}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    -gris) cor="${NEGRITA}${GRIS}${SINCOLOR}" && echo -e "${cor}    ◽️ ${messageText}${SINCOLOR}" ;;
+    "-bar2" | "-bar") cor="${NEGRITA}${ROJO}════════════════════════════════════════════════════" && echo -e "${SINCOLOR}${cor}${SINCOLOR}" ;;
+    esac
+
+    #echo -e "\033[1;97m    ◽️ $messageText"
+}
+
 showCabezera() {
     local messageText=$(echo "$1" | tr '[:lower:]' '[:upper:]')
     clear && clear
@@ -796,16 +810,14 @@ msgError() {
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
 }
 
-
 mportas() {
-  unset portas
-  portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
-  while read port; do
-    var1=$(echo $port | awk '{print $1}')
-    var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-    [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-  done <<<"$portas_var"
-  i=1
-  echo -e "$portas"
+    unset portas
+    portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+    while read port; do
+        var1=$(echo $port | awk '{print $1}')
+        var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+        [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
+    done <<<"$portas_var"
+    i=1
+    echo -e "$portas"
 }
-

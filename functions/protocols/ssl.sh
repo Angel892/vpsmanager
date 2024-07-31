@@ -1,7 +1,6 @@
 #--- INSTALAR SSL
 proto_ssl() {
-    clear
-    clear
+
     declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
 
     ssl_stunel() {
@@ -9,9 +8,12 @@ proto_ssl() {
         clear
         [[ $(mportas | grep stunnel4 | head -1) ]] && {
             msg -bar
-            echo -e "\033[1;31m                 DESINSTALANDO SSL"
+            msgCentrado -blanco "DESINSTALANDO SSL"
             msg -bar
-            service stunnel4 stop >/dev/null 2>&1
+
+            msgInstall "Deteniendo ssl"
+            barra_intallb "service stunnel4 stop"
+            
             fun_bar "apt-get purge  stunnel4 -y"
             msg -bar
             echo -e "\033[1;32m        >> SSL DESINSTALADO  CON EXITO <<"
@@ -342,13 +344,7 @@ proto_ssl() {
 
     }
 
-    clear && clear
-    msg -bar
-
-    msg -tit
-    msg -bar
-    echo -e "\e[1;93m    INSTALADOR MONO Y MULTI SSL | SCRIPT LXServer"
-    msg -bar
+    showCabezera "INSTALADOR MONO Y MULTI SSL | SCRIPT LXServer"
 
     local num=1
     # INSTALAR DROPBEAR
@@ -389,34 +385,22 @@ proto_ssl() {
     selection=$(selectionFun $num)
     case ${option[$selection]} in
     "ssl_stunel")
-        msg -bar
         ssl_stunel
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         ;;
     "ssl_stunel_2")
-        msg -bar
         ssl_stunel_2
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         ;;
     "cert_ssl")
-        msg -bar
         cert_ssl
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         ;;
     "certificadom")
-        msg -bar
         certificadom
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         ;;
     "gerar_cert")
-        msg -bar
         gerar_cert 1
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         ;;
     "gerar_cert2")
-        msg -bar
         gerar_cert 2
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
         ;;
 
     "volver")
