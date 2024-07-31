@@ -1,7 +1,5 @@
 #!/bin/bash
 
-local MENU="SSH"
-
 SSH_PATH="$functionsPath/ssh"
 
 #ARCHIVOS NECESARIOS
