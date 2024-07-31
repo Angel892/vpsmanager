@@ -322,110 +322,110 @@ crearCuentaSSH() {
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
     }
 
-    while true; do
-
-        clear && clear
+    clear && clear
+    msg -bar
+    ##-->>GENERAR USUARIOS TOTALES
+    cat $mainPath/cuentassh $mainPath/cuentahwid $mainPath/cuentatoken 2>/dev/null | cut -d '|' -f1 >$mainPath/cuentasactivas
+    if [[ -e "$mainPath/cuentasactivas" ]]; then
+        readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivas)
+    fi
+    if [[ -z ${mostrar_totales[@]} ]]; then
+        msg -tit
+        msgCentrado -amarillo "AGREGAR USUARIO | Ningun Usuario Registrado"
         msg -bar
+    else
+        msg -tit
+        msg -bar
+        msgCentrado -amarillo "AGREGAR USUARIO | Usuarios  Activos en Servidor"
+        ##-->>LECTOR DE CUENTAS
+        if [[ -e "$mainPath/cuentassh" ]]; then
+            readarray -t usuarios_ativos1 < <(cut -d '|' -f1 $mainPath/cuentassh)
+            readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 $mainPath/cuentassh)
+        fi
+        if [[ -e "$mainPath/cuentahwid" ]]; then
+            readarray -t usuarios_ativos2 < <(cut -d '|' -f1 $mainPath/cuentahwid)
+        fi
+        if [[ -e "$mainPath/cuentatoken" ]]; then
+            readarray -t usuarios_ativos3 < <(cut -d '|' -f1 $mainPath/cuentatoken)
+        fi
         ##-->>GENERAR USUARIOS TOTALES
         cat $mainPath/cuentassh $mainPath/cuentahwid $mainPath/cuentatoken 2>/dev/null | cut -d '|' -f1 >$mainPath/cuentasactivas
         if [[ -e "$mainPath/cuentasactivas" ]]; then
             readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivas)
         fi
-        if [[ -z ${mostrar_totales[@]} ]]; then
-            msg -tit
-            msgCentrado -amarillo "AGREGAR USUARIO | Ningun Usuario Registrado"
-            msg -bar
+        #SSH
+        if [[ -z ${usuarios_ativos1[@]} ]]; then
+            echo "" >/dev/null 2>&1
         else
-            msg -tit
-            msg -bar
-            msgCentrado -amarillo "AGREGAR USUARIO | Usuarios  Activos en Servidor"
-            ##-->>LECTOR DE CUENTAS
-            if [[ -e "$mainPath/cuentassh" ]]; then
-                readarray -t usuarios_ativos1 < <(cut -d '|' -f1 $mainPath/cuentassh)
-                readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 $mainPath/cuentassh)
-            fi
-            if [[ -e "$mainPath/cuentahwid" ]]; then
-                readarray -t usuarios_ativos2 < <(cut -d '|' -f1 $mainPath/cuentahwid)
-            fi
-            if [[ -e "$mainPath/cuentatoken" ]]; then
-                readarray -t usuarios_ativos3 < <(cut -d '|' -f1 $mainPath/cuentatoken)
-            fi
-            ##-->>GENERAR USUARIOS TOTALES
-            cat $mainPath/cuentassh $mainPath/cuentahwid $mainPath/cuentatoken 2>/dev/null | cut -d '|' -f1 >$mainPath/cuentasactivas
-            if [[ -e "$mainPath/cuentasactivas" ]]; then
-                readarray -t mostrar_totales < <(cut -d '|' -f1 $mainPath/cuentasactivas)
-            fi
-            #SSH
-            if [[ -z ${usuarios_ativos1[@]} ]]; then
-                echo "" >/dev/null 2>&1
-            else
-                echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS NORMALES  \e[0m\e[38;5;239m════════════════"
-            fi
-            i=1
-            for us in $(echo ${usuarios_ativos1[@]}); do
-                echo -e " \e[1;32m$i\033[1;31m -\e[1;97m ${us}"
-                let i++
-            done
-            #HWID
-            if [[ -z ${usuarios_ativos2[@]} ]]; then
-                echo "" >/dev/null 2>&1
-            else
-                echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS CON HWID  \e[0m\e[38;5;239m════════════════"
-            fi
-            i=1
-            for us in $(echo ${usuarios_ativos2[@]}); do
-                echo -e " \e[1;32m$i\033[1;31m -\e[1;97m ${us}"
-                let i++
-            done
-            #TOKEN
-            if [[ -z ${usuarios_ativos3[@]} ]]; then
-                echo "" >/dev/null 2>&1
-            else
-                echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS CON TOKEN  \e[0m\e[38;5;239m═══════════════"
-            fi
-            i=1
-            for us in $(echo ${usuarios_ativos3[@]}); do
-                echo -e " \e[1;32m$i\033[1;31m -\e[1;97m ${us}"
-                let i++
-            done
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS NORMALES  \e[0m\e[38;5;239m════════════════"
         fi
+        i=1
+        for us in $(echo ${usuarios_ativos1[@]}); do
+            echo -e " \e[1;32m$i\033[1;31m -\e[1;97m ${us}"
+            let i++
+        done
+        #HWID
+        if [[ -z ${usuarios_ativos2[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS CON HWID  \e[0m\e[38;5;239m════════════════"
+        fi
+        i=1
+        for us in $(echo ${usuarios_ativos2[@]}); do
+            echo -e " \e[1;32m$i\033[1;31m -\e[1;97m ${us}"
+            let i++
+        done
+        #TOKEN
+        if [[ -z ${usuarios_ativos3[@]} ]]; then
+            echo "" >/dev/null 2>&1
+        else
+            echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS CON TOKEN  \e[0m\e[38;5;239m═══════════════"
+        fi
+        i=1
+        for us in $(echo ${usuarios_ativos3[@]}); do
+            echo -e " \e[1;32m$i\033[1;31m -\e[1;97m ${us}"
+            let i++
+        done
+    fi
 
-        local num=1
+    local num=1
 
-        msg -bar
-        msgCentrado -azul "--   Seleccione primero Tipo de Cuenta   --"
+    msg -bar
+    msgCentrado -azul "--   Seleccione primero Tipo de Cuenta   --"
 
-        # NORMAL
-        opcionMenu -blanco $num "NORMAL" false 4
-        option[$num]="normal"
-        let num++
+    # NORMAL
+    opcionMenu -blanco $num "NORMAL" false 4
+    option[$num]="normal"
+    let num++
 
-        # HWID
-        opcionMenu -blanco $num "HWID" false 4
-        option[$num]="hwid"
-        let num++
+    # HWID
+    opcionMenu -blanco $num "HWID" false 4
+    option[$num]="hwid"
+    let num++
 
-        # TOKEN
-        opcionMenu -blanco $num "TOKEN"
-        option[$num]="token"
-        let num++
+    # TOKEN
+    opcionMenu -blanco $num "TOKEN"
+    option[$num]="token"
+    let num++
 
-        msg -bar
+    msg -bar
 
-        # SALIR
-        opcionMenu -rojo 0 "Volver al menu anterior"
-        option[0]="volver"
+    # SALIR
+    opcionMenu -rojo 0 "Volver al menu anterior"
+    option[0]="volver"
 
-        msg -bar
+    msg -bar
 
-        selection=$(selectionFun $num)
-        case ${option[$selection]} in
-        "normal") cuenta_normal ;;
-        "hwid") cuenta_hwid ;;
-        "token") cuenta_token ;;
-        "volver") break ;;
-        *) echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}" ;;
+    selection=$(selectionFun $num)
+    case ${option[$selection]} in
+    "normal") cuenta_normal ;;
+    "hwid") cuenta_hwid ;;
+    "token") cuenta_token ;;
+    "volver") menuSSH ;;
+    *)
+        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+        crearCuentaSSH
+        ;;
 
-        esac
-    done
+    esac
 }
