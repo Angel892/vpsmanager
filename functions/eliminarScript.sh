@@ -28,4 +28,6 @@ eliminar_script() {
         exit
         exit
     fi
+
+    mainMenu
 }
