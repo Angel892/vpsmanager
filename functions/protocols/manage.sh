@@ -185,14 +185,11 @@ menuProtocols() {
     "python") menuPython ;;
     "volver")
         mainMenu
-        return
         ;;
     *)
         echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+        menuProtocols
         ;;
     esac
-
-    menuProtocols
-    return
 
 }
