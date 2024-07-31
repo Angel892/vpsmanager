@@ -266,7 +266,6 @@ proto_squid() {
         for ufww in $(mportas | awk '{print $2}'); do
             ufw allow $ufww >/dev/null 2>&1
         done
-        
 
         msgSuccess
     }
@@ -292,7 +291,7 @@ proto_squid() {
 
         host="$hos/"
         [[ -z $host ]] && return 1
-        [[ $(grep -c "^$host" $payload) -eq 1 ]] && msg -rojo "Host ya Exciste" && return 1
+        [[ $(grep -c "^$host" $payload) -eq 1 ]] && msg -rojo "Host ya Existe" && return 1
 
         echo "$host" >>$payload && grep -v "^$" $payload >/tmp/a && mv /tmp/a $payload
         msgCentrado -verde "Host Agregado con Exito"
@@ -300,12 +299,18 @@ proto_squid() {
         cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
         msg -bar
         if [[ ! -f "/etc/init.d/squid" ]]; then
-            service squid3 reload
-            service squid3 restart
+            msgInstall -blanco "service squid3 reload"
+            fun_bar "service squid3 reload"
+
+            msgInstall -blanco "service squid3 restart"
+            fun_bar "service squid3 restart"
 
         else
-            /etc/init.d/squid reload
-            service squid restart
+            msgInstall -blanco "/etc/init.d/squid reload"
+            fun_bar "/etc/init.d/squid reload"
+
+            msgInstall -blanco "service squid restart"
+            fun_bar "service squid restart"
 
         fi
     }
@@ -338,14 +343,26 @@ proto_squid() {
 
         cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
         msg -bar
-        if [[ ! -f "/etc/init.d/squid" ]]; then
-            service squid3 reload
-            service squid3 restart
-            service squid reload
-            service squid restart
+        if [[ ! -f "/etc/init.d/squid" ]]; then        
+            
+            msgInstall -blanco "service squid3 reload"
+            fun_bar "service squid3 reload"
+
+            msgInstall -blanco "service squid3 restart"
+            fun_bar "service squid3 restart"
+
+            msgInstall -blanco "service squid reload"
+            fun_bar "service squid reload"
+
+            msgInstall -blanco "service squid restart"
+            fun_bar "service squid restart"
+
         else
-            service squid restart
-            service squid3 restart
+            msgInstall -blanco "service squid restart"
+            fun_bar "service squid restart"
+
+            msgInstall -blanco "service squid3 restart"
+            fun_bar "service squid3 restart"
         fi
 
     }
