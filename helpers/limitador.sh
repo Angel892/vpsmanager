@@ -155,8 +155,6 @@ verif_fun() {
             local ONLINES+="$(echo ${PID}0 | bc)+"
             echo "${ONLINES}0" | bc >$mainPath/temp/USRonlines
 
-            echo -e "${PID}"
-
             #----CONTADOR DE LIMITE X USER
             local conexao[$user]="$(echo ${PID}0 | bc)"
             local limite[$user]="$(cat $mainPath/cuentassh | grep -w "${user}" | cut -d'|' -f4)"
@@ -186,7 +184,7 @@ verif_fun() {
     EXPIRADO3="/10"
     echo "${EXPIRADO2}${EXPIRADO3}" | bc >$mainPath/temp/USRexpired
 
-    #clear
+    clear
 }
 
 verif_fun
