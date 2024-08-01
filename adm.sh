@@ -22,12 +22,7 @@ source $functionsPath/puertosActivos.sh
 mainMenu() {
     local num=1
 
-    clear
-    msg -bar
-    msg -tit
-    msg -bar
-    msgCentrado -amarillo "LXMANAGER"
-    msg -bar
+    showCabezera "LXMANAGER"
 
     # SSH
     opcionMenu -amarillo $num "SSH / OPEN VPN" false 2
@@ -38,6 +33,8 @@ mainMenu() {
     opcionMenu -amarillo $num "V2RAY"
     option[$num]="v2ray"
     let num++
+
+    menu -bar
 
     # PROTOCOLOS
     opcionMenu -blanco $num "Instalar Protocolos" false 2
