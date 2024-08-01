@@ -48,7 +48,8 @@ proto_ssl() {
         msgCentrado -verde "Instalando SSL"
         msg -bar
 
-        fun_bar "apt-get install stunnel4 -y"
+        apt-get install stunnel4 -y
+        #fun_bar "apt-get install stunnel4 -y"
 
         msg -bar
         msg -amarillo "A continuacion se le pediran datos de su crt si\n desconoce que datos lleva presione puro ENTER"
