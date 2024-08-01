@@ -156,6 +156,7 @@ desbloqueo_auto() {
 
     }
     unlockall3 &>/dev/null
+    echo "Realizado"
     # rm_vencidos &>/dev/null
 }
 
