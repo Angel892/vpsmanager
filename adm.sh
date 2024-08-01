@@ -25,7 +25,7 @@ mainMenu() {
     showCabezera "LXMANAGER"
 
     # SSH
-    opcionMenu -amarillo $num "SSH / OPEN VPN" false 0 && msgne -blanco " | "
+    opcionMenu -amarillo $num "SSH / OPEN VPN" false 0 && msgne -blanco " |"
     option[$num]="ssh"
     let num++
 
