@@ -126,6 +126,8 @@ verif_fun() {
 
         while read user; do
 
+            echo -e "${user}"
+
             ##EXPIRADOS
             local DataUser=$(chage -l "${user}" | grep -i co | awk -F ":" '{print $2}')
 
