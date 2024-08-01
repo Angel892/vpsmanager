@@ -15,7 +15,7 @@ limitadorMenu() {
         msgCentrado -verde "Predeterminado: 120s"
         msg -bar
         msgne -blanco "Cuantos Segundos (Numeros Unicamente): " && msgne -verde ""
-        read -p "" tiemlim
+        read -p " " -e -i "10" tiemlim
 
         error() {
             msg -rojo "Tiempo invalido,se ajustara a 120s (Tiempo por Defeto)"
