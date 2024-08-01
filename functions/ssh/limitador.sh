@@ -17,10 +17,6 @@ limitadorMenu() {
         msgne -blanco "Cuantos Segundos (Numeros Unicamente): " && msgne -verde ""
         read -p " " -e -i "10" tiemlim
 
-        echo -e "${tiemlim}"
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        return
-
         error() {
             msg -rojo "Tiempo invalido,se ajustara a 120s (Tiempo por Defeto)"
             sleep 5s
@@ -35,8 +31,14 @@ limitadorMenu() {
         }
         #[[ -z "$tiemlim" ]] && tiemlim="120"
         if [[ "$tiemlim" != +([0-9]) ]]; then
+            echo -e "${tiemlim} holaa"
+            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+            return
             error
         fi
+        echo -e "${tiemlim}"
+        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
+        return
         [[ -z "$tiemlim" ]] && tiemlim="120"
         if [ "$tiemlim" -lt "120" ]; then
             error
