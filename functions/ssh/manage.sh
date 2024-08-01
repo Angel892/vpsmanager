@@ -52,12 +52,12 @@ menuSSH() {
     let num++
 
     # CREAR CUENTA TEMPORAL
-    opcionMenu -blanco $num "Crear cuenta temporal"
+    opcionMenu -blanco $num "Crear cuenta temp"
     option[$num]="crearTemporal"
     let num++
 
     # REMOVER USUARIO
-    opcionMenu -blanco $num "Remover usuario" false 2
+    opcionMenu -blanco $num "Remover usuario" false 1
     option[$num]="remover"
     let num++
 
