@@ -55,6 +55,7 @@ proto_ssl() {
         msg -bar
 
         cat <<EOF >/etc/stunnel/stunnel.conf
+pid = /var/run/stunnel4/stunnel.pid
 client = no
 [SSL]
 cert = /etc/stunnel/stunnel.pem
