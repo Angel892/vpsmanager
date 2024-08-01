@@ -10,8 +10,12 @@ limitadorMenu() {
     PIDVRF="$(ps aux | grep "${mainPath}/helpers/limitador.sh" | grep -v grep | awk '{print $2}')"
 
     if [[ -z $PIDVRF ]]; then
+        msgCentrado -azul "¿Cada cuantos segundos ejecutar el limitador?"
+        msgCentrado -amarillo "+Segundos = -Uso de CPU | -Segundos = +Uso de CPU"
+        msgCentrado -verde "Predeterminado: 120s"
         msg -bar
-        echo -ne "\033[1;96m   ¿Cada cuantos segundos ejecutar el limitador?\n\033[1;97m  +Segundos = -Uso de CPU | -Segundos = +Uso de CPU\033[0;92m \n                Predeterminado:\033[1;37m 120s\n     Cuantos Segundos (Numeros Unicamente): " && read tiemlim
+        msgne -blanco "Cuantos Segundos (Numeros Unicamente): " && msgne -verde ""
+        read -p "" tiemlim
 
         error() {
             msg -rojo "Tiempo invalido,se ajustara a 120s (Tiempo por Defeto)"
