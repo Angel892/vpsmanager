@@ -4,9 +4,33 @@ source /etc/vpsmanager/helpers/global.sh
 desbloqueo_auto() {
 
     unlockall3() {
+        local USRloked="$mainPath/temp/userlock"
+        local LIMITERLOG="$mainPath/temp/Limiter.log"
+        local LIMITERLOG2="$mainPath/temp/Limiter2.log"
+
+        validarArchivo "$LIMITERLOG2"
+        validarArchivo "$USRloked"
+        validarArchivo "$LIMITERLOG"
+
         for user in $(cat /etc/passwd | awk -F : '$3 > 900 {print $1}' | grep -v "rick" | grep -vi "nobody"); do
             userpid=$(ps -u $user | awk {'print $1'})
             usermod -U $user &>/dev/null
+
+            [[ -e ${USRloked} ]] && {
+                newbase=$(cat ${USRloked} | grep -w -v "$user")
+                [[ -e ${USRloked} ]] && rm ${USRloked}
+                for value in $(echo ${newbase}); do
+                    echo $value >>${USRloked}
+                done
+            }
+            [[ -e ${LIMITERLOG} ]] && [[ $(cat ${LIMITERLOG} | grep -w "$user") ]] && {
+                newbase=$(cat ${LIMITERLOG} | grep -w -v "$user")
+                [[ -e ${LIMITERLOG} ]] && rm ${LIMITERLOG}
+                for value in $(echo ${newbase}); do
+                    echo $value >>${LIMITERLOG}
+                    echo $value >>${LIMITERLOG}
+                done
+            }
         done
     }
     mostrar_totales() {
