@@ -1,8 +1,6 @@
 #--- INSTALAR SSL
 proto_ssl() {
 
-    declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
-
     ssl_stunel() {
         clear
         clear
@@ -15,7 +13,7 @@ proto_ssl() {
             fun_bar "service stunnel4 stop"
 
             msgInstall -blanco "Eliminando ssl"
-            fun_bar "apt-get purge  stunnel4 -y"
+            fun_bar "apt-get purge stunnel4 -y"
 
             msgSuccess
             return
@@ -36,7 +34,7 @@ proto_ssl() {
             fi
         done
         msg -bar
-        DPORT="$(mportas | grep $portx | awk '{print $2}' | head -1)"
+        # DPORT="$(mportas | grep $portx | awk '{print $2}' | head -1)"
         msgCentrado -blanco "Ahora Que Puerto sera SSL"
         msg -bar
         while true; do
@@ -94,7 +92,7 @@ proto_ssl() {
         done
 
         msg -bar
-        DPORT="$(mportas | grep $portx | awk '{print $2}' | head -1)"
+        # DPORT="$(mportas | grep $portx | awk '{print $2}' | head -1)"
         msgCentrado -blanco "Ahora Que Puerto sera SSL"
         msg -bar
 
