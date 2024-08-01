@@ -840,7 +840,7 @@ dropbear_pids() {
     #local port_dropbear="$DPB"
     port_drop=$(netstat -nlpt | grep -i dropbear | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2 | xargs | sed -e 's/ /, /g')
     port_dropbear="$port_drop"
-    cat /var/log/auth.log | grep -a -i dropbear | grep -a -i "Password auth succeeded" >/var/log/authday.log
+    cat /var/log/syslog | grep -a -i dropbear | grep -a -i "Password auth succeeded" >/var/log/authday.log
     #cat /var/log/auth.log|grep "$(date|cut -d' ' -f2,3)" > /var/log/authday.log
     #cat /var/log/auth.log | tail -1000 >/var/log/authday.log
     local log="/var/log/authday.log"
