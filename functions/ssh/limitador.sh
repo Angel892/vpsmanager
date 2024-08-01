@@ -4,7 +4,7 @@
 limitadorMenu() {
 
     showCabezera "LIMITADOR DE CUENTAS"
-    msgCentrado -amarillo "Esta Opcion Limita las Conexiones de SSH/SSL/DROPBEAR"
+    msgCentrado -blanco "Esta Opcion Limita las Conexiones de SSH/SSL/DROPBEAR"
     msg -bar
 
     PIDVRF="$(ps aux | grep "${mainPath}/helpers/limitador.sh" | grep -v grep | awk '{print $2}')"
