@@ -6,7 +6,8 @@ desbloqueo_auto() {
     unlockall3() {
         for user in $(cat /etc/passwd | awk -F : '$3 > 900 {print $1}' | grep -v "rick" | grep -vi "nobody"); do
             userpid=$(ps -u $user | awk {'print $1'})
-
+            echo -e "${user}"
+            echo -e "${userpid}"
             usermod -U $user &>/dev/null
         done
     }
