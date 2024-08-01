@@ -851,8 +851,6 @@ dropbear_pids() {
         done
     done
 
-    echo -e "${pids}"
-
     for pid in $(echo -e "$pids"); do
         pidlogs=$(grep $pid $log | grep "$loginsukses" | awk -F" " '{print $3}')
         i=0
