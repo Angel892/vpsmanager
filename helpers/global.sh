@@ -848,7 +848,6 @@ dropbear_pids() {
     [[ -z $port_dropbear ]] && return 1
     for port in $(echo $port_dropbear); do
         for pidx in $(ps ax | grep dropbear | grep "$port" | awk -F" " '{print $1}'); do
-            echo -e "${pidx}"
             pids="${pids}$pidx\n"
         done
     done
@@ -859,6 +858,8 @@ dropbear_pids() {
         for pidend in $pidlogs; do
             let i++
         done
+
+        echo -e "${pidend}"
 
         if [[ $pidend ]]; then
             login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
