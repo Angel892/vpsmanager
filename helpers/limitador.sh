@@ -126,8 +126,6 @@ verif_fun() {
 
         while read user; do
 
-            echo -e "${user}"
-
             ##EXPIRADOS
             local DataUser=$(chage -l "${user}" | grep -i co | awk -F ":" '{print $2}')
 
@@ -148,6 +146,8 @@ verif_fun() {
                 block_userfun $user -loked
                 continue
             fi
+
+            echo -e "${user}"
 
             #----CONTADOR DE ONLINES
             local PID="0+"
