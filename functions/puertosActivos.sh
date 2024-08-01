@@ -9,9 +9,9 @@ mostrarPuertosActivos() {
     echo -e "\033[1;93m           INFORMACION DE PUERTOS ACTIVOS"
     msg -bar
     local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
-    local NOREPEAT
-    local reQ
-    local Port
+    unset NOREPEAT
+    unset reQ
+    unset Port
     while read port; do
         reQ=$(echo ${port} | awk '{print $1}')
         Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
@@ -70,9 +70,9 @@ mostrarPuertosActivos() {
     done <<<"${portasVAR}"
     #UDP
     local portasVAR=$(lsof -V -i -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND")
-    local NOREPEAT
-    local reQ
-    local Port
+    unset NOREPEAT
+    unset reQ
+    unset Port
     while read port; do
         reQ=$(echo ${port} | awk '{print $1}')
         Port=$(echo ${port} | awk '{print $9}' | awk -F ":" '{print $2}')
