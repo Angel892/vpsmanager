@@ -47,7 +47,7 @@ menuSSH() {
     showCabezera "SSH MANAGER"
 
     # CREAR CUENTA
-    opcionMenu -blanco $num "Crear cuenta"
+    opcionMenu -blanco $num "Crear cuenta" false 3
     option[$num]="crear"
     let num++
 
@@ -57,7 +57,7 @@ menuSSH() {
     let num++
 
     # REMOVER USUARIO
-    opcionMenu -blanco $num "Remover usuario"
+    opcionMenu -blanco $num "Remover usuario" false 3
     option[$num]="remover"
     let num++
 
@@ -67,7 +67,7 @@ menuSSH() {
     let num++
 
     # EDITAR USUARIO
-    opcionMenu -blanco $num "Editar cuenta"
+    opcionMenu -blanco $num "Editar cuenta" false 3
     option[$num]="editar"
     let num++
 
