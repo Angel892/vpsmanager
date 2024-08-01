@@ -858,7 +858,7 @@ dropbear_pids() {
             let i++
         done
 
-        echo -e "${pid}, ${pidlogs}, ${pidend}"
+        echo -e "${pid}, ${log}, ${loginsukses}, ${pidlogs}, ${pidend}"
 
         if [[ $pidend ]]; then
             login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
