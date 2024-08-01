@@ -860,7 +860,6 @@ dropbear_pids() {
         done
 
         pidend=$(echo "${pidend}" | sed 's/[]\/$*.^|[]/\\&/g')
-        echo -e "${pidend}"
 
         if [[ $pidend ]]; then
             login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
