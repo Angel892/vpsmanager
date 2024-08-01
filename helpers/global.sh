@@ -847,6 +847,7 @@ dropbear_pids() {
     local loginsukses='Password auth succeeded'
     [[ -z $port_dropbear ]] && return 1
     for port in $(echo $port_dropbear); do
+        echo -e "${port}"
         for pidx in $(ps ax | grep dropbear | grep "$port" | awk -F" " '{print $1}'); do
             pids="${pids}$pidx\n"
         done
