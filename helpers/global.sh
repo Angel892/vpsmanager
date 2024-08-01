@@ -788,7 +788,7 @@ showCabezera() {
 
     msg -tit
     msg -bar
-    msgCentrado -amarillo "${messageText}"
+    msgCentrado -blanco "${messageText}"
     msg -bar
 }
 
