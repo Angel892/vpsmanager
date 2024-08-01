@@ -135,3 +135,5 @@ desbloqueo_auto() {
     unlockall3 &>/dev/null
     # rm_vencidos &>/dev/null
 }
+
+desbloqueo_auto

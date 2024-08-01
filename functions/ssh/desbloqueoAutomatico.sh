@@ -1,5 +1,5 @@
 ##DESBLOEUEAR
-verif2_funx() {
+desbloqueoAutomatico() {
 
     showCabezera "DESBLOQUEO AUT. Y LIMPIADOR DE EXPIARDOS"
 
