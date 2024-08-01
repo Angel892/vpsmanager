@@ -3,11 +3,39 @@
 V2RAY_PATH="$functionsPath/v2ray"
 
 #ARCHIVOS NECESARIOS
+source $V2RAY_PATH/addUser.sh
+source $V2RAY_PATH/backup.sh
+source $V2RAY_PATH/changePath.sh
+source $V2RAY_PATH/info.sh
+source $V2RAY_PATH/install.sh
+source $V2RAY_PATH/port.sh
+source $V2RAY_PATH/protocol.sh
+source $V2RAY_PATH/removeExp.sh
+source $V2RAY_PATH/removeUser.sh
+source $V2RAY_PATH/showUsers.sh
+source $V2RAY_PATH/stats.sh
+source $V2RAY_PATH/tls.sh
+source $V2RAY_PATH/uninstall.sh
 
 menuv2ray() {
 
+    pid_inst2() {
+        [[ $1 = "" ]] && echo -e "\033[1;31m[OFF]" && return 0
+        unset portas
+        portas_var=$(lsof -V -i -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND")
+        i=0
+        while read port; do
+            var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+            [[ "$(echo -e ${portas[@]} | grep "$var1 $var2")" ]] || {
+                portas[$i]="$var1 $var2\n"
+                let i++
+            }
+        done <<<"$portas_var"
+        [[ $(echo "${portas[@]}" | grep "$1") ]] && echo -e "\033[1;32m[ Servicio Activo ]" || echo -e "\033[1;31m[ Servicio Desactivado ]"
+    }
+
     showCabezera "CONTROLADOR DE V2RAY (WEBSOCKET+TLS)"
-    msgCentrado -blanco "Estado actual: "
+    msgCentrado -blanco "Estado actual: $(pid_inst2 v2ray)"
     msg -bar
 
     local num=1
@@ -19,7 +47,7 @@ menuv2ray() {
 
     # CREAR CUENTA TEMPORAL
     opcionMenu -blanco $num "Cambiar protocolo"
-    option[$num]="changeProtocol"
+    option[$num]="protocol"
     let num++
 
     # REMOVER USUARIO
@@ -29,12 +57,12 @@ menuv2ray() {
 
     # BLOQUEAR USUARIO
     opcionMenu -blanco $num "Cambiar puerto"
-    option[$num]="changePort"
+    option[$num]="portv"
     let num++
 
     # EDITAR USUARIO
     opcionMenu -blanco $num "Cambiar nombre de path"
-    option[$num]="changePathName"
+    option[$num]="changepath"
     let num++
 
     msgCentradoBarra -gris "Administrar cuentas"
@@ -56,12 +84,12 @@ menuv2ray() {
 
     # ELIMINAR USUARIOS VENCIDOS
     opcionMenu -blanco $num "Informacion de cuentas"
-    option[$num]="infoUsers"
+    option[$num]="info"
     let num++
 
     # BACKUP
     opcionMenu -blanco $num "Estadisticas de consumo"
-    option[$num]="estads"
+    option[$num]="stats"
     let num++
 
     # BANNER
@@ -76,7 +104,7 @@ menuv2ray() {
 
     # ELIMINAR TODOS LOS USUARIOS
     opcionMenu -rojo $num "Desinstalar v2ray"
-    option[$num]="uninstall"
+    option[$num]="unistallv2"
     let num++
 
     msg -bar
@@ -88,20 +116,20 @@ menuv2ray() {
     msg -bar
     selection=$(selectionFun $num)
     case ${option[$selection]} in
-    "crear") crearCuentaSSH ;;
-    "crearTemporal") crearCuentaTemporalSSH ;;
-    "remover") removerUsuarioSSH ;;
-    "bloquear") bloquearDesbloquearUsuarioSSH ;;
-    "editar") editarCuentaSSH ;;
-    "detalles") detalleUsuariosSSH ;;
-    "conectados") usuariosConectadosSSH ;;
-    "eliminarVencidos") eliminarUsuariosVencidosSSH ;;
-    "backup") backupUsuariosSSH ;;
-    "banner") gestionarBannerSSH ;;
-    "eliminarTodos") eliminarTodosUsuariosSSH ;;
-    "renovar") renovarCuentaSSH ;;
-    "limitador") limitadorMenu ;;
-    "desbloqueoAutomatico") desbloqueoAutomatico ;;
+    "install") intallv2ray ;;
+    "protocol") protocolv2ray ;;
+    "tls") tls ;;
+    "portv") portv ;;
+    "stats") stats ;;
+    "unistallv2") unistallv2 ;;
+    "info") infocuenta ;;
+    "changepath") changepath ;;
+    "addUser") addusr ;;
+    "removeUser") delusr ;;
+    "showUser") mosusr_kk ;;
+    "removeExp") limpiador_activador ;;
+    "backup") backup_fun ;;
+    "unistallv2") unistallv2 ;;
     "volver")
         return
         ;;
