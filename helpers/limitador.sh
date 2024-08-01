@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $HELPERS_PATH/global.sh
+source /etc/vpsmanager/helpers/global.sh
 
 #-BLOQUEO
 block_userfun() {
@@ -184,7 +184,7 @@ verif_fun() {
     EXPIRADO3="/10"
     echo "${EXPIRADO2}${EXPIRADO3}" | bc >$mainPath/temp/USRexpired
 
-    clear
+    #clear
 }
 
 verif_fun
