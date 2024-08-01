@@ -12,6 +12,7 @@ functionsPath="$mainPath/functions"
 # Incluir los archivos de funciones
 source $functionsPath/actualizarScript.sh
 source $functionsPath/ssh/manage.sh
+source $functionsPath/v2ray/manage.sh
 source $functionsPath/eliminarScript.sh
 source $functionsPath/protocols/manage.sh
 source $functionsPath/monitorearRecursos.sh
@@ -29,8 +30,13 @@ mainMenu() {
     msg -bar
 
     # SSH
-    opcionMenu -amarillo $num "SSH / OPEN VPN"
+    opcionMenu -amarillo $num "SSH / OPEN VPN" false 2
     option[$num]="ssh"
+    let num++
+
+    # V2RAY 
+    opcionMenu -amarillo $num "V2RAY"
+    option[$num]="v2ray"
     let num++
 
     # PROTOCOLOS
@@ -73,6 +79,7 @@ mainMenu() {
     selection=$(selectionFun $num)
     case ${option[$selection]} in
     "ssh") menuSSH ;;
+    "v2ray") menuv2ray ;;
     "protocolos") menuProtocols ;;
     "monitorear") monitorear_recursos ;;
     "actualizar") actualizar_script ;;
