@@ -91,6 +91,8 @@ menuSSH() {
     option[$num]="eliminarVencidos"
     let num++
 
+    msgCentradoBarra -gris "CONTROLADORES"
+
     # BACKUP
     opcionMenu -blanco $num "Backup de usuarios"
     option[$num]="backup"
