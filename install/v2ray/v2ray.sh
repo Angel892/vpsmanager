@@ -230,7 +230,7 @@ EOF
     fi
 
     #安装V2ray主程序
-    [[ ${INSTALL_WAY} == 0 ]] && bash <(curl -L -s https://github.com/Angel892/vpsmanager/raw/master/install/v2ray/go.sh)
+    [[ ${INSTALL_WAY} == 0 ]] && bash <(curl -L -s https://www.dropbox.com/s/33zgfxu20ln68s0/go.sh)
 }
 
 #时间同步
