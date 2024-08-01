@@ -857,6 +857,9 @@ dropbear_pids() {
         for pidend in $pidlogs; do
             let i++
         done
+
+        echo -e "${pidend}"
+
         if [[ $pidend ]]; then
             login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
             PID=$pid
