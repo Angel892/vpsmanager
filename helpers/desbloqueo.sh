@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source /etc/vpsmanager/helpers/global.sh
 
 # DESBLOQUEO Y LIMPIEZA
@@ -156,7 +158,6 @@ desbloqueo_auto() {
 
     }
     unlockall3 &>/dev/null
-    echo "Realizado"
     # rm_vencidos &>/dev/null
 }
 
