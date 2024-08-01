@@ -36,7 +36,7 @@ desbloqueoAutomatico() {
             error
         fi
         echo "${tiemdes}" >$mainPath/temp/T-Des
-        screen -dmS desbloqueador watch -n $tiemdes "${mainPath}/helpers/desbloqueo.sh"
+        screen -dmS desbloqueador watch -n $tiemdes "sudo ${mainPath}/helpers/desbloqueo.sh"
         #screen -dmS very2 $mainPath/menu.sh desbloqueo
     else
         for pid in $(echo $PIDVRF2); do

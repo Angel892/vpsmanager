@@ -39,7 +39,7 @@ limitadorMenu() {
             error
         fi
         echo "${tiemlim}" >$mainPath/temp/T-Lim
-        screen -dmS limitador watch -n $tiemlim "sudo ${mainPath}/helpers/limitador.sh"
+        screen -dmS limitador watch -n $tiemlim "${mainPath}/helpers/limitador.sh"
     else
         for pid in $(echo $PIDVRF); do
             screen -S limitador -p 0 -X quit
