@@ -859,9 +859,10 @@ dropbear_pids() {
             let i++
         done
 
-        echo -e "${pidend}"
-
         if [[ $pidend ]]; then
+
+            echo "Holaaa"
+
             login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
             PID=$pid
             user=$(echo $login | awk -F" " '{print $10}' | sed -r "s/'//g")
