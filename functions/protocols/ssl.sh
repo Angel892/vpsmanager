@@ -54,7 +54,14 @@ proto_ssl() {
         msg -amarillo "A continuacion se le pediran datos de su crt si\n desconoce que datos lleva presione puro ENTER"
         msg -bar
 
-        echo -e "client = no\n[SSL]\ncert = /etc/stunnel/stunnel.pem\naccept = ${SSLPORT}\nconnect = 127.0.0.1:${portx}" >/etc/stunnel/stunnel.conf
+        cat <<EOF >/etc/stunnel/stunnel.conf
+client = no
+[SSL]
+cert = /etc/stunnel/stunnel.pem
+accept = ${SSLPORT}
+connect = 127.0.0.1:${portx}
+EOF
+
         ####Coreccion2.0#####
         openssl genrsa -out stunnel.key 2048 >/dev/null 2>&1
         # (echo "mx" ; echo "mx" ; echo "mx" ; echo "mx" ; echo "mx" ; echo "mx" ; echo "@vpsmx" )|openssl req -new -key stunnel.key -x509 -days 1000 -out stunnel.crt > /dev/null 2>&1
@@ -105,7 +112,13 @@ proto_ssl() {
         done
 
         msg -bar
-        echo -e "client = no\n[SSL+]\ncert = /etc/stunnel/stunnel.pem\naccept = ${SSLPORT}\nconnect = 127.0.0.1:${portx}" >>/etc/stunnel/stunnel.conf
+        cat <<EOF >>/etc/stunnel/stunnel.conf
+client = no
+[SSL+]
+cert = /etc/stunnel/stunnel.pem
+accept = ${SSLPORT}
+connect = 127.0.0.1:${portx}
+EOF
         ##-->> AutoInicio
         sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
         echo "ENABLED=1" >>/etc/default/stunnel4
