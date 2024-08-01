@@ -32,7 +32,7 @@ desbloqueoAutomatico() {
             error
         fi
         [[ -z "$tiemdes" ]] && tiemdes="120"
-        if [ "$tiemdes" -lt "120" ]; then
+        if [ "$tiemdes" -lt "1" ]; then
             error
         fi
         echo "${tiemdes}" >$mainPath/temp/T-Des
