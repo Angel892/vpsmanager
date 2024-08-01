@@ -843,7 +843,7 @@ dropbear_pids() {
     cat /var/log/auth.log | grep -a -i dropbear | grep -a -i "Password auth succeeded" >/var/log/authday.log
     #cat /var/log/auth.log|grep "$(date|cut -d' ' -f2,3)" > /var/log/authday.log
     #cat /var/log/auth.log | tail -1000 >/var/log/authday.log
-    local log=/var/log/authday.log
+    local log="/var/log/authday.log"
     local loginsukses='Password auth succeeded'
     [[ -z $port_dropbear ]] && return 1
     for port in $(echo $port_dropbear); do
@@ -858,8 +858,6 @@ dropbear_pids() {
         for pidend in $pidlogs; do
             let i++
         done
-
-        echo -e "${pid}, ${log}, ${loginsukses}, ${pidlogs}, ${pidend}"
 
         if [[ $pidend ]]; then
             login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
