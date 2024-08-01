@@ -34,7 +34,7 @@ mainMenu() {
     option[$num]="v2ray"
     let num++
 
-    menu -bar
+    msg -bar
 
     # PROTOCOLOS
     opcionMenu -blanco $num "Instalar Protocolos" false 2
