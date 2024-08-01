@@ -850,6 +850,9 @@ dropbear_pids() {
             pids="${pids}$pidx\n"
         done
     done
+
+    echo -e "${pids}"
+
     for pid in $(echo -e "$pids"); do
         pidlogs=$(grep $pid $log | grep "$loginsukses" | awk -F" " '{print $3}')
         i=0
@@ -916,4 +919,3 @@ if [[ "$1" = "openvpnpids" ]]; then
     openvpn_pids
     exit
 fi
-
