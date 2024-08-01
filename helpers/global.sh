@@ -904,3 +904,9 @@ openvpn_pids() {
         echo -e "$user|$i|$RECIVED|$SEND|$HOUR"
     done
 }
+
+# LIMITADOR AUTO
+if [[ "$1" = "dropbearpids" ]]; then
+    dropbear_pids
+    exit
+fi
