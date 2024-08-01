@@ -11,10 +11,10 @@ proto_ssl() {
             msgCentrado -blanco "DESINSTALANDO SSL"
             msg -bar
 
-            msgInstall "Deteniendo ssl"
+            msgInstall -blanco "Deteniendo ssl"
             fun_bar "service stunnel4 stop"
 
-            msgInstall "Eliminando ssl"
+            msgInstall -blanco "Eliminando ssl"
             fun_bar "apt-get purge  stunnel4 -y"
 
             msgSuccess

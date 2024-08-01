@@ -921,3 +921,9 @@ if [[ "$1" = "openvpnpids" ]]; then
     openvpn_pids
     exit
 fi
+
+# LMPORTAS
+if [[ "$1" = "mportas" ]]; then
+    mportas
+    exit
+fi
