@@ -910,3 +910,10 @@ if [[ "$1" = "dropbearpids" ]]; then
     dropbear_pids
     exit
 fi
+
+# LIMITADOR AUTO
+if [[ "$1" = "openvpnpids" ]]; then
+    openvpn_pids
+    exit
+fi
+
