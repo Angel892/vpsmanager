@@ -863,7 +863,7 @@ dropbear_pids() {
 
         if [[ $pidend ]]; then
             login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
-            #echo -e "${login} ${pidend}"
+            echo -e "${login}\n${pidend}\n"
             PID=$pid
             user=$(echo $login | awk -F" " '{print $10}' | sed -r "s/'//g")
             waktu=$(echo $login | awk -F" " '{print $2"-"$1,$3}')
