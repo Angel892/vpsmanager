@@ -31,16 +31,11 @@ limitadorMenu() {
         }
         #[[ -z "$tiemlim" ]] && tiemlim="120"
         if [[ "$tiemlim" != +([0-9]) ]]; then
-            echo -e "${tiemlim} holaa"
-            msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-            return
             error
         fi
-        echo -e "${tiemlim}"
-        msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        return
+
         [[ -z "$tiemlim" ]] && tiemlim="120"
-        if [ "$tiemlim" -lt "120" ]; then
+        if [ "$tiemlim" -lt "1" ]; then
             error
         fi
         echo "${tiemlim}" >$mainPath/temp/T-Lim
