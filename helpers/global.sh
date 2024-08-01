@@ -848,6 +848,7 @@ dropbear_pids() {
     [[ -z $port_dropbear ]] && return 1
     for port in $(echo $port_dropbear); do
         for pidx in $(ps ax | grep dropbear | grep "$port" | awk -F" " '{print $1}'); do
+            echo -e "${pidx}"
             pids="${pids}$pidx\n"
         done
     done
