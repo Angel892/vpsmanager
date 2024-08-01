@@ -133,7 +133,7 @@ desbloqueo_auto() {
         unlockall2
 
     }
-    unlockall3 &>/dev/null
+    unlockall3 #&>/dev/null
     # rm_vencidos &>/dev/null
 }
 
