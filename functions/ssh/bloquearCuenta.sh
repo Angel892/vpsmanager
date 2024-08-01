@@ -85,7 +85,7 @@ bloquearDesbloquearUsuarioSSH() {
     }
     msgne -amarillo "Usuario Seleccionado: " && echo -ne "$usuario_del"
 
-    block_userfun "$usuario_del" && msg -rojo "[ Bloqueado ]" || msg -verd "[ Desbloqueado ]"
+    block_userfun "$usuario_del" && msg -rojo "[ Bloqueado ]" || msg -verde "[ Desbloqueado ]"
     msg -bar
     msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
 }
