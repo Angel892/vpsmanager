@@ -82,7 +82,7 @@ barra_intall() {
             fi
             echo -ne "\033[1;31m>"
 
-            if [ "$i" -ge 39 ]; then
+            if [ "$i" -ge 19 ]; then
                 echo -ne "\033[1;33m]"
                 echo
                 tput cuu1 && tput dl1
