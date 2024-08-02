@@ -66,9 +66,9 @@ ajuste_in() {
             tput cuu1 >&2 && tput dl1 >&2
             tput cuu1 >&2 && tput dl1 >&2
             tput cuu1 >&2 && tput dl1 >&2
-            msg -bar2
+            msg -bar
             msg -amarillo "REDEFINIR PUERTOS SQUID"
-            msg -bar2
+            msg -bar
             if [[ -e /etc/squid/squid.conf ]]; then
                 local CONF="/etc/squid/squid.conf"
             elif [[ -e /etc/squid3/squid.conf ]]; then
@@ -92,21 +92,21 @@ ajuste_in() {
                     done
                 fi
             done <<<"${NEWCONF}"
-            msg -azu "AGUARDE"
+            msg -blanco "AGUARDE"
             service squid restart &>/dev/null
             service squid3 restart &>/dev/null
             sleep 1s
-            msg -bar2
+            msg -bar
             echo -e "\e[92m              PUERTOS REDEFINIDOS"
-            msg -bar2
+            msg -bar
         }
         edit_apache() {
             tput cuu1 >&2 && tput dl1 >&2
             tput cuu1 >&2 && tput dl1 >&2
             tput cuu1 >&2 && tput dl1 >&2
-            msg -bar2
-            msg -azu "REDEFINIR PUERTOS APACHE"
-            msg -bar2
+            msg -bar
+            msg -blanco "REDEFINIR PUERTOS APACHE"
+            msg -bar
             local CONF="/etc/apache2/ports.conf"
             local NEWCONF="$(cat ${CONF})"
             msg -ne "Nuevos Puertos: "
@@ -130,20 +130,20 @@ ajuste_in() {
                     echo -e "${varline}" >>${CONF}
                 fi
             done <<<"${NEWCONF}"
-            msg -azu "AGUARDE"
+            msg -blanco "AGUARDE"
             service apache2 restart &>/dev/null
             sleep 1s
-            msg -bar2
+            msg -bar
             echo -e "\e[92m              PUERTOS REDEFINIDOS"
-            msg -bar2
+            msg -bar
         }
         edit_openvpn() {
             tput cuu1 >&2 && tput dl1 >&2
             tput cuu1 >&2 && tput dl1 >&2
             tput cuu1 >&2 && tput dl1 >&2
-            msg -bar2
-            msg -azu "REDEFINIR PUERTOS OPENVPN"
-            msg -bar2
+            msg -bar
+            msg -blanco "REDEFINIR PUERTOS OPENVPN"
+            msg -bar
             local CONF="/etc/openvpn/server.conf"
             local CONF2="/etc/openvpn/client-common.txt"
             local NEWCONF="$(cat ${CONF} | grep -v [Pp]ort)"
@@ -171,21 +171,21 @@ ajuste_in() {
                     echo -e "${varline}" >>${CONF2}
                 fi
             done <<<"${NEWCONF2}"
-            msg -azu "AGUARDE"
+            msg -blanco "AGUARDE"
             service openvpn restart &>/dev/null
             /etc/init.d/openvpn restart &>/dev/null
             sleep 1s
-            msg -bar2
+            msg -bar
             echo -e "\e[92m               PUERTOS REDEFINIDOS"
-            msg -bar2
+            msg -bar
         }
         edit_dropbear() {
             tput cuu1 >&2 && tput dl1 >&2
             tput cuu1 >&2 && tput dl1 >&2
             tput cuu1 >&2 && tput dl1 >&2
-            msg -bar2
-            msg -azu "REDEFINIR PUERTOS DROPBEAR"
-            msg -bar2
+            msg -bar
+            msg -blanco "REDEFINIR PUERTOS DROPBEAR"
+            msg -bar
             local CONF="/etc/default/dropbear"
             local NEWCONF="$(cat ${CONF} | grep -v "DROPBEAR_EXTRA_ARGS")"
             msg -ne "Nuevos Puertos: "
@@ -207,16 +207,16 @@ ajuste_in() {
                     sed -i "s/VAR//g" ${CONF}
                 fi
             done <<<"${NEWCONF}"
-            msg -azu "AGUARDE"
+            msg -blanco "AGUARDE"
             SOPORTE rd &>/dev/null
             sleep 1s
-            msg -bar2
+            msg -bar
             echo -e "\e[92m              PUERTOS REDEFINIDOS"
-            msg -bar2
+            msg -bar
         }
         edit_openssh() {
-            msg -azu "REDEFINIR PUERTOS OPENSSH"
-            msg -bar2
+            msg -blanco "REDEFINIR PUERTOS OPENSSH"
+            msg -bar
             local CONF="/etc/ssh/sshd_config"
             local NEWCONF="$(cat ${CONF} | grep -v [Pp]ort)"
             msg -ne "Nuevos Puertos: "
@@ -234,22 +234,22 @@ ajuste_in() {
             while read varline; do
                 echo -e "${varline}" >>${CONF}
             done <<<"${NEWCONF}"
-            msg -azu "AGUARDE"
+            msg -blanco "AGUARDE"
             service ssh restart &>/dev/null
             service sshd restart &>/dev/null
             sleep 1s
-            msg -bar2
+            msg -bar
             echo -e "\e[92m              PUERTOS REDEFINIDOS"
-            msg -bar2
+            msg -bar
         }
 
         main_fun() {
             clear && clear
-            msg -bar2
+            msg -bar
             msg -tit ""
-            msg -bar2
+            msg -bar
             msg -amarillo "                EDITAR PUERTOS ACTIVOS "
-            msg -bar2
+            msg -bar
             unset newports
             i=0
             while read line; do
@@ -263,14 +263,14 @@ ajuste_in() {
                 esac
             done <<<"$(port | cut -d' ' -f1 | sort -u)"
             for ((a = 1; a <= $i; a++)); do
-                [[ $squid = $a ]] && echo -ne "\033[1;32m [$squid] > " && msg -azu "REDEFINIR PUERTOS SQUID"
-                [[ $apache = $a ]] && echo -ne "\033[1;32m [$apache] > " && msg -azu "REDEFINIR PUERTOS APACHE"
-                [[ $openvpn = $a ]] && echo -ne "\033[1;32m [$openvpn] > " && msg -azu "REDEFINIR PUERTOS OPENVPN"
-                [[ $dropbear = $a ]] && echo -ne "\033[1;32m [$dropbear] > " && msg -azu "REDEFINIR PUERTOS DROPBEAR"
-                [[ $ssh = $a ]] && echo -ne "\033[1;32m [$ssh] > " && msg -azu "REDEFINIR PUERTOS SSH"
+                [[ $squid = $a ]] && echo -ne "\033[1;32m [$squid] > " && msg -blanco "REDEFINIR PUERTOS SQUID"
+                [[ $apache = $a ]] && echo -ne "\033[1;32m [$apache] > " && msg -blanco "REDEFINIR PUERTOS APACHE"
+                [[ $openvpn = $a ]] && echo -ne "\033[1;32m [$openvpn] > " && msg -blanco "REDEFINIR PUERTOS OPENVPN"
+                [[ $dropbear = $a ]] && echo -ne "\033[1;32m [$dropbear] > " && msg -blanco "REDEFINIR PUERTOS DROPBEAR"
+                [[ $ssh = $a ]] && echo -ne "\033[1;32m [$ssh] > " && msg -blanco "REDEFINIR PUERTOS SSH"
             done
-            echo -ne "$(msg -bar2)\n\033[1;32m [0] > " && msg -azu "\e[97m\033[1;41m VOLVER \033[1;37m"
-            msg -bar2
+            echo -ne "$(msg -bar)\n\033[1;32m [0] > " && msg -blanco "\e[97m\033[1;41m VOLVER \033[1;37m"
+            msg -bar
             while true; do
                 echo -ne "\033[1;37mSeleccione: " && read selection
                 tput cuu1 && tput dl1
