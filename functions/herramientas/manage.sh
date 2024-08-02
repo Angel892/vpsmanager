@@ -21,7 +21,7 @@ menuSettings() {
 
     # FIX BASE DE USER
     opcionMenu -blanco $num "FIX BASE DE USER"
-    option[$num]="streaming"
+    option[$num]="fixbaseuser"
     let num++
 
     # FTP X APACHE
@@ -58,6 +58,11 @@ menuSettings() {
     option[$num]="dnsunlock"
     let num++
 
+    # HORA LOCAL
+    opcionMenu -blanco $num "HORARIO LOCAL"
+    option[$num]="horalocal"
+    let num++
+
     # SPEED
     opcionMenu -blanco $num "SPEED TEST VPSss"
     option[$num]="speed"
@@ -67,11 +72,6 @@ menuSettings() {
 
     # HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)
     opcionMenu -blanco $num "HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)"
-    option[$num]="streaming"
-    let num++
-
-    # HORA LOCAL
-    opcionMenu -blanco $num "HORARIO LOCAL"
     option[$num]="streaming"
     let num++
 
