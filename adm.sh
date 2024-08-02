@@ -60,6 +60,13 @@ mainMenu() {
     option[$num]="monitorear"
     let num++
 
+    # MONITOR DE PROTOCOLOS
+    VERY4="$(ps aux | grep "${mainPath}/auto/clean.sh" | grep -v grep)"
+    [[ -z ${VERY4} ]] && autolim="\033[93m[ \033[1;31mOFF \033[93m]" || autolim="\033[93m[\033[1;32m ON \033[93m]"
+    opcionMenu -blanco $num "Monitor de protocolos" false 2 && echo -e "${autolim}"
+    option[$num]="autoClean"
+    let num++
+
     # AUTO CLEAN
     VERY4="$(ps aux | grep "${mainPath}/auto/clean.sh" | grep -v grep)"
     [[ -z ${VERY4} ]] && autolim="\033[93m[ \033[1;31mOFF \033[93m]" || autolim="\033[93m[\033[1;32m ON \033[93m]"
