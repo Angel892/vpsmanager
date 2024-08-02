@@ -7,7 +7,7 @@ limitadorMenu() {
     msgCentrado -blanco "Esta Opcion Limita las Conexiones de SSH/SSL/DROPBEAR"
     msg -bar
 
-    PIDVRF="$(ps aux | grep "${mainPath}/helpers/limitador.sh" | grep -v grep | awk '{print $2}')"
+    PIDVRF="$(ps aux | grep "${mainPath}/auto/limitador.sh" | grep -v grep | awk '{print $2}')"
 
     if [[ -z $PIDVRF ]]; then
         msgCentrado -azul "¿Cada cuantos segundos ejecutar el limitador?"
@@ -39,7 +39,7 @@ limitadorMenu() {
             error
         fi
         echo "${tiemlim}" >$mainPath/temp/T-Lim
-        screen -dmS limitador watch -n $tiemlim "${mainPath}/helpers/limitador.sh"
+        screen -dmS limitador watch -n $tiemlim "${mainPath}/auto/limitador.sh"
     else
         for pid in $(echo $PIDVRF); do
             screen -S limitador -p 0 -X quit

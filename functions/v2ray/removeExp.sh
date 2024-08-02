@@ -2,7 +2,7 @@ limpiador_activador() {
     unset PIDGEN
     PIDGEN=$(ps aux | grep -v grep | grep "limv2ray")
     if [[ ! $PIDGEN ]]; then
-        screen -dmS limv2ray watch -n 21600 $mainPath/helpers/limitadorv2ray.sh
+        screen -dmS limv2ray watch -n 21600 $mainPath/auto/limitadorv2ray.sh
     else
         #killall screen
         screen -S limv2ray -p 0 -X quit

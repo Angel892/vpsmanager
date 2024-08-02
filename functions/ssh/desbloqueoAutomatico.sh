@@ -7,7 +7,7 @@ desbloqueoAutomatico() {
     msgCentrado -blanco "el limitador y limpia los usuarios expirados"
     msg -bar
 
-    PIDVRF2="$(ps aux | grep "${mainPath}/helpers/desbloqueo.sh" | grep -v grep | awk '{print $2}')"
+    PIDVRF2="$(ps aux | grep "${mainPath}/auto/desbloqueo.sh" | grep -v grep | awk '{print $2}')"
     if [[ -z $PIDVRF2 ]]; then
 
         msgCentrado -azul "¿Cada cuantos segundos ejecutar el desbloqueador?"
@@ -36,7 +36,7 @@ desbloqueoAutomatico() {
             error
         fi
         echo "${tiemdes}" >$mainPath/temp/T-Des
-        screen -dmS desbloqueador watch -n $tiemdes "sudo ${mainPath}/helpers/desbloqueo.sh"
+        screen -dmS desbloqueador watch -n $tiemdes "sudo ${mainPath}/auto/desbloqueo.sh"
         #screen -dmS very2 $mainPath/menu.sh desbloqueo
     else
         for pid in $(echo $PIDVRF2); do
