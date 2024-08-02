@@ -1,7 +1,7 @@
 #!/bin/bash
 
 intallv2ray() {
-    showCabezera ">>> SE INSTALARA V2RAY <<<" | pv -qL 10
+    showCabezera ">>> SE INSTALARA V2RAY <<<" # | pv -qL 10
 
     msgInstall "Instalando python3-pip"
     fun_bar "apt install python3-pip -y"
