@@ -13,6 +13,7 @@ functionsPath="$mainPath/functions"
 source $functionsPath/actualizarScript.sh
 source $functionsPath/ssh/manage.sh
 source $functionsPath/v2ray/manage.sh
+source $functionsPath/herramientas/manage.sh
 source $functionsPath/eliminarScript.sh
 source $functionsPath/protocols/manage.sh
 source $functionsPath/monitorearRecursos.sh
@@ -46,6 +47,11 @@ mainMenu() {
     option[$num]="puertos"
     let num++
 
+    # HERRAMIENTAS
+    opcionMenu -verde $num "Herramientas"
+    option[$num]="herramientas"
+    let num++
+
     # PROTOCOLOS
     opcionMenu -blanco $num "Monitorear Recursos"
     option[$num]="monitorear"
@@ -77,6 +83,7 @@ mainMenu() {
     case ${option[$selection]} in
     "ssh") menuSSH ;;
     "v2ray") menuv2ray ;;
+    "herramientas") menuSettings ;;
     "protocolos") menuProtocols ;;
     "monitorear") monitorear_recursos ;;
     "actualizar") actualizar_script ;;
