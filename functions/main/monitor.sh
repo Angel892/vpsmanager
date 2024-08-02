@@ -6,7 +6,6 @@ monservi_fun() {
     automprotos() {
         echo '#!/bin/sh -e' >/etc/rc.local
         sudo chmod +x /etc/rc.local
-        echo "sudo rebootnb reboot" >>/etc/rc.local
         echo "sudo rebootnb resetprotos" >>/etc/rc.local
     }
     autobadvpn() {
