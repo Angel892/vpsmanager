@@ -1,6 +1,9 @@
 #!/bin/bash
 
 allowStreaming() {
+
+    showCabezera "Preparando para streaming"
+
     msgInstall "Instalando dependencias"
     fun_bar "sudo apt -y install net-tools openresolv"
 
@@ -15,7 +18,8 @@ allowStreaming() {
     chmod +x wgcf
 
     msg -bar
-    msgCentrado -blanco "SE HARA EL REGISTRO DE LA CUENTA ESCOJE "Y" DESPUES ENTER"
+    msgCentrado -blanco "SE HARA EL REGISTRO DE LA CUENTA ESCOJE 'Y' DESPUES ENTER"
+    msg -bar
     # register warp account「Choose Y and press ENTER」
     ./wgcf register
 
@@ -26,8 +30,10 @@ allowStreaming() {
     file="/root/warp/wgcf-profile.conf"
 
     # Líneas a añadir
-    postup="PostUp = ip rule add from $(vpsIP) lookup main"
-    postdown="PostDown = ip rule delete from $(vpsIP) lookup main"
+    ip=$(vpsIP)
+    msgCentrado -verde "Tu ip ${ip}"
+    postup="PostUp = ip rule add from ${ip} lookup main"
+    postdown="PostDown = ip rule delete from ${ip} lookup main"
 
     # Añadir las líneas después de la línea que contiene "MTU"
     sed -i "/MTU =/a $postup\n$postdown" "$file"
