@@ -222,6 +222,13 @@ else
     echo "$MENU_PATH" >$alias2 && chmod +x $alias2
 fi
 
+instalacionFinal() {
+    wget -O /bin/rebootnb https://github.com/Angel892/vpsmanager/raw/master/install/rebootnb.sh &>/dev/null
+    chmod +x /bin/rebootnb
+}
+
+instalacionFinal
+
 read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar. (SE REINCIARA LA VPS)\n'
 
 # Ejecutar el script principal desde su nueva ubicación (evitar usando exec para mantener la sesión)
