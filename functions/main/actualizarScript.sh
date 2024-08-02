@@ -1,10 +1,7 @@
 #!/bin/bash
 
 actualizar_script() {
-    clear
-    msg -bar
-    msgCentrado -amarillo "Actualizando el Script"
-    msg -bar
+    showCabezera "Actualizando el Script"
 
     cd /etc/vpsmanager
 
