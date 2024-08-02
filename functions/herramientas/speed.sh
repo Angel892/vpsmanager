@@ -2,7 +2,7 @@
 speed_test() {
     showCabezera "LXManager"
     mkdir -p /opt/speed/ >/dev/null 2>&1
-    wget -O /opt/speed/speedtest https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/speedtest.py &>/dev/null
+    wget -O /opt/speed/speedtest https://github.com/Angel892/vpsmanager/raw/master/helpers/speedtest.py &>/dev/null
     chmod +rwx /opt/speed/speedtest
     declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
 
