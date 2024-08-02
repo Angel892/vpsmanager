@@ -3,9 +3,6 @@
 intallv2ray() {
     showCabezera ">>> SE INSTALARA V2RAY <<<" # | pv -qL 10
 
-    msgInstall -blanco "Instalando python3-pip"
-    fun_bar "apt install python3-pip -y"
-
     source <(curl -sL https://multi.netlify.app/v2ray.sh)
     v2ray update
     mailfix=$(cat /dev/urandom | tr -dc '[:alnum:]' | head -c 10)
