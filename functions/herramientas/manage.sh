@@ -34,7 +34,7 @@ menuSettings() {
     option[$num]="bbr"
     let num++
 
-    msgCentradoBarra "SEGURIDAD"
+    msgCentradoBarra -amarillo "SEGURIDAD"
 
     # FAIL2BAN
     opcionMenu -blanco $num "FAIL2BAN PROTECION"
@@ -46,7 +46,7 @@ menuSettings() {
     option[$num]="passquid"
     let num++
 
-    msgCentradoBarra "AJUSTES DEL VPS"
+    msgCentradoBarra -amarillo "AJUSTES DEL VPS"
 
     # AJUSTES INTERNOS
     opcionMenu -blanco $num "AJUSTES INTERNOS"
@@ -63,7 +63,7 @@ menuSettings() {
     option[$num]="speed"
     let num++
 
-    msgCentradoBarra "EXTRAS"
+    msgCentradoBarra -amarillo "EXTRAS"
 
     # HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)
     opcionMenu -blanco $num "HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)"
