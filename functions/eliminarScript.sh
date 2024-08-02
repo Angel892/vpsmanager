@@ -19,15 +19,20 @@ eliminar_script() {
         [[ -e /bin/ADM ]] && sudo rm /bin/ADM
         [[ -e /usr/bin/adm ]] && sudo rm /usr/bin/adm
         [[ -d /etc/vpsmanager ]] && sudo rm -rf /etc/vpsmanager &>/dev/null
-        sudo apt-get --purge remove squid -y >/dev/null 2>&1
-        sudo apt-get --purge remove stunnel4 -y >/dev/null 2>&1
-        sudo apt-get --purge remove dropbear -y >/dev/null 2>&1
+        
+        msgInstall "Removiendo squid"
+        fun_bar "sudo apt-get --purge remove squid -y"
+
+        msgInstall "Removiendo stunnel4"
+        fun_bar "sudo apt-get --purge remove stunnel4 -y"
+
+        msgInstall "Removiendo dropbear"
+        fun_bar "sudo apt-get --purge remove dropbear -y"
+
         rm -rf /root/* >/dev/null 2>&1
         cd /root
         clear && clear
         exit
         exit
     fi
-
-    mainMenu
 }

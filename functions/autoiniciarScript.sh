@@ -20,5 +20,4 @@ autoiniciarScript() {
     msg -bar
 
     read -p "Presione Enter para continuar..."
-    mainMenu
 }

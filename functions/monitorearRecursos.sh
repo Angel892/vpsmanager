@@ -46,5 +46,4 @@ monitorear_recursos() {
     msg -amarillo "Arquitectura: ${null}$(uname -m)"
     msg -bar
     read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-    mainMenu
 }
