@@ -1,9 +1,6 @@
 #SPEED TEST
 speed_test() {
-    clear && clear
-    msg -bar
-    msg -tit
-    msg -bar
+    showCabezera "LXManager"
     mkdir -p /opt/speed/ >/dev/null 2>&1
     wget -O /opt/speed/speedtest https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/speedtest.py &>/dev/null
     chmod +rwx /opt/speed/speedtest
@@ -22,5 +19,4 @@ speed_test() {
     msg -amarillo " Descarga:\033[1;92m $down_load"
     msg -bar
     read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-    herramientas_fun
 }
