@@ -14,11 +14,13 @@ source $functionsPath/actualizarScript.sh
 source $functionsPath/ssh/manage.sh
 source $functionsPath/v2ray/manage.sh
 source $functionsPath/herramientas/manage.sh
-source $functionsPath/eliminarScript.sh
-source $functionsPath/protocols/manage.sh
-source $functionsPath/monitorearRecursos.sh
-source $functionsPath/autoiniciarScript.sh
-source $functionsPath/puertosActivos.sh
+
+
+source $functionsPath/main/eliminarScript.sh
+source $functionsPath/main/protocols/manage.sh
+source $functionsPath/main/monitorearRecursos.sh
+source $functionsPath/main/autoiniciarScript.sh
+source $functionsPath/main/puertosActivos.sh
 
 mainMenu() {
     local num=1
