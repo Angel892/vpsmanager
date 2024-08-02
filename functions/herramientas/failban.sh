@@ -52,12 +52,17 @@ fai2ban_fun() {
         return 0
     fi
 
+
+
     echo -e "\e[1;92m         CONFIRMAR INSTALACION DE FAIL2BAN?"
     msg -bar
     while [[ -z ${fail2ban} || ${fail2ban} != @(s|S|n|N|y|Y) ]]; do
         echo -ne "\033[1;37mSeleccione una Opcion [S/N]: \033[1;32m" && read fail2ban
         tput cuu1 && tput dl1
     done
+
+    validarArchivo "/etc/fail2ban/jail.local"
+
     if [[ "$fail2ban" = @(s|S|y|Y) ]]; then
         fun_bar "git clone https://github.com/fail2ban/fail2ban.git"
         cd fail2ban &>/dev/null
