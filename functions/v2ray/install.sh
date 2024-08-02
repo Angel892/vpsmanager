@@ -3,7 +3,7 @@
 intallv2ray() {
     showCabezera ">>> SE INSTALARA V2RAY <<<" # | pv -qL 10
 
-    source <(curl -sL https://multi.netlify.app/v2ray.sh)
+    source <(curl -sL https://github.com/Angel892/vpsmanager/raw/master/install/v2ray/v2ray.sh)
     v2ray update
     mailfix=$(cat /dev/urandom | tr -dc '[:alnum:]' | head -c 10)
     curl https://get.acme.sh | sh -s email=$mailfix@gmail.com
