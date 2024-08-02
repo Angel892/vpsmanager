@@ -39,7 +39,7 @@ allowStreaming() {
     sed -i "/MTU =/a $postup\n$postdown" "$file"
 
     # rename and copy the config file
-    sudo cp wgcf-profile.conf /etc/wireguard/wgcf.conf
+    sudo cp /root/warp/wgcf-profile.conf /etc/wireguard/wgcf.conf
 
     sudo wg-quick up wgcf
 
