@@ -40,7 +40,7 @@ proto_ptcpover() {
         rm -rf $HOME/root/socks
         cd $HOME
         screen -dmS sokz scktcheck "$porta_socket" "$passg" >/dev/null 2>&1
-        [[ "$(ps x | grep scktcheck | grep -v grep | awk '{print $1}')" ]] && msg -verd "         >> TCPOVER INSTALADO CON EXITO <<" || msg -ama "               ERROR VERIFIQUE"
+        [[ "$(ps x | grep scktcheck | grep -v grep | awk '{print $1}')" ]] && msg -verde "         >> TCPOVER INSTALADO CON EXITO <<" || msg -amarillo "               ERROR VERIFIQUE"
         msg -bar
     }
 
