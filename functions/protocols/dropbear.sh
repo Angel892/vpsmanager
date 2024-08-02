@@ -52,9 +52,9 @@ EOF
         [[ ! $(cat /etc/shells | grep "/bin/false") ]] && echo -e "/bin/false" >>/etc/shells
         dropbearkey -t ecdsa -f /etc/dropbear/dropbear_ecdsa_host_key >/dev/null 2>&1
         dropbearkey -t dss -f /etc/dropbear/dropbear_dss_host_key >/dev/null 2>&1
-        service ssh restart >/dev/null 2>&1
+        systemctl restart ssh >/dev/null 2>&1
         sed -i "s/=1/=0/g" /etc/default/dropbear
-        service dropbear restart
+        systemctl restart dropbear
         sed -i "s/=0/=1/g" /etc/default/dropbear
 
         msgSuccess
@@ -64,7 +64,7 @@ EOF
         showCabezera "DESINSTALANDO DROPBEAR"
 
         msgInstall -blanco "DETENIENDO DROPBEAR"
-        fun_bar "service dropbear stop"
+        fun_bar "systemctl stop dropbear"
 
         msgInstall -blanco "REMOVIENDO DROPBEAR"
         fun_bar "apt-get remove dropbear -y"
