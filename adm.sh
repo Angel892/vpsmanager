@@ -10,11 +10,11 @@ source $HELPERS_PATH/global.sh
 functionsPath="$mainPath/functions"
 
 # Incluir los archivos de funciones
-source $functionsPath/actualizarScript.sh
 source $functionsPath/ssh/manage.sh
 source $functionsPath/v2ray/manage.sh
 source $functionsPath/herramientas/manage.sh
 
+source $functionsPath/main/actualizarScript.sh
 source $functionsPath/main/eliminarScript.sh
 source $functionsPath/main/protocols/manage.sh
 source $functionsPath/main/monitorearRecursos.sh
