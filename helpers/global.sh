@@ -279,7 +279,7 @@ vpsIP() {
     if [[ -e /tmp/IP ]]; then
         echo "$(cat /tmp/IP)"
     else
-        MEU_IP=$(wget -qO- ifconfig.me)
+        MEU_IP=$(wget -qO- ipv4.icanhazip.com)
         echo "$MEU_IP" >/tmp/IP
     fi
 }

@@ -12,6 +12,7 @@ source $HERRAMIENTAS_PATH/ftpapache.sh
 source $HERRAMIENTAS_PATH/horalocal.sh
 source $HERRAMIENTAS_PATH/passquid.sh
 source $HERRAMIENTAS_PATH/speed.sh
+source $HERRAMIENTAS_PATH/streaming.sh
 
 menuSettings() {
 
@@ -84,7 +85,7 @@ menuSettings() {
     msg -bar
     selection=$(selectionFun $num)
     case ${option[$selection]} in
-    "streaming") intallv2ray ;;
+    "streaming") allowStreaming ;;
     "fixbaseuser") recuperar_base ;;
     "ftpapache") ftp_apache ;;
     "bbr") bbr_fun ;;
