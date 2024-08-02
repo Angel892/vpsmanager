@@ -117,12 +117,15 @@ ftp_apache() {
 
     "agregar")
         subir_archivo
+        msgSuccess
         ;;
     "remover")
         borar_archivos
+        msgSuccess
         ;;
     "listar")
         list_archivos
+        msgSuccess
         ;;
     "volver")
         return
