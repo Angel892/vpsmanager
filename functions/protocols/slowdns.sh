@@ -48,7 +48,7 @@ proto_slowndns() {
             proto=$(echo $i | awk -F ":" '{print $1}')
             proto2=$(printf '%-12s' "$proto")
             port=$(echo $i | awk -F ":" '{print $2}')
-            echo -e " \e[1;93m [\e[1;32m$n\e[1;93m]\033[1;31m $(msg -rojo2 ">") $(msg -amarillo "$proto2")$(msg -azu "$port")"
+            echo -e " \e[1;93m [\e[1;32m$n\e[1;93m]\033[1;31m $(msg -rojo2 ">") $(msg -amarillo "$proto2")$(msg -verde "$port")"
             drop[$n]=$port
             num_opc="$n"
             let n++
