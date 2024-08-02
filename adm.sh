@@ -15,24 +15,25 @@ source $functionsPath/ssh/manage.sh
 source $functionsPath/v2ray/manage.sh
 source $functionsPath/herramientas/manage.sh
 
-
 source $functionsPath/main/eliminarScript.sh
 source $functionsPath/main/protocols/manage.sh
 source $functionsPath/main/monitorearRecursos.sh
 source $functionsPath/main/autoiniciarScript.sh
 source $functionsPath/main/puertosActivos.sh
+source $functionsPath/main/autoClean.sh
 
 mainMenu() {
-    local num=1
 
     showCabezera "LXMANAGER"
+
+    local num=1
 
     # SSH
     opcionMenu -amarillo $num "SSH / OPEN VPN" false 0 && msgne -blanco " |"
     option[$num]="ssh"
     let num++
 
-    # V2RAY 
+    # V2RAY
     opcionMenu -amarillo $num "V2RAY"
     option[$num]="v2ray"
     let num++
@@ -57,6 +58,13 @@ mainMenu() {
     # PROTOCOLOS
     opcionMenu -blanco $num "Monitorear Recursos"
     option[$num]="monitorear"
+    let num++
+
+    # AUTO CLEAN
+    VERY4="$(ps aux | grep "${mainPath}/auto/clean.sh" | grep -v grep)"
+    [[ -z ${VERY4} ]] && autolim="\033[93m[ \033[1;31mOFF \033[93m]" || autolim="\033[93m[\033[1;32m ON \033[93m]"
+    opcionMenu -blanco $num "Auto mantenimiento" false 2 && echo -e "${autolim}"
+    option[$num]="autoClean"
     let num++
 
     # AUTOINICIAR
@@ -88,6 +96,7 @@ mainMenu() {
     "herramientas") menuSettings ;;
     "protocolos") menuProtocols ;;
     "monitorear") monitorear_recursos ;;
+    "autoClean") autolimpieza_fun ;;
     "actualizar") actualizar_script ;;
     "eliminar") eliminar_script ;;
     "autoIniciar") autoiniciarScript ;;
