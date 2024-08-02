@@ -38,7 +38,7 @@ menuSettings() {
 
     # FAIL2BAN
     opcionMenu -blanco $num "FAIL2BAN PROTECION"
-    option[$num]="bbr"
+    option[$num]="fai2ban"
     let num++
 
     # FAIL2BAN
@@ -50,7 +50,7 @@ menuSettings() {
 
     # AJUSTES INTERNOS
     opcionMenu -blanco $num "AJUSTES INTERNOS"
-    option[$num]="passquid"
+    option[$num]="ajustein"
     let num++
 
     # DNS UNLOCK'S
