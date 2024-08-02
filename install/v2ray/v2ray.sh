@@ -26,9 +26,9 @@ bash_completion_shell="$base_source_path/v2ray"
 clean_iptables_shell="$base_source_path/v2ray_util/global_setting/clean_iptables.sh"
 
 #Centos 临时取消别名
-[[ -f /etc/redhat-release && -z $(echo $SHELL|grep zsh) ]] && unalias -a
+[[ -f /etc/redhat-release && -z $(echo $SHELL | grep zsh) ]] && unalias -a
 
-[[ -z $(echo $SHELL|grep zsh) ]] && env_file=".bashrc" || env_file=".zshrc"
+[[ -z $(echo $SHELL | grep zsh) ]] && env_file=".bashrc" || env_file=".zshrc"
 
 #######color code########
 red="31m"
@@ -37,38 +37,38 @@ yellow="33m"
 blue="36m"
 fuchsia="35m"
 
-colorEcho(){
+colorEcho() {
     color=$1
     echo -e "\033[${color}${@:2}\033[0m"
 }
 
 #######get params#########
-while [[ $# > 0 ]];do
+while [[ $# > 0 ]]; do
     key="$1"
     case $key in
-        --remove)
+    --remove)
         remove=1
         ;;
-        -h|--help)
+    -h | --help)
         help=1
         ;;
-        -k|--keep)
+    -k | --keep)
         install_way=1
         colorEcho ${blue} "keep config to update\n"
         ;;
-        --zh)
+    --zh)
         chinese=1
         colorEcho ${blue} "安装中文版..\n"
         ;;
-        *)
-                # unknown option
+    *)
+        # unknown option
         ;;
     esac
     shift # past argument or value
 done
 #############################
 
-help(){
+help() {
     echo "bash v2ray.sh [-h|--help] [-k|--keep] [--remove]"
     echo "  -h, --help           Show help"
     echo "  -k, --keep           keep the config.json to update"
@@ -103,11 +103,11 @@ removeV2Ray() {
     rm -rf /root/.iptables >/dev/null 2>&1
 
     #删除v2ray定时更新任务
-    crontab -l|sed '/SHELL=/d;/v2ray/d'|sed '/SHELL=/d;/xray/d' > crontab.txt
+    crontab -l | sed '/SHELL=/d;/v2ray/d' | sed '/SHELL=/d;/xray/d' >crontab.txt
     crontab crontab.txt >/dev/null 2>&1
     rm -f crontab.txt >/dev/null 2>&1
 
-    if [[ ${package_manager} == 'dnf' || ${package_manager} == 'yum' ]];then
+    if [[ ${package_manager} == 'dnf' || ${package_manager} == 'yum' ]]; then
         systemctl restart crond >/dev/null 2>&1
     else
         systemctl restart cron >/dev/null 2>&1
@@ -118,9 +118,9 @@ removeV2Ray() {
     sed -i '/xray/d' ~/$env_file
     source ~/$env_file
 
-    rc_service=`systemctl status rc-local|grep loaded|egrep -o "[A-Za-z/]+/rc-local.service"`
+    rc_service=$(systemctl status rc-local | grep loaded | egrep -o "[A-Za-z/]+/rc-local.service")
 
-    rc_file=`cat $rc_service|grep ExecStart|awk '{print $1}'|cut -d = -f2`
+    rc_file=$(cat $rc_service | grep ExecStart | awk '{print $1}' | cut -d = -f2)
 
     sed -i '/iptables/d' ~/$rc_file
 
@@ -137,13 +137,16 @@ closeSELinux() {
 
 checkSys() {
     #检查是否为Root
-    [ $(id -u) != "0" ] && { colorEcho ${red} "Error: You must be root to run this script"; exit 1; }
+    [ $(id -u) != "0" ] && {
+        colorEcho ${red} "Error: You must be root to run this script"
+        exit 1
+    }
 
-    if [[ `command -v apt-get` ]];then
+    if [[ $(command -v apt-get) ]]; then
         package_manager='apt-get'
-    elif [[ `command -v dnf` ]];then
+    elif [[ $(command -v dnf) ]]; then
         package_manager='dnf'
-    elif [[ `command -v yum` ]];then
+    elif [[ $(command -v yum) ]]; then
         package_manager='yum'
     else
         colorEcho $red "Not support OS!"
@@ -152,8 +155,8 @@ checkSys() {
 }
 
 #安装依赖
-installDependent(){
-    if [[ ${package_manager} == 'dnf' || ${package_manager} == 'yum' ]];then
+installDependent() {
+    if [[ ${package_manager} == 'dnf' || ${package_manager} == 'yum' ]]; then
         ${package_manager} install socat crontabs bash-completion which -y
     else
         ${package_manager} update
@@ -169,39 +172,39 @@ updateProject() {
 
     [[ -e /etc/profile.d/iptables.sh ]] && rm -f /etc/profile.d/iptables.sh
 
-    rc_service=`systemctl status rc-local|grep loaded|egrep -o "[A-Za-z/]+/rc-local.service"`
+    rc_service=$(systemctl status rc-local | grep loaded | egrep -o "[A-Za-z/]+/rc-local.service")
 
-    rc_file=`cat $rc_service|grep ExecStart|awk '{print $1}'|cut -d = -f2`
+    rc_file=$(cat $rc_service | grep ExecStart | awk '{print $1}' | cut -d = -f2)
 
-    if [[ ! -e $rc_file || -z `cat $rc_file|grep iptables` ]];then
-        local_ip=`curl -s http://api.ipify.org 2>/dev/null`
-        [[ `echo $local_ip|grep :` ]] && iptable_way="ip6tables" || iptable_way="iptables" 
-        if [[ ! -e $rc_file || -z `cat $rc_file|grep "/bin/bash"` ]];then
-            echo "#!/bin/bash" >> $rc_file
+    if [[ ! -e $rc_file || -z $(cat $rc_file | grep iptables) ]]; then
+        local_ip=$(curl -s http://api.ipify.org 2>/dev/null)
+        [[ $(echo $local_ip | grep :) ]] && iptable_way="ip6tables" || iptable_way="iptables"
+        if [[ ! -e $rc_file || -z $(cat $rc_file | grep "/bin/bash") ]]; then
+            echo "#!/bin/bash" >>$rc_file
         fi
-        if [[ -z `cat $rc_service|grep "\[Install\]"` ]];then
-            cat >> $rc_service << EOF
+        if [[ -z $(cat $rc_service | grep "\[Install\]") ]]; then
+            cat >>$rc_service <<EOF
 
 [Install]
 WantedBy=multi-user.target
 EOF
             systemctl daemon-reload
         fi
-        echo "[[ -e /root/.iptables ]] && $iptable_way-restore -c < /root/.iptables" >> $rc_file
+        echo "[[ -e /root/.iptables ]] && $iptable_way-restore -c < /root/.iptables" >>$rc_file
         chmod +x $rc_file
         systemctl restart rc-local
         systemctl enable rc-local
 
-        $iptable_way-save -c > /root/.iptables
+        $iptable_way-save -c >/root/.iptables
     fi
 
     pip install -U v2ray_util --break-system-packages
 
-    if [[ -e $util_path ]];then
-        [[ -z $(cat $util_path|grep lang) ]] && echo "lang=en" >> $util_path
+    if [[ -e $util_path ]]; then
+        [[ -z $(cat $util_path | grep lang) ]] && echo "lang=en" >>$util_path
     else
         mkdir -p /etc/v2ray_util
-        curl $util_cfg > $util_path
+        curl $util_cfg >$util_path
     fi
 
     [[ $chinese == 1 ]] && sed -i "s/lang=en/lang=zh/g" $util_path
@@ -216,30 +219,30 @@ EOF
     [[ -e /usr/share/bash-completion/completions/v2ray.bash ]] && rm -f /usr/share/bash-completion/completions/v2ray.bash
 
     #更新v2ray bash_completion脚本
-    curl $bash_completion_shell > /usr/share/bash-completion/completions/v2ray
-    curl $bash_completion_shell > /usr/share/bash-completion/completions/xray
-    if [[ -z $(echo $SHELL|grep zsh) ]];then
+    curl $bash_completion_shell >/usr/share/bash-completion/completions/v2ray
+    curl $bash_completion_shell >/usr/share/bash-completion/completions/xray
+    if [[ -z $(echo $SHELL | grep zsh) ]]; then
         source /usr/share/bash-completion/completions/v2ray
         source /usr/share/bash-completion/completions/xray
     fi
-    
+
     #安装V2ray主程序
     [[ ${install_way} == 0 ]] && bash <(curl -L -s https://multi.netlify.app/go.sh)
 }
 
 #时间同步
 timeSync() {
-    if [[ ${install_way} == 0 ]];then
+    if [[ ${install_way} == 0 ]]; then
         echo -e "Time Synchronizing.. "
-        if [[ `command -v ntpdate` ]];then
+        if [[ $(command -v ntpdate) ]]; then
             ntpdate pool.ntp.org
-        elif [[ `command -v chronyc` ]];then
+        elif [[ $(command -v chronyc) ]]; then
             chronyc -a makestep
         fi
 
-        if [[ $? -eq 0 ]];then 
+        if [[ $? -eq 0 ]]; then
             colorEcho $green "Time Sync Success"
-            colorEcho $blue "now: `date -R`"
+            colorEcho $blue "now: $(date -R)"
         fi
     fi
 }
@@ -250,7 +253,7 @@ profileInit() {
     [[ $(grep v2ray ~/$env_file) ]] && sed -i '/v2ray/d' ~/$env_file && source ~/$env_file
 
     #解决Python3中文显示问题
-    [[ -z $(grep PYTHONIOENCODING=utf-8 ~/$env_file) ]] && echo "export PYTHONIOENCODING=utf-8" >> ~/$env_file && source ~/$env_file
+    [[ -z $(grep PYTHONIOENCODING=utf-8 ~/$env_file) ]] && echo "export PYTHONIOENCODING=utf-8" >>~/$env_file && source ~/$env_file
 
     #全新安装的新配置
     [[ ${install_way} == 0 ]] && v2ray new
@@ -263,7 +266,7 @@ installFinish() {
     cd ${begin_path}
 
     [[ ${install_way} == 0 ]] && WAY="install" || WAY="update"
-    colorEcho  ${green} "multi-v2ray ${WAY} success!\n"
+    colorEcho ${green} "multi-v2ray ${WAY} success!\n"
 
     if [[ ${install_way} == 0 ]]; then
         clear
@@ -273,7 +276,6 @@ installFinish() {
         echo -e "please input 'v2ray' command to manage v2ray\n"
     fi
 }
-
 
 main() {
 
@@ -285,16 +287,22 @@ main() {
 
     checkSys
 
+    msgCentrado -verde "installDependent"
     installDependent
 
+    msgCentrado -verde "closeSELinux"
     closeSELinux
 
+    msgCentrado --verde "timeSync"
     timeSync
 
+    msgCentrado --verde "updateProject"
     updateProject
 
+    msgCentrado --verde "profileInit"
     profileInit
 
+    msgCentrado --verde "installFinish"
     installFinish
 }
 
