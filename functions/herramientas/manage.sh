@@ -25,15 +25,6 @@ source $HERRAMIENTAS_PATH/fixbaseuser.sh
 #    echo -e "\033[1;93m-------------------- SEGURIDAD ---------------------"
 
 #    echo -e "\033[1;93m------------------ AJUSTES DEL VPS -----------------"
-#    echo -ne " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m AJUSTES INTERNOS      "
-#    script[$Numb]="ajustein"
-#    let Numb++
-#    echo -e "\e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m HORARIO LOCAL      "
-#    script[$Numb]="horalocal"
-#    let Numb++
-#    echo -ne " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m AGREGAR DNS UNLOCK'S  "
-#    script[$Numb]="dnsunlock"
-#    let Numb++
 #    echo -e "\e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m SPEED TEST VPS      "
 #    script[$Numb]="speed"
 #    echo -e "\033[1;93m----------------------------------------------------"
@@ -110,10 +101,25 @@ menuSettings() {
     option[$num]="passquid"
     let num++
 
+    # DNS UNLOCK'S
+    opcionMenu -blanco $num "AGREGAR DNS UNLOCK'S"
+    option[$num]="dnsunlock"
+    let num++
+
+    # SPEED
+    opcionMenu -blanco $num "SPEED TEST VPSss"
+    option[$num]="speed"
+    let num++
+
     msgCentradoBarra "EXTRAS"
 
     # HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)
     opcionMenu -blanco $num "HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)"
+    option[$num]="streaming"
+    let num++
+
+    # HORA LOCAL
+    opcionMenu -blanco $num "HORARIO LOCAL"
     option[$num]="streaming"
     let num++
 
@@ -132,7 +138,13 @@ menuSettings() {
     "bbr") bbr_fun ;;
     "fai2ban") fai2ban_fun ;;
     "passquid") pass_squid ;;
-    "ajustein") intallv2ray ;;
+    "ajustein") ajuste_in ;;
+    "horalocal") hora_local ;;
+    "dnsunlock") dns_unlock ;;
+    "speed") intallv2ray ;;
+    "streaming") intallv2ray ;;
+    "streaming") intallv2ray ;;
+    "streaming") intallv2ray ;;
     "streaming") intallv2ray ;;
     "volver")
         return

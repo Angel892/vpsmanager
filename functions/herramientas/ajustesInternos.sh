@@ -27,7 +27,6 @@ ajuste_in() {
             fail2ban-client -x stop && fail2ban-client -x start
         ) >/dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        herramientas_fun
     }
     host_name() { #CAMBIO DE HOSTNAME
         unset name
@@ -43,7 +42,6 @@ ajuste_in() {
         fi
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        herramientas_fun
     }
     editports() {
         port() {
@@ -287,19 +285,18 @@ ajuste_in() {
         }
         main_fun
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        herramientas_fun
     }
 
     cambiopass() { #CAMBIO DE PASS ROOT
-        echo -e "${cor[3]} Esta herramienta cambia la contraseña de su servidor vps"
-        echo -e "${cor[3]} Esta contraseña es utilizada como usuario root"
+        echo -e "${BLANCO} Esta herramienta cambia la contraseña de su servidor vps"
+        echo -e "${BLANCO} Esta contraseña es utilizada como usuario root"
         msg -bar
         echo -ne "Desea Seguir? [S/N]: "
         read x
         [[ $x = @(n|N) ]] && msg -bar && return
         msg -bar
         #Inicia Procedimentos
-        echo -e "${cor[0]} Escriba su nueva contraseña"
+        echo -e "${BLANCO} Escriba su nueva contraseña"
         msg -bar
         read -p " Nuevo passwd: " pass
         (
@@ -308,17 +305,16 @@ ajuste_in() {
         ) | passwd root 2>/dev/null
         sleep 1s
         msg -bar
-        echo -e "${cor[3]} Contraseña cambiada con exito!"
-        echo -e "${cor[2]} Su contraseña ahora es: ${cor[4]}$pass"
+        echo -e "${BLANCO} Contraseña cambiada con exito!"
+        echo -e "${BLANCO} Su contraseña ahora es: ${VERDE}$pass"
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        herramientas_fun
     }
     rootpass() { #AGREGAR ROOT A AWS Y GOOGLE VPS
         clear
         msg -bar
-        echo -e "${cor[3]}  Esta herramienta cambia a usuario root las VPS de "
-        echo -e "${cor[3]}             GoogleCloud y Amazon"
+        echo -e "${BLANCO}  Esta herramienta cambia a usuario root las VPS de "
+        echo -e "${BLANCO}             GoogleCloud y Amazon"
         msg -bar
         echo -ne " Desea Seguir? [S/N]: "
         read x
@@ -341,28 +337,26 @@ ajuste_in() {
         ) | passwd 2>/dev/null
         sleep 1s
         msg -bar
-        echo -e "${cor[3]} Configuraciones aplicadas con exito!"
-        echo -e "${cor[2]} Su contraseña ahora es: ${cor[4]}$pass"
+        echo -e "${BLANCO} Configuraciones aplicadas con exito!"
+        echo -e "${BLANCO} Su contraseña ahora es: ${VERDE}$pass"
         service ssh restart >/dev/null 2>&1
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        herramientas_fun
     }
     pamcrack() { #DESACTIVAR PASS ALFANUMERICO
-        echo -e "${cor[3]} Liberar passwd ALFANUMERICO"
+        echo -e "${BLANCO} Liberar passwd ALFANUMERICO"
         msg -bar
         echo -ne " Desea Seguir? [S/N]: "
         read x
         [[ $x = @(n|N) ]] && msg -bar && return
         echo -e ""
-        wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/common-password &>/dev/null
+        wget -O /etc/pam.d/common-password https://github.com/Angel892/vpsmanager/raw/master/helpers/common-password &>/dev/null
         chmod +rwx /etc/pam.d/common-password
         fun_bar "service ssh restart"
         echo -e ""
         echo -e " \033[1;31m[ ! ]\033[1;33m Pass Alfanumerico Desactivado"
         msg -bar
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-        herramientas_fun
     }
     clear && clear
     msg -bar
@@ -398,7 +392,7 @@ ajuste_in() {
         editports
         ;;
     *)
-        herramientas_fun
+        return
         ;;
     esac
 
