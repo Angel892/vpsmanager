@@ -222,10 +222,10 @@ else
     echo "$MENU_PATH" >$alias2 && chmod +x $alias2
 fi
 
-read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
+read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar. (SE REINCIARA LA VPS)\n'
 
 # Ejecutar el script principal desde su nueva ubicación (evitar usando exec para mantener la sesión)
-$ALIAS_COMMAND
+reboot
 
 if [ $? -ne 0 ]; then
     echo "Error: Falló la ejecución del script principal."
