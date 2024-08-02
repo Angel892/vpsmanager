@@ -68,7 +68,9 @@ mainMenu() {
     let num++
 
     # AUTOINICIAR
-    opcionMenu -blanco $num "Autoiniciar Script"
+    # -- CHECK AUTORUN
+    [[ -e /etc/bash.bashrc-bakup ]] && AutoRun="\033[1;93m[\033[1;32m ON \033[1;93m]" || AutoRun="\033[1;93m[\033[1;31m OFF \033[1;93m]"
+    opcionMenu -blanco $num "Autoiniciar Script" false 2 && echo -e "${AutoRun}"
     option[$num]="autoIniciar"
     let num++
 
