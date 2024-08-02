@@ -21,6 +21,7 @@ source $functionsPath/main/monitorearRecursos.sh
 source $functionsPath/main/autoiniciarScript.sh
 source $functionsPath/main/puertosActivos.sh
 source $functionsPath/main/autoClean.sh
+source $functionsPath/main/monitor.sh
 
 mainMenu() {
 
@@ -61,10 +62,10 @@ mainMenu() {
     let num++
 
     # MONITOR DE PROTOCOLOS
-    VERY4="$(ps aux | grep "${mainPath}/auto/clean.sh" | grep -v grep)"
-    [[ -z ${VERY4} ]] && autolim="\033[93m[ \033[1;31mOFF \033[93m]" || autolim="\033[93m[\033[1;32m ON \033[93m]"
-    opcionMenu -blanco $num "Monitor de protocolos" false 2 && echo -e "${autolim}"
-    option[$num]="autoClean"
+    VERY3="$(ps aux | grep "${mainPath}/auto/monitorServicios.sh" | grep -v grep)"
+    [[ -z ${VERY3} ]] && monitorservi="\033[93m[ \033[1;31mOFF \033[93m]" || monitorservi="\033[93m[\033[1;32m ON \033[93m]"
+    opcionMenu -blanco $num "Monitor de protocolos | Autoinicios" false 2 && echo -e "${monitorservi}"
+    option[$num]="monitor"
     let num++
 
     # AUTO CLEAN
@@ -105,6 +106,7 @@ mainMenu() {
     "herramientas") menuSettings ;;
     "protocolos") menuProtocols ;;
     "monitorear") monitorear_recursos ;;
+    "monitor") monservi_fun ;;
     "autoClean") autolimpieza_fun ;;
     "actualizar") actualizar_script ;;
     "eliminar") eliminar_script ;;
