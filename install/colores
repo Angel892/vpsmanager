@@ -33,6 +33,8 @@ barra_intallb() {
             if [ "$i" -ge 39 ]; then
                 echo -ne "\033[1;33m]"
                 echo
+                tput cuu1 && tput dl1
+                echo -ne "  \033[1;33m["
             fi
 
             sleep 0.1
@@ -83,6 +85,8 @@ barra_intall() {
             if [ "$i" -ge 39 ]; then
                 echo -ne "\033[1;33m]"
                 echo
+                tput cuu1 && tput dl1
+                echo -ne "  \033[1;33m["
             fi
 
             sleep 0.08
