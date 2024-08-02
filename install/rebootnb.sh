@@ -28,6 +28,15 @@ if [[ "$1" = "resetwebsocket" ]]; then
     exit
 fi
 
+# LIMPIADOR AUTOMATICO
+limpiadorAuto() {
+    screen -dmS autolimpieza watch -n 43200 $mainPath/auto/clean.sh
+}
+if [[ "$1" = "limpiador" ]]; then
+    limpiadorAuto >/dev/null 2>&1
+    exit
+fi
+
 # AUTO MONITOR PROTO
 resetprotos_fun() {
     tiemmoni=$(cat $mainPath/temp/T-Mon)

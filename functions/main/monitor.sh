@@ -11,6 +11,11 @@ monservi_fun() {
     autobadvpn() {
         echo "sudo rebootnb resetbadvpn" >>/etc/rc.local
     }
+
+    autolimpiador() {
+        echo "sudo rebootnb limpiador" >>/etc/rc.local
+    }
+    
     autowebsoket() {
         echo "sudo rebootnb resetwebsocket" >>/etc/rc.local
     }
@@ -47,38 +52,68 @@ monservi_fun() {
     PIDVRF3="$(ps aux | grep "monitorproto" | grep -v grep | awk '{print $2}')"
     if [[ -z $PIDVRF3 ]]; then
         echo -e "\e[1;32m >>> AUTO INICIOS"
+
+        # MONITOR DE PROTOCOLOS
         echo -ne "\e[1;96m # Iniciar M-PROTOCOLOS ante reboot\e[1;93m [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read automprotos
         echo '#!/bin/sh -e' >/etc/rc.local
         sudo chmod +x /etc/rc.local
         echo "sudo rebootnb reboot" >>/etc/rc.local
         [[ "$automprotos" = "s" || "$automprotos" = "S" ]] && automprotos
+
+        # LIMPIADOR
+        echo -ne "\e[1;97m Iniciar Auto mantenimiento ante reboot\e[1;93m ....... [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read autolimpiador
+        [[ "$autolimpiador" = "s" || "$autolimpiador" = "S" ]] && autolimpiador
+
+        # BADVPN
         echo -ne "\e[1;97m Iniciar BADVPN ante reboot\e[1;93m ....... [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read autobadvpn
         [[ "$autobadvpn" = "s" || "$autobadvpn" = "S" ]] && autobadvpn
+
+        # PROXY WEB SOCKET
         echo -ne "\e[1;97m Iniciar PROXY-WEBSOKET ante reboot\e[1;93m [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read autowebsoket
         [[ "$autowebsoket" = "s" || "$autowebsoket" = "S" ]] && autowebsoket
+
+        # LIMITADOR
         echo -ne "\e[1;97m Iniciar LIMITADOR ante reboot\e[1;93m .... [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read autolimitador
         [[ "$autolimitador" = "s" || "$autolimitador" = "S" ]] && autolimitador
+
+        # DESBLOQUEADOR
         echo -ne "\e[1;97m Iniciar DESBLOQUEADOR ante reboot\e[1;93m  [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read autodesbloqueador
         [[ "$autodesbloqueador" = "s" || "$autodesbloqueador" = "S" ]] && autodesbloqueador
         echo "sleep 2s" >>/etc/rc.local
         echo "exit 0" >>/etc/rc.local
+
         msg -bar
         echo -e "\e[1;32m >>> MONITOR DE PROTOCOLOS"
+
+        # MONITOR SSH
         echo -ne "\e[1;97m Monitorear SSH\e[1;93m ................... [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read monssh
         echo "null" >$mainPath/temp/monitorpt
         [[ "$monssh" = "s" || "$monssh" = "S" ]] && monssh
+
+        # MONITOR DROPBEAR
         echo -ne "\e[1;97m Monitorear DROPBEAR\e[1;93m .............. [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read mondropbear
         [[ "$mondropbear" = "s" || "$mondropbear" = "S" ]] && mondropbear
+
+        # MONITOR SSL
         echo -ne "\e[1;97m Monitorear SSL\e[1;93m ................... [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read monssl
         [[ "$monssl" = "s" || "$monssl" = "S" ]] && monssl
+
+        # MONITOR SQUID
         echo -ne "\e[1;97m Monitorear SQUID\e[1;93m ................. [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read monsquid
         [[ "$monsquid" = "s" || "$monsquid" = "S" ]] && monsquid
+
+        # MONITOR APACHE
         echo -ne "\e[1;97m Monitorear APACHE\e[1;93m ................ [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read monapache
         [[ "$monapache" = "s" || "$monapache" = "S" ]] && monapache
+
+        # MONITOR V2RAY
         echo -ne "\e[1;97m Monitorear V2RAY\e[1;93m ................. [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read monv2ray
         [[ "$monv2ray" = "s" || "$monv2ray" = "S" ]] && monv2ray
+
+        # MONITOR WEBSOCKET
         echo -ne "\e[1;97m Monitorear PROXY WEBSOCKET\e[1;93m ....... [\033[1;97m s \033[1;93m| \033[1;97mn \033[1;93m]\033[1;97m: \e[1;32m" && read monwebsoket
         [[ "$monwebsoket" = "s" || "$monwebsoket" = "S" ]] && monwebsoket
+
         msg -bar
         echo -ne "\033[1;96m   ¿Cada cuantos segundos ejecutar el Monitor?\n\033[1;97m  +Segundos = -Uso de CPU | -Segundos = +Uso de CPU\033[0;92m \n                Predeterminado:\033[1;37m 120s\n     Cuantos Segundos (Numeros Unicamente): " && read tiemmoni
         error() {
