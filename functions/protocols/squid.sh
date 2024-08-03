@@ -52,8 +52,8 @@ proto_squid() {
         }
 
         showCabezera "INSTALADOR SQUID | SCRIPT LXServer"
-        vpsIP
-
+        
+        IP=$(vpsIP)
         msgne -blanco "Confirme su ip: " && msgne -verde ""
         read -p " " -e -i $IP ip
 
