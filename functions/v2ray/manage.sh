@@ -51,7 +51,7 @@ menuv2ray() {
     let num++
 
     # REMOVER USUARIO
-    opcionMenu -blanco $num "Activar tls" false 4
+    opcionMenu -blanco $num "Activar tls" false 5
     option[$num]="tls"
     let num++
 
