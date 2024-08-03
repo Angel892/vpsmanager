@@ -75,8 +75,10 @@ allowStreaming() {
 
     msg -bar
 
-    msgCentrado -verde "Todo listo"
+    msgCentrado -verde "Todo listo se reiniciara la vps al dar enter"
     msgSuccess
+
+    reboot
 
 }
 
