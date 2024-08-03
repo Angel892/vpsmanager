@@ -27,6 +27,9 @@ mainMenu() {
 
     showCabezera "LXMANAGER"
 
+    echo -e "    \033[1;37mIP: \033[93m$(vpsIP)     \033[1;37mS.O: \033[96m$(os_system)"
+    msg -bar
+
     local num=1
 
     # SSH
