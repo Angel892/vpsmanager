@@ -12,14 +12,11 @@ mosusr_kk() {
     local contador_secuencial=""
     local i=1
 
-    # Establecer los anchos de columna
-    local col_uuid=36
-    local col_email=25
-    local col_user=10
-    local col_dias=10
+    # Crear un archivo temporal para almacenar los datos alineados
+    local temp_file=$(mktemp)
 
-    # Imprimir la cabecera de la tabla con printf para la alineación
-    printf "\e[97m%-${col_uuid}s | %- ${col_email}s | %- ${col_user}s | %- ${col_dias}s\e[93m\n" "UUID" "EMAIL" "USER" "DIAS"
+    # Agregar la cabecera al archivo temporal
+    echo -e "UUID\tEMAIL\tUSER\tDIAS" >"$temp_file"
     msg -bar
 
     while IFS='|' read -r uuid email user dateExp; do
@@ -30,19 +27,19 @@ mosusr_kk() {
             local EXPTIME="\e[91m[ S/R ]\e[97m"
         fi
 
-        contador_secuencial+=$(printf "\e[93m%-${col_uuid}s | %- ${col_email}s | %- ${col_user}s | %- ${col_dias}s" "$uuid" "$email" "$user" "$dateExp$EXPTIME\n")
-
-        if ((i % 30 == 0)); then
-            echo -e "$contador_secuencial"
-            contador_secuencial=""
-        fi
+        echo -e "$uuid\t$email\t$user\t$dateExp$EXPTIME" >>"$temp_file"
         ((i++))
     done <"$HOST"
 
-    if [[ -n $contador_secuencial ]]; then
-        local linesss=$(wc -l <"$HOST")
-        echo -e "$contador_secuencial \n \e[1;97mNumero de Registrados: $linesss"
-    fi
+    # Usar 'column' para alinear los datos y luego imprimir
+    column -t -s $'\t' "$temp_file"
+
+    # Contar el número de líneas en el archivo original
+    local linesss=$(wc -l <"$HOST")
+    echo -e "\n \e[1;97mNumero de Registrados: $linesss"
+
+    # Limpiar el archivo temporal
+    rm "$temp_file"
 
     msgSuccess
 }
