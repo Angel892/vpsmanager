@@ -91,7 +91,7 @@ proto_squid() {
 
         msgInstall -blanco "Instalando squid"
         #fun_bar "apt-get install squid -y"
-        sudo apt-get install --fix-missing squid -y
+        sudo apt-get install squid -y
 
         msg -bar
         msgCentrado -blanco "INICIANDO CONFIGURACION"
