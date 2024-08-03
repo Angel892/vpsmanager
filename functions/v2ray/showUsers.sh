@@ -13,18 +13,19 @@ mosusr_kk() {
         return
     else
         i=1
-        echo -e "\e[97m                 UUID                | USER | DIAS\e[93m"
+        echo -e "\e[97m                 UUID                | EMAIL | USER | DIAS\e[93m"
         msg -bar
         while read hostreturn; do
-            DateExp="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f3)"
+            DateExp="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f4)"
             if [[ ! -z $DateExp ]]; then
                 DataSec=$(date +%s --date="$DateExp")
                 [[ "$VPSsec" -gt "$DataSec" ]] && EXPTIME="\e[91m[EXPIRADO]\e[97m" || EXPTIME="\e[92m[$(($(($DataSec - $VPSsec)) / 86400))]"
             else
                 EXPTIME="\e[91m[ S/R ]"
             fi
-            usris="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f2)"
-            local contador_secuencial+="\e[93m$hostreturn \e[97m|\e[93m$usris\e[97m|\e[93m $EXPTIME \n"
+            usris="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f3)"
+            usremail="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f2)"
+            local contador_secuencial+="\e[93m$hostreturn \e[97m|\e[93m $usremail\e[97m|\e[93m$usris\e[97m|\e[93m $EXPTIME \n"
             if [[ $i -gt 30 ]]; then
                 echo -e "$contador_secuencial"
                 unset contador_secuencial

@@ -6,7 +6,7 @@ lim_expv2ray() {
         VPSsec=$(date +%s)
         local HOST="$mainPath/RegV2ray"
         local HOST2="$mainPath/RegV2ray"
-        local RETURN="$(cat $HOST | cut -d'|' -f2)"
+        local RETURN="$(cat $HOST | cut -d'|' -f3)"
         local IDEUUID="$(cat $HOST | cut -d'|' -f1)"
         if [[ -z $RETURN ]]; then
             echo ""
@@ -30,7 +30,7 @@ lim_expv2ray() {
                     sed -i "${resta}d" /etc/v2ray/config.json
                     sed -i "${resta}d" /etc/v2ray/config.json
                 }
-                DateExp="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f3)"
+                DateExp="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f4)"
                 if [[ ! -z $DateExp ]]; then
                     DataSec=$(date +%s --date="$DateExp")
                     [[ "$VPSsec" -gt "$DataSec" ]] && EXPTIME= delbug || EXPTIME="\e[92m[$(($(($DataSec - $VPSsec)) / 86400))]\e[97m Dias"
