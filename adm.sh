@@ -56,7 +56,7 @@ mainMenu() {
     let num++
 
     # HERRAMIENTAS
-    opcionMenu -blanco $num "Herramientas" false 8
+    opcionMenu -blanco $num "Herramientas" false 9
     option[$num]="herramientas"
     let num++
 
