@@ -23,7 +23,7 @@ mosusr_kk() {
             local EXPTIME="\e[91m[ S/R ]\e[97m"
         fi
 
-        contador_secuencial+=$(printf "\e[93m%s \e[97m|\e[93m %s\e[97m|\e[93m%s\e[97m|\e[93m %s \n" "$uuid" "$email" "$user" "$dateExp$EXPTIME")
+        contador_secuencial+=$(printf "\e[93m%s \e[97m|\e[93m %s\e[97m|\e[93m%s\e[97m|\e[93m %s" "$uuid" "$email" "$user" "$dateExp$EXPTIME\n")
 
         if ((i % 30 == 0)); then
             echo -e "$contador_secuencial"
