@@ -8,7 +8,7 @@ allowStreaming() {
     fun_bar "sudo apt -y install net-tools openresolv"
 
     msgInstall "Instalando dependencias"
-    sudo apt install wireguard
+    sudo apt install wireguard -y
     #fun_bar "sudo apt install wireguard"
 
     # NOS POSISIONAMOS EN /root
