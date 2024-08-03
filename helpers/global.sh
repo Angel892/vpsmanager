@@ -871,7 +871,7 @@ dropbear_pids() {
             login=$(grep $pid $log | grep "$pidend" | grep "$loginsukses")
             #echo -e "${login}\n${pidend}\n"
             PID=$pid
-            user=$(echo $login | awk -F" " '{print $12}' | sed -r "s/'//g")
+            user=$(echo $login | awk -F" " '{print $10}' | sed -r "s/'//g")
             waktu=$(echo $login | awk -F" " '{print $2"-"$1,$3}')
             [[ -z $user ]] && continue
             echo "$user|$PID|$waktu"
