@@ -17,11 +17,11 @@ addusr() {
         read -p " " nick
         nick="$(echo $nick | sed -e 's/[^a-z0-9 -]//ig')"
         if [[ -z $nick ]]; then
-            err_fun 17 && continue
+            errorFun "nullo" && continue
         elif [[ "${#nick}" -lt "2" ]]; then
-            err_fun 2 && continue
+            errorFun "minimo" && continue
         elif [[ "${#nick}" -gt "6" ]]; then
-            err_fun 3 && continue
+            errorFun "maximo" && continue
         fi
         break
     done
@@ -29,11 +29,11 @@ addusr() {
     while true; do
         echo -ne "\e[91m >> Duracion de UUID (Dias):\033[1;92m " && read diasuser
         if [[ -z "$diasuser" ]]; then
-            err_fun 17 && continue
+            errorFun "nullo" && continue
         elif [[ "$diasuser" != +([0-9]) ]]; then
-            err_fun 8 && continue
+            errorFun "soloNumeros" && continue
         elif [[ "$diasuser" -gt "360" ]]; then
-            err_fun 9 && continue
+            errorFun "maximo" && continue
         fi
         break
     done

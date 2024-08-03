@@ -102,13 +102,13 @@ renovarCuentaSSH() {
         echo -ne "\e[1;97m Nueva Duracion\033[1;33m [\033[1;32m $useredit \033[1;33m]\033[1;97m: " && read diasuser
         if [[ -z "$diasuser" ]]; then
             echo -e '\n\n\n'
-            err_fun "bullo" && continue
+            errorFun "nullo" && continue
         elif [[ "$diasuser" != +([0-9]) ]]; then
             echo -e '\n\n\n'
-            err_fun "soloNumeros" && continue
+            errorFun "soloNumeros" && continue
         elif [[ "$diasuser" -gt "$duracionMaxima" ]]; then
             echo -e '\n\n\n'
-            err_fun "duracionMaxima" && continue
+            errorFun "duracionMaxima" && continue
         fi
         break
     done
