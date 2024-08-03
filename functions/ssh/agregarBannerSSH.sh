@@ -1,11 +1,5 @@
 #!/bin/bash
 
-HELPERS_PATH="/etc/vpsmanager/helpers"
-
-
-#funciones globales
-
-
 gestionarBannerSSH() {
     read -p "1. Agregar banner\n2. Eliminar banner\nSeleccione una opción: " opcion
     if [ $opcion -eq 1 ]; then

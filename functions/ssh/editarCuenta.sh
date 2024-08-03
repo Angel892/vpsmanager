@@ -50,13 +50,13 @@ editarCuentaSSH() {
         msg -rojo "Error, Usuario Invalido"
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        editarCuentaSSH
+        return
     }
     [[ ! $(echo ${mostrar_totales[@]} | grep -w "$useredit") ]] && {
         msg -rojo "error, Usuario Invalido"
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        editarCuentaSSH
+        return
     }
 
     while true; do
