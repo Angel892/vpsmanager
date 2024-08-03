@@ -1,15 +1,15 @@
 delusr() {
     invaliduuid() {
         msg -bar
-        echo -e "\e[91m                    UUID INVALIDO \n$(msg -bar)"
+        msgCentrado -rojo "UUID INVALIDO"
+        msg -bar
         msg -ne "Enter Para Continuar" && read enter
-        control_v2ray
     }
     
     showCabezera "ELIMINAR USUARIO | UUID V2RAY"
     msgCentrado -blanco "USUARIOS REGISTRADOS"
 
-    echo -e "\e[1;33m$(cat $mainPath/RegV2ray | cut -d '|' -f2,1)"
+    echo -e "\e[1;33m$(cat $mainPath/RegV2ray | cut -d '|' -f3,1)"
     msg -bar
     echo -ne "\e[91m >> Digita el usuario a eliminar:\n \033[1;92m " && read userv
     uuidel=$(cat $mainPath/RegV2ray | grep -w "$userv" | cut -d'|' -f1 | tr -d " \t\n\r")
