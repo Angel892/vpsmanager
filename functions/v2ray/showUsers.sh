@@ -26,7 +26,7 @@ mosusr_kk() {
             local EXPTIME="\e[91m[ S/R ]\e[97m"
         fi
 
-        echo -e "$uuid\t$email\t$user\t$dateExp$EXPTIME" >>"$temp_file"
+        echo -e "${VERDE}$uuid\t${AMARILLO}$email\t$user\t$dateExp$EXPTIME" >>"$temp_file"
         ((i++))
     done <"$HOST"
 
