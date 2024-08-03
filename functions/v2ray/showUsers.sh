@@ -16,7 +16,7 @@ mosusr_kk() {
     local temp_file=$(mktemp)
 
     # Agregar la cabecera al archivo temporal
-    echo -e "${BLANCO}UUID\tEMAIL\tUSER\tDIAS" >"$temp_file"
+    echo -e "${AMARILLO}UUID\tEMAIL\tUSER\tDIAS" >"$temp_file"
 
     while IFS='|' read -r uuid email user dateExp; do
         if [[ -n $dateExp ]]; then
@@ -26,7 +26,7 @@ mosusr_kk() {
             local EXPTIME="\e[91m[ S/R ]\e[97m"
         fi
 
-        echo -e "${VERDE}$uuid\t${AMARILLO}$email\t$user\t$dateExp$EXPTIME" >>"$temp_file"
+        echo -e "${VERDE}$uuid\t${BLANCO}$email\t$user\t$dateExp$EXPTIME" >>"$temp_file"
         ((i++))
     done <"$HOST"
 
