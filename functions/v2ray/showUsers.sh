@@ -12,7 +12,14 @@ mosusr_kk() {
     local contador_secuencial=""
     local i=1
 
-    echo -e "\e[97m                 UUID                | EMAIL | USER | DIAS\e[93m"
+    # Establecer los anchos de columna
+    local col_uuid=36
+    local col_email=25
+    local col_user=10
+    local col_dias=10
+
+    # Imprimir la cabecera de la tabla con printf para la alineación
+    printf "\e[97m%-${col_uuid}s | %- ${col_email}s | %- ${col_user}s | %- ${col_dias}s\e[93m\n" "UUID" "EMAIL" "USER" "DIAS"
     msg -bar
 
     while IFS='|' read -r uuid email user dateExp; do
@@ -23,7 +30,7 @@ mosusr_kk() {
             local EXPTIME="\e[91m[ S/R ]\e[97m"
         fi
 
-        contador_secuencial+=$(printf "\e[93m%s \e[97m|\e[93m %s\e[97m|\e[93m%s\e[97m|\e[93m %s" "$uuid" "$email" "$user" "$dateExp$EXPTIME\n")
+        contador_secuencial+=$(printf "\e[93m%-${col_uuid}s | %- ${col_email}s | %- ${col_user}s | %- ${col_dias}s" "$uuid" "$email" "$user" "$dateExp$EXPTIME\n")
 
         if ((i % 30 == 0)); then
             echo -e "$contador_secuencial"
