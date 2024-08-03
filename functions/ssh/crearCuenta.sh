@@ -149,7 +149,6 @@ crearCuentaSSH() {
         [[ $(dpkg --get-selections | grep -w "openvpn" | head -1) ]] && [[ -e /etc/openvpn/openvpn-status.log ]] && newclient "$nomeuser" "$senhauser"
 
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        crearCuentaSSH
     }
     #####-----CUENTA HWID
     cuenta_hwid() {
@@ -205,13 +204,13 @@ crearCuentaSSH() {
         msg -bar
         [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
             msgCentrado -rojo "Error, Usuario no creado"
-            crearCuentaSSH
+            return
         }
         valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
         userdel $nomeuser >/dev/null 2>&1
         useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
             msgCentrado -rojo "Error, Usuario no creado"
-            crearCuentaSSH
+            return
         }
         (
             echo $nomeuser
@@ -219,7 +218,7 @@ crearCuentaSSH() {
         ) | passwd $nomeuser 2>/dev/null || {
             userdel --force $nomeuser
 
-            crearCuentaSSH
+            return
         }
 
         validarArchivo "$mainPath/cuentahwid"
@@ -231,7 +230,6 @@ crearCuentaSSH() {
         msg -bar
 
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        crearCuentaSSH
     }
     #####-----CUENTA TOKEN
     cuenta_token() {
@@ -298,19 +296,19 @@ crearCuentaSSH() {
 
         [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
             msg -rojo "Error, Usuario no creado"
-            crearCuentaSSH
+            return
         }
         valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
         useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
             msg -rojo "Error, Usuario no creado"
-            crearCuentaSSH
+            return
         }
         (
             echo $passtoken
             echo $passtoken
         ) | passwd $nomeuser 2>/dev/null || {
             userdel --force $nomeuser
-            crearCuentaSSH
+            return
         }
 
         validarArchivo "$mainPath/cuentatoken"
@@ -322,7 +320,6 @@ crearCuentaSSH() {
 
         msg -bar
         msgCentradoRead -blanco "<< Presiona enter para Continuar >>"
-        crearCuentaSSH
     }
 
     clear && clear
