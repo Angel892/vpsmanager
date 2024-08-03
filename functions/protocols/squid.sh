@@ -1,11 +1,5 @@
 #--- PROTOCOLO SQUID
 proto_squid() {
-
-    vpsIP() {
-        MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-        MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
-        [[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
-    }
     #ETHOOL SSH
     fun_eth() {
         eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Ethernet" | awk '{print $1}')
@@ -96,7 +90,8 @@ proto_squid() {
         msg -bar
 
         msgInstall -blanco "Instalando squid"
-        fun_bar "apt-get install squid -y"
+        #fun_bar "apt-get install squid -y"
+        apt-get install squid -y
 
         msg -bar
         msgCentrado -blanco "INICIANDO CONFIGURACION"
