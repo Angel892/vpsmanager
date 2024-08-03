@@ -17,7 +17,6 @@ mosusr_kk() {
 
     # Agregar la cabecera al archivo temporal
     echo -e "UUID\tEMAIL\tUSER\tDIAS" >"$temp_file"
-    msg -bar
 
     while IFS='|' read -r uuid email user dateExp; do
         if [[ -n $dateExp ]]; then
