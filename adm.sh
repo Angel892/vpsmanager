@@ -22,6 +22,7 @@ source $functionsPath/main/autoiniciarScript.sh
 source $functionsPath/main/puertosActivos.sh
 source $functionsPath/main/autoClean.sh
 source $functionsPath/main/monitor.sh
+source $functionsPath/main/monitorhtop.sh
 
 mainMenu() {
 
@@ -55,8 +56,13 @@ mainMenu() {
     let num++
 
     # HERRAMIENTAS
-    opcionMenu -blanco $num "Herramientas"
+    opcionMenu -blanco $num "Herramientas" false 2
     option[$num]="herramientas"
+    let num++
+
+    # MONITOR HTOP
+    opcionMenu -verde $num "MONITOR HTOP"
+    option[$num]="monhtop"
     let num++
 
     # PROTOCOLOS
@@ -107,6 +113,7 @@ mainMenu() {
     "ssh") menuSSH ;;
     "v2ray") menuv2ray ;;
     "herramientas") menuSettings ;;
+    "monhtop") monhtop ;;
     "protocolos") menuProtocols ;;
     "monitorear") monitorear_recursos ;;
     "monitor") monservi_fun ;;
