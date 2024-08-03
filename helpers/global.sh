@@ -45,6 +45,16 @@ validarArchivo() {
     fi
 }
 
+os_system() {
+    system=$(cat -n /etc/issue | grep 1 | cut -d ' ' -f6,7,8 | sed 's/1//' | sed 's/      //')
+    distro=$(echo "$system" | awk '{print $1}')
+
+    case $distro in
+    Debian) vercion=$(echo $system | awk '{print $3}' | cut -d '.' -f1) ;;
+    Ubuntu) vercion=$(echo $system | awk '{print $2}' | cut -d '.' -f1,2) ;;
+    esac
+}
+
 checkStatus() {
     toCheck=$(ps x | grep "$1" | grep -v "grep" | awk -F "pts" '{print $1}')
     [[ -z ${toCheck} ]] && mostrarInActivo || mostrarActivo
