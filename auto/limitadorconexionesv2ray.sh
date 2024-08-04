@@ -5,6 +5,9 @@ source /etc/vpsmanager/helpers/global.sh
 limitadorv2ray() {
     local userdb="${mainPath}/RegV2ray"
 
+    local regIp="([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)"
+    local regPort="(?:(:))([0-9]..[^.][0-9]+)"
+
     while IFS='|' read -r uuid email user limite dateExp; do
         email=$(echo "$email" | tr -d '[:space:]')
         # Usa awk para procesar el archivo y extraer las IPs únicas, luego almacénalas en el array
@@ -24,11 +27,11 @@ limitadorv2ray() {
             for ip in "${unique_ips[@]}"; do
                 ss --tcp | grep -E "${ip}" | awk '{if($1=="ESTAB") print $4,$5;}' | sort | uniq -c | sort -nr | head | while read -r count src dest; do
 
-                    srcIp=$(echo "$src" | grep -oE '([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)')
-                    srcPort=$(echo "$src" | grep -oE ':([0-9]+)' | tr -d ':')
+                    srcIp=$(echo "$src" | grep -oE "${regIp}")
+                    srcPort=$(echo "$src" | grep -oE "${regPort}" | tr -d ':')
 
-                    destIp=$(echo "$dest" | grep -oE '([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)')
-                    destPort=$(echo "$dest" | grep -oE ':([0-9]+)' | tr -d ':')
+                    destIp=$(echo "$dest" | grep -oE "${regIp}")
+                    destPort=$(echo "$dest" | grep -oE "${regPort}" | tr -d ':')
 
                     echo -e "${srcIp} | ${srcPort} | ${destIp} | ${destIp}"
 
