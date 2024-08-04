@@ -40,7 +40,7 @@ limitadorv2ray() {
 
                 # guardamos los datos del bloqueo
                 echo "${ip}" >> $blockips_file
-                echo "${uuid} | ${email} | ${user} | ${limite} | ${ip}" >> $regblock
+                echo "${uuid} | ${email} | ${user} | ${limite} | ${ip}" >> $regBlock
             done
 
             msgne -rojo "[DESCONECTADO]"
