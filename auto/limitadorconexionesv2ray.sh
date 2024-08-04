@@ -13,6 +13,8 @@ limitadorv2ray() {
         # Cuenta las IPs únicas
         unique_ip_count=${#unique_ips[@]}
 
+        echo -e "${unique_ips}"
+
         echo -e "${VERDE}${email} ${unique_ip_count}"
     done <"${userdb}"
 
