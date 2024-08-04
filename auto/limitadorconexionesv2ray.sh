@@ -25,7 +25,7 @@ limitadorv2ray() {
         if [[ $unique_ip_count -gt $limite ]]; then
 
             for ip in "${unique_ips[@]}"; do
-                sudo ip route del blackhole "${ip}"
+                sudo ip route add blackhole "${ip}"
             done
 
             msgne -amarillo "${email} | ${limite} | ${unique_ip_count} | ${unique_ips_joined}"
