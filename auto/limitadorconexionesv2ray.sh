@@ -27,7 +27,7 @@ limitadorv2ray() {
             for ip in "${unique_ips[@]}"; do
                 ss --tcp | grep -E "${ip}" | awk '{if($1=="ESTAB") print $4,$5;}' | sort | uniq -c | sort -nr | head | while read -r count src dest; do
 
-                    echo -e "${src}"
+                    echo -e "${count} ${src} ${dest}"
 
                     srcIp=$(echo "$src" | grep -oE "${regIp}")
                     srcPort=$(echo "$src" | grep -oE "${regPort}" | tr -d ':')
