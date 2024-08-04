@@ -33,7 +33,7 @@ limitadorv2ray() {
                     destIp=$(echo "$dest" | grep -oE "${regIp}")
                     destPort=$(echo "$dest" | grep -oE "${regPort}" | tr -d ':')
 
-                    echo -e "${srcIp} | ${srcPort} | ${destIp} | ${destIp}"
+                    echo -e "${srcIp} | ${srcPort} | ${destIp} | ${destPort}"
 
                 done
             done
