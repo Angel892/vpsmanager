@@ -36,7 +36,7 @@ limitadorv2ray() {
                     destPort=$(echo "$dest" | grep -oE "${regPort}" | grep -Po '(?<=\]):[0-9]+' | grep -Po '[0-9]+')
 
                     # echo -e "${srcIp} | ${srcPort} | ${destIp} | ${destPort}"
-                    #ss -K dport = "$destPort"
+                    ss -K dport = "$destPort"
 
                 done
             done
