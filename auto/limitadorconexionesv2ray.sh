@@ -13,7 +13,12 @@ limitadorv2ray() {
         # Cuenta las IPs únicas
         unique_ip_count=${#unique_ips[@]}
 
-        echo -e "${VERDE}${email} ${unique_ip_count}"
+        if [[ $unique_ip_count -gt $limite ]]; then
+
+            msgne -verde "${email} | ${limite} | ${unique_ip_count}"
+
+        fi
+        
     done <"${userdb}"
 
 }
