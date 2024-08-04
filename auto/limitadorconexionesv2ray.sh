@@ -21,6 +21,10 @@ limitadorv2ray() {
 
         if [[ $unique_ip_count -gt $limite ]]; then
 
+            for ip in "${unique_ips[@]}"; do
+                ss --tcp | grep -E "${ip}" | awk '{if($1=="ESTAB") print $4,$5;}' | sort | uniq -c | sort -nr | head
+            done
+
             msgne -amarillo "${email} | ${limite} | ${unique_ip_count} | ${unique_ips_joined}"
             echo -e ""
 
