@@ -40,69 +40,71 @@ menuv2ray() {
 
     local num=1
 
-    # CREAR CUENTA
+    # INSTALAR
     opcionMenu -blanco $num "Instalar v2ray" false 2
     option[$num]="install"
     let num++
 
-    # CREAR CUENTA TEMPORAL
+    # CAMBIAR PROTOCOLO
     opcionMenu -blanco $num "Cambiar protocolo"
     option[$num]="protocol"
     let num++
 
-    # REMOVER USUARIO
+    # TLS
     opcionMenu -blanco $num "Activar tls" false 5
     option[$num]="tls"
     let num++
 
-    # BLOQUEAR USUARIO
+    # CAMBIAR PUERTO
     opcionMenu -blanco $num "Cambiar puerto"
     option[$num]="portv"
     let num++
 
-    # EDITAR USUARIO
+    # PATH
     opcionMenu -blanco $num "Cambiar nombre de path"
     option[$num]="changepath"
     let num++
 
     msgCentradoBarra -gris "Administrar cuentas"
 
-    # EDITAR USUARIO
+    # AGREGAR USUARIO
     opcionMenu -blanco $num "Agregar usuario uuid"
     option[$num]="addUser"
     let num++
 
-    # DETALLES
+    # REMOVER
     opcionMenu -blanco $num "Eliminar usuario uuid"
     option[$num]="removeUser"
     let num++
 
-    # USUARIOS CONECTADOS
+    # SHOW USER
     opcionMenu -blanco $num "Mostrar usuarios registrados"
     option[$num]="showUser"
     let num++
 
-    # ELIMINAR USUARIOS VENCIDOS
+    # INFO ACCOUNT
     opcionMenu -blanco $num "Informacion de cuentas"
     option[$num]="info"
     let num++
 
-    # BACKUP
+    # STATS
     opcionMenu -blanco $num "Estadisticas de consumo"
     option[$num]="stats"
     let num++
 
-    # BANNER
-    opcionMenu -blanco $num "Limpiador de expirados"
+    # LIMPIADOR DE EXPIRADOS
+    VERIFYV2RAYEXP=$(ps x | grep -v grep | grep "limv2ray")
+    [[ -z ${VERIFYV2RAYEXP} ]] && monitorv2rayexp="\033[93m[ \033[1;31mOFF \033[93m]" || monitorv2rayexp="\033[93m[\033[1;32m ON \033[93m]"
+    opcionMenu -blanco $num "Limpiador de expirados" false 2 && echo -e "${monitorv2rayexp}"
     option[$num]="removeExp"
     let num++
 
-    # ELIMINAR TODOS LOS USUARIOS
+    # BACKUP
     opcionMenu -blanco $num "Backup / base user y json"
     option[$num]="backup"
     let num++
 
-    # ELIMINAR TODOS LOS USUARIOS
+    # DESINSTALAR
     opcionMenu -rojo $num "Desinstalar v2ray"
     option[$num]="unistallv2"
     let num++
