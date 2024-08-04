@@ -30,10 +30,10 @@ limitadorv2ray() {
                     echo -e "${count} ${src} ${dest}"
 
                     srcIp=$(echo "$src" | grep -oE "${regIp}")
-                    srcPort=$(echo "$src" | grep -oE "${regPort}")
+                    srcPort=$(echo "$src" | grep -oE "${regPort}" | grep -Po '(?<=\]):[0-9]+' | grep -Po '[0-9]+')
 
                     destIp=$(echo "$dest" | grep -oE "${regIp}")
-                    destPort=$(echo "$dest" | grep -oE "${regPort}")
+                    destPort=$(echo "$dest" | grep -oE "${regPort}" | grep -Po '(?<=\]):[0-9]+' | grep -Po '[0-9]+')
 
                     echo -e "${srcIp} | ${srcPort} | ${destIp} | ${destPort}"
 
