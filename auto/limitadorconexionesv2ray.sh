@@ -23,7 +23,15 @@ limitadorv2ray() {
 
             for ip in "${unique_ips[@]}"; do
                 ss --tcp | grep -E "${ip}" | awk '{if($1=="ESTAB") print $4,$5;}' | sort | uniq -c | sort -nr | head | while read -r count src dest; do
-                    echo "Conexiones: $count, Origen: $src, Destino: $dest"
+
+                    srcIp=$(echo "$src" | grep -oE '([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)')
+                    srcPort=$(echo "$src" | grep -oE ':([0-9]+)' | tr -d ':')
+
+                    destIp=$(echo "$dest" | grep -oE '([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)')
+                    destPort=$(echo "$dest" | grep -oE ':([0-9]+)' | tr -d ':')
+
+                    echo -e "${srcIp} | ${srcPort} | ${destIp} | ${destIp}"
+
                 done
             done
 
