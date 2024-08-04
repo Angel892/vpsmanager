@@ -173,7 +173,7 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
     clear && clear
 
     echo -e "\033[1;97m    ◽️ ACTUALIZANDO "
-    barra_intallb "sudo apt update && sudo apt upgrade -y"
+    sudo apt update && sudo apt upgrade -y
 
     install_paquetes
 }
