@@ -16,6 +16,7 @@ limitadorv2ray() {
         if [[ $unique_ip_count -gt $limite ]]; then
 
             msgne -verde "${email} | ${limite} | ${unique_ip_count}"
+            echo -e ""
 
         fi
         
