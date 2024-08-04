@@ -6,7 +6,7 @@ limitadorv2ray() {
     local userdb="${mainPath}/RegV2ray"
 
     local regIp="([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)"
-    local regPort="\[.*\]:([0-9]+)"
+    local regPort="(\[.*\]:([0-9]+))"
 
     while IFS='|' read -r uuid email user limite dateExp; do
         email=$(echo "$email" | tr -d '[:space:]')
