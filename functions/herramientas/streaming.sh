@@ -5,7 +5,8 @@ allowStreaming() {
     showCabezera "Preparando para streaming"
 
     msgInstall "Instalando dependencias"
-    fun_bar "sudo apt -y install net-tools openresolv"
+    sudo apt -y install net-tools openresolv
+    #fun_bar "sudo apt -y install net-tools openresolv"
 
     msgInstall "Instalando dependencias"
     sudo apt install wireguard -y
