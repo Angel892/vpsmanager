@@ -36,7 +36,7 @@ limitadorv2ray() {
         if [[ $unique_ip_count -gt $limite ]]; then
 
             for ip in "${unique_ips[@]}"; do
-                sudo ip route add blackhole "${ip}"
+                sudo ip route add blackhole "${ip}" > /dev/null 2>&1
 
                 # guardamos los datos del bloqueo
                 echo "${ip}" >> $blockips_file
