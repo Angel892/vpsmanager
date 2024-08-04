@@ -16,6 +16,7 @@ source $V2RAY_PATH/showUsers.sh
 source $V2RAY_PATH/stats.sh
 source $V2RAY_PATH/tls.sh
 source $V2RAY_PATH/uninstall.sh
+source $V2RAY_PATH/limitador.sh
 
 menuv2ray() {
 
@@ -137,6 +138,7 @@ menuv2ray() {
     "removeUser") delusr ;;
     "showUser") mosusr_kk ;;
     "removeExp") limpiador_activador ;;
+    "limitador") limitadorv2ray ;;
     "backup") backup_fun ;;
     "unistallv2") unistallv2 ;;
     "volver")
