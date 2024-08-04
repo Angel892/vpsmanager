@@ -93,6 +93,13 @@ menuv2ray() {
     let num++
 
     # LIMPIADOR DE EXPIRADOS
+    VERIFYV2RAYLIMIT=$(ps x | grep -v grep | grep "limitadorv2ray")
+    [[ -z ${VERIFYV2RAYLIMIT} ]] && monitorv2raylimit="\033[93m[ \033[1;31mOFF \033[93m]" || monitorv2raylimit="\033[93m[\033[1;32m ON \033[93m]"
+    opcionMenu -blanco $num "Limitador de conexiones" false 2 && echo -e "${monitorv2raylimit}"
+    option[$num]="limitador"
+    let num++
+
+    # LIMPIADOR DE EXPIRADOS
     VERIFYV2RAYEXP=$(ps x | grep -v grep | grep "limv2ray")
     [[ -z ${VERIFYV2RAYEXP} ]] && monitorv2rayexp="\033[93m[ \033[1;31mOFF \033[93m]" || monitorv2rayexp="\033[93m[\033[1;32m ON \033[93m]"
     opcionMenu -blanco $num "Limpiador de expirados" false 2 && echo -e "${monitorv2rayexp}"
