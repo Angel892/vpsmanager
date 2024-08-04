@@ -10,18 +10,22 @@ limitadorv2ray() {
         # Usa awk para procesar el archivo y extraer las IPs únicas, luego almacénalas en el array
         readarray -t unique_ips < <(grep "${email}" /var/log/v2ray/access.log | awk '{match($0, /([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+):/, ip); if (ip[1] != "") print ip[1]}' | sort | uniq)
 
-        echo -e "${unique_ips}"
-
         # Cuenta las IPs únicas
         unique_ip_count=${#unique_ips[@]}
 
+        # Unir los elementos del array en una sola cadena separada por comas
+        unique_ips_joined=$(
+            IFS=,
+            echo "${unique_ips[*]}"
+        )
+
         if [[ $unique_ip_count -gt $limite ]]; then
 
-            msgne -verde "${email} | ${limite} | ${unique_ip_count}"
+            msgne -amarillo "${email} | ${limite} | ${unique_ip_count} | ${unique_ips_joined}"
             echo -e ""
 
         fi
-        
+
     done <"${userdb}"
 
 }
