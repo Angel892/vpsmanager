@@ -25,20 +25,7 @@ limitadorv2ray() {
         if [[ $unique_ip_count -gt $limite ]]; then
 
             for ip in "${unique_ips[@]}"; do
-                ss --tcp | grep -E "${ip}" | awk '{if($1=="ESTAB") print $4,$5;}' | sort | uniq -c | sort -nr | head | while read -r count src dest; do
-
-                    # echo -e "${count} ${src} ${dest}"
-
-                    srcIp=$(echo "$src" | grep -oE "${regIp}")
-                    srcPort=$(echo "$src" | grep -oE "${regPort}" | grep -Po '(?<=\]):[0-9]+' | grep -Po '[0-9]+')
-
-                    destIp=$(echo "$dest" | grep -oE "${regIp}")
-                    destPort=$(echo "$dest" | grep -oE "${regPort}" | grep -Po '(?<=\]):[0-9]+' | grep -Po '[0-9]+')
-
-                    echo -e "${srcIp} | ${srcPort} | ${destIp} | ${destPort}"
-                    #ss -K dport = "$destPort"
-
-                done
+                sudo ip route del blackhole "${ip}"
             done
 
             msgne -amarillo "${email} | ${limite} | ${unique_ip_count} | ${unique_ips_joined}"
