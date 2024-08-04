@@ -30,7 +30,7 @@ lim_expv2ray() {
                     sed -i "${resta}d" /etc/v2ray/config.json
                     sed -i "${resta}d" /etc/v2ray/config.json
                 }
-                DateExp="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f4)"
+                DateExp="$(cat $mainPath/RegV2ray | grep -w "$hostreturn" | cut -d'|' -f5)"
                 if [[ ! -z $DateExp ]]; then
                     DataSec=$(date +%s --date="$DateExp")
                     [[ "$VPSsec" -gt "$DataSec" ]] && EXPTIME= delbug || EXPTIME="\e[92m[$(($(($DataSec - $VPSsec)) / 86400))]\e[97m Dias"

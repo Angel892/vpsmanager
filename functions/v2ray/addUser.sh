@@ -37,12 +37,24 @@ addusr() {
         fi
         break
     done
+
+    # LIMITE DE CONEXIONES
+    while true; do
+        echo -ne "\e[91m >> Limite de conexiones:\033[1;92m " && read limiteConexion
+        if [[ -z "$limiteConexion" ]]; then
+            errorFun "nullo" && continue
+        elif [[ "$limiteConexion" != +([0-9]) ]]; then
+            errorFun "soloNumeros" && continue
+        fi
+        break
+    done
+
     #Lim
     [[ $(cat /etc/passwd | grep $1: | grep -vi [a-z]$1 | grep -v [0-9]$1 >/dev/null) ]] && return 1
     valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
     echo -e "\e[91m >> Expira el : \e[92m$datexp "
     ##Registro
-    echo "  $UUID | $MAILITO@gmail.com | $nick | $valid " >>$mainPath/RegV2ray
+    echo "  $UUID | $MAILITO@gmail.com | $nick | $limiteConexion | $valid " >>$mainPath/RegV2ray
     Fecha=$(date +%d-%m-%y-%R)
     cp $mainPath/RegV2ray $mainPath/v2ray/RegV2ray-"$Fecha"
     cp $mainPath/RegV2ray /etc/v2ray/config.json-"$Fecha"

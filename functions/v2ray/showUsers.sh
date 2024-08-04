@@ -16,9 +16,9 @@ mosusr_kk() {
     local temp_file=$(mktemp)
 
     # Agregar la cabecera al archivo temporal
-    echo -e "${AMARILLO}UUID\tEMAIL\tUSER\tDIAS" >"$temp_file"
+    echo -e "${AMARILLO}UUID\tEMAIL\tUSER\tLIMITE\tDIAS" >"$temp_file"
 
-    while IFS='|' read -r uuid email user dateExp; do
+    while IFS='|' read -r uuid email user limite dateExp; do
         if [[ -n $dateExp ]]; then
             local DataSec=$(date +%s --date="$dateExp")
             local EXPTIME=$([[ "$VPSsec" -gt "$DataSec" ]] && echo -e "\e[91m[EXPIRADO]\e[97m" || echo -e "\e[92m[$(((DataSec - VPSsec) / 86400))]\e[97m")
@@ -26,7 +26,7 @@ mosusr_kk() {
             local EXPTIME="\e[91m[ S/R ]\e[97m"
         fi
 
-        echo -e "${VERDE}$uuid\t${BLANCO}$email\t$user\t$dateExp$EXPTIME" >>"$temp_file"
+        echo -e "${VERDE}$uuid\t${BLANCO}$email\t$user\t$limite\t$dateExp$EXPTIME" >>"$temp_file"
         ((i++))
     done <"$HOST"
 
