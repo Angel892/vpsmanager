@@ -4,6 +4,10 @@ source /etc/vpsmanager/helpers/global.sh
 
 limitadorv2ray() {
     local userdb="${mainPath}/RegV2ray"
+    local blockips_file="$mainPath/v2ray/blockips"
+    [[ ! -f $blockips_file ]] && touch $blockips_file
+    local regBlock="$mainPath/v2ray/regblock"
+    [[ ! -f $regBlock ]] && touch $regBlock
 
     local regIp="([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)"
     local regPort="\]:([0-9]+)"
@@ -22,15 +26,26 @@ limitadorv2ray() {
             echo "${unique_ips[*]}"
         )
 
+        showCabezera "LIMITADOR DE  CONEXIONES"
+
+        msg -amarillo "USUARIO | LIMITE | CONEXION | STATUS"
+        
+        msgne -blanco "${user} | ${limite} | ${unique_ip_count} | "
+
+
         if [[ $unique_ip_count -gt $limite ]]; then
 
             for ip in "${unique_ips[@]}"; do
                 sudo ip route add blackhole "${ip}"
+
+                # guardamos los datos del bloqueo
+                echo "${ip}" >> $blockips_file
+                echo "${uuid} | ${email} | ${user} | ${limite} | ${ip}" >> $regblock
             done
 
-            msgne -amarillo "${email} | ${limite} | ${unique_ip_count} | ${unique_ips_joined}"
-            echo -e ""
-
+            msgne -rojo "[DESCONECTADO]"
+        else
+            msgne -verde "[OK]"
         fi
 
     done <"${userdb}"
