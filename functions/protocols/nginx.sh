@@ -167,12 +167,16 @@ EOF
 
         sudo apt update
         sudo apt install certbot python3-certbot-nginx -y
-        sudo certbot --nginx -d vps.loxoweb.com
+
+        msg -bar
+
+        sudo certbot --nginx -d $dominio
         sudo certbot renew --dry-run
         
         sudo nginx -t
         sudo systemctl restart nginx
         
+        msgSuccess
     }
 
     showCabezera "MENU NGINX"
