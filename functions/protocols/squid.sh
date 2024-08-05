@@ -235,7 +235,7 @@ proto_squid() {
 
             via off
             forwarded_for off
-            pipeline_prefetch off" >>$var_squid
+            pipeline_prefetch 0" >>$var_squid
         fi
         touch /etc/opendns
         fun_eth
