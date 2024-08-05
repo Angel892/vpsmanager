@@ -15,7 +15,8 @@ gestionarBannerSSH() {
             local="$mainPath/bannerssh"
         fi
         showCabezera "AGREGAR BANNER SSH/SSL/DROPBEAR"
-        msg -ne "Inserte el BANNER de preferencia en HTML sin saltos: \n\n" && read ban_ner
+        msgne -blanco "Inserte el BANNER de preferencia en HTML sin saltos: \n\n" && mgne -verde ""
+        read ban_ner
         echo ""
         msg -bar
         echo "$ban_ner" >>$local
