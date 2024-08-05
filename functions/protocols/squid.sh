@@ -201,7 +201,7 @@ proto_squid() {
             forwarded_for off
             pipeline_prefetch off" >>$var_squid
         else
-            echo -e "#Configuracion SquiD
+            echo -e "#Configuracion Squid
             acl localhost src 127.0.0.1/32 ::1
             acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
             acl SSL_ports port 443
@@ -216,7 +216,8 @@ proto_squid() {
             acl Safe_ports port 591
             acl Safe_ports port 777
             acl CONNECT method CONNECT
-            acl SSH dst $ip-$ip/255.255.255.255
+            #acl SSH dst $ip-$ip/255.255.255.255
+            acl SSH dst $ip/32
             http_access allow SSH
             http_access allow manager localhost
             http_access deny manager
