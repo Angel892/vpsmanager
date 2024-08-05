@@ -166,7 +166,7 @@ EOF
         sudo ln -s /etc/nginx/sites-available/$sitename /etc/nginx/sites-enabled/
 
         sudo apt update
-        sudo apt install certbot python3-certbot-nginx
+        sudo apt install certbot python3-certbot-nginx -y
         sudo certbot --nginx -d vps.loxoweb.com
         sudo certbot renew --dry-run
         
