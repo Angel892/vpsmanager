@@ -11,11 +11,11 @@ desbloqueadorv2ray() {
     msg -amarillo "IP               | STATUS"
 
     while read -r ip; do
-        #sudo ip route add blackhole "${ip}" >/dev/null 2>&1
-        echo $ip
+        sudo ip route del blackhole "${ip}" >/dev/null 2>&1
+        msgne -blanco "${ip} | " && msg -verde "[DESBLOQUEADO]"
     done <"${blockips_file}"
 
-    #echo "" > $logPath
+    echo "" > $blockips_file
     msg -bar
 
 }

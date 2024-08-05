@@ -51,7 +51,7 @@ limitadorv2ray() {
 
     done <"${userdb}"
 
-    #echo "" > $logPath
+    echo "" > $logPath
     msg -bar
 
 }
