@@ -233,8 +233,10 @@ proto_squid() {
             #HostName
             visible_hostname SCRIPT-LXServer
 
-            via off
+            # via off
+            via on
             forwarded_for off
+            # pipeline_prefetch off
             pipeline_prefetch 0" >>$var_squid
         fi
         touch /etc/opendns
