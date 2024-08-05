@@ -31,19 +31,23 @@ menuNginx() {
         msgSuccess
     }
 
-    local num=1
-
     showCabezera "MENU NGINX"
 
-    # INSTALAR
-    opcionMenu -blanco $num "Instalar nginx"
-    option[$num]="install"
-    let num++
+    local num=1
 
-    # DESINSTALAR
-    opcionMenu -blanco $num "Desinstalar nginx"
-    option[$num]="uninstall"
-    let num++
+    local status=$(ps -ef | grep "nginx" | grep -v "grep" | awk -F "pts" '{print $1}')
+
+    if [[ -z ${toCheck} ]]; then
+        # INSTALAR
+        opcionMenu -blanco $num "Instalar nginx"
+        option[$num]="install"
+        let num++
+    else
+        # DESINSTALAR
+        opcionMenu -blanco $num "Desinstalar nginx"
+        option[$num]="uninstall"
+        let num++
+    fi
 
     msg -bar
 
