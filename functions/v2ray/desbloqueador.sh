@@ -39,7 +39,7 @@ desbloqueadorv2ray() {
             error
         fi
         echo "${tiemlim}" >$mainPath/temp/v2raydesbloqueo-T-Lim
-        screen -dmS desbloqueadorv2ray watch -n $tiemlim "${mainPath}/auto/limitadorconexionesv2ray.sh"
+        screen -dmS desbloqueadorv2ray watch -n $tiemlim "${mainPath}/auto/desbloqueadorv2ray.sh"
     else
         for pid in $(echo $PIDGEN); do
             screen -S desbloqueadorv2ray -p 0 -X quit
