@@ -91,26 +91,14 @@ gestionarBannerSSH() {
     showCabezera "BANNERS"
 
     local num=1
-    # HTTP CUSTOM GRATIS
-    opcionMenu -blanco $num "Banner http custom regalo"
-    option[$num]="customgratis"
+    # REGALO
+    opcionMenu -blanco $num "Banner regalo"
+    option[$num]="regalo"
     let num++
 
-    # HTTP CUSTOM VENTAS
-    opcionMenu -blanco $num "Banner http custom venta"
-    option[$num]="customventas"
-    let num++
-
-    msgCentradoBarra -amarillo "HTTP INJECTOR"
-
-    # HTTP INJECTOR GRATIS
-    opcionMenu -blanco $num "Banner http injector regalo"
-    option[$num]="injectorgratis"
-    let num++
-
-    # HTTP INJECTOR VENTAS
-    opcionMenu -blanco $num "Banner http injector venta"
-    option[$num]="injectorgratis"
+    # VENTAS
+    opcionMenu -blanco $num "Banner ventas"
+    option[$num]="ventas"
     let num++
 
     msgCentradoBarra -amarillo "EXTRAS"
@@ -131,17 +119,11 @@ gestionarBannerSSH() {
     selection=$(selectionFun $num)
     case ${option[$selection]} in
 
-    "customgratis")
-        bannerSet "customGratis"
+    "regalo")
+        bannerSet "bannerRegalo"
         ;;
-    "customventas")
-        bannerSet "customVentas"
-        ;;
-    "injectorgratis")
-        bannerSet "injectorGratis"
-        ;;
-    "injectorgratis")
-        bannerSet "injectorVentas"
+    "ventas")
+        bannerSet "bannerVentas"
         ;;
     "personalizado")
         banner_on
