@@ -16,6 +16,7 @@ source $SSH_PATH/eliminarTodos.sh
 source $SSH_PATH/renovarCuentas.sh
 source $SSH_PATH/limitador.sh
 source $SSH_PATH/desbloqueoAutomatico.sh
+source $SSH_PATH/agregarBannerSSH.sh
 
 menuSSH() {
 
