@@ -2,6 +2,40 @@
 
 gestionarBannerSSH() {
 
+    customVentas() {
+
+        local banner="${mainPath}/banners/customVentas.html"
+
+        # Remover espacios en blanco al principio y al final de la ruta
+        banner=$(echo "$banner" | xargs)
+
+        local sshBannerPath="$mainPath/bannerssh"
+        rm -rf $sshBannerPath >/dev/null 2>&1
+        local dropbearBannerPath="/etc/dropbear/banner"
+        chk=$(cat /etc/ssh/sshd_config | grep Banner)
+        if [ "$(echo "$chk" | grep -v "#Banner" | grep Banner)" != "" ]; then
+            sshBannerPath=$(echo "$chk" | grep -v "#Banner" | grep Banner | awk '{print $2}')
+        else
+            echo "" >>/etc/ssh/sshd_config
+            echo "Banner $mainPath/bannerssh" >>/etc/ssh/sshd_config
+            sshBannerPath="$mainPath/bannerssh"
+        fi
+        # Copiar el contenido del banner al archivo de banner de SSH, comprimido en una sola línea
+        tr -d '\n' <"$banner" >"$sshBannerPath"
+        if [[ -e "$dropbearBannerPath" ]]; then
+            rm $dropbearBannerPath >/dev/null 2>&1
+            cp $sshBannerPath $dropbearBannerPath >/dev/null 2>&1
+        fi
+        msgCentrado -verde "BANNER AGREGADO CON !! EXITO ¡¡" && msg -bar
+        service ssh restart 2>/dev/null
+        service dropbear stop 2>/dev/null
+        sed -i "s/=1/=0/g" /etc/default/dropbear
+        service dropbear restart
+        sed -i "s/=0/=1/g" /etc/default/dropbear
+
+        msgSuccess
+    }
+
     banner_on() {
         local="$mainPath/bannerssh"
         rm -rf $local >/dev/null 2>&1
@@ -31,6 +65,8 @@ gestionarBannerSSH() {
         sed -i "s/=1/=0/g" /etc/default/dropbear
         service dropbear restart
         sed -i "s/=0/=1/g" /etc/default/dropbear
+
+        msgSuccess
     }
 
     banner_off() {
