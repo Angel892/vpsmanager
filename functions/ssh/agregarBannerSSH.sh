@@ -2,9 +2,11 @@
 
 gestionarBannerSSH() {
 
-    customVentas() {
+    bannerSet() {
 
-        local banner="${mainPath}/banners/customVentas.html"
+        local bannerName=$1
+
+        local banner="${mainPath}/banners/${bannerName}.html"
 
         # Remover espacios en blanco al principio y al final de la ruta
         banner=$(echo "$banner" | xargs)
@@ -130,16 +132,16 @@ gestionarBannerSSH() {
     case ${option[$selection]} in
 
     "customgratis")
-        activar_dropbear
+        bannerSet "customGratis"
         ;;
     "customventas")
-        desactivar_dropbear
+        bannerSet "customVentas"
         ;;
     "injectorgratis")
-        activar_dropbear
+        bannerSet "injectorGratis"
         ;;
     "injectorgratis")
-        desactivar_dropbear
+        bannerSet "injectorVentas"
         ;;
     "personalizado")
         banner_on
