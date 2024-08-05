@@ -5,7 +5,8 @@ menuNginx() {
         showCabezera "Instalacion NGINX"
 
         msgInstall -blanco "Instalando nginx"
-        barra_intall "apt-get install nginx -y"
+        # barra_intall "apt-get install nginx -y"
+        apt-get install nginx -y
 
         msgSuccess
     }
