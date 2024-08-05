@@ -1,17 +1,17 @@
 #!/bin/bash
 
-limitadorv2ray() {
+desbloqueadorv2ray() {
 
-    validarArchivo "$mainPath/temp/v2ray-T-Lim"
+    validarArchivo "$mainPath/temp/v2raydesbloqueo-T-Lim"
 
-    showCabezera "LIMITADOR DE CUENTAS"
-    msgCentrado -blanco "Esta Opcion Limita las Conexiones de V2RAY"
+    showCabezera "DESBLOQUEADOR AUTOMATICO"
+    msgCentrado -blanco "Esta Opcion Desbloquea automaticamente los usuarios v2ray"
     msg -bar
 
-    PIDGEN=$(ps aux | grep -v grep | grep "limitadorv2ray")
+    PIDGEN=$(ps aux | grep -v grep | grep "desbloqueadorv2ray")
 
     if [[ -z $PIDGEN ]]; then
-        msgCentrado -azul "¿Cada cuantos segundos ejecutar el limitador?"
+        msgCentrado -azul "¿Cada cuantos segundos ejecutar el desbloqueador?"
         msgCentrado -amarillo "+Segundos = -Uso de CPU | -Segundos = +Uso de CPU"
         msgCentrado -verde "Predeterminado: 120s"
         msg -bar
@@ -26,7 +26,7 @@ limitadorv2ray() {
             tput cuu1
             tput dl1
             tiemlim="120"
-            echo "${tiemlim}" >$mainPath/temp/v2ray-T-Lim
+            echo "${tiemlim}" >$mainPath/temp/v2raydesbloqueo-T-Lim
 
         }
         #[[ -z "$tiemlim" ]] && tiemlim="120"
@@ -38,11 +38,11 @@ limitadorv2ray() {
         if [ "$tiemlim" -lt "1" ]; then
             error
         fi
-        echo "${tiemlim}" >$mainPath/temp/v2ray-T-Lim
-        screen -dmS limitadorv2ray watch -n $tiemlim "${mainPath}/auto/limitadorconexionesv2ray.sh"
+        echo "${tiemlim}" >$mainPath/temp/v2raydesbloqueo-T-Lim
+        screen -dmS desbloqueadorv2ray watch -n $tiemlim "${mainPath}/auto/limitadorconexionesv2ray.sh"
     else
         for pid in $(echo $PIDGEN); do
-            screen -S limitadorv2ray -p 0 -X quit
+            screen -S desbloqueadorv2ray -p 0 -X quit
         done
     fi
     msg -bar

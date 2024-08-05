@@ -17,6 +17,7 @@ source $V2RAY_PATH/stats.sh
 source $V2RAY_PATH/tls.sh
 source $V2RAY_PATH/uninstall.sh
 source $V2RAY_PATH/limitador.sh
+source $V2RAY_PATH/desbloqueador.sh
 
 menuv2ray() {
 
@@ -100,6 +101,13 @@ menuv2ray() {
     option[$num]="limitador"
     let num++
 
+    # DESBLOQUEO AUTOMATICO
+    VERIFYV2RAYDESBLOQUEO=$(ps x | grep -v grep | grep "desbloqueadorv2ray")
+    [[ -z ${VERIFYV2RAYDESBLOQUEO} ]] && monitorv2raydesbloqueo="\033[93m[ \033[1;31mOFF \033[93m]" || monitorv2raydesbloqueo="\033[93m[\033[1;32m ON \033[93m]"
+    opcionMenu -blanco $num "Desbloqueador automatico" false 2 && echo -e "${monitorv2raydesbloqueo}"
+    option[$num]="desbloqueador"
+    let num++
+
     # LIMPIADOR DE EXPIRADOS
     VERIFYV2RAYEXP=$(ps x | grep -v grep | grep "limv2ray")
     [[ -z ${VERIFYV2RAYEXP} ]] && monitorv2rayexp="\033[93m[ \033[1;31mOFF \033[93m]" || monitorv2rayexp="\033[93m[\033[1;32m ON \033[93m]"
@@ -139,6 +147,7 @@ menuv2ray() {
     "showUser") mosusr_kk ;;
     "removeExp") limpiador_activador ;;
     "limitador") limitadorv2ray ;;
+    "desbloqueador") desbloqueadorv2ray ;;
     "backup") backup_fun ;;
     "unistallv2") unistallv2 ;;
     "volver")
