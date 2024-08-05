@@ -57,3 +57,6 @@ limitadorv2ray() {
 }
 
 limitadorv2ray
+
+
+# ip route show | grep blackhole
