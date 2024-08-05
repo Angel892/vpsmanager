@@ -43,12 +43,14 @@ limitadorv2ray() {
                 echo "${uuid} | ${email} | ${user} | ${limite} | ${ip}" >> $regBlock
             done
 
-            msgne -rojo "[DESCONECTADO]"
+            msg -rojo "[DESCONECTADO]"
         else
-            msgne -verde "[OK]"
+            msg -verde "[OK]"
         fi
 
     done <"${userdb}"
+
+    msg -bar
 
 }
 
