@@ -37,7 +37,7 @@ menuNginx() {
 
     local status=$(ps -ef | grep "nginx" | grep -v "grep" | awk -F "pts" '{print $1}')
 
-    if [[ -z ${toCheck} ]]; then
+    if [[ -z ${status} ]]; then
         # INSTALAR
         opcionMenu -blanco $num "Instalar nginx"
         option[$num]="install"
