@@ -109,7 +109,7 @@ EOF
 
         while true; do
             msgne -blanco "Nombre del sitio:" && msgne -verde
-            read -p " " -e -i sitename
+            read -p " " sitename
             if [[ -z $sitename ]]; then
                 errorFun "nullo"
                 continue
@@ -127,7 +127,7 @@ EOF
 
         while true; do
             msgne -blanco "Dominio:" && msgne -verde
-            read -p " " -e -i dominio
+            read -p " " dominio
             if [[ -z $dominio ]]; then
                 errorFun "nullo"
                 continue
