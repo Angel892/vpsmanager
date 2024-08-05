@@ -46,8 +46,8 @@ validarArchivo() {
 }
 
 os_system() {
-  system=$(echo $(cat -n /etc/issue | grep 1 | cut -d' ' -f6,7,8 | sed 's/1//' | sed 's/      //'))
-  echo $system | awk '{print $1, $2}'
+    system=$(echo $(cat -n /etc/issue | grep 1 | cut -d' ' -f6,7,8 | sed 's/1//' | sed 's/      //'))
+    echo $system | awk '{print $1, $2}'
 }
 
 checkStatus() {
@@ -284,8 +284,14 @@ vpsIP() {
     if [[ -e /tmp/IP ]]; then
         echo "$(cat /tmp/IP)"
     else
-        MEU_IP=$(wget -qO- ipv4.icanhazip.com)
-        echo "$MEU_IP" >/tmp/IP
+        unset ip
+        ip1=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+        if [[ -z $ip1 ]]; then
+            ip=$(wget -qO- ipv4.icanhazip.com)
+        else
+            ip=$ip1
+        fi
+        echo "$ip" >/tmp/IP
     fi
 }
 
