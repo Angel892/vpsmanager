@@ -12,6 +12,10 @@ limitadorv2ray() {
     local regIp="([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)"
     local regPort="\]:([0-9]+)"
 
+    showCabezera "LIMITADOR DE  CONEXIONES"
+
+    msg -amarillo "USUARIO | LIMITE | CONEXION | STATUS"
+
     while IFS='|' read -r uuid email user limite dateExp; do
         email=$(echo "$email" | tr -d '[:space:]')
         # Usa awk para procesar el archivo y extraer las IPs únicas, luego almacénalas en el array
@@ -26,21 +30,16 @@ limitadorv2ray() {
             echo "${unique_ips[*]}"
         )
 
-        showCabezera "LIMITADOR DE  CONEXIONES"
-
-        msg -amarillo "USUARIO | LIMITE | CONEXION | STATUS"
-        
         msgne -blanco "${user} | ${limite} | ${unique_ip_count} | "
-
 
         if [[ $unique_ip_count -gt $limite ]]; then
 
             for ip in "${unique_ips[@]}"; do
-                sudo ip route add blackhole "${ip}" > /dev/null 2>&1
+                sudo ip route add blackhole "${ip}" >/dev/null 2>&1
 
                 # guardamos los datos del bloqueo
-                echo "${ip}" >> $blockips_file
-                echo "${uuid} | ${email} | ${user} | ${limite} | ${ip}" >> $regBlock
+                echo "${ip}" >>$blockips_file
+                echo "${uuid} | ${email} | ${user} | ${limite} | ${ip}" >>$regBlock
             done
 
             msg -rojo "[DESCONECTADO]"
