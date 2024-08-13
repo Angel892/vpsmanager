@@ -30,7 +30,7 @@ menuSiteManager() {
     selection=$(selectionFun $num)
     case ${option[$selection]} in
     "getRepositorio") clonarRepositorio ;;
-    "nginxdotnet") clonarRepositorio ;;
+    "nginxdotnet") nginxdotnet ;;
     "volver")
         return
         ;;
