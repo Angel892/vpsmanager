@@ -35,7 +35,7 @@ nginxdotnet() {
 
         if [[ -z $port ]]; then
             errorFun "nullo" && continue
-        elif ! $(mportas | grep "${port}") = ""; then
+        elif ! mportas | grep -q -w "$port"; then
             errorFun "puertoInvalido" "$port" && continue
         fi
         break
