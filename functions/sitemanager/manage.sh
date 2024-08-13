@@ -14,6 +14,13 @@ menuSiteManager() {
     option[$num]="getRepositorio"
     let num++
 
+    msgCentradoBarra -amarillo "NGINX"
+
+    # .NET
+    opcionMenu -blanco $num "Desplegar .net"
+    option[$num]="nginxdotnet"
+    let num++
+
     msg -bar
     # SALIR
     opcionMenu -rojo 0 "Regresar al menú anterior"
@@ -23,6 +30,7 @@ menuSiteManager() {
     selection=$(selectionFun $num)
     case ${option[$selection]} in
     "getRepositorio") clonarRepositorio ;;
+    "nginxdotnet") clonarRepositorio ;;
     "volver")
         return
         ;;

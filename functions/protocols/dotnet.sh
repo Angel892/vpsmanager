@@ -5,10 +5,12 @@ menuDotnet() {
         showCabezera "Instalacion DOTNET"
 
         msgInstall -blanco "Instalando SDK"
-        barra_intall "apt-get install dotnet-sdk-8.0 -y"
+        apt-get install dotnet-sdk-8.0 -y
+        # barra_intall "apt-get install dotnet-sdk-8.0 -y"
 
         msgInstall -blanco "Instalando RUNTIME"
-        barra_intall "apt-get install aspnetcore-runtime-8.0 -y"
+        apt-get install aspnetcore-runtime-8.0 -y
+        # barra_intall "apt-get install aspnetcore-runtime-8.0 -y"
 
         msgSuccess
     }
@@ -17,14 +19,17 @@ menuDotnet() {
         showCabezera "DESINSTALACION dotnet"
 
         msgInstall -blanco "Removiendo dependencias"
-        barra_intallb "apt-get remove --purge -y dotnet-sdk-8.0"
+        apt-get remove --purge -y dotnet-sdk-8.0
+        # barra_intallb "apt-get remove --purge -y dotnet-sdk-8.0"
 
         # Desinstalar .NET Runtime
         msgInstall -blanco "Desinstalando runtime"
-        barra_intallb "apt-get remove --purge -y aspnetcore-runtime-8.0"
+        apt-get remove --purge -y aspnetcore-runtime-8.0
+        # barra_intallb "apt-get remove --purge -y aspnetcore-runtime-8.0"
 
         msgInstall -blanco "Limpiando dependencias sin usar"
-        barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
+        sudo apt-get autoremove -y && sudo apt-get autoclean -y
+        # barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
         msgSuccess
     }
@@ -33,7 +38,8 @@ menuDotnet() {
         showCabezera "Instalacion dotnet ef"
 
         msgInstall -blanco "Instalando dotnet ef"
-        barra_intall "dotnet tool install --global dotnet-ef"
+        dotnet tool install --global dotnet-ef
+        # barra_intall "dotnet tool install --global dotnet-ef"
 
         msgSuccess
     }
@@ -42,10 +48,12 @@ menuDotnet() {
         showCabezera "DESINSTALACION dotnet ef"
 
         msgInstall -blanco "Removiendo dependencias"
-        barra_intallb "dotnet tool uninstall --global dotnet-ef"
+        dotnet tool uninstall --global dotnet-ef
+        # barra_intallb "dotnet tool uninstall --global dotnet-ef"
 
         msgInstall -blanco "Limpiando dependencias sin usar"
-        barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
+        sudo apt-get autoremove -y && sudo apt-get autoclean -y
+        # barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
         msgSuccess
     }
