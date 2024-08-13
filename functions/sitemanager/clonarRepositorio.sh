@@ -3,7 +3,7 @@
 clonarRepositorio() {
 
     local SSH_KEY="$HOME/.ssh/id_rsa"
-    local SITES_PATH="/var/www/"
+    local SITES_PATH="/var/www"
 
     gensshkey() {
         showCabezera "Generador de clave ssh"
