@@ -35,7 +35,7 @@ nginxdotnet() {
 
         if [[ -z $port ]]; then
             errorFun "nullo" && continue
-        elif [[ ! $(mportas | grep "${port}") = ""]]; then
+        elif ! $(mportas | grep "${port}") = ""; then
             errorFun "puertoInvalido" "$port" && continue
         fi
         break
@@ -62,8 +62,8 @@ server {
 }
 EOF
 
-        sudo ln -s /etc/nginx/sites-available/$sitename /etc/nginx/sites-enabled/
+    sudo ln -s /etc/nginx/sites-available/$sitename /etc/nginx/sites-enabled/
 
-        msgSuccess
+    msgSuccess
 
 }
