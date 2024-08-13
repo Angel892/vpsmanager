@@ -31,7 +31,7 @@ menuSiteManager() {
     selection=$(selectionFun $num)
     case ${option[$selection]} in
     "getRepositorio") clonarRepositorio ;;
-    "nginxdotnet") nginxdotnet && msgError ;;
+    "nginxdotnet") nginxdotnet ;;
     "volver")
         return
         ;;
@@ -40,6 +40,8 @@ menuSiteManager() {
         sleep 2
         ;;
     esac
+
+    sleep 2
 
     menuSiteManager
 }
