@@ -12,7 +12,7 @@ clonarRepositorio() {
 
             # validar email
             while true; do
-                msgne -blanco "Ingrese el correo con el que dara de alta la ssh key: "
+                msgne -blanco "Ingrese el correo con el que dara de alta la ssh key: " && msgne -verde ""
                 read email
 
                 if [[ -z $email ]]; then
@@ -42,7 +42,7 @@ clonarRepositorio() {
 
         # validar repo
         while true; do
-            msgne -blanco "Ingrese el link del repositorio: "
+            msgne -blanco "Ingrese el link del repositorio: " && msgne -verde ""
             read repo
 
             if [[ -z $repo ]]; then
