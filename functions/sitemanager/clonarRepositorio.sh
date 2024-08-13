@@ -80,31 +80,28 @@ clonarRepositorio() {
         opcionMenu -blanco $num "Generar ssh key"
         option[$num]="gensshkey"
         let num++
+
+        msg -bar
+        # SALIR
+        opcionMenu -rojo 0 "Regresar al menú anterior"
+        option[0]="volver"
+
+        msg -bar
+        selection=$(selectionFun $num)
+        case ${option[$selection]} in
+        "gensshkey") gensshkey ;;
+        "cloneRepositorio") cloneRepositorio ;;
+        "volver")
+            return
+            ;;
+        *)
+            echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
+            sleep 2
+            ;;
+        esac
+
+        clonarRepositorio
     else
-        # Clonar repositorio
-        opcionMenu -blanco $num "Clonar repositorio"
-        option[$num]="cloneRepositorio"
-        let num++
+        cloneRepositorio
     fi
-
-    msg -bar
-    # SALIR
-    opcionMenu -rojo 0 "Regresar al menú anterior"
-    option[0]="volver"
-
-    msg -bar
-    selection=$(selectionFun $num)
-    case ${option[$selection]} in
-    "gensshkey") gensshkey ;;
-    "cloneRepositorio") cloneRepositorio ;;
-    "volver")
-        return
-        ;;
-    *)
-        echo -e "${SALIR}Opción inválida, por favor intente de nuevo.${NC}"
-        sleep 2
-        ;;
-    esac
-
-    clonarRepositorio
 }
