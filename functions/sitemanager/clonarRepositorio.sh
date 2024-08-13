@@ -35,7 +35,9 @@ clonarRepositorio() {
     cloneRepositorio() {
         showCabezera "Repositorio manager"
         msgCentrado -blanco "SSH KEY"
+        echo -e ""
         msgne -verde "" && showsshkey
+        echo -e ""
         msg -bar
 
         # validar repo
