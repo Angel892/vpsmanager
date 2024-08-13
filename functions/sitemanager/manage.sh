@@ -8,6 +8,7 @@ menuSiteManager() {
 
     source $MANAGER_SITE_PATH/clonarRepositorio.sh
     source $MANAGER_SITE_PATH/nginxdotnet.sh
+    source $MANAGER_SITE_PATH/dotnetservice.sh
 
     local num=1
 
@@ -23,6 +24,16 @@ menuSiteManager() {
     option[$num]="nginxdotnet"
     let num++
 
+    # .NET
+    opcionMenu -blanco $num "Desplegar vue"
+    option[$num]="nginxvue"
+    let num++
+
+    msgCentradoBarra -amarillo "EXTRAS"
+    opcionMenu -blanco $num "Crear servicio .NET"
+    option[$num]="dotnetservice"
+    let num++
+
     msg -bar
     # SALIR
     opcionMenu -rojo 0 "Regresar al menú anterior"
@@ -33,6 +44,7 @@ menuSiteManager() {
     case ${option[$selection]} in
     "getRepositorio") clonarRepositorio ;;
     "nginxdotnet") nginxdotnet ;;
+    "dotnetservice") dotnetservice ;;
     "volver")
         return
         ;;
