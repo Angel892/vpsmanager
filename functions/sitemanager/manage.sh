@@ -8,6 +8,8 @@ menuSiteManager() {
 
     showCabezera "Site Manager"
 
+    echo $MANAGER_SITE_PATH/nginxdotnet.sh
+
     local num=1
 
     # CLONAR
