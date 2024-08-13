@@ -4,6 +4,7 @@ menuSiteManager() {
 
     local MANAGER_SITE_PATH="${functionsPath}/sitemanager"
     source $MANAGER_SITE_PATH/clonarRepositorio.sh
+    source $MANAGER_SITE_PATH/nginxdotnet.sh
 
     showCabezera "Site Manager"
 
