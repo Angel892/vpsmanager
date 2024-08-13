@@ -3,6 +3,7 @@
 clonarRepositorio() {
 
     local SSH_KEY="$HOME/.ssh/id_rsa"
+    local SITES_PATH="/var/www/"
 
     gensshkey() {
         showCabezera "Generador de clave ssh"
@@ -50,6 +51,22 @@ clonarRepositorio() {
             fi
             break
         done
+
+        [ ! -d "${SITES_PATH}" ] && mkdir -p "${SITES_PATH}"
+
+        git clone "$repo" "${SITES_PATH}"
+
+        msg -bar
+
+        if [ $? -ne 0 ]; then
+            msgCentrado -rojo "No se pudo obtener el repositorio $repo"
+            msgError
+            return 1
+        fi
+
+        msgCentrado -verde "El repositorio se clone en ${SITES_PATH}"
+
+        msgSuccess
 
     }
 
