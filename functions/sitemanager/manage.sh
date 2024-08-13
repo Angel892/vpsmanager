@@ -10,7 +10,7 @@ menuSiteManager() {
     local num=1
 
     # CLONAR
-    opcionMenu -blanco $num "Clonar repositorio"
+    opcionMenu -blanco $num "Clonar repositorio manager"
     option[$num]="getRepositorio"
     let num++
 
