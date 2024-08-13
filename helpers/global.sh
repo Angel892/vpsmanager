@@ -379,6 +379,15 @@ errorFun() {
         tput cuu1
         tput dl1
         ;;
+
+    "correoInvalido")
+        msg -rojo "$valor No es un correo valido"
+        sleep 2s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
     esac
 }
 
@@ -921,6 +930,17 @@ openvpn_pids() {
         HOUR=$(echo -e $HOUR | sort -n | tail -1)
         echo -e "$user|$i|$RECIVED|$SEND|$HOUR"
     done
+}
+
+validarCorreo() {
+    local correo="$1"
+    local regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+
+    if [[ $correo =~ $regex ]]; then
+        return 0 # Válido
+    else
+        return 1 # No válido
+    fi
 }
 
 # LIMITADOR AUTO

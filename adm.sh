@@ -9,11 +9,13 @@ source $HELPERS_PATH/global.sh
 
 functionsPath="$mainPath/functions"
 
+
 # Incluir los archivos de funciones
 source $functionsPath/ssh/manage.sh
 source $functionsPath/protocols/manage.sh
 source $functionsPath/v2ray/manage.sh
 source $functionsPath/herramientas/manage.sh
+source $functionsPath/sitemanager/manage.sh
 
 source $functionsPath/main/actualizarScript.sh
 source $functionsPath/main/eliminarScript.sh
@@ -63,6 +65,11 @@ mainMenu() {
     # MONITOR HTOP
     opcionMenu -verde $num "MONITOR HTOP"
     option[$num]="monhtop"
+    let num++
+
+    # ADMINISTRADOR DE PAGINAS
+    opcionMenu -verde $num "Administrador de paginas"
+    option[$num]="sitemanager"
     let num++
 
     # PROTOCOLOS
@@ -122,6 +129,7 @@ mainMenu() {
     "eliminar") eliminar_script ;;
     "autoIniciar") autoiniciarScript ;;
     "puertos") mostrarPuertosActivos ;;
+    "sitemanager") menuSiteManager ;;
     "volver")
         exit
         ;;
