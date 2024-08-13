@@ -8,15 +8,18 @@ menuMysql() {
 
         # INSTALANDO MYSQL
         msgInstall -blanco "Instalando mysql"
-        barra_intall "apt-get install mysql-server -y"
+        apt-get install mysql-server -y
+        # barra_intall "apt-get install mysql-server -y"
 
         # INICIANDO SERVICIO MYSQL
         msgInstall -verde "Iniciando servicio mysql"
-        barra_intallb "sudo systemctl start mysql.service"
+        sudo systemctl start mysql.service
+        # barra_intallb "sudo systemctl start mysql.service"
 
         # HABILITANDO AUTOINICIO
         msgInstall -verde "Habilitando auto start"
-        barra_intallb "sudo systemctl enable mysql.service"
+        sudo systemctl enable mysql.service
+        # barra_intallb "sudo systemctl enable mysql.service"
 
         # SECURE INSTALATION
         msgInstall -verde "Configurar mysql de manera segura"
@@ -31,15 +34,18 @@ menuMysql() {
 
         # Detener el servicio de MySQL
         msgInstall -blanco "Deteniendo mysql"
-        barra_intallb "sudo systemctl stop mysql.service"
+        sudo systemctl stop mysql.service
+        # barra_intallb "sudo systemctl stop mysql.service"
 
         # Eliminar los paquetes de MySQL
         msgInstall -blanco "Removiendo dependencias"
-        barra_intallb "sudo apt-get remove -y --purge mysql-server mysql-client mysql-common"
+        sudo apt-get remove -y --purge mysql-server mysql-client mysql-common
+        # barra_intallb "sudo apt-get remove -y --purge mysql-server mysql-client mysql-common"
 
         # Limpiar dependencias no necesarias
         msgInstall -blanco "Limpiando dependencias sin usar"
-        barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
+        sudo apt-get autoremove -y && sudo apt-get autoclean -y
+        # barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
 
         # Eliminar los archivos de configuración y datos
         msgInstall -blanco "Eliminando carpetas"
