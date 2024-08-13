@@ -4,6 +4,16 @@ menuDotnet() {
     install() {
         showCabezera "Instalacion DOTNET"
 
+        local ubuntuVersion=$(lsb_release -r | awk '{print $2}' | cut -d. -f1)
+
+        if [ "$ubuntuVersion" -lt 21 ]; then
+            msgInstall -blanco "Version del sistema: $ubuntuVersion - añadiendo paquetes de microsoft"
+
+            wget https://packages.microsoft.com/config/ubuntu/$ubuntuVersion/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+            sudo dpkg -i packages-microsoft-prod.deb
+            rm packages-microsoft-prod.deb
+        fi
+
         msgInstall -blanco "Instalando SDK"
         apt-get install -y dotnet-sdk-8.0
         # barra_intall "apt-get install dotnet-sdk-8.0 -y"
