@@ -38,7 +38,7 @@ menuProtocols() {
     let num++
 
     # NGINX
-    opcionMenu -blanco $num "Nginx" true 0 "nginx" "f"
+    opcionMenu -blanco $num "Nginx" true 0 "nginx" "v"
     option[$num]="nginx"
     let num++
 
