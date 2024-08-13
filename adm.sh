@@ -68,7 +68,7 @@ mainMenu() {
     let num++
 
     # ADMINISTRADOR DE PAGINAS
-    opcionMenu -verde $num "Administrador de paginas"
+    opcionMenu -blanco $num "Administrador de paginas"
     option[$num]="sitemanager"
     let num++
 
