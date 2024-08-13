@@ -388,6 +388,15 @@ errorFun() {
         tput cuu1
         tput dl1
         ;;
+
+    "puertoInvalido")
+        msg -rojo "$valor puerto invalido"
+        sleep 2s
+        tput cuu1
+        tput dl1
+        tput cuu1
+        tput dl1
+        ;;
     esac
 }
 
