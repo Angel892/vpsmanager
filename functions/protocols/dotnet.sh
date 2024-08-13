@@ -5,11 +5,11 @@ menuDotnet() {
         showCabezera "Instalacion DOTNET"
 
         msgInstall -blanco "Instalando SDK"
-        apt-get install dotnet-sdk-8.0 -y
+        apt-get install -y dotnet-sdk-8.0
         # barra_intall "apt-get install dotnet-sdk-8.0 -y"
 
         msgInstall -blanco "Instalando RUNTIME"
-        apt-get install aspnetcore-runtime-8.0 -y
+        apt-get install -y aspnetcore-runtime-8.0
         # barra_intall "apt-get install aspnetcore-runtime-8.0 -y"
 
         msgSuccess
