@@ -28,4 +28,6 @@ sslmanager() {
 
     msg -verde "Certificado SSL instalado correctamente"
     sudo systemctl restart nginx
+
+    msgSuccess
 }
