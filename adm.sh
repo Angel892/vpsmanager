@@ -72,8 +72,8 @@ mainMenu() {
     option[$num]="sitemanager"
     let num++
 
-    # PROTOCOLOS
-    opcionMenu -blanco $num "Monitorear Recursos"
+    # MONITOR DE RECURSOS
+    opcionMenu -verde $num "Monitorear Recursos"
     option[$num]="monitorear"
     let num++
 
