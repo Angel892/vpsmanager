@@ -11,6 +11,7 @@ menuSiteManager() {
     source $MANAGER_SITE_PATH/dotnetservice.sh
     source $MANAGER_SITE_PATH/nginxvue.sh
     source $MANAGER_SITE_PATH/sslmanager.sh
+    source $MANAGER_SITE_PATH/performance.sh
 
     local num=1
 
@@ -29,6 +30,11 @@ menuSiteManager() {
     # .NET
     opcionMenu -blanco $num "Desplegar vue"
     option[$num]="nginxvue"
+    let num++
+
+    # PERFORMANCE
+    opcionMenu -blanco $num "Configuracion performance"
+    option[$num]="performance"
     let num++
 
     msgCentradoBarra -amarillo "EXTRAS"
@@ -56,6 +62,7 @@ menuSiteManager() {
     "nginxvue") nginxvue ;;
     "dotnetservice") dotnetservice ;;
     "sslmanager") sslmanager ;;
+    "performance") performance ;;
     "volver")
         return
         ;;
