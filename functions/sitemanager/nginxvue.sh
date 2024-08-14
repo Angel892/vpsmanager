@@ -1,10 +1,9 @@
 #!/bin/bash
 
-nginxdotnet() {
-
+nginxvue() {
     local nginxSitePath="/etc/nginx/sites-available"
 
-    showCabezera "DOTNET"
+    showCabezera "VUE"
 
     # validar site
     while true; do
@@ -30,13 +29,11 @@ nginxdotnet() {
 
     # validar puerto
     while true; do
-        msgne -blanco "Ingrese el puerto en el que se estará ejecutando: " && msgne -verde ""
-        read -p " " -e -i "5000" port
+        msgne -blanco "Ruta de dist (/var/www/vue-app/dist): " && msgne -verde ""
+        read distPath
 
-        if [[ -z $port ]]; then
+        if [[ -z $distPath ]]; then
             errorFun "nullo" && continue
-        elif ! mportas | grep -q -w "$port"; then
-            errorFun "puertoInvalido" "$port" && continue
         fi
         break
     done
@@ -49,15 +46,11 @@ server {
     listen 80;
     server_name $site;
 
+    root $distPath;
+    index index.html;
+
     location / {
-        proxy_pass http://localhost:$port;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection keep-alive;
-        proxy_set_header Host \$host;
-        proxy_cache_bypass \$http_upgrade;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
+        try_files \$uri \$uri/ /index.html;
     }
 }
 EOF
@@ -67,5 +60,4 @@ EOF
     sudo systemctl reload nginx
 
     msgSuccess
-
 }

@@ -9,6 +9,7 @@ menuSiteManager() {
     source $MANAGER_SITE_PATH/clonarRepositorio.sh
     source $MANAGER_SITE_PATH/nginxdotnet.sh
     source $MANAGER_SITE_PATH/dotnetservice.sh
+    source $MANAGER_SITE_PATH/nginxvue.sh
 
     local num=1
 
@@ -44,6 +45,7 @@ menuSiteManager() {
     case ${option[$selection]} in
     "getRepositorio") clonarRepositorio ;;
     "nginxdotnet") nginxdotnet ;;
+    "nginxvue") nginxvue ;;
     "dotnetservice") dotnetservice ;;
     "volver")
         return
