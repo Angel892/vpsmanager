@@ -72,7 +72,9 @@ menuSettings() {
     msgCentradoBarra -amarillo "EXTRAS"
 
     # HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)
-    opcionMenu -blanco $num "HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)"
+    VERYSTREAMING="$(ps aux | grep wg-quick)"
+    [[ -z ${VERYSTREAMING} ]] && verificarstreaming="\e[1;93m[\033[1;31m DESACTIVADO \e[1;93m]" || verificarstreaming="\e[1;93m[\033[1;32m ACTIVO \e[1;93m]"
+    opcionMenu -blanco $num "HABILITAR STREAMING (NETFLIX, DISNEY+, MAX, ETC)" false 2 && echo -e "${verificarstreaming}"
     option[$num]="streaming"
     let num++
 
