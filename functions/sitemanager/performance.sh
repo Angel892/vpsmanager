@@ -100,8 +100,8 @@ http {
     # limit the number of connections per single IP
     limit_conn_zone \$binary_remote_addr zone=conn_limit_per_ip:10m;
 
-    # limit the number of requests for a given session
-    limit_req_zone  \$http_x_forwarded_for zone=zone:16m rate=1r/s;
+    # Limitar el número de solicitudes para una sesión dada
+    limit_req_zone \$http_x_forwarded_for zone=req_limit_per_ip:16m rate=1r/s;
 
     # zone which we want to limit by upper values, we want limit whole server
     server {
