@@ -10,6 +10,7 @@ menuSiteManager() {
     source $MANAGER_SITE_PATH/nginxdotnet.sh
     source $MANAGER_SITE_PATH/dotnetservice.sh
     source $MANAGER_SITE_PATH/nginxvue.sh
+    source $MANAGER_SITE_PATH/sslmanager.sh
 
     local num=1
 
@@ -31,8 +32,15 @@ menuSiteManager() {
     let num++
 
     msgCentradoBarra -amarillo "EXTRAS"
+
+    # .CREATE SERVICE
     opcionMenu -blanco $num "Crear servicio .NET"
     option[$num]="dotnetservice"
+    let num++
+
+    # SSL MANAGER
+    opcionMenu -blanco $num "SSL Manager"
+    option[$num]="sslmanager"
     let num++
 
     msg -bar
@@ -47,6 +55,7 @@ menuSiteManager() {
     "nginxdotnet") nginxdotnet ;;
     "nginxvue") nginxvue ;;
     "dotnetservice") dotnetservice ;;
+    "sslmanager") sslmanager ;;
     "volver")
         return
         ;;
