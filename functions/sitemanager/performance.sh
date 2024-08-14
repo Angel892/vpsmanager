@@ -93,37 +93,7 @@ http {
     keepalive_timeout 30;
 
     # number of requests client can make over keep-alive -- for testing environment
-    keepalive_requests 100;
-
-    server_tokens off;
-
-    # limit the number of connections per single IP
-    limit_conn_zone \$binary_remote_addr zone=conn_limit_per_ip:10m;
-
-    # Limitar el número de solicitudes para una sesión dada
-    limit_req_zone \$http_x_forwarded_for zone=req_limit_per_ip:16m rate=1r/s;
-
-    # zone which we want to limit by upper values, we want limit whole server
-    server {
-        limit_conn conn_limit_per_ip 10;
-        limit_req zone=req_limit_per_ip burst=10 nodelay;
-    }
-
-    # if the request body size is more than the buffer size, then the entire (or partial)
-    # request body is written into a temporary file
-    client_body_buffer_size  128k;
-
-    # buffer size for reading client request header -- for testing environment
-    client_header_buffer_size 3m;
-
-    # maximum number and size of buffers for large headers to read from client request
-    large_client_header_buffers 4 256k;
-
-    # read timeout for the request body from client -- for testing environment
-    # client_body_timeout   3m;
-
-    # how long to wait for the client to send a request header -- for testing environment
-    client_header_timeout 3m;
+    keepalive_requests 100000;
 }
 EOF
 
