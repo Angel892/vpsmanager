@@ -15,7 +15,6 @@ pid /run/nginx.pid;
 
 # Optimize logging
 error_log /var/log/nginx/error.log crit;
-access_log off;
 
 events {
     worker_connections 8192;  # Adjust based on your server's resources
@@ -27,6 +26,8 @@ http {
     ##
     # Basic Settings
     ##
+
+    access_log /var/log/nginx/access.log;  # Mover la directiva dentro del bloque http
 
     sendfile on;
     tcp_nopush on;
