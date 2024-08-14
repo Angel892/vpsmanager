@@ -94,9 +94,9 @@ http {
 
     # number of requests client can make over keep-alive -- for testing environment
     keepalive_requests 100;
-}
 
-server_tokens off;
+    server_tokens off;
+}
 
 # limit the number of connections per single IP
 limit_conn_zone \$binary_remote_addr zone=conn_limit_per_ip:10m;
@@ -127,8 +127,7 @@ client_body_timeout   3m;
 client_header_timeout 3m;
 EOF
 
-    nginx -s reload
-    /etc/init.d/nginx start | restart
+    sudo systemctl restart nginx
 
     msgSuccess
 }
