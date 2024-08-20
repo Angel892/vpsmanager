@@ -12,7 +12,7 @@ gestionarBannerSSH() {
         banner=$(echo "$banner" | xargs)
 
         local sshBannerPath="$mainPath/bannerssh"
-        rm -rf $sshBannerPath >/dev/null 2>&1
+        rm -rf $sshBannerPath 
         local dropbearBannerPath="/etc/dropbear/banner"
         chk=$(cat /etc/ssh/sshd_config | grep Banner)
         if [ "$(echo "$chk" | grep -v "#Banner" | grep Banner)" != "" ]; then
@@ -25,8 +25,8 @@ gestionarBannerSSH() {
         # Copiar el contenido del banner al archivo de banner de SSH, comprimido en una sola línea
         tr -d '\n' <"$banner" | tr -s ' ' >"$sshBannerPath"
         if [[ -e "$dropbearBannerPath" ]]; then
-            rm $dropbearBannerPath >/dev/null 2>&1
-            cp $sshBannerPath $dropbearBannerPath >/dev/null 2>&1
+            rm $dropbearBannerPath 
+            cp $sshBannerPath $dropbearBannerPath 
         fi
         msgCentrado -verde "BANNER AGREGADO CON !! EXITO ¡¡" && msg -bar
         service ssh restart 2>/dev/null
@@ -40,7 +40,7 @@ gestionarBannerSSH() {
 
     banner_on() {
         local="$mainPath/bannerssh"
-        rm -rf $local >/dev/null 2>&1
+        rm -rf $local 
         local2="/etc/dropbear/banner"
         chk=$(cat /etc/ssh/sshd_config | grep Banner)
         if [ "$(echo "$chk" | grep -v "#Banner" | grep Banner)" != "" ]; then
@@ -58,8 +58,8 @@ gestionarBannerSSH() {
         echo "$ban_ner" >>$local
         echo '<p style="text-align: center;"><strong>SCRIPT <span style="color: #ff0000;">|</span><span style="color: #ffcc00;"> LXServer</span></strong></p>' >>$local
         if [[ -e "$local2" ]]; then
-            rm $local2 >/dev/null 2>&1
-            cp $local $local2 >/dev/null 2>&1
+            rm $local2 
+            cp $local $local2 
         fi
         msgCentrado -verde "BANNER AGREGADO CON !! EXITO ¡¡" && msg -bar
         service ssh restart 2>/dev/null
@@ -77,8 +77,8 @@ gestionarBannerSSH() {
         sed -i '/'Banner'/d' /etc/ssh/sshd_config
         sed -i -e 's/^[ \t]*//; s/[ \t]*$//; /^$/d' /etc/ssh/sshd_config
         echo "" >>/etc/ssh/sshd_config
-        rm -rf /etc/dropbear/banner >/dev/null 2>&1
-        echo "" >/etc/dropbear/banner >/dev/null 2>&1
+        rm -rf /etc/dropbear/banner 
+        echo "" >/etc/dropbear/banner 
         service ssh restart 2>/dev/null
         service dropbear stop 2>/dev/null
         sed -i "s/=1/=0/g" /etc/default/dropbear
