@@ -29,8 +29,8 @@ gestionarBannerSSH() {
             cp $sshBannerPath $dropbearBannerPath 
         fi
         msgCentrado -verde "BANNER AGREGADO CON !! EXITO ¡¡" && msg -bar
-        service ssh restart 2>/dev/null
-        service dropbear stop 2>/dev/null
+        service ssh restart 
+        service dropbear stop 
         sed -i "s/=1/=0/g" /etc/default/dropbear
         service dropbear restart
         sed -i "s/=0/=1/g" /etc/default/dropbear
@@ -62,8 +62,8 @@ gestionarBannerSSH() {
             cp $local $local2 
         fi
         msgCentrado -verde "BANNER AGREGADO CON !! EXITO ¡¡" && msg -bar
-        service ssh restart 2>/dev/null
-        service dropbear stop 2>/dev/null
+        service ssh restart 
+        service dropbear stop 
         sed -i "s/=1/=0/g" /etc/default/dropbear
         service dropbear restart
         sed -i "s/=0/=1/g" /etc/default/dropbear
@@ -79,8 +79,8 @@ gestionarBannerSSH() {
         echo "" >>/etc/ssh/sshd_config
         rm -rf /etc/dropbear/banner 
         echo "" >/etc/dropbear/banner 
-        service ssh restart 2>/dev/null
-        service dropbear stop 2>/dev/null
+        service ssh restart 
+        service dropbear stop 
         sed -i "s/=1/=0/g" /etc/default/dropbear
         service dropbear restart
         sed -i "s/=0/=1/g" /etc/default/dropbear
