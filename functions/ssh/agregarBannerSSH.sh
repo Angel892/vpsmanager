@@ -11,9 +11,6 @@ gestionarBannerSSH() {
         # Remover espacios en blanco al principio y al final de la ruta
         banner=$(echo "$banner" | xargs)
 
-        # Minimizar el contenido del banner eliminando espacios y saltos de línea innecesarios
-        banner=$(tr -d '\n' <"$banner" | tr -s ' ')
-
         local sshBannerPath="$mainPath/bannerssh"
         rm -rf $sshBannerPath >/dev/null 2>&1
         local dropbearBannerPath="/etc/dropbear/banner"
