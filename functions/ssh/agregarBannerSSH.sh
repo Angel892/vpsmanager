@@ -23,7 +23,7 @@ gestionarBannerSSH() {
             sshBannerPath="$mainPath/bannerssh"
         fi
         # Copiar el contenido del banner al archivo de banner de SSH, comprimido en una sola línea
-        tr -d '\n' <"$banner" >"$sshBannerPath"
+        tr -d '\n' <"$banner" | tr -s ' ' >"$sshBannerPath"
         if [[ -e "$dropbearBannerPath" ]]; then
             rm $dropbearBannerPath >/dev/null 2>&1
             cp $sshBannerPath $dropbearBannerPath >/dev/null 2>&1
