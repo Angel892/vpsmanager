@@ -14,6 +14,10 @@ menuNginx() {
         msgInstall -blanco "Reiniciando nginx"
         sudo systemctl restart nginx
 
+        msgInstall -blanco "Reiniciando nginx"
+        sudo ufw allow 81/tcp
+
+
         msgSuccess
     }
 
