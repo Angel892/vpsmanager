@@ -9,7 +9,7 @@ menuNginx() {
         apt-get install nginx -y
 
         msgInstall -blanco "Cambiando puerto de 80 a 81"
-        sudo sed -i 's/listen 80;/listen 81;/' /etc/nginx/sites-enabled/default
+        sudo sed -i 's/80/81/g' /etc/nginx/sites-enabled/default
 
         msgInstall -blanco "Reiniciando nginx"
         sudo systemctl restart nginx
