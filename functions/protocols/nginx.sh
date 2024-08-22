@@ -8,6 +8,12 @@ menuNginx() {
         # barra_intall "apt-get install nginx -y"
         apt-get install nginx -y
 
+        msgInstall -blanco "Cambiando puerto de 80 a 81"
+        sudo sed -i 's/listen 80;/listen 81;/' /etc/nginx/sites-enabled/default
+
+        msgInstall -blanco "Reiniciando nginx"
+        sudo systemctl restart nginx
+
         msgSuccess
     }
 
@@ -42,7 +48,7 @@ menuNginx() {
             # agregamos el contenido a la configuracion nginx
             cat <<EOF >$nginxSitePath/$sitename
 server {
-    listen 80;
+    listen 81;
     server_name $dominio;
 
     location / {
@@ -89,7 +95,7 @@ EOF
         # agregamos el contenido a la configuracion nginx
             cat <<EOF >$nginxSitePath/$sitename
 server {
-    listen 80;
+    listen 81;
     server_name $dominio;
 
     # Directorio raíz de los archivos estáticos
