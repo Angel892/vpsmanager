@@ -29,5 +29,9 @@ sslmanager() {
     msg -verde "Certificado SSL instalado correctamente"
     sudo systemctl restart nginx
 
+    msg -verde "Configurando firewall para SSL"
+    sudo ufw allow 443/tcp
+
+
     msgSuccess
 }
