@@ -4,18 +4,30 @@ menuNginx() {
     install() {
         showCabezera "Instalacion NGINX"
 
+        unset nginxPort
+        while true; do
+            msgne -blanco "Puerto nginx:" && msgne -verde
+            read -p " " -e -i "80" nginxPort
+            if [[ -z $nginxPort ]]; then
+                errorFun "nullo"
+                continue
+            fi
+
+            break
+        done
+
         msgInstall -blanco "Instalando nginx"
         # barra_intall "apt-get install nginx -y"
         apt-get install nginx -y
 
-        msgInstall -blanco "Cambiando puerto de 80 a 81"
-        sudo sed -i 's/80/81/g' /etc/nginx/sites-enabled/default
+        msgInstall -blanco "Cambiando nginx a puerto $nginxPort"
+        sudo sed -i "s/80/$nginxPort/g" /etc/nginx/sites-enabled/default
 
         msgInstall -blanco "Reiniciando nginx"
         sudo systemctl restart nginx
 
         msgInstall -blanco "Reiniciando nginx"
-        sudo ufw allow 81/tcp
+        sudo ufw allow $nginxPort/tcp
 
 
         msgSuccess
@@ -32,7 +44,7 @@ menuNginx() {
         sudo apt-get remove -y --purge nginx nginx-common nginx-core
 
         msgInstall -blanco "Eliminando carpetas"
-        sudo rm -rf /etc/nginx 2>&1
+        sudo rm -rf /etc/nginx
 
         msgInstall -blanco "Limpiando dependencias sin usar"
         #barra_intallb "sudo apt-get autoremove -y && sudo apt-get autoclean -y"
@@ -42,6 +54,9 @@ menuNginx() {
     }
 
     ssl() {
+
+        local currentPort=$(netstat -tulnp | grep 'tcp ' | grep nginx | awk '{print $4}' | cut -d':' -f2)
+
         local nginxSitePath="/etc/nginx/sites-available"
 
         conSitio() {
@@ -52,7 +67,7 @@ menuNginx() {
             # agregamos el contenido a la configuracion nginx
             cat <<EOF >$nginxSitePath/$sitename
 server {
-    listen 81;
+    listen $currentPort;
     server_name $dominio;
 
     location / {
@@ -95,11 +110,13 @@ EOF
 </html>
 EOF
 
+        local currentPort=$(netstat -tulnp | grep 'tcp ' | grep nginx | awk '{print $4}' | cut -d':' -f2)
+
 
         # agregamos el contenido a la configuracion nginx
             cat <<EOF >$nginxSitePath/$sitename
 server {
-    listen 81;
+    listen $currentPort;
     server_name $dominio;
 
     # Directorio raíz de los archivos estáticos
